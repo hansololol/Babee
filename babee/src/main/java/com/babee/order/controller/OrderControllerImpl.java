@@ -111,25 +111,27 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		for(int i=0; i<myOrderList.size();i++){
 			OrderVO orderVO=(OrderVO)myOrderList.get(i);
 			orderVO.setMember_id(member_id);
-			orderVO.setOrderer_name(orderer_name);
-			orderVO.setReceiver_name(receiverMap.get("receiver_name"));
-			
-			orderVO.setReceiver_hp1(receiverMap.get("receiver_hp1"));
-			orderVO.setReceiver_hp2(receiverMap.get("receiver_hp2"));
-			orderVO.setReceiver_hp3(receiverMap.get("receiver_hp3"));
-			orderVO.setReceiver_tel1(receiverMap.get("receiver_tel1"));
-			orderVO.setReceiver_tel2(receiverMap.get("receiver_tel2"));
-			orderVO.setReceiver_tel3(receiverMap.get("receiver_tel3"));
-			
-			orderVO.setDelivery_address(receiverMap.get("delivery_address"));
-			orderVO.setDelivery_message(receiverMap.get("delivery_message"));
-			orderVO.setDelivery_method(receiverMap.get("delivery_method"));
-			orderVO.setGift_wrapping(receiverMap.get("gift_wrapping"));
-			orderVO.setPay_method(receiverMap.get("pay_method"));
-			orderVO.setCard_com_name(receiverMap.get("card_com_name"));
-			orderVO.setCard_pay_month(receiverMap.get("card_pay_month"));
-			orderVO.setPay_orderer_hp_num(receiverMap.get("pay_orderer_hp_num"));	
-			orderVO.setOrderer_hp(orderer_hp);	
+			/*
+			 * orderVO.setOrderer_name(orderer_name);
+			 * orderVO.setReceiver_name(receiverMap.get("receiver_name"));
+			 * 
+			 * orderVO.setReceiver_hp1(receiverMap.get("receiver_hp1"));
+			 * orderVO.setReceiver_hp2(receiverMap.get("receiver_hp2"));
+			 * orderVO.setReceiver_hp3(receiverMap.get("receiver_hp3"));
+			 * orderVO.setReceiver_tel1(receiverMap.get("receiver_tel1"));
+			 * orderVO.setReceiver_tel2(receiverMap.get("receiver_tel2"));
+			 * orderVO.setReceiver_tel3(receiverMap.get("receiver_tel3"));
+			 * 
+			 * orderVO.setDelivery_address(receiverMap.get("delivery_address"));
+			 * orderVO.setDelivery_message(receiverMap.get("delivery_message"));
+			 * orderVO.setDelivery_method(receiverMap.get("delivery_method"));
+			 * orderVO.setGift_wrapping(receiverMap.get("gift_wrapping"));
+			 * orderVO.setPay_method(receiverMap.get("pay_method"));
+			 * orderVO.setCard_com_name(receiverMap.get("card_com_name"));
+			 * orderVO.setCard_pay_month(receiverMap.get("card_pay_month"));
+			 * orderVO.setPay_orderer_hp_num(receiverMap.get("pay_orderer_hp_num"));
+			 * orderVO.setOrderer_hp(orderer_hp);
+			 */
 			myOrderList.set(i, orderVO); //   
 		}//end for
 		
