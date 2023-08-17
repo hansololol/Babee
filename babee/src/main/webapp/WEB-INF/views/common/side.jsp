@@ -37,7 +37,7 @@
 		</div>
 
 	</c:when>
-	<c:when test="${isLogOn==true && memberInfo.member_id=='seller'}">
+	<c:when test="${isLogOn==true && memberInfo.seller_id!=null}">
 		<div class="list-group">
 			<a href="${contextPath}/member/myPageMain.do" class="list-group-item list-group-item-action active" aria-current="true">
 				사업자 님의 마이페이지 <br>user@naver.com

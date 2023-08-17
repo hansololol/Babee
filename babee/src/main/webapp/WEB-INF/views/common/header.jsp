@@ -216,8 +216,16 @@ function showCategory() {
                    <li class="last"><a href="${contextPath}/cart/myCartList.do"><img src="https://agabantr6740.cdn-nhncommerce.com/data/skin/front/moment/img/dimg/top_cart.png" alt="장바구니"><br>장바구니</a></li>
                  
                    <li class="last"><a href="${contextPath}/member/myPageMain.do"><img src="https://agabantr6740.cdn-nhncommerce.com/data/skin/front/moment/img/dimg/top_mypage.png" alt="마이페이지"><br>마이페이지</a></li>
+                   <c:if test="${memberInfo.seller_id!=null}">
+		                <li class="last"><a href="${contextPath}/member/myPageMain.do"><img src="/image/setting.png" width="35px" height="35px" alt="마이페이지"><br>사업자페이지</a></li>
+		        	</c:if>
+		        	<c:if test="${memberInfo.member_id=='admin'}">
+		                <li class="last"><a href="${contextPath}/member/myPageMain.do"><img src="/image/setting.png" width="35px" height="35px" alt="마이페이지"><br>관리자페이지</a></li>
+		        	</c:if>
                 </ul>
-              </div>	
+                
+              </div>
+              	
         </c:when>
         <c:otherwise>
             <div>
