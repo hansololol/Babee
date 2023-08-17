@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.babee.goods.dao.GoodsDAO">
+<!-- 리절트 맵 정의 -->   
+   <resultMap id="goodsResult" type="goodsVO">
+      <result property="goods_id" column="goods_id" />
+      <result property="goods_title" column="goods_title" />
+      <result property="goods_price" column="goods_price" />
+      <result property="goods_stock" column="goods_stock" />
+      <result property="main_category" column="main_category" />
+      <result property="middle_category" column="middle_category" />
+      <result property="sub_category" column="sub_category" />
+      <result property="seller_id" column="seller_id" />
+      <result property="goods_delivery_price" column="goods_delivery_price" />
+      <result property="goods_image_name1" column="goods_image_name1" />
+      <result property="goods_image_name1_id" column="goods_image_name1_id" />
+      <result property="goods_image_name2" column="goods_image_name2" />
+      <result property="goods_image_name2_id" column="goods_image_name2_id" />
+      <result property="age_range" column="age_range" />
+      <result property="goods_creation_date" column="goods_creation_date" />
+      <result property="related_tags" column="related_tags" />
+      <result property="tag_option1" column="tag_option1" />
+      <result property="tag_option2" column="tag_option2" />
+      <result property="tag_option3" column="tag_option3" />
+      <result property="tag_option4" column="tag_option4" />
+      <result property="tag_option5" column="tag_option5" />
+      
+      
+   </resultMap>   
+
+   <resultMap id="imageResult" type="ImageFileVO">
+      <result property="goods_id" column="goods_id" />
+      <result property="fileName" column="fileName" />
+      <result property="reg_id" column="reg_id" />
+      <result property="image_id" column="image_id" />
+      <result property="fileType" column="fileType" />
+   </resultMap>
+
+
+   <select id="selectAllGoods" resultType="com.babee.goods.vo.GoodsVO">
+    SELECT * FROM t_shopping_goods;
+  </select>
+   
+        <select id="selectGoodsList" parameterType="String" resultMap="goodsResult">
+        <![CDATA[
+         select t.*
+          from(
+         select g.*,d.fileName from t_shopping_goods g, t_goods_detail_image d
+           where g.goods_id=d.goods_id 
+           and d.filetype='main_image'
+           and goods_status=#{goodsStatus}
+            order by g.goods_creDate desc)  t
+                where   rowNum <16
+       ]]>
+   </select> 
+   
+   <select id="selectGoodsDetail" resultMap="goodsResult"   parameterType="String">
+       <![CDATA[
+        select * from t_shopping_goods
+        where goods_id=#{goods_id};
+       ]]>
+   </select>
+   <select id="selectGoodsDetailImage" resultMap="imageResult" parameterType="String">
+       <![CDATA[
+             select * from  t_goods_detail_image 
+             where  fileType!='main_image'
+            and goods_id=#{goods_id}
+       ]]>
+   </select>
+   
+   <select id="selectGoodsBySearchWord" resultMap="goodsResult" parameterType="String">
+     <![CDATA[
+            select g.*,d.fileName from t_shopping_goods g, t_goods_detail_image d
+          where g.goods_id=d.goods_id
+          and d.filetype='main_image'
+          and g.goods_title like concat('%', #{searchWord} ,'%')
+          order by g.goods_creDate desc
+      ]]>
+   </select>   
+   
+   <select id="selectKeywordSearch" resultType="String" parameterType="String">
+       <![CDATA[
+        select goods_title from t_shopping_goods 
+        where         
+        goods_title like concat('%', #{keyword} ,'%')
+        order by goods_creDate desc
+      ]]>
+   </select>
+   
+</mapper>

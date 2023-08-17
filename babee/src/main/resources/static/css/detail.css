@@ -1,0 +1,64 @@
+
+#detail_table {
+	float:left;
+	width: 590px; font-size: 1em; float: left;
+}
+#goods_image {
+	float:left;
+	margin-left:30%;
+}
+#goods_image figure {
+	padding: 0px 30px 0px 0px; width: auto; text-align: center;
+}
+#goods_image figure img {
+	border: 1px solid rgb(255, 255, 255); border-image: none; width: 200px; height: auto;
+	border-radius: 20%;
+}
+
+#detail_table table {
+	width: 95%; border-top-color: rgb(51, 51, 51); border-bottom-color: rgb(51, 51, 51); border-top-width: 2px; border-bottom-width: 1px; border-top-style: solid; border-bottom-style: solid; border-collapse: collapse;
+}
+#detail_table table td {
+	padding: 7px 0px 7px 10px;
+}
+#detail_table table tr.dot_line {
+	border-bottom-color: rgb(102, 102, 102); border-bottom-width: 1px; border-bottom-style: dotted;
+}
+
+#detail_table table tr.solid_line {
+	border-bottom-color: rgb(102, 102, 102); border-bottom-width: 1px; border-bottom-style: solid;
+}
+#detail_table table td span {
+	font-family: "NanumGothic", Serif; font-size: 1.2em; font-weight: bold;
+}
+#detail_table table td.fixed {
+	width: 110px; font-weight: bold;font-size: 0.8em;
+}
+
+#detail_table ul {
+	list-style: none; margin: 20px 0px 0px;
+}
+#detail_table ul li {
+	padding:0px 21px; float: left;
+}
+#detail_table ul li a {
+	border-radius: 5px; border: 2px solid rgb(153, 153, 153); 
+	border-image: none; width: 150px; height: 63px; text-align: center; 
+	padding-top: 18px; font-size: 1.2em; font-weight: bold; 
+	display: block;
+	text-decoration: none;
+}
+
+#detail_table ul li a.cart {
+	background-position: 15px; background-color: rgb(255, 255, 202); color: rgb(0, 0, 0); 
+}
+#detail_table ul li a.wish {
+	background-position: 15px; background-repeat: no-repeat;
+}
+#detail_table ul li a.buy {
+	 background-position: 15px; background-color: rgb(255, 255, 166); color: rgb(0, 0, 0); 
+}
+
+.clear {
+	clear:both;
+}

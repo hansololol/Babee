@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.babee.seller.dao.SellerDAO">
+<!-- 리절트 맵 정의 -->	
+	<resultMap id="sellerResult" type="SellerVO">
+		<result property="seller_id" column="seller_id" />
+		<result property="seller_pw" column="seller_pw" />
+		<result property="seller_name" column="seller_name" />
+		<result property="seller_tel1" column="seller_tel1" />
+		<result property="seller_tel2" column="seller_tel2" />
+		<result property="seller_tel3" column="seller_tel3" />
+		<result property="seller_hp1" column="seller_hp1" />
+		<result property="seller_hp2" column="seller_hp2" />
+		<result property="seller_hp3" column="seller_hp3" />
+		<result property="seller_email" column="seller_email" />
+		
+		<result property="seller_zipcode" column="seller_zipcode" />
+		<result property="seller_roadAddr" column="seller_roadAddr" />
+		<result property="seller_jibunAddr" column="seller_jibunAddr" />
+		<result property="namujiAddr" column="seller_namujiAddr" />
+		<result property="seller_bank_num" column="seller_bank_num" />
+		<result property="seller_bank_name" column="seller_bank_name" />
+		<result property="seller_bank_com" column="seller_bank_com" />
+		<result property="seller_company" column="seller_company" />
+		<result property="seller_company_info" column="seller_company_info" />
+		<result property="seller_img1" column="seller_img1" />
+		<result property="seller_confirmDate" column="seller_confirmDate" />
+		<result property="seller_joinDate" column="seller_joinDate" />
+		<result property="seller_status" column="seller_status" />
+		
+	</resultMap>	
+
+	<select id="login" resultType="sellerVO"  parameterType="java.util.Map"  >
+	    <![CDATA[
+			select * from t_shopping_seller 
+			 where seller_id=#{member_id}
+			 and seller_pw=#{member_pw}			
+			 
+		]]>
+	</select>
+	
+	
+  <insert id="insertNewSeller"  parameterType="java.util.Map">
+  <![CDATA[
+    	insert into t_shopping_seller(seller_id,
+				 					 seller_pw,
+                                     seller_name,
+                                     seller_tel1,
+                                     seller_tel2,
+                                     seller_tel3,
+                                     seller_hp1,
+                                     seller_hp2,
+                                     seller_hp3,
+                                     seller_email,
+                                     seller_zipcode,
+                                     seller_roadAddr,
+                                     seller_jibunAddr,
+                                     seller_namujiAddr,
+                                     seller_joinDate,
+                                     seller_bank_num,
+                                     seller_bank_name,
+                                     seller_bank_com,
+									seller_company,
+									seller_company_info,
+									seller_img1,
+									seller_confirmDate,
+									seller_status
+                                     )
+							 values(#{seller_id},
+									#{seller_pw},
+									#{seller_name},
+                                    #{seller_tel1},
+                                    #{seller_tel2},
+                                    #{seller_tel3},
+                                    #{seller_hp1},
+                                    #{seller_hp2},
+                                    #{seller_hp3},
+                                    #{seller_email},
+                                    #{seller_zipcode},
+                                    #{seller_roadAddr},
+                                    #{seller_jibunAddr},
+                                    #{seller_namujiAddr},
+                                    now(),
+                                       #{seller_bank_num},
+                                      #{seller_bank_name},
+                                     #{ seller_bank_com},
+									 #{seller_company},
+									 #{seller_company_info},
+									 #{seller_img1},
+									 #{seller_confirmDate},
+									 #{seller_status}
+                                    )
+                                  
+                                      
+   ]]>      
+  </insert>
+</mapper>

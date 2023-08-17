@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.babee.member.dao.MemberDAO">
+<!-- 리절트 맵 정의 -->	
+	<resultMap id="memberResult" type="MemberVO">
+		<result property="member_id" column="member_id" />
+		<result property="member_pw" column="member_pw" />
+		<result property="member_name" column="member_name" />
+		<result property="member_gender" column="member_gender" />
+		
+		<result property="member_birth" column="member_birth" />
+
+		<result property="member_tel1" column="member_tel1" />
+		<result property="member_tel2" column="member_tel2" />
+		<result property="member_tel3" column="member_tel3" />
+		
+		<result property="member_hp1" column="member_hp1" />
+		<result property="member_hp2" column="member_hp2" />
+		<result property="member_hp3" column="member_hp3" />
+		<result property="member_email1" column="member_email" />
+		<result property="member_zipcode" column="member_zipcode" />
+		<result property="member_roadAddr" column="member_roadAddr" />
+		<result property="member_jibunAddr" column="member_jibunAddr" />
+		<result property="namujiAddr" column="member_namujiAddr" />
+		<result property="member_joinDate" column="member_joinDate" />
+		<result property="member_status" column="member_status" />
+		<result property="baby_gender" column="baby_gender" />
+		<result property="baby_age" column="baby_age" />
+	</resultMap>	
+
+	<select id="login" resultType="memberVO"  parameterType="java.util.Map"  >
+	    <![CDATA[
+			select * from t_shopping_member 
+			 where member_id=#{member_id}
+			 and member_pw=#{member_pw}			
+			 
+		]]>
+	</select>
+	
+	<select id="selectOverlappedID" parameterType="String" resultType="String">
+	   select if(count(*)=1, 'true', 'false')
+	   from t_shopping_member
+	   where member_id = #{id}
+	</select>
+	
+  <insert id="insertNewMember"  parameterType="memberVO">
+  <![CDATA[
+    	insert into t_shopping_member(member_id,
+				 					 member_pw,
+                                     member_name,
+                                     member_gender,
+                                     member_birth,
+                                     member_tel1,
+                                     member_tel2,
+                                     member_tel3,
+                                     member_hp1,
+                                     member_hp2,
+                                     member_hp3,
+                                     member_email,
+                                    
+                                     member_zipcode,
+                                     member_roadAddr,
+                                     member_jibunAddr,
+                                     member_namujiAddr,
+                                     member_joinDate,
+                                     baby_gender,
+                                     baby_age
+                                     )
+							 values(#{member_id},
+									#{member_pw},
+									#{member_name},
+                                 	#{member_gender},
+                                   	#{member_birth}, 
+                                    #{member_tel1},
+                                    #{member_tel2},
+                                    #{member_tel3},
+                                    #{member_hp1},
+                                    #{member_hp2},
+                                    #{member_hp3},
+                                    #{member_email},
+                                    #{member_zipcode},
+                                    #{member_roadAddr},
+                                    #{member_jibunAddr},
+                                    #{member_namujiAddr},
+                                    now(),
+                                     #{baby_gender},
+                                      #{baby_age}
+                                    )
+                                  
+                                      
+   ]]>      
+  </insert>
+</mapper>

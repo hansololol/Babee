@@ -1,0 +1,348 @@
+#footer .inner {
+    border-top: 1px solid #ececec;
+    overflow: hidden;
+    position: relative;
+    font-weight: 300;
+    text-align: center;
+}
+
+.xans-layout-footer {
+    font-size: 12px;
+    clear: both;
+    margin: 0px 0 30px;
+}
+
+.xans-layout-footer > .inner {
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.xans-layout-footer .inner {
+    overflow: hidden;
+    padding: 0px;
+    margin: 0 auto;
+}
+
+.xans-layout-footer .inner .title {
+    font-size: 15px;
+    padding:0px;
+    letter-spacing: 0.2em;
+    font-weight: 700;
+}
+
+.xans-layout-footer .inner .title span {
+    font-size: 12px;
+    font-weight: normal;
+    color: #999;
+    padding: 0 0 0 8px;
+}
+
+.xans-layout-footer .inner .title span.more {
+    float: right
+}
+
+.xans-layout-footer .inner .title span.more a {
+    color: #fff;
+    background: #222;
+    padding: 2px 10px 3px;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+}
+
+.xans-layout-footer .inner .title a {
+    color: #888;
+    font-weight: 300;
+}
+
+
+.xans-layout-footer .inner .cs ul {
+    clear: both
+}
+
+.xans-layout-footer .inner .cs .cs_left {
+    padding: 0
+}
+
+.xans-layout-footer .inner .cs .cs_left,.xans-layout-footer .inner .cs .cs_right,.xans-layout-footer .inner .cs .sns_info {
+    width: 300px;
+    vertical-align: top;
+    display: inline-block;
+}
+
+.xans-layout-footer .inner .cs .cs_info {
+    padding: 20px 0 0;
+    margin: 8px 0 0;
+}
+
+.xans-layout-footer .inner .cs .cs_info li {
+    display: block;
+}
+
+.xans-layout-footer .inner .cs .tel {
+    font-weight: 700;
+    color: #222;
+    padding: 3px 15px 15px 0;
+    letter-spacing: 0.05em;
+    font-size: 33px;
+}
+
+.xans-layout-footer .inner .cs .tel_time {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.7;
+    color: #222;
+    padding: 16px 0 0;
+}
+
+.xans-layout-footer .inner .cs .tel_time span {
+    font-weight: 300
+}
+
+
+.xans-layout-footer .inner .cs .tel_time p {
+    color: #888;
+    padding: 3px 0 0;
+}
+
+.xans-layout-footer .inner .cs .tel_time img {
+    padding: 1px 0 0 0
+}
+
+.xans-layout-footer .inner .cs .cs_bbs {
+    clear: both;
+    height: 70px;
+}
+
+.xans-layout-footer .inner .cs .cs_bbs li {
+    float: left;
+    margin: 0 3px 0 0;
+}
+
+.xans-layout-footer .inner .cs .cs_bbs li a {
+    font-size: 12px;
+    color: #666;
+    display: block;
+    padding: 0 0 1px 0;
+    line-height: 30px;
+    height: 30px;
+    text-align: center;
+    width: 90px;
+    background: #fff;
+    border: 1px solid #ddd;
+}
+
+.xans-layout-footer .inner .cs .cs_bbs li a:hover {
+    background: #f5f5f5
+}
+
+.xans-layout-footer .inner .cs .cs_right {
+    margin: 0
+}
+
+
+
+.xans-layout-footer .inner .account li.right {
+    margin: -16px 0 0 38px
+}
+
+.xans-layout-footer .inner .account .info,.xans-layout-footer .inner .cs .sns_info .sns_icon {
+    font-size: 14px;
+    vertical-align: top;
+    padding: 10px 0 0 0;
+    margin: 12px 0 0;
+}
+
+.xans-layout-footer .inner .account .info p {
+    padding: 16px 0 0
+}
+
+.xans-layout-footer .inner .account .info select {
+    width: 187px;
+    height: 25px;
+    clear: both;
+    font-size: 12px;
+    color: #888;
+    background: #fff;
+    border: 1px solid #e1e1e1;
+}
+
+.xans-layout-footer .inner .account .info .han {
+    display: inline-block;
+    padding: 2px 0 1px 0;
+    vertical-align: top;
+    line-height: 1.5;
+    color: #222;
+}
+
+.xans-layout-footer .inner .account .info .num {
+    display: inline-block;
+    font-weight: 400;
+    padding: 2px 0 0 3px;
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: 1.5;
+}
+
+.xans-layout-footer .inner .account .info .name {
+    display: inline-block;
+    padding-top: 12px;
+    color: #222;
+}
+
+.xans-layout-footer .inner .account .info .name strong {
+    padding: 0 3px 0 0;
+    font-weight: 300;
+}
+
+.xans-layout-footer .sns_zone {
+    position: fixed;
+    left: 30px;
+    bottom: 30px;
+    z-index: 99999
+}
+
+.xans-layout-footer .inner .cs .sns_info .sns_icon li {
+    display: inline-block;
+    padding: 0 5px;
+}
+
+.xans-layout-footer .inner .cs .sns_info .sns_icon li img {
+    width: 50px;
+}
+
+.xans-layout-footer .company_i {
+    padding: 35px 0 0;
+    font-weight: 300;
+    text-align: center;
+}
+
+
+
+.xans-layout-footer .company_i .inner2 span {
+    padding: 0 7px 0 0
+}
+
+.xans-layout-footer .company_i .inner2 li {
+    display: inline-block;
+    color: #888;
+    line-height: 20px;
+    padding: 6px 0 20px;
+}
+
+.xans-layout-footer .company_i .inner2 li a {
+    color: #333;
+    font-weight: 300
+}
+
+.xans-layout-footer .company_i .inner2 li.logo {
+    padding: 2px 10px 0 0
+}
+
+.xans-layout-footer .company_i .inner2 .info a {
+    margin: 0 0 0 5px;
+    color: #777;
+    background: #eee;
+    padding: 5px 15px
+}
+
+.xans-layout-footer .company_i .inner2 .info a:hover {
+    color: #fff !important;
+    background: #222;
+}
+
+.xans-layout-footer .company_pg {
+    display: inline-block;
+    width: 550px;
+}
+
+.xans-layout-footer .company_pg .inner2 {
+    margin: 22px 0 0;
+    font-size: 13px;
+    letter-spacing: -0.02em;
+}
+
+.xans-layout-footer .company_pg .inner2 .info img {
+    padding: 3px 5px 0 8px
+}
+
+.xans-layout-footer .company_pg .inner2 li {
+    color: #222;
+    line-height: 1.8;
+}
+
+.xans-layout-footer .company_pg .inner2 li a {
+    color: #333
+}
+
+.xans-layout-footer .company_pg .inner2 li span {
+    padding: 0 5px;
+    font-weight: 300;
+}
+
+.xans-layout-footer .pg {
+    color: #000;
+    clear: both;
+    line-height: 21px;
+    font-size: 10px;
+}
+
+.xans-layout-footer .pg img {
+    margin: -1px 0 0 0;
+}
+
+.xans-layout-footer .address {
+    padding: 22px 0 0 0;
+    color: #000;
+    clear: both;
+    letter-spacing: 1px;
+    line-height: 21px;
+    font-size: 10px;
+}
+
+.xans-layout-footer .address .han {
+    font-size: 10px;
+    letter-spacing: 0px;
+}
+
+.xans-layout-footer .address .ment {
+    padding: 0 0 0 13px;
+    color: #000;
+    font-size: 10px;
+    letter-spacing: 0px;
+}
+
+
+
+.xans-layout-footer .copyright {
+    letter-spacing: 1px;
+    padding: 10px 0 0;
+    display: block;
+    color: #aaa;
+    font-size: 10px;
+}
+
+.xans-layout-footer .utilMenu {
+    display: block !important;
+    padding: 1px 10px 0 0 !important;
+    clear: both;
+}
+
+.xans-layout-footer .utilMenu a {
+    display: inline-block;
+    background: #eee;
+    padding: 5px 15px;
+    color: #777 !important;
+    font-weight: 300
+}
+
+.xans-layout-footer .utilMenu a:hover {
+    color: #fff !important;
+    background: #222;
+}
+
+.xans-layout-footer .campaign_zone {
+    position: fixed;
+    left: 25px;
+    bottom: 150px;
+    z-index: 99999
+}
