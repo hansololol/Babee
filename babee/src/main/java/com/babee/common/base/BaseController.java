@@ -22,6 +22,7 @@ public abstract class BaseController  {
 	private static final String CURR_IMAGE_REPO_PATH = "C:\\shopping\\file_repo";
 	
 	protected List upload(MultipartHttpServletRequest multipartRequest) throws Exception{
+		System.out.println("깃허브 확인");
 		List fileList= new ArrayList<ImageFileVO>();
 		Iterator<String> fileNames = multipartRequest.getFileNames();
 		while(fileNames.hasNext()){
