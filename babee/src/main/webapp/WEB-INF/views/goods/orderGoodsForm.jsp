@@ -169,7 +169,7 @@ function execDaumPostcode() {
  
          <li> 연락처 : ${memberInfo.member_hp1} - ${memberInfo.member_hp2} - ${memberInfo.member_hp3} </li>
          <br>
-         <li><input type="text" size="50" placeholder="요청사항을 입력해주세요." name="deliveryMessage"></li>
+         <li><input type="text" size="50" placeholder="요청사항을1 입력해주세요." name="deliveryMessage"></li>
       </ul>
       </div>
       
