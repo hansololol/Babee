@@ -114,10 +114,10 @@
    <div>
    <c:forEach var="goods" items="${newGoodsList}">
       <div class="diary_list">
-         <ul>
+         <ul>                                                                                                            
             <li style="text-align: left;"> <input type="checkbox" id="check" hidden> </li>
-            <li> <a href="${contextPath}/goods/goodsDetail.do?goods_id=${goods.goods_id}&fileName=${goods.goods_image_name1_id}"><img src="${contextPath}/image/${goods.goods_image_name1}" style="border-radius: 9%"> </a></li>
-            <li>이름${goods.goods_title}</li>
+            <li> <a href="${contextPath}/goods/goodsDetail.do?goods_id=${goods.goods_id}&fileName=${goods.goods_image_name1_id}"><img src="${contextPath}/thumbnails.do?goods_id=${goods.goods_id}&fileName=${goods.goods_image_name1}" style="border-radius: 9%"> </a></li>
+            <li>${goods.goods_title}</li>
             <li>${goods.goods_price}원</li>
          </ul>
       </div>

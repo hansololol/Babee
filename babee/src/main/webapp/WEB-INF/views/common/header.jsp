@@ -196,53 +196,63 @@ function showCategory() {
 
         	
       </td>
-   <td class="loginside">
-    <c:choose>
-        <c:when test="${isLogOn ==true}">
-            <c:if test="${memberInfo.member_id=='admin'}">
-                <p><img src="/image/admin.png" width="50px">&nbsp; 관리자님 환영합니다</p>
-            </c:if>
-            <c:if test="${memberInfo.seller_id!=null}">
-                <p><img src="/image/seller.png" width="50px">&nbsp; 사업자님 환영합니다</p>
-            </c:if>
-            <c:if test="${!(memberInfo.member_id=='admin'||memberInfo.seller_id!=null)}">
-                <p><img src="/image/user.png" width="50px">&nbsp; 사용자님 환영합니다</p>
-            </c:if>
-       
-            <div>
-                <ul class="top-link" style="margin-left: 50px;">
-                   <li class="last"><a href="${contextPath}/member/logout.do"><img src="https://agabantr6740.cdn-nhncommerce.com/data/skin/front/moment/img/dimg/top_login.png" alt="로그아웃"><br>로그아웃</a></li>
-                  
-                   <li class="last"><a href="${contextPath}/cart/myCartList.do"><img src="https://agabantr6740.cdn-nhncommerce.com/data/skin/front/moment/img/dimg/top_cart.png" alt="장바구니"><br>장바구니</a></li>
-                 
-                   <li class="last"><a href="${contextPath}/member/myPageMain.do"><img src="https://agabantr6740.cdn-nhncommerce.com/data/skin/front/moment/img/dimg/top_mypage.png" alt="마이페이지"><br>마이페이지</a></li>
-                   <c:if test="${memberInfo.seller_id!=null}">
-		                <li class="last"><a href="${contextPath}/member/myPageMain.do"><img src="/image/setting.png" width="35px" height="35px" alt="마이페이지"><br>사업자페이지</a></li>
-		        	</c:if>
-		        	<c:if test="${memberInfo.member_id=='admin'}">
-		                <li class="last"><a href="${contextPath}/member/myPageMain.do"><img src="/image/setting.png" width="35px" height="35px" alt="마이페이지"><br>관리자페이지</a></li>
-		        	</c:if>
-                </ul>
-                
-              </div>
-              	
-        </c:when>
-        <c:otherwise>
-            <div>
-                <ul class="top-link" style="margin-left: 50px;">
-                   <li class="last"><a href="${contextPath}/member/loginForm.do"><img src="https://agabantr6740.cdn-nhncommerce.com/data/skin/front/moment/img/dimg/top_login.png" alt="로그인/회원가입"><br>로그인</a></li>
-                  
-                   <li class="last"><a href="${contextPath}/cart/myCartList.do"><img src="https://agabantr6740.cdn-nhncommerce.com/data/skin/front/moment/img/dimg/top_cart.png" alt="장바구니"><br>장바구니</a></li>
-                 
-                   <li class="last"><a href="javascript:login()"><img src="https://agabantr6740.cdn-nhncommerce.com/data/skin/front/moment/img/dimg/top_mypage.png" alt="마이페이지" id="mypage"><br>마이페이지</a></li>
-                </ul>
-              </div>	
-
-        </c:otherwise>
-    </c:choose>
+      <td class="loginside">
+        <c:choose>
+            <c:when test="${isLogOn ==true}">
+                <c:if test="${memberInfo.member_id=='admin'}">
+                    <p><img src="/image/admin.png" width="50px">&nbsp; 관리자님 환영합니다</p>
+                </c:if>
+                <c:if test="${memberInfo.seller_id!=null}">
+                    <p><img src="/image/seller.png" width="50px">&nbsp; 사업자님 환영합니다</p>
+                </c:if>
+                <c:if test="${!(memberInfo.member_id=='admin'||memberInfo.seller_id!=null)}">
+                    <p><img src="/image/user.png" width="50px">&nbsp; 사용자님 환영합니다</p>
+                </c:if>
+           
+                <div>
+                    <ul class="top-link" style="margin-left: 50px;">
+                       <li class="last"><a href="${contextPath}/member/logout.do"><img src="https://agabantr6740.cdn-nhncommerce.com/data/skin/front/moment/img/dimg/top_login.png" alt="로그아웃"><br>로그아웃</a></li>
+                      
+                       <li class="last"><a href="${contextPath}/cart/myCartList.do"><img src="https://agabantr6740.cdn-nhncommerce.com/data/skin/front/moment/img/dimg/top_cart.png" alt="장바구니"><br>장바구니</a></li>
+                     
+                       <li class="last"><a href="${contextPath}/member/myPageMain.do"><img src="https://agabantr6740.cdn-nhncommerce.com/data/skin/front/moment/img/dimg/top_mypage.png" alt="마이페이지"><br>마이페이지</a></li>
+                       <c:if test="${memberInfo.seller_id!=null}">
+                            <li class="last">
+                                <a href="${contextPath}/member/myPageMain.do?page=sellerPage">
+                                    <img src="/image/setting.png" width="35px" height="35px" alt="마이페이지"><br>사업자페이지
+                                </a>
+                            </li>
+                        </c:if>
+                        
+                        <c:if test="${memberInfo.member_id=='admin'}">
+                            <li class="last">
+                                <a href="${contextPath}/member/myPageMain.do?page=adminPage">
+                                    <img src="/image/setting.png" width="35px" height="35px" alt="마이페이지"><br>관리자페이지
+                                </a>
+                            </li>
+                        </c:if>
+                        
+                    </ul>
+                    
+                  </div>
+                      
+            </c:when>
+            <c:otherwise>
+                <div>
+                    <ul class="top-link" style="margin-left: 50px;">
+                       <li class="last"><a href="${contextPath}/member/loginForm.do"><img src="https://agabantr6740.cdn-nhncommerce.com/data/skin/front/moment/img/dimg/top_login.png" alt="로그인/회원가입"><br>로그인</a></li>
+                      
+                       <li class="last"><a href="${contextPath}/cart/myCartList.do"><img src="https://agabantr6740.cdn-nhncommerce.com/data/skin/front/moment/img/dimg/top_cart.png" alt="장바구니"><br>장바구니</a></li>
+                     
+                       <li class="last"><a href="javascript:login()"><img src="https://agabantr6740.cdn-nhncommerce.com/data/skin/front/moment/img/dimg/top_mypage.png" alt="마이페이지" id="mypage"><br>마이페이지</a></li>
+                    </ul>
+                  </div>	
     
- 										
-      </td>
+            </c:otherwise>
+        </c:choose>
+        
+                                             
+          </td>
    
    </tr>
    <tr>
