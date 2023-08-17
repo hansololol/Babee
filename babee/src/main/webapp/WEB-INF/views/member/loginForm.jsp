@@ -100,7 +100,7 @@
 						<input type="text" id="loginId" name="member_id" placeholder="아이디" required="true" aria-required="true">
 						<input type="password" id="loginPwd" name="member_pw" placeholder="비밀번호" required="true" aria-required="true">
 					</div>
-					<!-- <button type="submit" class="member_login_order_btn">로그인</button> -->
+					 <button type="submit" class="member_login_order_btn">로그인</button> 
 				</div>
 			</div>
 		</form>
