@@ -31,19 +31,17 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 	public ModelAndView goodsDetail(@RequestParam("goods_id") String goods_id,
 			                       HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName=(String)request.getAttribute("viewName");
-		HttpSession session=request.getSession();
 		Map goodsMap=goodsService.goodsDetail(goods_id);
 		ModelAndView mav = new ModelAndView(viewName);
-		mav.addObject("goodsMap", goodsMap);
-		GoodsVO goodsVO=(GoodsVO)goodsMap.get("goodsVO");
-		addGoodsInQuick(goods_id,goodsVO,session);
+		GoodsVO goodsVO = (GoodsVO)goodsMap.get("goodsVO");
+		mav.addObject("goodsVO", goodsVO);
 		return mav;
 	}
 	
 	 @RequestMapping(value="/goodsList.do", method = RequestMethod.GET)
 	   public ModelAndView goodsList(HttpServletRequest request, HttpServletResponse response) throws Exception {
 	      
-	       ModelAndView mav = new ModelAndView("/goods/goodsList"); // 수정된 부분
+	       ModelAndView mav = new ModelAndView("/goods/goodsList"); 
 
 	       List<GoodsVO> newGoodsList = goodsService.getAllGoods();
 
@@ -74,31 +72,4 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		
 	}
 	
-	private void addGoodsInQuick(String goods_id,GoodsVO goodsVO,HttpSession session){
-		boolean already_existed=false;
-		List<GoodsVO> quickGoodsList; // ֱ       ǰ      ArrayList
-		quickGoodsList=(ArrayList<GoodsVO>)session.getAttribute("quickGoodsList");
-		
-		if(quickGoodsList!=null){
-			if(quickGoodsList.size() < 4){ // ̸      ǰ     Ʈ     ǰ                      
-				for(int i=0; i<quickGoodsList.size();i++){
-					GoodsVO _goodsBean=(GoodsVO)quickGoodsList.get(i);
-					if(goods_id.equals(_goodsBean.getGoods_id())){
-						already_existed=true;
-						break;
-					}
-				}
-				if(already_existed==false){
-					quickGoodsList.add(goodsVO);
-				}
-			}
-			
-		}else{
-			quickGoodsList =new ArrayList<GoodsVO>();
-			quickGoodsList.add(goodsVO);
-			
-		}
-		session.setAttribute("quickGoodsList",quickGoodsList);
-		session.setAttribute("quickGoodsListNum", quickGoodsList.size());
-	}
 }
