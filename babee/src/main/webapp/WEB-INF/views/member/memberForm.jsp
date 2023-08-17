@@ -29,7 +29,7 @@ function execDaumPostcode() {
 
       // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
       // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-      var fullRoadAddr = data.member_roadAddr; // 도로명 주소 변수
+      var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
       var extraRoadAddr = ''; // 도로명 조합형 주소 변수
 
       // 법정동명이 있을 경우 추가한다. (법정리는 제외)
@@ -188,7 +188,7 @@ input[type="submit"]:hover {
       
       <tr>
          <td width="200"><p align="center">주소</td>
-         <td><input type="text" size="7"  style=" margin-bottom: 5px;" name="member_zipcode" >
+         <td><input type="text" size="7"  style=" margin-bottom: 5px;" name="member_zipcode"  id="member_zipcode">
        
           <a href="javascript:execDaumPostcode()">우편 검색</a> <br>
                <input type="text" placeholder="도로명 주소" name="member_roadAddr" id="member_roadAddr" style="margin-bottom: 5px;"><br>

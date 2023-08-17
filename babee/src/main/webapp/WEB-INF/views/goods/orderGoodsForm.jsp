@@ -95,57 +95,57 @@ ul li{
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
-    function execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-                // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
-                var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+function execDaumPostcode() {
+  new daum.Postcode({
+    oncomplete: function(data) {
+      // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                    extraRoadAddr += data.bname;
-                }
-                // 건물명이 있고, 공동주택일 경우 추가한다.
-                if(data.buildingName !== '' && data.apartment === 'Y'){
-                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                }
-                // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                if(extraRoadAddr !== ''){
-                    extraRoadAddr = ' (' + extraRoadAddr + ')';
-                }
-                // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
-                if(fullRoadAddr !== ''){
-                    fullRoadAddr += extraRoadAddr;
-                }
+      // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
+      // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+      var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+      var extraRoadAddr = ''; // 도로명 조합형 주소 변수
 
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('zipcode').value = data.zonecode; //5자리 새우편번호 사용
-                document.getElementById('roadAddress').value = fullRoadAddr;
-                document.getElementById('jibunAddress').value = data.jibunAddress;
+      // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+      // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+      if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+        extraRoadAddr += data.bname;
+      }
+      // 건물명이 있고, 공동주택일 경우 추가한다.
+      if(data.buildingName !== '' && data.apartment === 'Y'){
+        extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+      }
+      // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+      if(extraRoadAddr !== ''){
+        extraRoadAddr = ' (' + extraRoadAddr + ')';
+      }
+      // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+      if(fullRoadAddr !== ''){
+        fullRoadAddr += extraRoadAddr;
+      }
 
-                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-                if(data.autoRoadAddress) {
-                    //예상되는 도로명 주소에 조합형 주소를 추가한다.
-                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-                    document.getElementById('guide').innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+      // 우편번호와 주소 정보를 해당 필드에 넣는다.
+      document.getElementById('member_zipcode').value = data.zonecode; //5자리 새우편번호 사용
+      document.getElementById('member_roadAddr').value = fullRoadAddr;
+      document.getElementById('member_jibunAddr').value = data.jibunAddress;
 
-                } else if(data.autoJibunAddress) {
-                    var expJibunAddr = data.autoJibunAddress;
-                    document.getElementById('guide').innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+      // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+      if(data.autoRoadAddress) {
+        //예상되는 도로명 주소에 조합형 주소를 추가한다.
+        var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+        document.getElementById('guide').innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
 
-                } else {
-                    document.getElementById('guide').innerHTML = '';
-                }
-            }
-        }).open();
+      } else if(data.autoJibunAddress) {
+          var expJibunAddr = data.autoJibunAddress;
+          document.getElementById('guide').innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+      } else {
+          document.getElementById('guide').innerHTML = '';
+      }
+      
+     
     }
-    
-  
+  }).open();
+}
 
 </script>
 </head>
@@ -159,13 +159,17 @@ ul li{
       <H2 style="width:530px;">주문자 정보 입력</H2>
       <div class="shipping_address">
       <h3 style="display: inline-block; margin-right: 320px;"> &nbsp;&nbsp;배송지</h3> <button onclick="execDaumPostcode()" style="cursor: pointer;">배송지 변경</button>
-      <form  name="form_order" action="${contextPath}/goods/orderResult.do" enctype="utf-8">
+ <form  name="form_order" action="${contextPath}/goods/orderResult.do" enctype="utf-8">
       <ul>
-         <li> 이름 </li>
-         <li> 입력받은 주소 </li>
-         <li> 010-0000-0000</li>
+         <li> 주문자 :  ${memberInfo.member_name } </li>         
+     	 <li> 우편번호 : <input name="member_zipcode" type="text" size="10" value="${memberInfo.member_zipcode }"  id="member_zipcode" ><br>
+ 		 	  도로명 주소 <input name="member_roadAddr" type="text" size="50" value="${memberInfo.member_roadAddr }"  id="member_roadAddr" > <br>
+ 			  지번 주소 <input name="member_jibunAddr" type="text" size="50" value="${memberInfo.member_jibunAddr }" id="member_jibunAddr" > <br>
+ 			  나머지 주소<input name="member_namujiAddr" type="text" size="50" value="${memberInfo.member_namujiAddr }" id="member_namujiAddr" ></li>
+ 
+         <li> 연락처 : ${memberInfo.member_hp1} - ${memberInfo.member_hp2} - ${memberInfo.member_hp3} </li>
          <br>
-         <li><input type="text" size="50" placeholder="요청사항을 입력해주세요."></li>
+         <li><input type="text" size="50" placeholder="요청사항을 입력해주세요." name="deliveryMessage"></li>
       </ul>
       </div>
       
@@ -180,9 +184,9 @@ ul li{
    
       <table style="padding-left:10px;">
             <tr>
-               <td width="180px;" ><input type="radio" id="pay_method" name="pay_method" value="체크/신용카드"   onClick="fn_pay_card()" checked>체크/신용카드 
-               <td width="180px;"><input type="radio" id="pay_method" name="pay_method" value="카카오 페이"  >&nbsp;&nbsp;카카오 페이 </td>
-               <td width="180px;"><input type="radio" id="pay_method" name="pay_method" value="무통장 입금">&nbsp;무통장 입금 </td>
+               <td width="180px;" ><input type="radio" id="card" name="pay_method" value="체크/신용카드"   onClick="fn_pay_card()" checked>체크/신용카드 
+               <td width="180px;"><input type="radio" id="kakaopay" name="pay_method" value="카카오 페이"  >&nbsp;&nbsp;카카오 페이 </td>
+               <td width="180px;"><input type="radio" id="bankbook" name="pay_method" value="무통장 입금">&nbsp;무통장 입금 </td>
             </tr>
          <tr>
          <td  colspan="3" ><a href="#"><img src="/image/pay.png" width="460px" style="padding-top: 10px;"></a></td>
@@ -216,8 +220,7 @@ ul li{
                   <td width="180px;"> 상품명 </td>
                   <td  width="80px;"> 수량 (개) </td>
                </tr>
-               
-   
+                  
                
             </table>   
             <hr>
@@ -239,13 +242,10 @@ ul li{
                   </div>
 
 
-      </div>
-   </form>
+    	  </div>
+  </form>
+
    
-   <br>
-   
-         <br> 
-   
-         
-         
+       
+         </body>
          
