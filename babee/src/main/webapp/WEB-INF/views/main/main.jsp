@@ -121,7 +121,7 @@
     실시간 <br>인기상품
    </span>
         <div class="my_img_container">
-            <a href="${contextPath}/goods/goodsDetail.do?goods_id=1&fileName=1">
+            <a href="${contextPath}/goods/goodsDetail.do?goods_id=1">
                 <img src="/image/shopping1.jpg" class="my_img">
                 <div class="img_text">우리 아이 안심 물병</div>
             </a>

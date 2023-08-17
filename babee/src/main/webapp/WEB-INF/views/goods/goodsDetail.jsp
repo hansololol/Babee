@@ -177,110 +177,21 @@
     border-bottom: 1px solid #ececec;
 }
 </style>
-<script type="text/javascript">
-	function add_cart(goods_id) {
-		   var cart_goods_qty=document.getElementById("order_goods_qty").value;	
-		$.ajax({
-			type : "post",
-			async : false, //false인 경우 동기식으로 처리한다.
-			url : "${contextPath}/cart/addGoodsInCart.do",
-			data : {
-				goods_id:goods_id,
-				cart_goods_qty:cart_goods_qty
-			},
-			success : function(data, textStatus) {
-				//alert(data);
-			//	$('#message').append(data);
-				if(data.trim()=='add_success'){
-					imagePopup('open', '.layer01');	
-				}else if(data.trim()=='already_existed'){
-					alert("이미 카트에 등록된 상품입니다.");	
-				}
-				
-			},
-			error : function(data, textStatus) {
-				alert("로그인 후 이용 가능합니다.");
-			},
-			complete : function(data, textStatus) {
-				//alert("작업을완료 했습니다");
-			}
-		}); //end ajax	
-	}
 
-	function imagePopup(type) {
-		if (type == 'open') {
-			// 팝업창을 연다.
-			jQuery('#layer').attr('style', 'visibility:visible');
-
-			// 페이지를 가리기위한 레이어 영역의 높이를 페이지 전체의 높이와 같게 한다.
-			jQuery('#layer').height(jQuery(document).height());
-		}
-
-		else if (type == 'close') {
-
-			// 팝업창을 닫는다.
-			jQuery('#layer').attr('style', 'visibility:hidden');
-		}
-	}
 	
-function fn_order_each_goods(goods_id,goods_title,goods_price,fileName){
-	var _isLogOn=document.getElementById("isLogOn");
-	var isLogOn=_isLogOn.value;
-	
-	 if(isLogOn=="false" || isLogOn=='' ){
-		alert("로그인 후 주문이 가능합니다!!!");
-	} 
-	
-	
-		var total_price,final_total_price;
-		var order_goods_qty=document.getElementById("order_goods_qty");
-		
-		var formObj=document.createElement("form");
-		var i_goods_id = document.createElement("input"); 
-    var i_goods_title = document.createElement("input");
-    var i_goods_sales_price=document.createElement("input");
-    var i_fileName=document.createElement("input");
-    var i_order_goods_qty=document.createElement("input");
-    
-    i_goods_id.name="goods_id";
-    i_goods_title.name="goods_title";
-    i_goods_sales_price.name="goods_sales_price";
-    i_fileName.name="goods_image_name1";
-    i_order_goods_qty.name="order_goods_qty";
-    
-    i_goods_id.value=goods_id;
-    i_order_goods_qty.value=order_goods_qty.value;
-    i_goods_title.value=goods_title;
-    i_goods_sales_price.value=goods_sales_price;
-    i_fileName.value=fileName;
-    
-    formObj.appendChild(i_goods_id);
-    formObj.appendChild(i_goods_title);
-    formObj.appendChild(i_goods_sales_price);
-    formObj.appendChild(i_fileName);
-    formObj.appendChild(i_order_goods_qty);
-
-    document.body.appendChild(formObj); 
-    formObj.method="post";
-    formObj.action="${contextPath}/order/orderEachGoods.do";
-    formObj.submit();
-	}	
-
-
-</script>
 </head>
 <body>
 	<br><br>
 	<hgroup>
-		<h1>우리아이 안심물병</h1>
-		<h6>대분류 &gt; 중분류 &gt; 소분류</h6>
-		<h3>${goods.goods_title}</h3>
+		<h1>${goodsVO.goods_title}</h1>
+		<h6>${goodsVO.main_category} &gt; ${goodsVO.middle_category} &gt; ${goodsVO.sub_category}</h6>
+	
 	</hgroup>
 
 	<br><br>
 	<div id="goods_image">
 		<figure>
-			<img src="${contextPath}/thumbnails.do?goods_id=1&fileName=1.png">
+			<img src="${contextPath}/thumbnails.do?goods_id=${goodsVO.goods_id}&fileName=${goodsVO.goods_image_name1}">
 		</figure>
 	</div>
 	<div id="detail_table">
@@ -289,22 +200,22 @@ function fn_order_each_goods(goods_id,goods_title,goods_price,fileName){
 				<tr>
 					<td class="fixed">정가</td>
 					<td class="active"><span >
-					   <fmt:formatNumber  value="${goods.goods_price}" type="number" var="goods_price" />
-				         ${goods_price}원
+					  
+				         ${goodsVO.goods_price}원
 					</span></td>
 				</tr>
 				<tr class="dot_line">
 					<td class="fixed">판매가</td>
 					<td class="active"><span >
-					   <fmt:formatNumber  value="${goods.goods_price*0.9}" type="number" var="discounted_price" />
-				         ${discounted_price}원(10%할인)</span></td>
+					   <fmt:formatNumber  value="${goodsVO.goods_price*0.9}" type="number" var="discounted_price" />
+				         원(10%할인)</span></td>
 				</tr>
 				
 				<tr>
 					<td class="fixed">수량</td>
 					<td class="fixed">
 			      <select style="width: 400px; text-align: center;" id="order_goods_qty">
-				      <option>1</option>
+							<option>1</option>
 							<option>2</option>
 							<option>3</option>
 							<option>4</option>
@@ -316,18 +227,20 @@ function fn_order_each_goods(goods_id,goods_title,goods_price,fileName){
 					<td class="fixed">옵션</td>
 					<td class="fixed">
 						<select style="width: 400px;  text-align: center" id="order_goods_qty">
-							<option>1</option>
-								  <option>2</option>
-								  <option>3</option>
-								  <option>4</option>
-								  <option>5</option>
+
+							<option>${goodsVO.goods_option1}</option>
+							<option>${goodsVO.goods_option2}</option>
+							<option>${goodsVO.goods_option3}</option>
+							<option>${goodsVO.goods_option4}</option>
+							<option>${goodsVO.goods_option5}</option>
+		
 					   </select>
 						   </td>
 				</tr>
 				
 				<tr>
 					<td class="fixed">배송료</td>
-					<td class="fixed"><strong>배송비 적기</strong></td>
+					<td class="fixed"><strong>${goodsVO.goods_delivery_price}</strong></td>
 				</tr>
 				
 				<tr>
