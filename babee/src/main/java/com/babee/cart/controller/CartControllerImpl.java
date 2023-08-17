@@ -40,7 +40,7 @@ public class CartControllerImpl extends BaseController implements CartController
 		String member_id=memberVO.getMember_id();
 		cartVO.setMember_id(member_id);
 		Map<String ,List> cartMap=cartService.myCartList(cartVO);
-		session.setAttribute("cartMap", cartMap);//  ٱ        ȭ 鿡     ǰ  ֹ         ϱ     ؼ    ٱ             ǿ       Ѵ .
+		session.setAttribute("cartMap", cartMap); 
 		//mav.addObject("cartMap", cartMap);
 		return mav;
 	}

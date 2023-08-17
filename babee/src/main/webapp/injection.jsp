@@ -25,7 +25,7 @@
             line-height: 1.5;
         }
         .info-box {
-            background-color: #fff;
+            background-color: #ffcccc;
             border-radius: 10px;
             padding: 15px;
             margin-bottom: 20px;
