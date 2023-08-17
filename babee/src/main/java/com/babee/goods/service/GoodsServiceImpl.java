@@ -25,6 +25,11 @@ public class GoodsServiceImpl implements GoodsService{
         return goodsDAO.selectAllGoods();  
     }
 	
+	public List<GoodsVO> getAllCategoryGoods(Map goods) {
+		
+		return goodsDAO.selectAllCategoryGoods(goods);  
+	}
+	
 	public Map goodsDetail(String _goods_id) throws Exception {
 		Map goodsMap=new HashMap();
 		GoodsVO goodsVO = goodsDAO.selectGoodsDetail(_goods_id);

@@ -52,6 +52,15 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 	       return mav;
 	   }
 	   //end
+	 @RequestMapping(value="/goodsCategoryList.do", method = RequestMethod.GET)
+	 public ModelAndView goodsCategoryList(@RequestParam(required = false) Map<String, String> category,HttpServletRequest request, HttpServletResponse response) throws Exception {     
+		 ModelAndView mav = new ModelAndView("/goods/goodsList"); // 수정된 부분
+		 System.out.println(category.get("main_category"));
+		 List<GoodsVO> newGoodsList = goodsService.getAllCategoryGoods(category);
+		 mav.addObject("newGoodsList", newGoodsList); 
+		 return mav;
+	 }
+	 //end
 
 	
 	@RequestMapping(value="/searchGoods.do" ,method = RequestMethod.GET)

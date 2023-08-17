@@ -11,7 +11,7 @@ public interface GoodsService {
 	
 	
 	public Map goodsDetail(String _goods_id) throws Exception;
-	
+	public List<GoodsVO> getAllCategoryGoods(Map goods) throws Exception;
 	public List<String> keywordSearch(String keyword) throws Exception;
 	public List<GoodsVO> searchGoods(String searchWord) throws Exception;
 	public List<GoodsVO> getAllGoods() throws Exception;
