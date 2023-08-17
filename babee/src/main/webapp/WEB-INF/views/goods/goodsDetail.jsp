@@ -200,7 +200,7 @@
 				<tr>
 					<td class="fixed">정가</td>
 					<td class="active"><span >
-					  
+
 				         ${goodsVO.goods_price}원
 					</span></td>
 				</tr>
@@ -208,7 +208,7 @@
 					<td class="fixed">판매가</td>
 					<td class="active"><span >
 					   <fmt:formatNumber  value="${goodsVO.goods_price*0.9}" type="number" var="discounted_price" />
-				         원(10%할인)</span></td>
+				         ${discounted_price}원(10%할인)</span></td>
 				</tr>
 				
 				<tr>
