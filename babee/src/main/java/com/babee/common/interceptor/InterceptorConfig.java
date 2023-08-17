@@ -16,7 +16,7 @@ public class InterceptorConfig extends WebMvcConfigurerAdapter{
 			.addPathPatterns("/*.do")
 			.addPathPatterns("/*/*.do");
 		
-		System.out.println("ㅎㅎㅎㅎ");
+		System.out.println("ㅎㅎlklllㅎ");
 
 	}
 	
