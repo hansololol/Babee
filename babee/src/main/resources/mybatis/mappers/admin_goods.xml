@@ -5,27 +5,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.babee.admin.goods.dao.AdminGoodsDAO">
 <!-- 리절트 맵 정의 -->	
-	<resultMap id="goodsResult" type="goodsVO">
-		<result property="goods_id" column="goods_id" />
-		<result property="goods_title" column="goods_title" />
-		<result property="goods_writer" column="goods_writer" />
-		<result property="goods_price" column="goods_price" />
-		<result property="goods_publisher" column="goods_publisher" />
-		
-		<result property="goods_status" column="goods_status" />
-		<result property="goods_sales_price" column="goods_sales_price" />
-		<result property="goods_published_date" column="goods_published_date" />
-		<result property="goods_total_page" column="goods_total_page" />
-		<result property="goods_isbn" column="goods_isbn" />
-		<result property="goods_delivery_price" column="goods_delivery_price" />
-		<result property="goods_delivery_date" column="goods_delivery_date" />
-		
-		<result property="goods_fileName" column="fileName" />
-		<result property="goods_sort" column="goods_sort" />
-		<result property="goods_writer_intro" column="goods_writer_intro" />
-		<result property="goods_intro" column="goods_intro" />
-		<result property="goods_contents_order" column="goods_contents_order" javaType="java.lang.String" jdbcType="CLOB"  />
-	</resultMap>	
+	<resultMap id="goodsResult" type="GoodsVO">
+	    <result property="goods_id" column="goods_id" />
+	    <result property="goods_title" column="goods_title" />
+	    <result property="goods_price" column="goods_price" />
+	    <result property="goods_stock" column="goods_stock" />
+	    <result property="goods_delivery_price" column="goods_delivery_price" />
+	    <result property="main_category" column="main_category" />
+	    <result property="middle_category" column="middle_category" />
+	    <result property="sub_category" column="sub_category" />
+	    <result property="seller_id" column="seller_id" />
+	    <result property="goods_image_name1" column="goods_image_name1" />
+	    <result property="goods_image_name2" column="goods_image_name2" />
+	    <result property="age_range" column="age_range" />
+	    <result property="goods_creation_date" column="goods_creation_date" />
+	    <result property="relative_tag1" column="relative_tag1" />
+	    <result property="relative_tag2" column="relative_tag2" />
+	    <result property="relative_tag3" column="relative_tag3" />
+	    <result property="relative_tag4" column="relative_tag4" />
+	    <result property="relative_tag5" column="relative_tag5" />
+	    <result property="tag_option1" column="tag_option1" />
+	    <result property="tag_option2" column="tag_option2" />
+	    <result property="tag_option3" column="tag_option3" />
+	    <result property="tag_option4" column="tag_option4" />
+	    <result property="tag_option5" column="tag_option5" />
+</resultMap>	
 
 	<resultMap id="imageResult" type="ImageFileVO">
 	   <result property="goods_id" column="goods_id" />
@@ -70,6 +74,57 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 		<result property="goods_fileName" column="goods_fileName" />
 	</resultMap>
+	
+	
+	<insert id="insertNewGoods" parameterType="java.util.Map">
+	<selectKey resultType="String" keyProperty="goods_id" order="BEFORE">
+	    	select ifnull(max(goods_id)+1,0) from t_shopping_goods
+	    </selectKey>
+    <![CDATA[
+    insert into t_shopping_goods(
+        goods_id,
+        goods_title,
+        goods_price,
+        goods_stock,
+        goods_delivery_price,
+        main_category,
+        middle_category,
+        sub_category,
+        seller_id,
+        goods_image_name1,
+        goods_image_name2,
+        age_range,
+        goods_creation_date,
+        relative_tag1,
+        relative_tag2,
+        relative_tag3,
+        relative_tag4,
+        relative_tag5
+    )
+    values(
+        #{goods_id},
+        #{goods_title},
+        #{goods_price},
+        #{goods_stock},
+        #{goods_delivery_price},
+        #{main_category},
+        #{middle_category},
+        #{sub_category},
+        #{seller_id},
+        #{goods_image_name1},
+        #{goods_image_name2},
+        #{age_range},
+        #{goods_creation_date},
+        #{relative_tag1},
+        #{relative_tag2},
+        #{relative_tag3},
+        #{relative_tag4},
+        #{relative_tag5}
+    )
+]]>
+</insert>
+	
+	<!-- 수정전코드
 	<insert id="insertNewGoods" parameterType="java.util.Map"   >
 		<selectKey resultType="String" keyProperty="goods_id" order="BEFORE">
 	    	select ifnull(max(goods_id)+1,0) from t_shopping_goods
@@ -126,6 +181,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					 			 )
 		]]>
 	</insert> 
+	 -->
 		<insert id="insertGoodsImageFile" parameterType="imageFileVO"   >
 		<selectKey resultType="int" keyProperty="image_id" order="BEFORE">
 	    	select ifnull(max(image_id)+1, 0) from t_goods_detail_image

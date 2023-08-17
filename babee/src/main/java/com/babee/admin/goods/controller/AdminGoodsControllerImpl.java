@@ -27,6 +27,7 @@ import com.babee.common.base.BaseController;
 import com.babee.goods.vo.GoodsVO;
 import com.babee.goods.vo.ImageFileVO;
 import com.babee.member.vo.MemberVO;
+import com.babee.seller.vo.*;
 
 @Controller("adminGoodsController")
 @RequestMapping(value="/admin/goods.do")
@@ -42,7 +43,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 		ModelAndView mav = new ModelAndView(viewName);
 		//HttpSession session=request.getSession();
 		//session=request.getSession();
-		//session.setAttribute("side_menu", "admin_mode"); //              絹   濱         磯 .
+		//session.setAttribute("side_menu", "admin_mode"); //              永�   嚥�         髥� .
 		
 		String fixedSearchPeriod = dateMap.get("fixedSearchPeriod");
 		String section = dateMap.get("section");
@@ -71,7 +72,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 		condMap.put("search_type", search_type);
 		condMap.put("search_word", search_word);
 		List<GoodsVO> newGoodsList=adminGoodsService.listNewGoods(condMap);
-		System.out.println( newGoodsList.size() + "�깉濡쒕벑濡앺븳 �긽�뭹 由ъ뒪�듃");
+		System.out.println( newGoodsList.size() + "占쎄퉱嚥≪뮆踰묉에�빜釉� 占쎄맒占쎈�� �뵳�딅뮞占쎈뱜");
 		mav.addObject("newGoodsList", newGoodsList);
 		
 		String beginDate1[]=beginDate.split("-");
@@ -98,6 +99,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 		String imageFileName=null;
 		
 		Map newGoodsMap = new HashMap();
+		System.out.println("실행됨");
 		Enumeration enu=multipartRequest.getParameterNames();
 		while(enu.hasMoreElements()){
 			String name=(String)enu.nextElement();
@@ -106,8 +108,8 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 		}
 		
 		HttpSession session = multipartRequest.getSession();
-		MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
-		String reg_id = memberVO.getMember_id();
+		SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+		String reg_id = sellerVO.getSeller_id();
 		
 		
 		List<ImageFileVO> imageFileList =upload(multipartRequest);
@@ -130,7 +132,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 				}
 			}
 			message= "<script>";
-			message += " alert('�벑濡앹꽦怨�!');";
+			message += " alert('성공!');";
 			message +=" location.href='"+multipartRequest.getContextPath()+"/admin/goods/addNewGoodsForm.do';";
 			message +=("</script>");
 		}catch(Exception e) {
@@ -143,7 +145,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 			}
 			
 			message= "<script>";
-			message += " alert('�벑濡� �삤瑜�');";
+			message += " alert('실패');";
 			message +=" location.href='"+multipartRequest.getContextPath()+"/admin/goods/addNewGoodsForm.do';";
 			message +=("</script>");
 			e.printStackTrace();
