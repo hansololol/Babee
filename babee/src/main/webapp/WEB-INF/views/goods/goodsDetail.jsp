@@ -194,6 +194,7 @@
 			<img src="${contextPath}/thumbnails.do?goods_id=${goodsVO.goods_id}&fileName=${goodsVO.goods_image_name1}">
 		</figure>
 	</div>
+
 	<div id="detail_table">
 		<table>
 			<tbody>
@@ -223,11 +224,11 @@
 					<td class="fixed">
 						<select style="width: 400px;  text-align: center" id="order_goods_qty">
 
-							<option>${goodsVO.goods_option1}</option>
-							<option>${goodsVO.goods_option2}</option>
-							<option>${goodsVO.goods_option3}</option>
-							<option>${goodsVO.goods_option4}</option>
-							<option>${goodsVO.goods_option5}</option>
+							<option name="option" value="${goodsVO.goods_option1}">${goodsVO.goods_option1}</option>
+							<option name="option" value="${goodsVO.goods_option2}">${goodsVO.goods_option2}</option>
+							<option name="option" value="${goodsVO.goods_option3}">${goodsVO.goods_option3}</option>
+							<option name="option" value="${goodsVO.goods_option4}">${goodsVO.goods_option4}</option>
+							<option name="option" value="${goodsVO.goods_option5}">${goodsVO.goods_option5}</option>
 		
 					   </select>
 						   </td>

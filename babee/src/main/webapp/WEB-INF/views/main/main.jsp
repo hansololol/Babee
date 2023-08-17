@@ -120,6 +120,8 @@
         <span style="font-size: 14px; font-weight: 300; margin: -5px 5px;">
     실시간 <br>인기상품
    </span>
+
+
         <div class="my_img_container">
             <a href="${contextPath}/goods/goodsDetail.do?goods_id=1">
                 <img src="/image/shopping1.jpg" class="my_img">

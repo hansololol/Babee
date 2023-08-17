@@ -39,14 +39,10 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 	}
 	
 	 @RequestMapping(value="/goodsList.do", method = RequestMethod.GET)
-	   public ModelAndView goodsList(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	      
+	   public ModelAndView goodsList(HttpServletRequest request, HttpServletResponse response) throws Exception {      
 	       ModelAndView mav = new ModelAndView("/goods/goodsList"); 
-
 	       List<GoodsVO> newGoodsList = goodsService.getAllGoods();
-
 	       mav.addObject("newGoodsList", newGoodsList);
-
 	       return mav;
 	   }
 	   //end
