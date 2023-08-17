@@ -108,8 +108,25 @@
 			<div class="member_sns_login">
 				
 				<a href="#" class="btn_naver_login js_btn_naver_login" data-naver-url="https://socialmember.godo.co.kr/NaverLogin/naver_api.php?mode=login&amp;response_type=code&amp;client_id=k0VcGSUFEXqRJqP80ryh&amp;redirect_uri=https%3A%2F%2Fmall.suomi.co.kr%2F&amp;state=e1628eb01a5c7d245df9ebe8ccb06a7c"><img src="https://cdn-pro-web-219-28.cdn-nhncommerce.com/malltr2083_godomall_com/data/skin/front/moment/img/etc/pc_naver.png" alt="네이버 아이디 로그인"></a><br>
-				<a href="#" class="btn_kakao_login js_btn_kakao_login" data-kakao-type="login" data-return-url="https://mall.suomi.co.kr/"> <img src="https://cdn-pro-web-219-28.cdn-nhncommerce.com/malltr2083_godomall_com/data/skin/front/moment/img/etc/pc_kakao.png" alt="카카오 아이디 로그인"></a>
-			</div>
+				
+				<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.3.0/kakao.min.js"
+  integrity="sha384-70k0rrouSYPWJt7q9rSTKpiTfX6USlMYjZUtr1Du+9o4cGvhPAWxngdtVZDdErlh" crossorigin="anonymous"></script>
+<script>
+  Kakao.init('881cd43e5724e04602b618321bb393c1'); // 사용하려는 앱의 JavaScript 키 입력
+</script>
+
+<a class="btn_kakao_login js_btn_kakao_login" id="kakao-login-btn" href="javascript:loginWithKakao()"> <img src="https://cdn-pro-web-219-28.cdn-nhncommerce.com/malltr2083_godomall_com/data/skin/front/moment/img/etc/pc_kakao.png" alt="카카오 아이디 로그인"></a>
+<p id="token-result"></p>
+
+<script>
+  function loginWithKakao() {
+    Kakao.Auth.authorize({
+      redirectUri: 'http://localhost:8080/kakao/callback',
+    });
+  }
+				
+		</script>
+				</div>
 			<div class="btn_login_box">
 				<ul>
 					<li><button id="btnJoinMember" class="btn_member_join" onclick="location.href='${contextPath}/member/memberForm.do'" >회원가입</a></button></li>
