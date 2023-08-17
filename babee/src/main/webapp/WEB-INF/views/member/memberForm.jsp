@@ -1,26 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"
-    isELIgnored="false"%>
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<% request.setCharacterEncoding("utf-8"); %>
-
-<c:set var="contextPath" value="${pageContext.request.contextPath}"    />
-
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"
+	 isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
+<!DOCTYPE html >
 <html>
 <head>
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-<meta charset="UTF-8">
-<title>회원가입(일반) 목롱창</title>
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script>
 
+<script>
 
 function execDaumPostcode() {
   new daum.Postcode({
@@ -72,180 +65,223 @@ function execDaumPostcode() {
     }
   }).open();
 }
-
     
 
+function toggleAllCheckboxes() {
+    var allCheckbox = document.getElementById('allCheckbox');
+    var checkboxes = document.querySelectorAll('.agreeCheckbox');
 
+    for (var i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].checked = allCheckbox.checked;
+    }
+}
 </script>
+
+
+
+
+
+
 
 
 <style>
 
-
-
-.text_center{ 
-   text-align:center;
-   }
-
-/* '회원가입' 버튼 스타일 */
-input[type="submit"] {
-    background-color: #ffcd29; /* 배경색 */
-    color: black; /* 텍스트색 */
-    padding: 10px 20px; /* 내부 여백 */
-    border: none; /* 테두리 없음 */
-    border-radius: 5px; /* 테두리 반경 */
-    cursor: pointer; /* 커서 모양 변경 */
+	.member_cont {
+	padding: 20px 100px;
+    border: 1px solid #dbdbdb;
+	width: 690px;
+	margin: 0 auto;
 }
-
-/* 버튼에 호버 효과 */
-input[type="submit"]:hover {
-    background-color: #cca300; /* 호버 시 배경색 변경 */
+  	.join_input_sec > div {
+    float: left;
 }
-
-
-
-.tb {
-    left: 30px;
-    top: 30px;
-    background:#ededed;
-    border-radius: 40px;
-    border-collapse: collapse;
-    width: 600px;
-    box-shadow: 20px 20px 39px rgba(0, 104, 255, 0.25);
+	.join_input_sec input {
+		display: block;
+		width: 280px;
+		height: 36px;
+		margin: 0 0 3px 16px;
+		padding: 0 0 0 18px;
+		border: 1px solid #d0d0d0;
+		color: #979d9d;
+	}
+	.join_input_sec > button {
+		float: right;
+		width: 158px;
+		height: 80px;
+		margin: 0 20px 15px 0;
+		border: 1px solid #FEF7DD;
+		background: #FEF7DD;
+		color: #ffffff;
+		font-size: 15px;
+		font-weight: bold;
+		cursor: pointer;
+	}
+	.btn_member_join {
+		width: 110px;
+		height: 45px;
+		margin: 0;
+		color: #ffffff;
+		font-size: 14px;
+		border: 1px solid #666666;
+		background: #666666;
+		cursor: pointer;
+		font-weight: bold;
+	}
+	.btn_member_white {
+		width: 110px;
+		height: 45px;
+		color: #3e3d3c;
+		font-weight: bold;
+		font-size: 13px;
+		border: 1px solid #cccccc;
+		background: #fff;
+		cursor: pointer;
+	
+	}
+	
+	.btn_login_box {
     
-    
+    margin: 20px 0 0 -35px;
+    padding: 10px 0 0 0;
+    border-top: 1px solid #dcdcdc;
 }
-
-
- .tb tr{
-   height:40px;
-    border-bottom:1px solid rgba(128, 128, 128, 0.25);
+.btn_login_box ul{
+	display: -webkit-inline-box;
 }
-
-.tb tr:last-child {
-    border-bottom: none; /* 마지막 줄의 테두리 제거 */
-}
-
-
+	
 .Personal_Data{
     margin: 0 auto;
     border-radius: 20px;
     border:1px solid rgba(128, 128, 128, 0.25);
-    width: 600px;
+    width: 500px;
     
 }
-
-
-
-
-</style>
+	</style>
 </head>
 <body>
-   <br><br><br><br>
-   
-<div style="text-align: center;">
-    <img src="/image/Babee_Logo.png" style="margin: 0 auto; display: block;" />
-</div>
-<br>
-<form method="post" action="${contextPath}/member/addMember.do" enctype="utf-8">
-<div>
-   <table class="tb" align="center">
-      <tr>
-         <td width="200"><h4 align="center"> 기본정보 </h4></td>
+	<br><br><br><br>
+	<div class="content_box">
+		<div class="member_wrap">
+			<div class="member_tit">
+				<h2>회원가입</h2>
+			</div>
+
+	<div class="member_cont">
+
+		<form id="formjoin" method="post" action="${contextPath}/member/addMember.do" novalidate="novalidate">
+			
+			<div class="member_join_box">
+			<img src="/image/Babee_Logo.png"><br><br>
+		<div class="join_input_sec">
+		<table>
+		<tr>
+         <td width="150"><h4 align="center"> 기본정보 </h4></td>
          <td> &nbsp;</td>
       </tr>
-   
-      <tr>
-         <td width="200"><p align="center">아이디</td>
-         <td  width="300"><input type="text" name="member_id">*
+	 <tr>
+         <td width="150"><p align="right">아이디 *</td>
+         <td  width="300"><input type="text" name="member_id">
          <button type="button">중복확인</button></td>
       </tr>
       
       <tr>
-         <td width="200"><p align="center">비밀번호</td>
-         <td><input type="password" name="member_pw">*</td>
+         <td width="150"><p align="right">비밀번호 *</td>
+         <td><input type="password" name="member_pw" ></td>
       </tr>
       
       <tr>
-         <td width="200"><p align="center">이름</td>
-         <td><input type="text"name="member_name">*</td>
+         <td width="150"><p align="right">이름 *</td>
+         <td><input type="text"name="member_name" ></td>
       </tr>
       
       <tr>
-         <td width="200"><p align="center">이메일</td>
+         <td width="150"><p align="right">이메일</td>
          <td><input type="email" name="member_email"></td>
       </tr>
       
       <tr>
-         <td width="200"><p align="center">일반전화</td>
-         <td><input type="text" size="5" name="member_tel1">-<input type="text" size="5" name="member_tel2">-<input type="text" size="5" name="member_tel3"></td>
+         <td width="150"><p align="right">일반전화</td>
+         <td><input type="text" name="member_tel1" style="width: 75px; display: inline-block;">
+         	 <input type="text" name="member_tel2" style="width: 80px; display: inline-block;">
+         	 <input type="text" name="member_tel3" style="width: 80px; display: inline-block;"></td>
       </tr>
       
       <tr>
-         <td width="200"><p align="center">휴대전화</td>
-         <td><input type="text" size="5" name="member_hp1">-<input type="text" size="5" name="member_hp2">-<input type="text" size="5" name="member_hp3"></td>
-      </tr>
-      
+         <td width="150"><p align="right">휴대전화 *</td>
+       <td>
+        <input type="text" name="member_hp1" style="width: 75px; display: inline-block;">
+        <input type="text" name="member_hp2" style="width: 80px; display: inline-block;">
+        <input type="text" name="member_hp3" style="width: 80px; display: inline-block;">
+    	</td>    
+    </tr>
+      	<tr>
+      		<td>&nbsp; </td>
+      	</tr>
       <tr>
-         <td width="200"><p align="center">주소</td>
-         <td><input type="text" size="7"  style=" margin-bottom: 5px;" name="member_zipcode"  id="member_zipcode">
-       
-          <a href="javascript:execDaumPostcode()">우편 검색</a> <br>
+         <td width="150"><p align="right">주소</td>
+         <td>	<a href="javascript:execDaumPostcode()"> &nbsp;우편 검색</a> <br>
+         	   <input type="text" placeholder="우편 번호"  style=" margin-bottom: 5px;" name="member_zipcode"  id="member_zipcode">
                <input type="text" placeholder="도로명 주소" name="member_roadAddr" id="member_roadAddr" style="margin-bottom: 5px;"><br>
                <input type="text" placeholder="지번 주소" name="member_jibunAddr"  id="member_jibunAddr"style="margin-bottom: 5px;"><br>
                <input type="text" placeholder="나머지 주소"  name="member_namujiAddr"  id="member_namujiAddr"  style="margin-bottom: 15px;"></td>
       </tr>
    </table>
-
-</div>
-
-<br><br><br>
-
-<div>
-<table class="tb" align="center" style="height: 350px;">
+   <br>
+   <table>
       <tr>
-         <td width="200"><h4 align="center"> 추가정보 </h4></td>
+         <td width="150"><h4 align="right"> 추가정보 </h4></td>
          <td> &nbsp;</td>
       </tr>
 
       <tr>
-         <td width="200"><p align="center">성별</td>
-         <td  width="300"><input type="radio" name="member_gender" value="남자"> 남자 
-                      <input type="radio" name="member_gender" value="여자"> 여자</td>
+         <td width="150"><p align="right">성별</td>
+		 <td width="300" style="display: flex; flex-direction: column;">
+  			<label style="display: inline-flex; align-items: center; margin-bottom: 5px;">
+    		<input type="radio" name="member_gender" value="남자" style="width:20px; margin-right: 5px;">남자
+    		<input type="radio" name="member_gender" value="여자" style="width:20px; margin-right: 5px;">여자
+  			</label>
+		</td>
       </tr>
       
       <tr>
-         <td width="200"><p align="center">생년월일</td>
-         <td><input type="date" name="member_birth">일</td>
+         <td width="150"><p align="right">생년월일</td>
+         <td><input type="date" name="member_birth"></td>
       </tr>
       
       <tr>
-         <td width="200"><p align="center">자녀 성별</td>
-         <td  width="300"><input type="radio" value="남자" name="baby_gender"> 남자 
-                      <input type="radio"value="여자" name="baby_gender"> 여자</td>
+         <td width="150"><p align="right">자녀 성별</td>
+        <td width="300" style="display: flex; flex-direction: column;">
+  			<label style="display: inline-flex; align-items: center; margin-bottom: 5px;">
+    		<input type="radio" name="baby_gender" value="남자" style="width:20px; margin-right: 5px;">남자
+    		<input type="radio" name="baby_gender" value="여자" style="width:20px; margin-right: 5px;">여자
+  			</label>
+		</td>
       </tr>
       
       <tr>
-          <td width="200" height="100"><p align="center">자녀 나이 <span style="font-size: 8px; display: inline;">(개월수)</span></p></td>
-          <td  width="300"><input type="radio" value="0~12" name="baby_age"> 0 ~ 12개월 
-                          <input type="radio" value="12~24" name="baby_age"> 12 ~ 24개월 <br>
-                          <input type="radio" value="24~36" name="baby_age"> 24 ~ 36개월
-                          <input type="radio" value="36~" name="baby_age"> 36개월 이상
-                          </td>
+          <td width="150" height="100"><p align="right">자녀 나이 <span style="font-size: 8px; display: inline;">(개월수)</span></p></td>
+          <td width="300" style="display: flex; flex-direction: column;">
+  			<label style="display: inline-flex; align-items: center; margin-bottom: 5px;">
+    		<input type="radio" name="baby_age" value="0~12" style="width:20px; margin-right: 5px;"> 0~12개월
+    		<input type="radio" name="baby_age" value="12~24" style="width:20px; margin-right: 5px;"> 12~24개월
+    		</label>
+    		<label style="display: inline-flex; align-items: center; margin-bottom: 5px;">
+    		<input type="radio" name="baby_age" value="24~36" style="width:20px; margin-right: 5px;"> 24~36개월
+    		<input type="radio" name="baby_age" value="36~" style="width:20px; margin-right: 5px;"> 36개월 이상
+  			</label>
+		</td>
       </tr>
       </table>
-</div>
-
-
-<br>
-
-<div class="text_center">
-<img src="/image/line.png">
-
-<h3>개인정보 수집·이용 안내</h3>
-<table class="Personal_Data">
+					
+	</div>
+	<hr>
+	<div>
+   
+    <label>
+    <h3>개인정보 수집·이용 안내</h3>
+	<table class="Personal_Data">
    <tr>
-      <td height="50">수집·이용목적</td>
+      <td width="50%"height="50">수집·이용목적</td>
       <td>이용항목</td>
    </tr>
    
@@ -253,28 +289,26 @@ input[type="submit"]:hover {
       <td height="50">온라인 서비스 회원가입, 본인식별, 정보수정, 불만처리, 서비스 관련 의사소통</td>
       <td>아이디, 비밀번호, 이름, 휴대전화번호, 이메일</td>
    </tr>
-   
-</table>
-<br>
-</div>
-<div >
-    <label>
-    <input type="checkbox" style="vertical-align: middle;"> 
-    <h4 style="display: inline-block; margin: 0; vertical-align: middle;">전체 동의</h4>
-   </label>
-
-   <p>이용약관 및 개인정보 수집 및 이용에 모두 동의합니다.
-   <p>&nbsp; <input type="checkbox" > 동의함 이용약관 동의 (필수)
-   <p>&nbsp; <input type="checkbox" > 동의함 개인정보 수집 및 이용 동의 (필수)
-</div>
-
+   </table>
    <br>
+        <input type="checkbox" id="allCheckbox" onchange="toggleAllCheckboxes()" style="vertical-align: middle;">
+        <h4 style="display: inline-block; margin: 0; vertical-align: middle;">전체 동의</h4>
+    </label>
+    <p>이용약관 및 개인정보 수집 및 이용에 모두 동의합니다.</p>
+    <p>&nbsp; <input type="checkbox" class="agreeCheckbox"> 동의함 이용약관 동의 (필수)</p>
+    <p>&nbsp; <input type="checkbox" class="agreeCheckbox"> 동의함 개인정보 수집 및 이용 동의 (필수)</p>
+	</div>
+	<button type="submit" class="member_join_order_btn" style="width: 300px; height: 50px; background-color: #007bff; color: white; font-size: 16px; font-weight: bold; border: none; border-radius: 8px;">회원가입</button>
 
-   <div style="text-align: center;">
-    <p><input type="submit" value="회원가입"></p>
+	</div>
+			
+			
+	</form>
+
+			
 </div>
-    
-</form>
-<br><br><br><br>
+</div>
+</div>
+<br><br><br><br><br><br><br>
 </body>
 </html>
