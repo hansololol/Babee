@@ -180,7 +180,7 @@ function toggleAllCheckboxes() {
       </tr>
 	 <tr>
          <td width="150"><p align="right">아이디 *</td>
-         <td  width="300"><input type="text" name="member_id">
+         <td  width="300"><input type="text" name="member_id" style="width: 194px; margin-right: 0;  display: inherit;">
          <button type="button">중복확인</button></td>
       </tr>
       
