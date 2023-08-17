@@ -214,13 +214,8 @@
 				<tr>
 					<td class="fixed">수량</td>
 					<td class="fixed">
-			      <select style="width: 400px; text-align: center;" id="order_goods_qty">
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
-			     </select>
+			      <input type="number" style="width: 400px; text-align: center;" id="order_goods_qty">
+				
 					 </td>
 				</tr>
 				<tr class="dot_line">

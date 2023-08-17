@@ -20,7 +20,7 @@
 </head>
 
 <c:choose>
-	<c:when test="${isLogOn==true && memberInfo.member_id=='admin'}">
+	<c:when test="${isLogOn==true && param.page=='adminPage'}">
 		<div class="list-group">
 			<a href="${contextPath}/member/myPageMain.do" class="list-group-item list-group-item-action active" aria-current="true">
 				관리자 님의 마이페이지 <br>user@naver.com
@@ -37,19 +37,19 @@
 		</div>
 
 	</c:when>
-	<c:when test="${isLogOn==true && memberInfo.seller_id!=null}">
-		<div class="list-group">
-			<a href="${contextPath}/member/myPageMain.do" class="list-group-item list-group-item-action active" aria-current="true">
-				사업자 님의 마이페이지 <br>user@naver.com
-			</a>
-			<a href="${contextPath}/seller/modpassword.do" class="list-group-item list-group-item-action">사업자 정보 수정</a>
-			<a href="${contextPath}/seller/listSellerGoods.do" class="list-group-item list-group-item-action">상품 관리</a>
-			<a href="${contextPath}/seller/listSellerOrder.do" class="list-group-item list-group-item-action">주문 관리</a>
-			<a href="${contextPath}/seller/sellerQuestionAnswer.do" class="list-group-item list-group-item-action">문의 내역 관리</a>
-			<a href="${contextPath}/member/mypageDel.do" class="list-group-item list-group-item-action">회원 탈퇴</a>
-		</div>
-
-	</c:when>
+	<c:when test="${isLogOn==true && param.page=='sellerPage'}">
+        <!-- 사업자 side 메뉴 -->
+        <div class="list-group">
+            <a href="${contextPath}/member/myPageMain.do" class="list-group-item list-group-item-action active" aria-current="true">
+                사업자 님의 마이페이지 <br>user@naver.com
+            </a>
+            <a href="${contextPath}/seller/modpassword.do" class="list-group-item list-group-item-action">사업자 정보 수정</a>
+            <a href="${contextPath}/seller/listSellerGoods.do" class="list-group-item list-group-item-action">상품 관리</a>
+            <a href="${contextPath}/seller/listSellerOrder.do" class="list-group-item list-group-item-action">주문 관리</a>
+            <a href="${contextPath}/seller/sellerQuestionAnswer.do" class="list-group-item list-group-item-action">문의 내역 관리</a>
+            <a href="${contextPath}/member/mypageDel.do" class="list-group-item list-group-item-action">회원 탈퇴</a>
+        </div>
+    </c:when>
 
 	<c:otherwise>
 		<div class="list-group">
