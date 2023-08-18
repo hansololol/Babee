@@ -8,10 +8,16 @@ import org.springframework.stereotype.Repository;
 
 import com.babee.member.vo.MemberVO;
 
+
+
 @Mapper
 @Repository("memberDAO")
 public interface MemberDAO {
 	public MemberVO login(Map loginMap) throws DataAccessException;
 	public void insertNewMember(MemberVO memberVO) throws DataAccessException;
 	public String selectOverlappedID(String id) throws DataAccessException;
+
+	//회원수정 추가
+	public void modMember(MemberVO memberVO)throws DataAccessException;
+	
 }

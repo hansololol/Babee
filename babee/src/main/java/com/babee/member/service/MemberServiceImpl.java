@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.babee.member.dao.MemberDAO;
 import com.babee.member.vo.MemberVO;
 
+
 @Service("memberService")
 @Transactional(propagation=Propagation.REQUIRED)
 public class MemberServiceImpl implements MemberService {
@@ -30,5 +31,13 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public String overlapped(String id) throws Exception{
 		return memberDAO.selectOverlappedID(id);
+	}
+	
+	//회원수정 추가
+	@Override
+	public void modMember(MemberVO memberVO) throws Exception{
+		memberDAO.modMember(memberVO);
+		System.out.println("여ㅛ기" + memberVO.getMember_name());
+
 	}
 }
