@@ -196,7 +196,9 @@
 	</div>
 
 	<div id="detail_table">
-		<form action="${contextPath}/order/orderEachGoods.do?goods_id=${goodsVO.goods_id}" method="post" name="orderForm">
+		<form action="${contextPath}/order/orderEachGoods.do" method="post" name="orderForm">
+			<input type="hidden" name="goods_title" value="${goodsVO.goods_title}">
+			<input type="hidden" name="goods_id" value="${goodsVO.goods_id}">
 		<table>
 			<tbody>
 				<tr>
@@ -216,7 +218,7 @@
 				<tr>
 					<td class="fixed">수량</td>
 					<td class="fixed">
-			      <input type="number" style="width: 400px; text-align: center;" id="order_goods_qty" name="order_goods_qty">
+			      <input type="number" value="1" style="width: 400px; text-align: center;" id="order_goods_qty" name="order_goods_qty">
 				
 					 </td>
 				</tr>
@@ -237,7 +239,7 @@
 				
 				<tr>
 					<td class="fixed">배송료</td>
-					<td class="fixed"><strong>${goodsVO.goods_delivery_price}</strong></td>
+					<td class="fixed"><strong name="total_goods_price" value="${goodsVO.goods_delivery_price}">${goodsVO.goods_delivery_price}</strong></td>
 				</tr>
 				
 				<tr>

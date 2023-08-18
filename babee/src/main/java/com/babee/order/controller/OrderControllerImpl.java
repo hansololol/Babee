@@ -17,35 +17,41 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.babee.common.base.BaseController;
+import com.babee.goods.service.GoodsService;
+import com.babee.goods.vo.GoodsVO;
 import com.babee.member.vo.MemberVO;
 import com.babee.order.service.OrderService;
 import com.babee.order.vo.OrderVO;
 
 @Controller("orderController")
-@RequestMapping(value="/order.do")
+@RequestMapping(value="/order")
 public class OrderControllerImpl extends BaseController implements OrderController {
 	@Autowired
 	private OrderService orderService;
-
+	@Autowired
+	private GoodsService goodsService;
 	@Autowired
 	private OrderVO orderVO;
+
 	
-	@RequestMapping(value="/orderEachGoods.do" , method={RequestMethod.POST,RequestMethod.GET})
-	public ModelAndView orderEachGoods(@ModelAttribute("orderVO") OrderVO _orderVO,
+	@RequestMapping(value="/orderEachGoods.do" , method=RequestMethod.POST)
+	public ModelAndView orderEachGoods(@ModelAttribute("orderVO") OrderVO orderVO,
 			                       HttpServletRequest request, HttpServletResponse response)  throws Exception{
 		
 		request.setCharacterEncoding("utf-8");
 		HttpSession session=request.getSession();
 		session=request.getSession();
-		String action=(String)session.getAttribute("action");
-			System.out.println(_orderVO.getGoods_id() + "굿즈 아이디 확인");
-			session.setAttribute("orderInfo", _orderVO);
+		ModelAndView mav = new ModelAndView("/goods/orderGoodsForm");
 		
-		String viewName=(String)request.getAttribute("viewName");
-		ModelAndView mav = new ModelAndView(viewName);
-
-		MemberVO memberInfo=(MemberVO)session.getAttribute("memberInfo");
-		mav.setViewName("redirect:/order/orderGoodsForm.do");
+		Map goodsVO1=goodsService.goodsDetail(orderVO.getGoods_id());
+		
+		GoodsVO goodsVO =(GoodsVO)goodsVO1.get("goodsVO");
+		System.out.println(goodsVO.getGoods_id() + "굿즈 VO 도착 확인");
+		mav.addObject("goods", goodsVO);
+		List ordergoods = new ArrayList<>();
+		ordergoods.add(orderVO);
+		session.setAttribute("orderInfo", ordergoods);
+		
 		return mav;
 	}
 	
