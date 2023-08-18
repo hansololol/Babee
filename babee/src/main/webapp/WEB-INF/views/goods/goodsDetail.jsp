@@ -247,7 +247,19 @@
 			</tbody>
 		</table>
 		<ul>
-			<li><a class="buy" href="${contextPath}/goods/orderGoodsForm.do">구매하기 </a></li>
+			
+					<script>
+						function Login(){
+							console.log("${isLogOn}")
+						if("${isLogOn}"==false){
+						 alert("로그인 이후 이용 가능합니다.");
+						 location.replace("${contextPath}/member/loginForm.do");
+						}else{
+						location.replace("${contextPath}/goods/orderGoodsForm.do?goods_id=${goods.goods_id}");
+						}
+					}
+					</script>
+			<li><a class="buy" href="javascript:Login()">구매하기 </a></li>
 			<li><a class="cart" href="javascript:add_cart('${goods.goods_id }')">장바구니</a></li>
 			
 			<li><button type="button" id="wishBtn" class="btn_add_wish"><span>찜하기</span></button></li>
