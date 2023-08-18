@@ -20,5 +20,5 @@ public interface MemberController {
 	public ResponseEntity   overlapped(@RequestParam("id") String id,HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 	//회원수정 추가
-	public ModelAndView modMember(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView modMember(@ModelAttribute("member") MemberVO member,HttpServletRequest request, HttpServletResponse response) throws Exception;
 }	

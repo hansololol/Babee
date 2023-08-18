@@ -117,49 +117,11 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 	
 	//추가중 
 	@RequestMapping(value="/updateMember.do" , method= RequestMethod.POST)
-	public ModelAndView modMember(HttpServletRequest request, HttpServletResponse response) throws Exception{
-						
-		String member_id = request.getParameter("member_id");
-		String member_pw = request.getParameter("member_pw");
-		String member_name = request.getParameter("member_name");		
-		String member_email = request.getParameter("member_email");		
-		String member_tel1 = request.getParameter("member_tet1");
-		String member_tel2 = request.getParameter("member_tet2");
-		String member_tel3 = request.getParameter("member_tet3");
-		String member_hp1 = request.getParameter("member_hp1");
-		String member_hp2 = request.getParameter("member_hp2");
-		String member_hp3 = request.getParameter("member_hp3");
-		String member_roadAddr = request.getParameter("member_roadAddr");
-		String member_jibunAddr = request.getParameter("member_jibunAddr");
-		String member_zipcode = request.getParameter("member_zipcode");
-		String member_namujiAddr = request.getParameter("member_namujiAddr");
-		String member_gender = request.getParameter("member_gender");
-		String member_birth = request.getParameter("member_birth");
-		String baby_gender = request.getParameter("baby_gender");
-		String baby_age = request.getParameter("baby_age");
-		
-		memberVO.setMember_id(member_id);
-		memberVO.setMember_pw(member_pw);
-		memberVO.setMember_name(member_name);
-		memberVO.setMember_email(member_email);
-		memberVO.setMember_tel1(member_tel1);
-		memberVO.setMember_tel2(member_tel2);
-		memberVO.setMember_tel3(member_tel3);
-		memberVO.setMember_hp1(member_hp1);
-		memberVO.setMember_hp2(member_hp2);
-		memberVO.setMember_hp3(member_hp3);
-		memberVO.setMember_id(member_roadAddr);
-		memberVO.setMember_id(member_jibunAddr);
-		memberVO.setMember_id(member_zipcode);
-		memberVO.setMember_id(member_namujiAddr);
-		memberVO.setMember_id(member_birth);
-		memberVO.setMember_id(member_gender);
-		memberVO.setMember_id(baby_gender);
-		memberVO.setMember_id(baby_age);
-		
-		memberService.modMember(memberVO);
-		
-		
+	public ModelAndView modMember(@ModelAttribute("memberVO") MemberVO _memberVO, HttpServletRequest request, HttpServletResponse response) throws Exception{
+	
+		memberService.modMember(_memberVO);
+		 HttpSession session=request.getSession();
+		session.setAttribute("memberInfo",_memberVO);
 		 ModelAndView mav = new ModelAndView();
 		 mav.setViewName("redirect:/member/myPageMain.do"); 
 		return mav;
