@@ -46,6 +46,7 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		mav.addObject("goods", goodsVO);
 		List ordergoods = new ArrayList<>();
 		ordergoods.add(orderVO);
+		session.setAttribute("goods", goodsVO);
 		session.setAttribute("orderInfo", ordergoods);
 		return mav;
 	}
@@ -82,6 +83,8 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 
 		HttpSession session=request.getSession();
 		MemberVO memberVO=(MemberVO)session.getAttribute("memberInfo");
+	
+		
 		String member_id=memberVO.getMember_id();
 		String recipient_hp = memberVO.getMember_hp1()+"-"+memberVO.getMember_hp2()+"-"+memberVO.getMember_hp3();
 		String recipient_tel = memberVO.getMember_tel1()+"-"+memberVO.getMember_tel2()+"-"+memberVO.getMember_tel3();
@@ -109,8 +112,11 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		}//end for
 		orderService.addNewOrder(myOrderList);
 		 ModelAndView mav = new ModelAndView("/goods/orderResult");
+		 GoodsVO goodsVO = (GoodsVO)session.getAttribute("goods");
+		 mav.addObject("goods", goodsVO);
 		mav.addObject("myOrderList", myOrderList);
 		session.removeAttribute("orderInfo");
+		session.removeAttribute("goods");
 		return mav;
 	}
 	

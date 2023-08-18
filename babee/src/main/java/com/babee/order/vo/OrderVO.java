@@ -1,6 +1,8 @@
 package com.babee.order.vo;
 
 
+import java.sql.Date;
+
 import org.springframework.stereotype.Component;
 
 @Component("orderVO")
@@ -21,7 +23,7 @@ public class OrderVO {
 	private String trackingNum;
 	private String payment_method;
 	private String card_com_name;
-	private String payment_order_time;
+	private Date payment_order_time;
 	private String delivery_status;
 	private int final_total_price;
 	private String goods_option;
@@ -110,10 +112,10 @@ public class OrderVO {
 	public void setCard_com_name(String card_com_name) {
 		this.card_com_name = card_com_name;
 	}
-	public String getPayment_order_time() {
+	public Date getPayment_order_time() {
 		return payment_order_time;
 	}
-	public void setPayment_order_time(String payment_order_time) {
+	public void setPayment_order_time(Date payment_order_time) {
 		this.payment_order_time = payment_order_time;
 	}
 	public String getDelivery_status() {

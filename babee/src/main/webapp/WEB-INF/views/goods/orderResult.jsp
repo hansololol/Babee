@@ -65,60 +65,24 @@
                <td colspan="3" style="border: none; border-bottom: 1px solid gray;"><h4 style="margin-bottom:0px;">주문내역</h4></td>
          </tr>
            <tr height="10" align="center" >
-              <td width="25%" >주문날짜</td>
-              <td colspan="3" >주문상품</td>
+              <td width="25%" >주문상품</td>
+              <td colspan="3" >주문상품 상세</td>
            </tr>
            
-      <c:choose>
-        <c:when test="${articlesList ==null }" >
+           <c:forEach  var="order" items="${myOrderList}" varStatus="articleNum" >
              <tr width="80px;" height="10">
-                  <td > 2023-08-11 </td>
-                  <td style="width:100px;"> <img src="/image/lego.jpg" width="100px"> </td>
+                 
+                  <td style="width:100px;"> <img src="${contextPath}/thumbnails.do?goods_id=${goods.goods_id}&fileName=${goods.goods_image_name1}" width="100px"> </td>
                   <td >
                      <ul>
-                        <li> 상품명 레고장난감 </li>
-                        <li> 가격 35,000 원 </li>
-                        <li> 상품옵션 기본 </li>                       
+                        <li> 상품명  ${goods.goods_title} </li>
+                        <li> 가격  ${goods.goods_price} 원 </li>
+                        <li> 상품옵션   ${order.goods_option} </li>                       
                      </ul> 
                   </td>  
              </tr>
-             <tr width="80px;" height="10">
-                  <td > 2023-08-11 </td>
-                  <td style="width:100px;"> <img src="/image/lego.jpg" width="100px"> </td>
-                  <td >
-                     <ul>
-                        <li> 상품명 레고장난감 </li>
-                        <li> 가격 35,000 원 </li>
-                        <li> 상품옵션 기본 </li>                       
-                     </ul> 
-                  </td>  
-             </tr>
-             
-             
-       </c:when>
-        <c:when test="${articlesList !=null }" >
-          <c:forEach  var="article" items="${articlesList }" varStatus="articleNum" >
-           <tr align="center">
-               <td >${articleNum.count}</td>
-               <td width="150px;">${article.id }</td>
-               <td align='left'  width="300px;">
-              <span style="padding-right:30px"></span>
-            <c:choose>
-         <c:when test='${article.level > 1 }'>  
-            <c:forEach begin="1" end="${article.level }" step="1">
-                 <span style="padding-left:20px"></span>    
             </c:forEach>
-             </c:when>
-             <c:otherwise>
-               <a class='cls1' href="${contextPath}/board/viewArticle.do?articleNO=${article.articleNO}">${article.title }</a>
-             </c:otherwise>
-           </c:choose>
-           </td>
-    
-            </tr>
-          </c:forEach>
-        </c:when>
-       </c:choose>
+             
       </table>
       <br><br>
    
