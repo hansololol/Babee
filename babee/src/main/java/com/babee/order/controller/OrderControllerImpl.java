@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.babee.common.base.BaseController;
-import com.babee.goods.vo.GoodsVO;
 import com.babee.member.vo.MemberVO;
 import com.babee.order.service.OrderService;
 import com.babee.order.vo.OrderVO;
@@ -27,45 +26,26 @@ import com.babee.order.vo.OrderVO;
 public class OrderControllerImpl extends BaseController implements OrderController {
 	@Autowired
 	private OrderService orderService;
+
 	@Autowired
 	private OrderVO orderVO;
 	
-	@RequestMapping(value="/orderEachGoods.do" ,method = RequestMethod.POST)
+	@RequestMapping(value="/orderEachGoods.do" , method={RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView orderEachGoods(@ModelAttribute("orderVO") OrderVO _orderVO,
 			                       HttpServletRequest request, HttpServletResponse response)  throws Exception{
 		
 		request.setCharacterEncoding("utf-8");
 		HttpSession session=request.getSession();
 		session=request.getSession();
-		
-		Boolean isLogOn=(Boolean)session.getAttribute("isLogOn");
 		String action=(String)session.getAttribute("action");
-		// α         üũ
-		//        α                 ֹ          
-		// α׾ƿ              α    ȭ        ̵ 
-		if(isLogOn==null || isLogOn==false){
+			System.out.println(_orderVO.getGoods_id() + "굿즈 아이디 확인");
 			session.setAttribute("orderInfo", _orderVO);
-			session.setAttribute("action", "/order/orderEachGoods.do");
-			return new ModelAndView("redirect:/member/loginForm.do");
-		}else{
-			 if(action!=null && action.equals("/order/orderEachGoods.do")){
-				orderVO=(OrderVO)session.getAttribute("orderInfo");
-				session.removeAttribute("action");
-			 }else {
-				 orderVO=_orderVO;
-			 }
-		 }
 		
 		String viewName=(String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
-		
-		List myOrderList=new ArrayList<OrderVO>();
-		myOrderList.add(orderVO);
 
 		MemberVO memberInfo=(MemberVO)session.getAttribute("memberInfo");
-		
-		session.setAttribute("myOrderList", myOrderList);
-		session.setAttribute("orderer", memberInfo);
+		mav.setViewName("redirect:/order/orderGoodsForm.do");
 		return mav;
 	}
 	
