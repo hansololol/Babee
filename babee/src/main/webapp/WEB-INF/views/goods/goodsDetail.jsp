@@ -196,6 +196,7 @@
 	</div>
 
 	<div id="detail_table">
+		<form action="${contextPath}/order/orderEachGoods.do?goods_id=${goodsVO.goods_id}" method="post" name="orderForm">
 		<table>
 			<tbody>
 				<tr>
@@ -215,7 +216,7 @@
 				<tr>
 					<td class="fixed">수량</td>
 					<td class="fixed">
-			      <input type="number" style="width: 400px; text-align: center;" id="order_goods_qty" name="goods_num">
+			      <input type="number" style="width: 400px; text-align: center;" id="order_goods_qty" name="order_goods_qty">
 				
 					 </td>
 				</tr>
@@ -224,11 +225,11 @@
 					<td class="fixed">
 						<select style="width: 400px;  text-align: center" id="order_goods_qty">
 
-							<option name="option" value="${goodsVO.goods_option1}">${goodsVO.goods_option1}</option>
-							<option name="option" value="${goodsVO.goods_option2}">${goodsVO.goods_option2}</option>
-							<option name="option" value="${goodsVO.goods_option3}">${goodsVO.goods_option3}</option>
-							<option name="option" value="${goodsVO.goods_option4}">${goodsVO.goods_option4}</option>
-							<option name="option" value="${goodsVO.goods_option5}">${goodsVO.goods_option5}</option>
+							<option name="goods_option" value="${goodsVO.goods_option1}">${goodsVO.goods_option1}</option>
+							<option name="goods_option" value="${goodsVO.goods_option2}">${goodsVO.goods_option2}</option>
+							<option name="goods_option" value="${goodsVO.goods_option3}">${goodsVO.goods_option3}</option>
+							<option name="goods_option" value="${goodsVO.goods_option4}">${goodsVO.goods_option4}</option>
+							<option name="goods_option" value="${goodsVO.goods_option5}">${goodsVO.goods_option5}</option>
 		
 					   </select>
 						   </td>
@@ -246,6 +247,7 @@
 				
 			</tbody>
 		</table>
+	
 		<ul>
 			
 					<script>
@@ -255,13 +257,14 @@
 						 alert("로그인 이후 이용 가능합니다.");
 						 location.replace("${contextPath}/member/loginForm.do");
 						}else{
-						location.replace("${contextPath}/goods/orderGoodsForm.do?goods_id=${goods.goods_id}");
+							var orderForm=document.orderForm;
+							orderForm.submit();
 						}
 					}
 					</script>
 			<li><a class="buy" href="javascript:Login()">구매하기 </a></li>
 			<li><a class="cart" href="javascript:add_cart('${goods.goods_id }')">장바구니</a></li>
-			
+		
 			<li><button type="button" id="wishBtn" class="btn_add_wish"><span>찜하기</span></button></li>
 		</ul>
 	</div>
