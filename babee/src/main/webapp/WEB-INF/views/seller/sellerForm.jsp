@@ -169,23 +169,23 @@ function execDaumPostcode() {
       </tr>
    
       <tr>
-         <td width="200"><p align="center">사업자 아이디</td>
-         <td  width="300"><input type="text" name="seller_id" style="width: 189px; margin-right: 0;  display: inherit;">*
+         <td width="200"><p align="center">사업자 아이디 *</td>
+         <td  width="300"><input type="text" name="seller_id" style="width: 189px; margin-right: 0;  display: inherit;">
          <button type="button">중복확인</button></td>
       </tr>
       
       <tr>
-         <td width="200"><p align="center">비밀번호</td>
-         <td><input type="password" name="seller_pw">*</td>
+         <td width="200"><p align="center">비밀번호 *</td>
+         <td><input type="password" name="seller_pw"></td>
       </tr>
       
       <tr>
-         <td width="200"><p align="center">이름</td>
-         <td><input type="text"name="seller_name">*</td>
+         <td width="200"><p align="center">이름 *</td>
+         <td><input type="text"name="seller_name"></td>
       </tr>
       
       <tr>
-         <td width="200"><p align="center">이메일</td>
+         <td width="200"><p align="center">이메일 *</td>
          <td><input type="email" name="seller_email"></td>
       </tr>
       
@@ -195,7 +195,7 @@ function execDaumPostcode() {
       </tr>
       
       <tr>
-         <td width="200"><p align="center">휴대전화</td>
+         <td width="200"><p align="center">휴대전화 *</td>
          <td><input type="text" size="5" name="seller_hp1" style="width: 75px; display: inline-block;">-<input type="text" size="5" name="seller_hp2" style="width: 75px; display: inline-block;">-<input type="text" size="5" name="seller_hp3" style="width: 75px; display: inline-block;"></td>
       </tr>
       

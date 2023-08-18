@@ -37,7 +37,6 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void modMember(MemberVO memberVO) throws Exception{
 		memberDAO.modMember(memberVO);
-		System.out.println("여ㅛ기" + memberVO.getMember_name());
 
 	}
 }
