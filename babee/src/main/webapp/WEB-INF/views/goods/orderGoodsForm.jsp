@@ -205,32 +205,22 @@ function execDaumPostcode() {
       <H2>주문 상품 목록</H2>
          <div class="order_list" >
             <table>
+               <c:forEach var="order" items="${orderInfo}">
                <tr>
-                  <td width="180px;"><img src="/image/sale5.png" width="80px;"/></td>
-                  <td width="180px;"> 상품명 </td>
-                  <td  width="80px;"> 수량 (개) </td>
+                  <td width="180px;"><img src="${contextPath}/thumbnails.do?goods_id=${goods.goods_id}&fileName=${goods.goods_image_name1}" width="80px;"/></td>
+                  <td width="180px;"> ${order.goods_title} </td>
+                  <td  width="80px;"> ${order.order_goods_qty} (개) </td>
                </tr>
-               <tr>
-                  <td width="180px;"><img src="/image/sale5.png" width="80px;"/></td>
-                  <td width="60px;"> 상품명 </td>
-                  <td width="80px;"> 수량 (개) </td>
-               </tr>
-               <tr>
-                  <td width="180px;"><img src="/image/sale5.png" width="80px;"/></td>
-                  <td width="180px;"> 상품명 </td>
-                  <td  width="80px;"> 수량 (개) </td>
-               </tr>
-                  
-               
+            </c:forEach>
             </table>   
             <hr>
-               <h5 style="padding-left:30px;">배송비</h5>
+               <h5 style="padding-left:30px;">배송비  ${goods.goods_delivery_price}</h5>
             <hr>
-               <h4 style="padding-left:30px;">상품 금액</h4>
-               <h4 style="padding-left:30px;">할인 금액</h4>
+               <h4 style="padding-left:30px;">상품 금액 ${goods.goods_price}</h4>
+               <h4 style="padding-left:30px;">할인 금액 ${goods.goods_price*0.1}</h4>
             <hr>
-               <h4 style="padding-left:30px;">총 결제 금액</h4>
-               <h3 style="padding-right:30px; text-align:right;">24,000원</h3>
+               <h4 style="padding-left:30px;">총 결제 금액   ${goods.goods_price*0.9}</h4>
+               <h3 style="padding-right:30px; text-align:right;"></h3>
             
                
          </div>
