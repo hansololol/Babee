@@ -92,4 +92,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                                       
    ]]>      
   </insert>
+  
+
+		   <update id="modMember" parameterType="memberVO">
+        UPDATE t_shopping_member
+        SET
+            member_pw = #{member_pw},
+            member_name = #{member_name},
+            member_gender = #{member_gender},
+            member_birth = #{member_birth},
+            member_tel1 = #{member_tel1},
+            member_tel2 = #{member_tel2},
+            member_tel3 = #{member_tel3},
+            member_hp1 = #{member_hp1},
+            member_hp2 = #{member_hp2},
+            member_hp3 = #{member_hp3},
+            member_email = #{member_email},
+            member_zipcode = #{member_zipcode},
+            member_roadAddr = #{member_roadAddr},
+            member_jibunAddr = #{member_jibunAddr},
+            member_namujiAddr = #{member_namujiAddr},
+            member_joinDate = #{member_joinDate},
+            baby_gender = #{baby_gender},
+            baby_age = #{baby_age}
+     	   WHERE member_id = #{member_id}
+   		 </update>
 </mapper>
