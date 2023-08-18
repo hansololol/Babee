@@ -155,7 +155,7 @@ window.onload = function() {
 
 	<div class="member_cont">
 
-		<form id="membermodfrom" method="post" action="${contextPath}/member/modMember.do" novalidate="novalidate">
+		<form id="membermodfrom" method="post" action="${contextPath}/member/updateMember.do" novalidate="novalidate">
 			
 			<div class="member_mod_box">
 			<img src="/image/Babee_Logo.png"><br><br>
@@ -178,12 +178,12 @@ window.onload = function() {
       
       <tr>
          <td width="150"><p align="right">이름 *</td>
-         <td><input type="text"name="member_name" value="${memberInfo.member_name}"></td>
+         <td><input type="text" name="member_name" value="${memberInfo.member_name}"></td>
       </tr>
       
       <tr>
          <td width="150"><p align="right">이메일</td>
-         <td><input type="email" name="member_email"></td>
+         <td><input type="email" name="member_email" value="${memberInfo.member_email}"></td>
       </tr>
       
       <tr>
@@ -207,7 +207,7 @@ window.onload = function() {
       <tr>
          <td width="150"><p align="right">주소</td>
          <td> <a href="javascript:execDaumPostcode()"> &nbsp;우편 검색</a> <br>
-        	   <input type="text" placeholder="우편 번호"  name="member_zipcode" style=" margin-bottom: 5px;" value="${memberInfo.member_zipcode} name="member_zipcode"  id="member_zipcode">
+        	   <input type="text" placeholder="우편 번호"  name="member_zipcode" style=" margin-bottom: 5px;" value="${memberInfo.member_zipcode}" name="member_zipcode"  id="member_zipcode">
                <input type="text" placeholder="도로명 주소" name="member_roadAddr"  value="${memberInfo.member_roadAddr}" id="member_roadAddr" style="margin-bottom: 5px;"><br>
                <input type="text" placeholder="지번 주소" name="member_jibunAddr"   value="${memberInfo.member_jibunAddr}" id="member_jibunAddr"style="margin-bottom: 5px;"><br>
                <input type="text" placeholder="나머지 주소"  name="member_namujiAddr"   value="${memberInfo.member_namujiAddr}" id="member_namujiAddr"  style="margin-bottom: 15px;"></td>
@@ -257,7 +257,7 @@ window.onload = function() {
     		<input type="radio" name="baby_age" value="36~" style="width:20px; margin-right: 5px;"> 36개월 이상
   			</label>
 		</td>
-      </tr>
+      </tr>s
       </table>
 		<button type="submit" class="member_mod_order_btn" style="width: 300px; height: 50px; background-color: #007bff; color: white; font-size: 16px; font-weight: bold; border: none; border-radius: 8px;">수정하기</button>
 					
