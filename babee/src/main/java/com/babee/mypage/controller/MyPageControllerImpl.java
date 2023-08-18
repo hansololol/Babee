@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.babee.common.base.BaseController;
+import com.babee.goods.service.GoodsService;
+import com.babee.goods.vo.GoodsVO;
+import com.babee.goods.vo.ImageFileVO;
 import com.babee.member.vo.MemberVO;
 import com.babee.mypage.service.MyPageService;
 import com.babee.order.vo.OrderVO;
@@ -28,28 +31,19 @@ import com.babee.order.vo.OrderVO;
 public class MyPageControllerImpl extends BaseController  implements MyPageController{
 	@Autowired
 	private MyPageService myPageService;
+	@Autowired
+	private GoodsService goodsService;
 	
 	@Autowired
 	private MemberVO memberVO;
 	
 	@Override
 	@RequestMapping(value="/myPageMain.do" ,method = RequestMethod.GET)
-	public ModelAndView myPageMain(@RequestParam(required = false,value="message")  String message,
+	public ModelAndView myPageMain(
 			   HttpServletRequest request, HttpServletResponse response)  throws Exception {
-		HttpSession session=request.getSession();
-		session=request.getSession();
-		session.setAttribute("side_menu", "my_page"); //              ̵   ޴         Ѵ .
 		
 		String viewName=(String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
-		memberVO=(MemberVO)session.getAttribute("memberInfo");
-		String member_id=memberVO.getMember_id();
-		
-		List<OrderVO> myOrderList=myPageService.listMyOrderGoods(member_id);
-		
-		mav.addObject("message", message);
-		mav.addObject("myOrderList", myOrderList);
-
 		return mav;
 	}
 	
@@ -76,27 +70,17 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		HttpSession session=request.getSession();
 		memberVO=(MemberVO)session.getAttribute("memberInfo");
 		String  member_id=memberVO.getMember_id();
+		List<OrderVO> myOrderList=myPageService.listMyOrderGoods(member_id);
+		for(int i=0; i<myOrderList.size();i++) {
+			OrderVO orderVO = myOrderList.get(i);
+			String goods_id = orderVO.getGoods_id();
+			Map goodsVO = goodsService.goodsDetail(goods_id);
+			String img_id= (String)goodsVO.get("goods_image_name1");
+			orderVO.setGoods_image_name(img_id);
+			myOrderList.add(orderVO);
+		}
+		mav.addObject("myOrderList", myOrderList);
 		
-		String fixedSearchPeriod = dateMap.get("fixedSearchPeriod");
-		String beginDate=null,endDate=null;
-		
-		String [] tempDate=calcSearchPeriod(fixedSearchPeriod).split(",");
-		beginDate=tempDate[0];
-		endDate=tempDate[1];
-		dateMap.put("beginDate", beginDate);
-		dateMap.put("endDate", endDate);
-		dateMap.put("member_id", member_id);
-		List<OrderVO> myOrderHistList=myPageService.listMyOrderHistory(dateMap);
-		
-		String beginDate1[]=beginDate.split("-"); // ˻    ڸ    ,  , Ϸ   и  ؼ  ȭ 鿡      մϴ .
-		String endDate1[]=endDate.split("-");
-		mav.addObject("beginYear",beginDate1[0]);
-		mav.addObject("beginMonth",beginDate1[1]);
-		mav.addObject("beginDay",beginDate1[2]);
-		mav.addObject("endYear",endDate1[0]);
-		mav.addObject("endMonth",endDate1[1]);
-		mav.addObject("endDay",endDate1[2]);
-		mav.addObject("myOrderHistList", myOrderHistList);
 		return mav;
 	}	
 	

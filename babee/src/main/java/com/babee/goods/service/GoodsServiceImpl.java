@@ -1,8 +1,11 @@
 package com.babee.goods.service;
 
+import java.lang.reflect.Member;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.swing.text.html.ImageView;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +24,6 @@ public class GoodsServiceImpl implements GoodsService{
 	
 	@Override
     public List<GoodsVO> getAllGoods() {
-     
         return goodsDAO.selectAllGoods();  
     }
 	
@@ -44,10 +46,16 @@ public class GoodsServiceImpl implements GoodsService{
 		return list;
 	}
 	
+	public ImageFileVO goodsDetailImage(String member_id) throws Exception {
+		ImageFileVO image= goodsDAO.selectGoodsDetailImage(member_id);
+		return image;
+	}
+	
 	public List<GoodsVO> searchGoods(String searchWord) throws Exception{
 		List goodsList=goodsDAO.selectGoodsBySearchWord(searchWord);
 		return goodsList;
 	}
+	
 	
 	
 }

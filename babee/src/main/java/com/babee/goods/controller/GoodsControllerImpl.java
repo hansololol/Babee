@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.babee.common.base.BaseController;
 import com.babee.goods.service.GoodsService;
 import com.babee.goods.vo.GoodsVO;
+import com.babee.goods.vo.ImageFileVO;
 
 @Controller("goodsController")
 @RequestMapping(value="/goods")
@@ -38,6 +39,7 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		return mav;
 	}
 	
+
 	 @RequestMapping(value="/goodsList.do", method = RequestMethod.GET)
 	   public ModelAndView goodsList(HttpServletRequest request, HttpServletResponse response) throws Exception {      
 	       ModelAndView mav = new ModelAndView("/goods/goodsList"); 

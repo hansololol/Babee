@@ -215,8 +215,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 				for(ImageFileVO imageFileVO : imageFileList) {
 					goods_id = Integer.parseInt((String)goodsMap.get("goods_id"));
 					image_id = Integer.parseInt((String)goodsMap.get("image_id"));
-					imageFileVO.setGoods_id(goods_id);
-					imageFileVO.setImage_id(image_id);
+				
 					imageFileVO.setReg_id(reg_id);
 				}
 				
@@ -270,7 +269,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 			if(imageFileList!= null && imageFileList.size()!=0) {
 				for(ImageFileVO imageFileVO : imageFileList) {
 					goods_id = Integer.parseInt((String)goodsMap.get("goods_id"));
-					imageFileVO.setGoods_id(goods_id);
+					
 					imageFileVO.setReg_id(reg_id);
 				}
 				
