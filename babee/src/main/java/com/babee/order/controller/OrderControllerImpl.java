@@ -36,22 +36,17 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 	
 	@RequestMapping(value="/orderEachGoods.do" , method=RequestMethod.POST)
 	public ModelAndView orderEachGoods(@ModelAttribute("orderVO") OrderVO orderVO,
-			                       HttpServletRequest request, HttpServletResponse response)  throws Exception{
-		
+			                       HttpServletRequest request, HttpServletResponse response)  throws Exception{		
 		request.setCharacterEncoding("utf-8");
 		HttpSession session=request.getSession();
 		session=request.getSession();
 		ModelAndView mav = new ModelAndView("/goods/orderGoodsForm");
-		
 		Map goodsVO1=goodsService.goodsDetail(orderVO.getGoods_id());
-		
 		GoodsVO goodsVO =(GoodsVO)goodsVO1.get("goodsVO");
-		System.out.println(goodsVO.getGoods_id() + "굿즈 VO 도착 확인");
 		mav.addObject("goods", goodsVO);
 		List ordergoods = new ArrayList<>();
 		ordergoods.add(orderVO);
 		session.setAttribute("orderInfo", ordergoods);
-		
 		return mav;
 	}
 	
@@ -84,46 +79,38 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 	@RequestMapping(value="/payToOrderGoods.do" ,method = RequestMethod.POST)
 	public ModelAndView payToOrderGoods(@RequestParam Map<String, String> receiverMap,
 			                       HttpServletRequest request, HttpServletResponse response)  throws Exception{
-		String viewName=(String)request.getAttribute("viewName");
-		ModelAndView mav = new ModelAndView(viewName);
-		
+
 		HttpSession session=request.getSession();
-		MemberVO memberVO=(MemberVO)session.getAttribute("orderer");
+		MemberVO memberVO=(MemberVO)session.getAttribute("memberInfo");
 		String member_id=memberVO.getMember_id();
-		String orderer_name=memberVO.getMember_name();
-		String orderer_hp = memberVO.getMember_hp1()+"-"+memberVO.getMember_hp2()+"-"+memberVO.getMember_hp3();
-		List<OrderVO> myOrderList=(List<OrderVO>)session.getAttribute("myOrderList");
-		
+		String recipient_hp = memberVO.getMember_hp1()+"-"+memberVO.getMember_hp2()+"-"+memberVO.getMember_hp3();
+		String recipient_tel = memberVO.getMember_tel1()+"-"+memberVO.getMember_tel2()+"-"+memberVO.getMember_tel3();
+		String deliveryAddr = receiverMap.get("member_zipcode") + receiverMap.get("member_roadAddr") + receiverMap.get("member_jibunAddr") + receiverMap.get("member_namujiAddr");
+		List<OrderVO> myOrderList=(List<OrderVO>)session.getAttribute("orderInfo");
+		int randomNO = (int)Math.floor(Math.random()*100000000);
+		String order_id = String.valueOf(randomNO);
+		int total_goods_price = Integer.valueOf(receiverMap.get("total_goods_price"));
+		int goods_delivery_price = Integer.parseInt(receiverMap.get("goods_delivery_price"));
+		int final_total_price = total_goods_price + goods_delivery_price;
 		for(int i=0; i<myOrderList.size();i++){
-			OrderVO orderVO=(OrderVO)myOrderList.get(i);
+			orderVO=(OrderVO)myOrderList.get(i);
+			orderVO.setOrder_id(order_id);	
 			orderVO.setMember_id(member_id);
-			/*
-			 * orderVO.setOrderer_name(orderer_name);
-			 * orderVO.setReceiver_name(receiverMap.get("receiver_name"));
-			 * 
-			 * orderVO.setReceiver_hp1(receiverMap.get("receiver_hp1"));
-			 * orderVO.setReceiver_hp2(receiverMap.get("receiver_hp2"));
-			 * orderVO.setReceiver_hp3(receiverMap.get("receiver_hp3"));
-			 * orderVO.setReceiver_tel1(receiverMap.get("receiver_tel1"));
-			 * orderVO.setReceiver_tel2(receiverMap.get("receiver_tel2"));
-			 * orderVO.setReceiver_tel3(receiverMap.get("receiver_tel3"));
-			 * 
-			 * orderVO.setDelivery_address(receiverMap.get("delivery_address"));
-			 * orderVO.setDelivery_message(receiverMap.get("delivery_message"));
-			 * orderVO.setDelivery_method(receiverMap.get("delivery_method"));
-			 * orderVO.setGift_wrapping(receiverMap.get("gift_wrapping"));
-			 * orderVO.setPay_method(receiverMap.get("pay_method"));
-			 * orderVO.setCard_com_name(receiverMap.get("card_com_name"));
-			 * orderVO.setCard_pay_month(receiverMap.get("card_pay_month"));
-			 * orderVO.setPay_orderer_hp_num(receiverMap.get("pay_orderer_hp_num"));
-			 * orderVO.setOrderer_hp(orderer_hp);
-			 */
-			myOrderList.set(i, orderVO); //   
+			orderVO.setRecipient_hp(recipient_hp);
+			orderVO.setRecipient_tel(recipient_tel);
+			orderVO.setDeliveryAddr(deliveryAddr);
+			orderVO.setDeliveryMessage(receiverMap.get("deliveryMessage"));
+			orderVO.setPayment_method(receiverMap.get("pay_method"));
+			orderVO.setCard_com_name(receiverMap.get("card_com_name"));
+			orderVO.setTotal_goods_price(total_goods_price);
+			orderVO.setOrder_goods_qty(Integer.valueOf(receiverMap.get("order_goods_qty")));
+			orderVO.setFinal_total_price(final_total_price);
+			myOrderList.set(i, orderVO); 
 		}//end for
-		
-	    orderService.addNewOrder(myOrderList);
-		mav.addObject("myOrderInfo",receiverMap);//OrderVO    ֹ                ֹ   
+		orderService.addNewOrder(myOrderList);
+		 ModelAndView mav = new ModelAndView("/goods/orderResult");
 		mav.addObject("myOrderList", myOrderList);
+		session.removeAttribute("orderInfo");
 		return mav;
 	}
 	

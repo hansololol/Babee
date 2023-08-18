@@ -12,6 +12,8 @@ public class OrderVO {
 	private int goods_price;
 	private int total_goods_price;
 	private int order_goods_qty;
+	
+	private String recipient_name;
 	private String recipient_hp;
 	private String recipient_tel;
 	private String deliveryAddr;
@@ -21,7 +23,7 @@ public class OrderVO {
 	private String card_com_name;
 	private String payment_order_time;
 	private String delivery_status;
-	private String final_total_price;
+	private int final_total_price;
 	private String goods_option;
 	
 	public String getOrder_id() {
@@ -120,10 +122,10 @@ public class OrderVO {
 	public void setDelivery_status(String delivery_status) {
 		this.delivery_status = delivery_status;
 	}
-	public String getFinal_total_price() {
+	public int getFinal_total_price() {
 		return final_total_price;
 	}
-	public void setFinal_total_price(String final_total_price) {
+	public void setFinal_total_price(int final_total_price) {
 		this.final_total_price = final_total_price;
 	}
 	public String getGoods_option() {
@@ -131,6 +133,12 @@ public class OrderVO {
 	}
 	public void setGoods_option(String goods_option) {
 		this.goods_option = goods_option;
+	}
+	public String getRecipient_name() {
+		return recipient_name;
+	}
+	public void setRecipient_name(String recipient_name) {
+		this.recipient_name = recipient_name;
 	}
 
 
