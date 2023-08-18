@@ -195,7 +195,7 @@ function toggleAllCheckboxes() {
       </tr>
       
       <tr>
-         <td width="150"><p align="right">이메일</td>
+         <td width="150"><p align="right">이메일 *</td>
          <td><input type="email" name="member_email"></td>
       </tr>
       
