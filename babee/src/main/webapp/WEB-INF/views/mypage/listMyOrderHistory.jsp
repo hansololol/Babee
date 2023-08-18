@@ -158,10 +158,9 @@ function fn_cancel_order(order_id){
             <td >&nbsp;&nbsp;&nbsp;</td>
             
          </tr>
-        <c:forEach var="i" begin="0" end="3"> 
+        <c:forEach items="${myOrderList}" var="order" >
          <tr>
-        
-            <td><img src="/image/lego.jpg" width="100px"/></td>
+            <td><img src="${contextPath}/thumbnails.do?goods_id=${order.goods_id}&fileName=${order.goods_image_name1}" width="100px"/></td>
             <td> 
                <ul class="goods">
                   <li style="text-align:left;"> 레고장난감 [주문번호] </li>
@@ -170,99 +169,32 @@ function fn_cancel_order(order_id){
                </ul>
             </td>
             <td> 2,500원 </td>
-            <td> 배송중 </td>
-            <td> 
-            <a class="order_delivery_search" href="${contextPath}/member/reviewForm.do"><b>후기작성</b></a><br>
-             <a class="order_delivery_search" href="${contextPath}/member/myOrderDetail.do"><b>주문/배송조회</b></a><br>
-            <a class="order_delivery_search" href="#"><b>주문취소</b></a><br>
-            <a class="order_delivery_search" href="${contextPath}/member/myrefund.do"><b>반품/교환</b></a>
-            
+            <c:choose>
+               <c:when test="${order.delivery_state=='delivery_prepared'}">
+                  <td> 배송준비중 </td>
+                  <td> 
+                     <a class="order_delivery_search" href="${contextPath}/member/myOrderDetail.do"><b>주문/배송조회</b></a><br>
+                     <a class="order_delivery_search" href="#"><b>주문취소</b></a><br>
+                  </td>
+                  </c:when>
+                  <c:when test="${order.delivery_state=='delivering' }">
+                     <td> 배송중 </td>
+                     <td> 
+                     <a class="order_delivery_search" href="${contextPath}/member/myOrderDetail.do"><b>주문/배송조회</b></a><br>
+                  </td>
+                  </c:when>
+
+                  <c:when test="${order.delivery_state=='finished_delivering' }">
+                     <td> 배송완료 </td>
+                     <td> 
+                     <a class="order_delivery_search" href="${contextPath}/member/reviewForm.do"><b>후기작성</b></a><br>
+                     <a class="order_delivery_search" href="${contextPath}/member/myrefund.do"><b>반품/교환</b></a>
+                  </td>
+                  </c:when>
+             </c:choose>
             </tr>
            </c:forEach> 
-           
-            
-         
-   <c:choose>
-     <c:when test="${empty myOrderHistList }">         
-         <tr>
-             <td colspan=8 class="fixed">
-              <strong> </strong>
-            </td>
-           </tr>
-    </c:when>
-    <c:otherwise> 
-     <c:forEach var="item" items="${myOrderHistList }" varStatus="i">
-        <c:choose>
-          <c:when test="${item.order_id != pre_order_id }">   
-            <tr>       
-            <td>
-              <a href="${contextPath}/mypage/myOrderDetail.do?order_id=${item.order_id }"><strong>${item.order_id }</strong>  </a>
-            </td>
-            <td >
-             <strong>${item.pay_order_time }</strong> 
-            </td>
-            <td> 
-                <strong>
-                  <c:forEach var="item2" items="${myOrderHistList}" varStatus="j">
-                      <c:if  test="${item.order_id ==item2.order_id}" >
-                        <a href="${contextPath}/goods/goodsDetail.do?goods_id=${item2.goods_id }">${item2.goods_title }</a><br>
-                     </c:if>   
-                </c:forEach>
-                </strong>
-            </td>
-            <td>
-               <strong>
-                  <c:forEach var="item2" items="${myOrderHistList}" varStatus="j">
-                      <c:if  test="${item.order_id ==item2.order_id}" >
-                         ${item.goods_sales_price*item.order_goods_qty }원/${item.order_goods_qty }<br>
-                     </c:if>   
-                </c:forEach>
-               </strong>
-            </td>
-            <td>
-              <strong>
-                <c:choose>
-                   <c:when test="${item.delivery_state=='delivery_prepared' }">
-                      배송준비중
-                   </c:when>
-                   <c:when test="${item.delivery_state=='delivering' }">
-                      배송중
-                   </c:when>
-                   <c:when test="${item.delivery_state=='finished_delivering' }">
-                      배송완료
-                   </c:when>
-                   <c:when test="${item.delivery_state=='cancel_order' }">
-                      주문취소
-                   </c:when>
-                   <c:when test="${item.delivery_state=='returning_goods' }">
-                      반품
-                   </c:when>
-              </c:choose>
-              </strong>
-            </td>
-            <td>
-             <strong>${item.orderer_name }</strong> 
-            </td>
-            <td>
-               <strong>${item.receiver_name }</strong>
-            </td>
-            <td>
-              <c:choose>
-            <c:when test="${item.delivery_state=='delivery_prepared'}">
-                <input  type="button" onClick="fn_cancel_order('${item.order_id}')" value="주문취소"  />
-            </c:when>
-            <c:otherwise>
-               <input  type="button" onClick="fn_cancel_order('${item.order_id}')" value="주문취소" disabled />
-            </c:otherwise>
-           </c:choose>
-             </td>
-         </tr>
-         <c:set  var="pre_order_id" value="${item.order_id }" />
-         </c:when>   
-     </c:choose>      
-   </c:forEach>
-   </c:otherwise>
-  </c:choose>            
+              
       </tbody>
    </table>
         

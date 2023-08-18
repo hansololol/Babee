@@ -1,286 +1,418 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <title>Å°¿öµå·Î Àå¼Ò°Ë»öÇÏ°í ¸ñ·ÏÀ¸·Î Ç¥ÃâÇÏ±â</title>
+  <head>
+    <meta charset="utf-8" />
+    <title>Å°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ò°Ë»ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½Ï±ï¿½</title>
     <style>
-.map_wrap, .map_wrap * {margin-left:auto;padding:0;font-family:'Malgun Gothic',dotum,'µ¸¿ò',sans-serif;font-size:12px;}
-.map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
-.map_wrap {position:relative;width:100%;height:500px;}
-#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
-.bg_white {background:#fff;}
-#menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
-#menu_wrap .option{text-align: center;}
-#menu_wrap .option p {margin:10px 0;}  
-#menu_wrap .option button {margin-left:5px;}
-#placesList li {list-style: none;}
-#placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
-#placesList .item span {display: block;margin-top:4px;}
-#placesList .item h5, #placesList .item .info {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
-#placesList .item .info{padding:10px 0 10px 55px;}
-#placesList .info .gray {color:#8a8a8a;}
-#placesList .info .jibun {padding-left:26px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
-#placesList .info .tel {color:#009900;}
-#placesList .item .markerbg {float:left;position:absolute;width:36px; height:37px;margin:10px 0 0 10px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;}
-#placesList .item .marker_1 {background-position: 0 -10px;}
-#placesList .item .marker_2 {background-position: 0 -56px;}
-#placesList .item .marker_3 {background-position: 0 -102px}
-#placesList .item .marker_4 {background-position: 0 -148px;}
-#placesList .item .marker_5 {background-position: 0 -194px;}
-#placesList .item .marker_6 {background-position: 0 -240px;}
-#placesList .item .marker_7 {background-position: 0 -286px;}
-#placesList .item .marker_8 {background-position: 0 -332px;}
-#placesList .item .marker_9 {background-position: 0 -378px;}
-#placesList .item .marker_10 {background-position: 0 -423px;}
-#placesList .item .marker_11 {background-position: 0 -470px;}
-#placesList .item .marker_12 {background-position: 0 -516px;}
-#placesList .item .marker_13 {background-position: 0 -562px;}
-#placesList .item .marker_14 {background-position: 0 -608px;}
-#placesList .item .marker_15 {background-position: 0 -654px;}
-#pagination {margin:10px auto;text-align: center;}
-#pagination a {display:inline-block;margin-right:10px;}
-#pagination .on {font-weight: bold; cursor: default;color:#777;}
-</style>
-</head>
-<body>
-<div class="map_wrap">
-    <div id="map" style="width:600px;height:500px;position:relative;overflow:hidden;"></div>
+      .map_wrap,
+      .map_wrap * {
+        margin-left: auto;
+        padding: 0;
+        font-family: "Malgun Gothic", dotum, "ï¿½ï¿½ï¿½ï¿½", sans-serif;
+        font-size: 12px;
+      }
+      .map_wrap a,
+      .map_wrap a:hover,
+      .map_wrap a:active {
+        color: #000;
+        text-decoration: none;
+      }
+      .map_wrap {
+        position: relative;
+        width: 100%;
+        height: 500px;
+      }
+      #menu_wrap {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 250px;
+        margin: 10px 0 30px 10px;
+        padding: 5px;
+        overflow-y: auto;
+        background: rgba(255, 255, 255, 0.7);
+        z-index: 1;
+        font-size: 12px;
+        border-radius: 10px;
+      }
+      .bg_white {
+        background: #fff;
+      }
+      #menu_wrap hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 2px solid #5f5f5f;
+        margin: 3px 0;
+      }
+      #menu_wrap .option {
+        text-align: center;
+      }
+      #menu_wrap .option p {
+        margin: 10px 0;
+      }
+      #menu_wrap .option button {
+        margin-left: 5px;
+      }
+      #placesList li {
+        list-style: none;
+      }
+      #placesList .item {
+        position: relative;
+        border-bottom: 1px solid #888;
+        overflow: hidden;
+        cursor: pointer;
+        min-height: 65px;
+      }
+      #placesList .item span {
+        display: block;
+        margin-top: 4px;
+      }
+      #placesList .item h5,
+      #placesList .item .info {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      #placesList .item .info {
+        padding: 10px 0 10px 55px;
+      }
+      #placesList .info .gray {
+        color: #8a8a8a;
+      }
+      #placesList .info .jibun {
+        padding-left: 26px;
+        background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png)
+          no-repeat;
+      }
+      #placesList .info .tel {
+        color: #009900;
+      }
+      #placesList .item .markerbg {
+        float: left;
+        position: absolute;
+        width: 36px;
+        height: 37px;
+        margin: 10px 0 0 10px;
+        background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png)
+          no-repeat;
+      }
+      #placesList .item .marker_1 {
+        background-position: 0 -10px;
+      }
+      #placesList .item .marker_2 {
+        background-position: 0 -56px;
+      }
+      #placesList .item .marker_3 {
+        background-position: 0 -102px;
+      }
+      #placesList .item .marker_4 {
+        background-position: 0 -148px;
+      }
+      #placesList .item .marker_5 {
+        background-position: 0 -194px;
+      }
+      #placesList .item .marker_6 {
+        background-position: 0 -240px;
+      }
+      #placesList .item .marker_7 {
+        background-position: 0 -286px;
+      }
+      #placesList .item .marker_8 {
+        background-position: 0 -332px;
+      }
+      #placesList .item .marker_9 {
+        background-position: 0 -378px;
+      }
+      #placesList .item .marker_10 {
+        background-position: 0 -423px;
+      }
+      #placesList .item .marker_11 {
+        background-position: 0 -470px;
+      }
+      #placesList .item .marker_12 {
+        background-position: 0 -516px;
+      }
+      #placesList .item .marker_13 {
+        background-position: 0 -562px;
+      }
+      #placesList .item .marker_14 {
+        background-position: 0 -608px;
+      }
+      #placesList .item .marker_15 {
+        background-position: 0 -654px;
+      }
+      #pagination {
+        margin: 10px auto;
+        text-align: center;
+      }
+      #pagination a {
+        display: inline-block;
+        margin-right: 10px;
+      }
+      #pagination .on {
+        font-weight: bold;
+        cursor: default;
+        color: #777;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="map_wrap">
+      <div
+        id="map"
+        style="
+          width: 600px;
+          height: 500px;
+          position: relative;
+          overflow: hidden;
+        "
+      ></div>
 
-    <div id="menu_wrap" class="bg_white">
+      <div id="menu_wrap" class="bg_white">
         <div class="option">
-            <div>
-                <form onsubmit="searchPlaces(); return false;">
-                    Å°¿öµå : <input type="text" value="´ëÀü ¾î¸°ÀÌÁý" id="keyword" size="15"> 
-                    <button type="submit">°Ë»öÇÏ±â</button> 
-                </form>
-            </div>
+          <div>
+            <form onsubmit="searchPlaces(); return false;">
+              Å°ï¿½ï¿½ï¿½ï¿½ :
+              <input type="text" value="ï¿½ï¿½ï¿½ï¿½ ï¿½î¸°ï¿½ï¿½ï¿½ï¿½" id="keyword" size="15" />
+              <button type="submit">ï¿½Ë»ï¿½ï¿½Ï±ï¿½</button>
+            </form>
+          </div>
         </div>
-        <hr>
+        <hr />
         <ul id="placesList"></ul>
         <div id="pagination"></div>
+      </div>
     </div>
-</div>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6edf9c12e03c6b6469eb19b942d63395&libraries=services"></script>
-<script>
-// ¸¶Ä¿¸¦ ´ãÀ» ¹è¿­ÀÔ´Ï´Ù
-var markers = [];
+    <script
+      type="text/javascript"
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6edf9c12e03c6b6469eb19b942d63395&libraries=services"
+    ></script>
+    <script>
+      // ï¿½ï¿½Ä¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­ï¿½Ô´Ï´ï¿½
+      var markers = [];
 
-var mapContainer = document.getElementById('map'), // Áöµµ¸¦ Ç¥½ÃÇÒ div 
-    mapOption = {
-        center: new kakao.maps.LatLng(37.566826, 126.9786567), // ÁöµµÀÇ Áß½ÉÁÂÇ¥
-        level: 3 // ÁöµµÀÇ È®´ë ·¹º§
-    };  
+      var mapContainer = document.getElementById("map"), // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½ï¿½ div
+        mapOption = {
+          center: new kakao.maps.LatLng(37.566826, 126.9786567), // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß½ï¿½ï¿½ï¿½Ç¥
+          level: 3, // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        };
 
-// Áöµµ¸¦ »ý¼ºÇÕ´Ï´Ù    
-var map = new kakao.maps.Map(mapContainer, mapOption); 
+      // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½
+      var map = new kakao.maps.Map(mapContainer, mapOption);
 
-// Àå¼Ò °Ë»ö °´Ã¼¸¦ »ý¼ºÇÕ´Ï´Ù
-var ps = new kakao.maps.services.Places();  
+      // ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½
+      var ps = new kakao.maps.services.Places();
 
-// °Ë»ö °á°ú ¸ñ·ÏÀÌ³ª ¸¶Ä¿¸¦ Å¬¸¯ÇßÀ» ¶§ Àå¼Ò¸íÀ» Ç¥ÃâÇÒ ÀÎÆ÷À©µµ¿ì¸¦ »ý¼ºÇÕ´Ï´Ù
-var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+      // ï¿½Ë»ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ì³ï¿½ ï¿½ï¿½Ä¿ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ò¸ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½
+      var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
 
-// Å°¿öµå·Î Àå¼Ò¸¦ °Ë»öÇÕ´Ï´Ù
-searchPlaces();
+      // Å°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ò¸ï¿½ ï¿½Ë»ï¿½ï¿½Õ´Ï´ï¿½
+      searchPlaces();
 
-// Å°¿öµå °Ë»öÀ» ¿äÃ»ÇÏ´Â ÇÔ¼öÀÔ´Ï´Ù
-function searchPlaces() {
+      // Å°ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½ï¿½Ô´Ï´ï¿½
+      function searchPlaces() {
+        var keyword = document.getElementById("keyword").value;
 
-    var keyword = document.getElementById('keyword').value;
-
-    if (!keyword.replace(/^\s+|\s+$/g, '')) {
-        alert('Å°¿öµå¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä!');
-        return false;
-    }
-
-    // Àå¼Ò°Ë»ö °´Ã¼¸¦ ÅëÇØ Å°¿öµå·Î Àå¼Ò°Ë»öÀ» ¿äÃ»ÇÕ´Ï´Ù
-    ps.keywordSearch( keyword, placesSearchCB); 
-}
-
-// Àå¼Ò°Ë»öÀÌ ¿Ï·áµÆÀ» ¶§ È£ÃâµÇ´Â ÄÝ¹éÇÔ¼ö ÀÔ´Ï´Ù
-function placesSearchCB(data, status, pagination) {
-    if (status === kakao.maps.services.Status.OK) {
-
-        // Á¤»óÀûÀ¸·Î °Ë»öÀÌ ¿Ï·áµÆÀ¸¸é
-        // °Ë»ö ¸ñ·Ï°ú ¸¶Ä¿¸¦ Ç¥ÃâÇÕ´Ï´Ù
-        displayPlaces(data);
-
-        // ÆäÀÌÁö ¹øÈ£¸¦ Ç¥ÃâÇÕ´Ï´Ù
-        displayPagination(pagination);
-
-    } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
-
-        alert('°Ë»ö °á°ú°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.');
-        return;
-
-    } else if (status === kakao.maps.services.Status.ERROR) {
-
-        alert('°Ë»ö °á°ú Áß ¿À·ù°¡ ¹ß»ýÇß½À´Ï´Ù.');
-        return;
-
-    }
-}
-
-// °Ë»ö °á°ú ¸ñ·Ï°ú ¸¶Ä¿¸¦ Ç¥ÃâÇÏ´Â ÇÔ¼öÀÔ´Ï´Ù
-function displayPlaces(places) {
-
-    var listEl = document.getElementById('placesList'), 
-    menuEl = document.getElementById('menu_wrap'),
-    fragment = document.createDocumentFragment(), 
-    bounds = new kakao.maps.LatLngBounds(), 
-    listStr = '';
-    
-    // °Ë»ö °á°ú ¸ñ·Ï¿¡ Ãß°¡µÈ Ç×¸ñµéÀ» Á¦°ÅÇÕ´Ï´Ù
-    removeAllChildNods(listEl);
-
-    // Áöµµ¿¡ Ç¥½ÃµÇ°í ÀÖ´Â ¸¶Ä¿¸¦ Á¦°ÅÇÕ´Ï´Ù
-    removeMarker();
-    
-    for ( var i=0; i<places.length; i++ ) {
-
-        // ¸¶Ä¿¸¦ »ý¼ºÇÏ°í Áöµµ¿¡ Ç¥½ÃÇÕ´Ï´Ù
-        var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
-            marker = addMarker(placePosition, i), 
-            itemEl = getListItem(i, places[i]); // °Ë»ö °á°ú Ç×¸ñ Element¸¦ »ý¼ºÇÕ´Ï´Ù
-
-        // °Ë»öµÈ Àå¼Ò À§Ä¡¸¦ ±âÁØÀ¸·Î Áöµµ ¹üÀ§¸¦ Àç¼³Á¤ÇÏ±âÀ§ÇØ
-        // LatLngBounds °´Ã¼¿¡ ÁÂÇ¥¸¦ Ãß°¡ÇÕ´Ï´Ù
-        bounds.extend(placePosition);
-
-        // ¸¶Ä¿¿Í °Ë»ö°á°ú Ç×¸ñ¿¡ mouseover ÇßÀ»¶§
-        // ÇØ´ç Àå¼Ò¿¡ ÀÎÆ÷À©µµ¿ì¿¡ Àå¼Ò¸íÀ» Ç¥½ÃÇÕ´Ï´Ù
-        // mouseout ÇßÀ» ¶§´Â ÀÎÆ÷À©µµ¿ì¸¦ ´Ý½À´Ï´Ù
-        (function(marker, title) {
-            kakao.maps.event.addListener(marker, 'mouseover', function() {
-                displayInfowindow(marker, title);
-            });
-
-            kakao.maps.event.addListener(marker, 'mouseout', function() {
-                infowindow.close();
-            });
-
-            itemEl.onmouseover =  function () {
-                displayInfowindow(marker, title);
-            };
-
-            itemEl.onmouseout =  function () {
-                infowindow.close();
-            };
-        })(marker, places[i].place_name);
-
-        fragment.appendChild(itemEl);
-    }
-
-    // °Ë»ö°á°ú Ç×¸ñµéÀ» °Ë»ö°á°ú ¸ñ·Ï Element¿¡ Ãß°¡ÇÕ´Ï´Ù
-    listEl.appendChild(fragment);
-    menuEl.scrollTop = 0;
-
-    // °Ë»öµÈ Àå¼Ò À§Ä¡¸¦ ±âÁØÀ¸·Î Áöµµ ¹üÀ§¸¦ Àç¼³Á¤ÇÕ´Ï´Ù
-    map.setBounds(bounds);
-}
-
-// °Ë»ö°á°ú Ç×¸ñÀ» Element·Î ¹ÝÈ¯ÇÏ´Â ÇÔ¼öÀÔ´Ï´Ù
-function getListItem(index, places) {
-
-    var el = document.createElement('li'),
-    itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
-                '<div class="info">' +
-                '   <h5>' + places.place_name + '</h5>';
-
-    if (places.road_address_name) {
-        itemStr += '    <span>' + places.road_address_name + '</span>' +
-                    '   <span class="jibun gray">' +  places.address_name  + '</span>';
-    } else {
-        itemStr += '    <span>' +  places.address_name  + '</span>'; 
-    }
-                 
-      itemStr += '  <span class="tel">' + places.phone  + '</span>' +
-                '</div>';           
-
-    el.innerHTML = itemStr;
-    el.className = 'item';
-
-    return el;
-}
-
-// ¸¶Ä¿¸¦ »ý¼ºÇÏ°í Áöµµ À§¿¡ ¸¶Ä¿¸¦ Ç¥½ÃÇÏ´Â ÇÔ¼öÀÔ´Ï´Ù
-function addMarker(position, idx, title) {
-    var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // ¸¶Ä¿ ÀÌ¹ÌÁö url, ½ºÇÁ¶óÀÌÆ® ÀÌ¹ÌÁö¸¦ ¾¹´Ï´Ù
-        imageSize = new kakao.maps.Size(36, 37),  // ¸¶Ä¿ ÀÌ¹ÌÁöÀÇ Å©±â
-        imgOptions =  {
-            spriteSize : new kakao.maps.Size(36, 691), // ½ºÇÁ¶óÀÌÆ® ÀÌ¹ÌÁöÀÇ Å©±â
-            spriteOrigin : new kakao.maps.Point(0, (idx*46)+10), // ½ºÇÁ¶óÀÌÆ® ÀÌ¹ÌÁö Áß »ç¿ëÇÒ ¿µ¿ªÀÇ ÁÂ»ó´Ü ÁÂÇ¥
-            offset: new kakao.maps.Point(13, 37) // ¸¶Ä¿ ÁÂÇ¥¿¡ ÀÏÄ¡½ÃÅ³ ÀÌ¹ÌÁö ³»¿¡¼­ÀÇ ÁÂÇ¥
-        },
-        markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions),
-            marker = new kakao.maps.Marker({
-            position: position, // ¸¶Ä¿ÀÇ À§Ä¡
-            image: markerImage 
-        });
-
-    marker.setMap(map); // Áöµµ À§¿¡ ¸¶Ä¿¸¦ Ç¥ÃâÇÕ´Ï´Ù
-    markers.push(marker);  // ¹è¿­¿¡ »ý¼ºµÈ ¸¶Ä¿¸¦ Ãß°¡ÇÕ´Ï´Ù
-
-    return marker;
-}
-
-// Áöµµ À§¿¡ Ç¥½ÃµÇ°í ÀÖ´Â ¸¶Ä¿¸¦ ¸ðµÎ Á¦°ÅÇÕ´Ï´Ù
-function removeMarker() {
-    for ( var i = 0; i < markers.length; i++ ) {
-        markers[i].setMap(null);
-    }   
-    markers = [];
-}
-
-// °Ë»ö°á°ú ¸ñ·Ï ÇÏ´Ü¿¡ ÆäÀÌÁö¹øÈ£¸¦ Ç¥½Ã´Â ÇÔ¼öÀÔ´Ï´Ù
-function displayPagination(pagination) {
-    var paginationEl = document.getElementById('pagination'),
-        fragment = document.createDocumentFragment(),
-        i; 
-
-    // ±âÁ¸¿¡ Ãß°¡µÈ ÆäÀÌÁö¹øÈ£¸¦ »èÁ¦ÇÕ´Ï´Ù
-    while (paginationEl.hasChildNodes()) {
-        paginationEl.removeChild (paginationEl.lastChild);
-    }
-
-    for (i=1; i<=pagination.last; i++) {
-        var el = document.createElement('a');
-        el.href = "#";
-        el.innerHTML = i;
-
-        if (i===pagination.current) {
-            el.className = 'on';
-        } else {
-            el.onclick = (function(i) {
-                return function() {
-                    pagination.gotoPage(i);
-                }
-            })(i);
+        if (!keyword.replace(/^\s+|\s+$/g, "")) {
+          alert("Å°ï¿½ï¿½ï¿½å¸¦ ï¿½Ô·ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½!");
+          return false;
         }
 
-        fragment.appendChild(el);
-    }
-    paginationEl.appendChild(fragment);
-}
+        // ï¿½ï¿½Ò°Ë»ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ò°Ë»ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½Õ´Ï´ï¿½
+        ps.keywordSearch(keyword, placesSearchCB);
+      }
 
-// °Ë»ö°á°ú ¸ñ·Ï ¶Ç´Â ¸¶Ä¿¸¦ Å¬¸¯ÇßÀ» ¶§ È£ÃâµÇ´Â ÇÔ¼öÀÔ´Ï´Ù
-// ÀÎÆ÷À©µµ¿ì¿¡ Àå¼Ò¸íÀ» Ç¥½ÃÇÕ´Ï´Ù
-function displayInfowindow(marker, title) {
-    var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
+      // ï¿½ï¿½Ò°Ë»ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ È£ï¿½ï¿½Ç´ï¿½ ï¿½Ý¹ï¿½ï¿½Ô¼ï¿½ ï¿½Ô´Ï´ï¿½
+      function placesSearchCB(data, status, pagination) {
+        if (status === kakao.maps.services.Status.OK) {
+          // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+          // ï¿½Ë»ï¿½ ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½Ä¿ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½Õ´Ï´ï¿½
+          displayPlaces(data);
 
-    infowindow.setContent(content);
-    infowindow.open(map, marker);
-}
+          // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½Õ´Ï´ï¿½
+          displayPagination(pagination);
+        } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+          alert("ï¿½Ë»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½.");
+          return;
+        } else if (status === kakao.maps.services.Status.ERROR) {
+          alert("ï¿½Ë»ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.");
+          return;
+        }
+      }
 
- // °Ë»ö°á°ú ¸ñ·ÏÀÇ ÀÚ½Ä Element¸¦ Á¦°ÅÇÏ´Â ÇÔ¼öÀÔ´Ï´Ù
-function removeAllChildNods(el) {   
-    while (el.hasChildNodes()) {
-        el.removeChild (el.lastChild);
-    }
-}
-</script>
-</body>
+      // ï¿½Ë»ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½Ä¿ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½ï¿½Ô´Ï´ï¿½
+      function displayPlaces(places) {
+        var listEl = document.getElementById("placesList"),
+          menuEl = document.getElementById("menu_wrap"),
+          fragment = document.createDocumentFragment(),
+          bounds = new kakao.maps.LatLngBounds(),
+          listStr = "";
+
+        // ï¿½Ë»ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ï¿ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½
+        removeAllChildNods(listEl);
+
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ÃµÇ°ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½Ä¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½
+        removeMarker();
+
+        for (var i = 0; i < places.length; i++) {
+          // ï¿½ï¿½Ä¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½Õ´Ï´ï¿½
+          var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
+            marker = addMarker(placePosition, i),
+            itemEl = getListItem(i, places[i]); // ï¿½Ë»ï¿½ ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ Elementï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½
+
+          // ï¿½Ë»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ç¼³ï¿½ï¿½ï¿½Ï±ï¿½ï¿½ï¿½ï¿½ï¿½
+          // LatLngBounds ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Õ´Ï´ï¿½
+          bounds.extend(placePosition);
+
+          // ï¿½ï¿½Ä¿ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ mouseover ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+          // ï¿½Ø´ï¿½ ï¿½ï¿½Ò¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì¿¡ ï¿½ï¿½Ò¸ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½Õ´Ï´ï¿½
+          // mouseout ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì¸¦ ï¿½Ý½ï¿½ï¿½Ï´ï¿½
+          (function (marker, title) {
+            kakao.maps.event.addListener(marker, "mouseover", function () {
+              displayInfowindow(marker, title);
+            });
+
+            kakao.maps.event.addListener(marker, "mouseout", function () {
+              infowindow.close();
+            });
+
+            itemEl.onmouseover = function () {
+              displayInfowindow(marker, title);
+            };
+
+            itemEl.onmouseout = function () {
+              infowindow.close();
+            };
+          })(marker, places[i].place_name);
+
+          fragment.appendChild(itemEl);
+        }
+
+        // ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Elementï¿½ï¿½ ï¿½ß°ï¿½ï¿½Õ´Ï´ï¿½
+        listEl.appendChild(fragment);
+        menuEl.scrollTop = 0;
+
+        // ï¿½Ë»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ç¼³ï¿½ï¿½ï¿½Õ´Ï´ï¿½
+        map.setBounds(bounds);
+      }
+
+      // ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ Elementï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½ï¿½Ô´Ï´ï¿½
+      function getListItem(index, places) {
+        var el = document.createElement("li"),
+          itemStr =
+            '<span class="markerbg marker_' +
+            (index + 1) +
+            '"></span>' +
+            '<div class="info">' +
+            "   <h5>" +
+            places.place_name +
+            "</h5>";
+
+        if (places.road_address_name) {
+          itemStr +=
+            "    <span>" +
+            places.road_address_name +
+            "</span>" +
+            '   <span class="jibun gray">' +
+            places.address_name +
+            "</span>";
+        } else {
+          itemStr += "    <span>" + places.address_name + "</span>";
+        }
+
+        itemStr += '  <span class="tel">' + places.phone + "</span>" + "</div>";
+
+        el.innerHTML = itemStr;
+        el.className = "item";
+
+        return el;
+      }
+
+      // ï¿½ï¿½Ä¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¿ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½ï¿½Ô´Ï´ï¿½
+      function addMarker(position, idx, title) {
+        var imageSrc =
+            "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png", // ï¿½ï¿½Ä¿ ï¿½Ì¹ï¿½ï¿½ï¿½ url, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½
+          imageSize = new kakao.maps.Size(36, 37), // ï¿½ï¿½Ä¿ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½
+          imgOptions = {
+            spriteSize: new kakao.maps.Size(36, 691), // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½
+            spriteOrigin: new kakao.maps.Point(0, idx * 46 + 10), // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Â»ï¿½ï¿½ ï¿½ï¿½Ç¥
+            offset: new kakao.maps.Point(13, 37), // ï¿½ï¿½Ä¿ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½Å³ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥
+          },
+          markerImage = new kakao.maps.MarkerImage(
+            imageSrc,
+            imageSize,
+            imgOptions
+          ),
+          marker = new kakao.maps.Marker({
+            position: position, // ï¿½ï¿½Ä¿ï¿½ï¿½ ï¿½ï¿½Ä¡
+            image: markerImage,
+          });
+
+        marker.setMap(map); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¿ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½Õ´Ï´ï¿½
+        markers.push(marker); // ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¿ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Õ´Ï´ï¿½
+
+        return marker;
+      }
+
+      // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ÃµÇ°ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½Ä¿ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½
+      function removeMarker() {
+        for (var i = 0; i < markers.length; i++) {
+          markers[i].setMap(null);
+        }
+        markers = [];
+      }
+
+      // ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ï´Ü¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½ Ç¥ï¿½Ã´ï¿½ ï¿½Ô¼ï¿½ï¿½Ô´Ï´ï¿½
+      function displayPagination(pagination) {
+        var paginationEl = document.getElementById("pagination"),
+          fragment = document.createDocumentFragment(),
+          i;
+
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½
+        while (paginationEl.hasChildNodes()) {
+          paginationEl.removeChild(paginationEl.lastChild);
+        }
+
+        for (i = 1; i <= pagination.last; i++) {
+          var el = document.createElement("a");
+          el.href = "#";
+          el.innerHTML = i;
+
+          if (i === pagination.current) {
+            el.className = "on";
+          } else {
+            el.onclick = (function (i) {
+              return function () {
+                pagination.gotoPage(i);
+              };
+            })(i);
+          }
+
+          fragment.appendChild(el);
+        }
+        paginationEl.appendChild(fragment);
+      }
+
+      // ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½Ä¿ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ È£ï¿½ï¿½Ç´ï¿½ ï¿½Ô¼ï¿½ï¿½Ô´Ï´ï¿½
+      // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì¿¡ ï¿½ï¿½Ò¸ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½Õ´Ï´ï¿½
+      function displayInfowindow(marker, title) {
+        var content = '<div style="padding:5px;z-index:1;">' + title + "</div>";
+
+        infowindow.setContent(content);
+        infowindow.open(map, marker);
+      }
+
+      // ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ Elementï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½ï¿½Ô´Ï´ï¿½
+      function removeAllChildNods(el) {
+        while (el.hasChildNodes()) {
+          el.removeChild(el.lastChild);
+        }
+      }
+    </script>
+  </body>
 </html>

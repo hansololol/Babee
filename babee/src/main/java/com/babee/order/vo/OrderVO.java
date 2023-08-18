@@ -27,6 +27,8 @@ public class OrderVO {
 	private String delivery_status;
 	private int final_total_price;
 	private String goods_option;
+	private String goods_image_name;
+	
 	
 	public String getOrder_id() {
 		return order_id;
@@ -141,6 +143,12 @@ public class OrderVO {
 	}
 	public void setRecipient_name(String recipient_name) {
 		this.recipient_name = recipient_name;
+	}
+	public String getGoods_image_name() {
+		return goods_image_name;
+	}
+	public void setGoods_image_name(String goods_image_name) {
+		this.goods_image_name = goods_image_name;
 	}
 
 

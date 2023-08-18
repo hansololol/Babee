@@ -32,10 +32,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    </resultMap>   
 
    <resultMap id="imageResult" type="ImageFileVO">
-      <result property="goods_id" column="goods_id" />
+      <result property="img_id" column="img_id" />
       <result property="fileName" column="fileName" />
       <result property="reg_id" column="reg_id" />
-      <result property="image_id" column="image_id" />
       <result property="fileType" column="fileType" />
    </resultMap>
 
@@ -58,9 +57,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    </select>
    <select id="selectGoodsDetailImage" resultMap="imageResult" parameterType="String">
        <![CDATA[
-             select * from  t_goods_detail_image 
-             where  fileType!='main_image'
-            and goods_id=#{goods_id}
+             select * from t_shopping_image
+             where img_id=#{img_id}
        ]]>
    </select>
    

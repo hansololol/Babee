@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.babee.goods.vo.GoodsVO;
+import com.babee.goods.vo.ImageFileVO;
 
 
 public interface GoodsService {
@@ -15,4 +16,5 @@ public interface GoodsService {
 	public List<String> keywordSearch(String keyword) throws Exception;
 	public List<GoodsVO> searchGoods(String searchWord) throws Exception;
 	public List<GoodsVO> getAllGoods() throws Exception;
+	public ImageFileVO goodsDetailImage(String member_id) throws Exception;
 }
