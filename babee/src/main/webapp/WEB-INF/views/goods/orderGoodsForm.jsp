@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
    pageEncoding="utf-8"
     isELIgnored="false" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
+<fmt:parseNumber var="discounted_price" integerOnly="true" value="${goods.goods_price/10}"	/>
+
 
 <head>
     
@@ -219,13 +224,13 @@ function execDaumPostcode() {
                </c:forEach>
             </table>   
             <hr>
+               <h4 style="padding-left:30px;">상품 금액 ${goods.goods_price}</h4>
+               <h4 style="padding-left:30px;">할인 금액 ${discounted_price}</h4>
+            <hr>
                <h5 style="padding-left:30px;" name="goods_delivery_price" value=" ${goods.goods_delivery_price}">배송비  ${goods.goods_delivery_price}</h5>
                <input type="hidden" name="goods_delivery_price" value="${goods.goods_delivery_price}">
-               <hr>
-               <h4 style="padding-left:30px;">상품 금액 ${goods.goods_price}</h4>
-               <h4 style="padding-left:30px;">할인 금액 ${goods.goods_price*0.1}</h4>
             <hr>
-               <c:set var="total_goods_price" value="${goods.goods_price + goods.goods_delivery_price}"/>
+               <c:set var="total_goods_price" value="${(goods.goods_price - discounted_price)}"/>
                <h4 style="padding-left:30px;">총 결제 금액   ${total_goods_price}</h4>
                <h3 style="padding-right:30px; text-align:right;"></h3>
                <input type="hidden" name="total_goods_price" value="${total_goods_price}">
