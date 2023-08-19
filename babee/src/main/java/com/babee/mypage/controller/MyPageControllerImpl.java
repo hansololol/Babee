@@ -56,10 +56,10 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		ModelAndView mav = new ModelAndView(viewName);
 		HttpSession session=request.getSession();
 		MemberVO orderer=(MemberVO)session.getAttribute("memberInfo");
-		
 		List<OrderVO> myOrderList=myPageService.findMyOrderInfo(order_id);
-		mav.addObject("orderer", orderer);
 		mav.addObject("myOrderList",myOrderList);
+		orderVO = myOrderList.get(0);
+		mav.addObject("myOrder",orderVO);
 		return mav;
 	}
 	
