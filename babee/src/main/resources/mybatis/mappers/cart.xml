@@ -11,6 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="member_id" column="member_id" />
 		<result property="cart_goods_qty" column="cart_goods_qty" />
 		<result property="creDate" column="creDate" />
+		<result property="goods_option" column="goods_option" />
 	</resultMap>
 	
 	<resultMap id="goodsResult" type="GoodsVO">
@@ -56,7 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by g.goods_creDate desc
 	</select>
 
-	<select id="selectCountInCart" resultType="String" parameterType="cartVO">
+	<select id="selectCountInCart" resultType="boolean" parameterType="cartVO">
 	    <![CDATA[
 		    select if(count(*)=0, 'false', 'true') from t_shopping_cart
 			where goods_id=#{goods_id}
@@ -66,15 +67,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<insert id="insertGoodsInCart" parameterType="cartVO">
+		<selectKey resultType="int" keyProperty="cart_id" order="BEFORE">
+    select ifnull(max(cart_id)+1, 1) from t_shopping_cart
+</selectKey>
 	    <![CDATA[
 		    	insert into t_shopping_cart(cart_id,
 		    	                           goods_id,
 		    	                           cart_goods_qty,
-		    	                           member_id)
+		    	                           member_id,
+		    	                           goods_option)
 		        				 values(#{cart_id},
     							        #{goods_id},
     							        #{cart_goods_qty},
-    							        #{member_id})
+    							        #{member_id},
+    							        #{goods_option})
     	]]>
 	</insert>
 
