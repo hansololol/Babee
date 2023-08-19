@@ -72,6 +72,15 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		memberVO=(MemberVO)session.getAttribute("memberInfo");
 		String  member_id=memberVO.getMember_id();
 		
+		String _section = request.getParameter("section");
+		String _pageNum = request.getParameter("pageNum");
+		int section = Integer.parseInt(((_section==null)? "1":_section));
+		int pageNum = Integer.parseInt(((_pageNum==null)? "1":_pageNum));
+		
+		Map<String, Integer> pagingMap = new HashMap<String, Integer>();
+		pagingMap.put("section", section);
+		pagingMap.put("pageNum", pageNum);
+		
 		List<OrderVO> myOrderListGoods=myPageService.listMyOrderGoods(member_id);
 		List<OrderVO> myOrderList = new ArrayList<>();
 		for(int i =0; i < myOrderListGoods.size();i++) {
@@ -81,11 +90,13 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 			Map goodsVOMap = goodsService.goodsDetail(goods_id);
 			GoodsVO goodsVO = (GoodsVO)goodsVOMap.get("goodsVO");
 			String img_id= goodsVO.getGoods_image_name1();
-
+			
 			orderVO.setGoods_image_name(img_id);
 			myOrderList.add(orderVO);
 		}
 		mav.addObject("myOrderList", myOrderList);
+		mav.addObject("section", section);
+		mav.addObject("pageNum", pageNum);
 	
 		return mav;
 	}	

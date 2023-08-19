@@ -192,14 +192,13 @@ function fn_cancel_order(order_id){
                   </td>
                   </c:when>
              </c:choose>
-            </tr>
+         </tr>
            </c:forEach> 
-              
-      </tbody>
    </table>
-        
    
    </div>
+      
+   
    <br><br><br><br>
 </body>
 </html>
