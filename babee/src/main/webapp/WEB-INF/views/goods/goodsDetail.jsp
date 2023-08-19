@@ -313,8 +313,6 @@
 					<td class="fixed">수량</td>
 					<td class="fixed">
 
-			      <input type="number" style="width: 400px; text-align: center;" id="cart_goods_qty" name="cart_goods_qty" >
-
 			      <input type="number" value="1" style="width: 400px; text-align: center;" id="order_goods_qty" name="order_goods_qty">
 
 				
