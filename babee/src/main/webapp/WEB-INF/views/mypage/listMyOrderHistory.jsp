@@ -160,31 +160,31 @@ function fn_cancel_order(order_id){
          </tr>
         <c:forEach items="${myOrderList}" var="order" >
          <tr>
-            <td><img src="${contextPath}/thumbnails.do?goods_id=${order.goods_id}&fileName=${order.goods_image_name1}" width="100px"/></td>
+            <td><img src="${contextPath}/thumbnails.do?goods_id=${order.goods_id}&fileName=${order.goods_image_name}" width="100px"/></td>
             <td> 
                <ul class="goods">
-                  <li style="text-align:left;"> 레고장난감 [주문번호] </li>
-                  <li style="text-align:left;"> 가격: 25,000원 </li>
-                  <li style="text-align:left;"> 주문일자 </li>
+                  <li style="text-align:left;"> ${order.goods_title} [<a href="${contextPath}/member/myOrderDetail.do">${order.order_id}</a>] </li>
+                  <li style="text-align:left;"> 가격: ${order.final_total_price} </li>
+                  <li style="text-align:left;"> 주문일자: ${order.payment_order_time} </li>
                </ul>
             </td>
             <td> 2,500원 </td>
             <c:choose>
-               <c:when test="${order.delivery_state=='delivery_prepared'}">
+               <c:when test="${order.delivery_status=='delivery_prepared'}">
                   <td> 배송준비중 </td>
                   <td> 
                      <a class="order_delivery_search" href="${contextPath}/member/myOrderDetail.do"><b>주문/배송조회</b></a><br>
                      <a class="order_delivery_search" href="#"><b>주문취소</b></a><br>
                   </td>
                   </c:when>
-                  <c:when test="${order.delivery_state=='delivering' }">
+                  <c:when test="${order.delivery_status=='delivering' }">
                      <td> 배송중 </td>
                      <td> 
                      <a class="order_delivery_search" href="${contextPath}/member/myOrderDetail.do"><b>주문/배송조회</b></a><br>
                   </td>
                   </c:when>
 
-                  <c:when test="${order.delivery_state=='finished_delivering' }">
+                  <c:when test="${order.delivery_status=='finished_delivering' }">
                      <td> 배송완료 </td>
                      <td> 
                      <a class="order_delivery_search" href="${contextPath}/member/reviewForm.do"><b>후기작성</b></a><br>

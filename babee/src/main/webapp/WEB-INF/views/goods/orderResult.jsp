@@ -87,7 +87,7 @@
       <br><br>
    
    <div style="text-align: center;" class="myorder">
-    <a href="${contextPath}/goods/listMyOrderHistory.do"><b>주문 내역 보기</b></a>
+    <a href="${contextPath}/mypage/listMyOrderHistory.do"><b>주문 내역 보기</b></a>
    </div>
 
    

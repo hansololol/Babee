@@ -57,7 +57,7 @@
 				사용자 님의 마이페이지 <br>user@naver.com
 			</a>
 			<a href="${contextPath}/member/modpassword.do" class="list-group-item list-group-item-action">내정보 수정</a>
-			<a href="${contextPath}/goods/listMyOrderHistory.do" class="list-group-item list-group-item-action">주문내역/배송조회</a>
+			<a href="${contextPath}/mypage/listMyOrderHistory.do" class="list-group-item list-group-item-action">주문내역/배송조회</a>
 			<a href="${contextPath}/cart/myCartList.do" class="list-group-item list-group-item-action">장바구니</a>
 			<a href="${contextPath}/member/wishList.do" class="list-group-item list-group-item-action">찜 리스트</a>
 			<a href="${contextPath}/member/myReviewList.do" class="list-group-item list-group-item-action">리뷰 관리</a>

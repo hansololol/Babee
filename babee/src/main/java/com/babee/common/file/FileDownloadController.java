@@ -29,8 +29,8 @@ public class FileDownloadController {
 		FileInputStream in=new FileInputStream(image); 
 		byte[] buffer=new byte[1024*8];
 		while(true){
-			int count=in.read(buffer); //   ۿ   о        ڰ   
-			if(count==-1)  //                     ߴ    üũ
+			int count=in.read(buffer);
+			if(count==-1)  
 				break;
 			out.write(buffer,0,count);
 		}
@@ -49,7 +49,7 @@ public class FileDownloadController {
 		
 		if (image.exists()) { 
 			
-			Thumbnails.of(image).size(200,200).outputFormat("png").toOutputStream(out);
+			Thumbnails.of(image).size(200,200).outputFormat("jpg").toOutputStream(out);
 		}
 		byte[] buffer = new byte[1024 * 8];
 		out.write(buffer);

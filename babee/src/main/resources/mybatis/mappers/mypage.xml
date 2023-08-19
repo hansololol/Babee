@@ -3,7 +3,7 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.babee.mypage.dao.MypageDAO">
+<mapper namespace="com.babee.mypage.dao.MyPageDAO">
 
 	<resultMap id="orderGoodsResult" type="orderVO">
 		<result property="order_id" column="order_id" />
@@ -27,10 +27,11 @@
 
 	
 	 <select id="selectMyOrderGoodsList" resultMap="orderGoodsResult"  parameterType="String"  >
+	   
 	    <![CDATA[
 			select * from t_shopping_order
             where member_id=#{member_id}
-            order by pay_order_time desc
+            order by payment_order_time desc
 		]]>
 	</select>
 	

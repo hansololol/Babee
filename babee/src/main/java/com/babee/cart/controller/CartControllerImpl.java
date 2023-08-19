@@ -57,7 +57,7 @@ public class CartControllerImpl extends BaseController implements CartController
 		cartVO.setGoods_id(goods_id);
 		
 		
-		boolean isAreadyExisted=cartService.findCartGoods(cartVO);
+		Boolean isAreadyExisted=cartService.findCartGoods(cartVO);
 		System.out.println("isAreadyExisted:"+isAreadyExisted);
 		if(isAreadyExisted==true){
 			return "already_existed";

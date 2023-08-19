@@ -1,5 +1,6 @@
 package com.babee.mypage.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,9 +34,10 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 	private MyPageService myPageService;
 	@Autowired
 	private GoodsService goodsService;
-	
 	@Autowired
 	private MemberVO memberVO;
+	@Autowired
+	private OrderVO orderVO;
 	
 	@Override
 	@RequestMapping(value="/myPageMain.do" ,method = RequestMethod.GET)
@@ -63,24 +65,28 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 	
 	@Override
 	@RequestMapping(value="/listMyOrderHistory.do" ,method = RequestMethod.GET)
-	public ModelAndView listMyOrderHistory(@RequestParam Map<String, String> dateMap,
-			                               HttpServletRequest request, HttpServletResponse response)  throws Exception {
+	public ModelAndView listMyOrderHistory(HttpServletRequest request, HttpServletResponse response)  throws Exception {
 		String viewName=(String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 		HttpSession session=request.getSession();
 		memberVO=(MemberVO)session.getAttribute("memberInfo");
 		String  member_id=memberVO.getMember_id();
-		List<OrderVO> myOrderList=myPageService.listMyOrderGoods(member_id);
-		for(int i=0; i<myOrderList.size();i++) {
-			OrderVO orderVO = myOrderList.get(i);
+		
+		List<OrderVO> myOrderListGoods=myPageService.listMyOrderGoods(member_id);
+		List<OrderVO> myOrderList = new ArrayList<>();
+		for(int i =0; i < myOrderListGoods.size();i++) {
+			orderVO = myOrderListGoods.get(i);
 			String goods_id = orderVO.getGoods_id();
-			Map goodsVO = goodsService.goodsDetail(goods_id);
-			String img_id= (String)goodsVO.get("goods_image_name1");
+			System.out.println(goods_id + "아이디 값 확인");
+			Map goodsVOMap = goodsService.goodsDetail(goods_id);
+			GoodsVO goodsVO = (GoodsVO)goodsVOMap.get("goodsVO");
+			String img_id= goodsVO.getGoods_image_name1();
+
 			orderVO.setGoods_image_name(img_id);
 			myOrderList.add(orderVO);
 		}
 		mav.addObject("myOrderList", myOrderList);
-		
+	
 		return mav;
 	}	
 	
