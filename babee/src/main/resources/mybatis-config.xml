@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mybatis/mappers/member.xml"/>
 		<mapper resource="mybatis/mappers/seller.xml"/>
 		<mapper resource="mybatis/mappers/goods.xml"/>
-
+		<mapper resource="mybatis/mappers/mypage.xml"/>
 		<mapper resource="mybatis/mappers/order.xml"/>
 	</mappers>
 </configuration>

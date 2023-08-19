@@ -131,7 +131,7 @@
 </definition>
       
       <!-- 마이페이지 -->
-      <definition name="/goods/listMyOrderHistory" extends="baseLayout_user">
+      <definition name="/mypage/listMyOrderHistory" extends="baseLayout_user">
          <put-attribute name="title" value="최근 주문 내역창" />
          <put-attribute name="body" value="/WEB-INF/views/mypage/listMyOrderHistory.jsp" />
       </definition>
