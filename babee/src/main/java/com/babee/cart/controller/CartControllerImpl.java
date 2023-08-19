@@ -66,7 +66,7 @@ public class CartControllerImpl extends BaseController implements CartController
 		System.out.println("상품 아이디 " + cartVO.getGoods_id() );
 		System.out.println("상품 옵션 " + cartVO.getGoods_option() );
 		System.out.println("상품 수량 " + cartVO.getCart_goods_qty() );
-		boolean isAreadyExisted=cartService.findCartGoods(cartVO);
+		//boolean isAreadyExisted=cartService.findCartGoods(cartVO);
 
 
 		System.out.println("isAreadyExisted:"+isAreadyExisted);

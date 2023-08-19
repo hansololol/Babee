@@ -328,13 +328,6 @@
 					<td class="fixed">옵션</td>
 					<td class="fixed">
 
-						<select style="width: 400px;  text-align: center" id="goods_option" name="goods_option">
-							<option  value="${goodsVO.goods_option1}">${goodsVO.goods_option1}</option>
-							<option  value="${goodsVO.goods_option2}">${goodsVO.goods_option2}</option>
-							<option  value="${goodsVO.goods_option3}">${goodsVO.goods_option3}</option>
-							<option  value="${goodsVO.goods_option4}">${goodsVO.goods_option4}</option>
-							<option  value="${goodsVO.goods_option5}">${goodsVO.goods_option5}</option>
-
 						<select style="width: 400px;  text-align: center" id="order_goods_qty" name="goods_option" >
 
 							<option value="${goodsVO.goods_option1}">${goodsVO.goods_option1}</option>
