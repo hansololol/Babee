@@ -83,7 +83,8 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		
 		List<OrderVO> myOrderListGoods=myPageService.listMyOrderGoods(member_id);
 		List<OrderVO> myOrderList = new ArrayList<>();
-		for(int i =0; i < myOrderListGoods.size();i++) {
+		int ListSize = myOrderListGoods.size();
+		for(int i =0; i < ListSize;i++) {
 			orderVO = myOrderListGoods.get(i);
 			String goods_id = orderVO.getGoods_id();
 			System.out.println(goods_id + "아이디 값 확인");
@@ -97,6 +98,7 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		mav.addObject("myOrderList", myOrderList);
 		mav.addObject("section", section);
 		mav.addObject("pageNum", pageNum);
+		mav.addObject("totArticles", ListSize);
 	
 		return mav;
 	}	
