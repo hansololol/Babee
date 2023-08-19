@@ -90,7 +90,8 @@
 	    var isLogOn = _isLogOn.value;
 	    
 	    if (isLogOn !== "false" && isLogOn !== '') {
-	        location.href = "${contextPath}/order/orderEachGoods.do"; // 주문 페이지 경로로 변경해야 합니다.
+	    	var orderForm=document.orderForm;
+			orderForm.submit();
 	    } else {
 	        alert("로그인 후 주문이 가능합니다.");
 	        location.href = "${contextPath}/member/loginForm.do"; // 로그인 페이지 경로로 변경해야 합니다.
@@ -287,13 +288,8 @@
 			<img src="${contextPath}/thumbnails.do?goods_id=${goodsVO.goods_id}&fileName=${goodsVO.goods_image_name1}">
 		</figure>
 	</div>
-
+<form action="${contextPath}/order/orderEachGoods.do" method="post" name="orderForm">
 	<div id="detail_table">
-
-		<form action="${contextPath}/order/orderEachGoods.do?goods_id=${goodsVO.goods_id}" method="post" name="orderForm">
-		<input type="hidden" id="gooos_id"  value="${goodsVO.goods_id}" />
-
-		<form action="${contextPath}/order/orderEachGoods.do" method="post" name="orderForm">
 			<input type="hidden" name="goods_title" value="${goodsVO.goods_title}">
 			<input type="hidden" name="goods_id" value="${goodsVO.goods_id}">
 
@@ -355,11 +351,8 @@
 		</table>
 	
 		<ul>
-			
-		
-			<li><a class="buy" href="javascript:fn_order_each_goods('${goods.goods_id }','${goods.goods_title }','${goods.goods_sales_price}','${goods.goods_fileName}');">구매하기 </a></li>
+			<li><a class="buy" href="javascript:fn_order_each_goods()">구매하기 </a></li>
 			<li><a class="cart" href="javascript:add_cart('${goodsVO.goods_id}')">장바구니</a></li>
-		
 			<li><button type="button" id="wishBtn" class="btn_add_wish"><span>찜하기</span></button></li>
 		</ul>
 	</div>
