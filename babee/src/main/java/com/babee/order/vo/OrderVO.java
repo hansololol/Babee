@@ -1,6 +1,8 @@
 package com.babee.order.vo;
 
 
+import java.sql.Date;
+
 import org.springframework.stereotype.Component;
 
 @Component("orderVO")
@@ -12,6 +14,8 @@ public class OrderVO {
 	private int goods_price;
 	private int total_goods_price;
 	private int order_goods_qty;
+	
+	private String recipient_name;
 	private String recipient_hp;
 	private String recipient_tel;
 	private String deliveryAddr;
@@ -19,10 +23,12 @@ public class OrderVO {
 	private String trackingNum;
 	private String payment_method;
 	private String card_com_name;
-	private String payment_order_time;
+	private Date payment_order_time;
 	private String delivery_status;
-	private String final_total_price;
+	private int final_total_price;
 	private String goods_option;
+	private String goods_image_name;
+	
 	
 	public String getOrder_id() {
 		return order_id;
@@ -108,10 +114,10 @@ public class OrderVO {
 	public void setCard_com_name(String card_com_name) {
 		this.card_com_name = card_com_name;
 	}
-	public String getPayment_order_time() {
+	public Date getPayment_order_time() {
 		return payment_order_time;
 	}
-	public void setPayment_order_time(String payment_order_time) {
+	public void setPayment_order_time(Date payment_order_time) {
 		this.payment_order_time = payment_order_time;
 	}
 	public String getDelivery_status() {
@@ -120,10 +126,10 @@ public class OrderVO {
 	public void setDelivery_status(String delivery_status) {
 		this.delivery_status = delivery_status;
 	}
-	public String getFinal_total_price() {
+	public int getFinal_total_price() {
 		return final_total_price;
 	}
-	public void setFinal_total_price(String final_total_price) {
+	public void setFinal_total_price(int final_total_price) {
 		this.final_total_price = final_total_price;
 	}
 	public String getGoods_option() {
@@ -131,6 +137,18 @@ public class OrderVO {
 	}
 	public void setGoods_option(String goods_option) {
 		this.goods_option = goods_option;
+	}
+	public String getRecipient_name() {
+		return recipient_name;
+	}
+	public void setRecipient_name(String recipient_name) {
+		this.recipient_name = recipient_name;
+	}
+	public String getGoods_image_name() {
+		return goods_image_name;
+	}
+	public void setGoods_image_name(String goods_image_name) {
+		this.goods_image_name = goods_image_name;
 	}
 
 

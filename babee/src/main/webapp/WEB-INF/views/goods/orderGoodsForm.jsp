@@ -157,9 +157,10 @@ function execDaumPostcode() {
       
    <div style=" display: inline-grid;" >
       <H2 style="width:530px;">주문자 정보 입력</H2>
+
       <div class="shipping_address">
       <h3 style="display: inline-block; margin-right: 320px;"> &nbsp;&nbsp;배송지</h3> <button onclick="execDaumPostcode()" style="cursor: pointer;">배송지 변경</button>
- <form  name="form_order" action="${contextPath}/goods/orderResult.do" enctype="utf-8">
+      <form  name="form_order" action="${contextPath}/order/payToOrderGoods.do" enctype="utf-8" method="post">
       <ul>
          <li> 주문자 :  ${memberInfo.member_name } </li>         
      	 <li> 우편번호 : <input name="member_zipcode" type="text" size="10" value="${memberInfo.member_zipcode }"  id="member_zipcode" ><br>
@@ -193,7 +194,6 @@ function execDaumPostcode() {
          <tr>
       </table>   
    </div>
-   </div>
    
    <br>
    
@@ -205,33 +205,30 @@ function execDaumPostcode() {
       <H2>주문 상품 목록</H2>
          <div class="order_list" >
             <table>
+               <c:forEach var="order" items="${orderInfo}">
                <tr>
-                  <td width="180px;"><img src="/image/sale5.png" width="80px;"/></td>
-                  <td width="180px;"> 상품명 </td>
-                  <td  width="80px;"> 수량 (개) </td>
+                  <td width="180px;"><img src="${contextPath}/thumbnails.do?goods_id=${goods.goods_id}&fileName=${goods.goods_image_name1}" width="80px;"/></td>
+                  <td width="180px;"> ${goods.goods_title} </td>
+                  <td  width="80px;"> ${order.order_goods_qty} (개) </td>
+                  <input type="hidden" name="order_goods_qty" value="${order.order_goods_qty}">
                </tr>
                <tr>
-                  <td width="180px;"><img src="/image/sale5.png" width="80px;"/></td>
-                  <td width="60px;"> 상품명 </td>
-                  <td width="80px;"> 수량 (개) </td>
+                  <td>상품 옵션 ${order.goods_option}</td>
+
                </tr>
-               <tr>
-                  <td width="180px;"><img src="/image/sale5.png" width="80px;"/></td>
-                  <td width="180px;"> 상품명 </td>
-                  <td  width="80px;"> 수량 (개) </td>
-               </tr>
-                  
-               
+               </c:forEach>
             </table>   
             <hr>
-               <h5 style="padding-left:30px;">배송비</h5>
+               <h5 style="padding-left:30px;" name="goods_delivery_price" value=" ${goods.goods_delivery_price}">배송비  ${goods.goods_delivery_price}</h5>
+               <input type="hidden" name="goods_delivery_price" value="${goods.goods_delivery_price}">
+               <hr>
+               <h4 style="padding-left:30px;">상품 금액 ${goods.goods_price}</h4>
+               <h4 style="padding-left:30px;">할인 금액 ${goods.goods_price*0.1}</h4>
             <hr>
-               <h4 style="padding-left:30px;">상품 금액</h4>
-               <h4 style="padding-left:30px;">할인 금액</h4>
-            <hr>
-               <h4 style="padding-left:30px;">총 결제 금액</h4>
-               <h3 style="padding-right:30px; text-align:right;">24,000원</h3>
-            
+               <c:set var="total_goods_price" value="${goods.goods_price + goods.goods_delivery_price}"/>
+               <h4 style="padding-left:30px;">총 결제 금액   ${total_goods_price}</h4>
+               <h3 style="padding-right:30px; text-align:right;"></h3>
+               <input type="hidden" name="total_goods_price" value="${total_goods_price}">
                
          </div>
 
@@ -242,10 +239,7 @@ function execDaumPostcode() {
                   </div>
 
 
-    	  </div>
-  </form>
-
-   
-       
-         </body>
+    	</div>
+</form>
+   </body>
          
