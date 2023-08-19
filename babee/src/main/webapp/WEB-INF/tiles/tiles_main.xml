@@ -170,7 +170,7 @@
     </definition>
       
       
-      <definition name="/member/myOrderDetail" extends="baseLayout_user">
+      <definition name="/mypage/myOrderDetail" extends="baseLayout_user">
        <put-attribute name="title" value="주문 상세창" />
        <put-attribute name="body" value="/WEB-INF/views/mypage/myOrderDetail.jsp" />
      </definition>

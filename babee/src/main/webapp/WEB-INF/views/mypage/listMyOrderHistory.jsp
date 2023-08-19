@@ -173,7 +173,7 @@ function fn_cancel_order(order_id){
                <c:when test="${order.delivery_status=='delivery_prepared'}">
                   <td> 배송준비중 </td>
                   <td> 
-                     <a class="order_delivery_search" href="${contextPath}/member/myOrderDetail.do"><b>주문/배송조회</b></a><br>
+                     <a class="order_delivery_search" href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}"><b>주문/배송조회</b></a><br>
                      <a class="order_delivery_search" href="#"><b>주문취소</b></a><br>
                   </td>
                   </c:when>
