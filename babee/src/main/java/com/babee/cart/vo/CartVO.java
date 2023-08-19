@@ -10,11 +10,29 @@ public class CartVO {
 	private String member_id;
 	private int cart_goods_qty;
 	private String creDate;
+	private String goods_option;
 	
 	
+	public int getCart_goods_qty() {
+		return cart_goods_qty;
+	}
+
+	public void setCart_goods_qty(int cart_goods_qty) {
+		this.cart_goods_qty = cart_goods_qty;
+	}
+
 	public int getCart_id() {
 		return cart_id;
 	}
+	
+	public String getGoods_option() {
+		return goods_option;
+	}
+
+	public void setGoods_option(String goods_option) {
+		this.goods_option = goods_option;
+	}
+
 	public void setCart_id(int cart_id) {
 		this.cart_id = cart_id;
 	}
@@ -34,12 +52,7 @@ public class CartVO {
 	}
 	
 	
-	public int getCart_goods_qty() {
-		return cart_goods_qty;
-	}
-	public void setCart_goods_qty(int cart_goods_qty) {
-		this.cart_goods_qty = cart_goods_qty;
-	}
+
 	public String getCreDate() {
 		return creDate;
 	}
