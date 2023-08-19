@@ -31,10 +31,16 @@ public class CartServiceImpl  implements CartService{
 		return cartMap;
 	}
 	
-	public boolean findCartGoods(CartVO cartVO) throws Exception{
+	/*public boolean findCartGoods(CartVO cartVO) throws Exception{
 		 return cartDAO.selectCountInCart(cartVO);
 		
-	}	
+	}*/
+	
+	public boolean findCartGoods(CartVO cartVO) throws Exception{
+		return cartDAO.selectCountInCart(cartVO);
+		
+	}
+	
 	public void addGoodsInCart(CartVO cartVO) throws Exception{
 		cartDAO.insertGoodsInCart(cartVO);
 	}

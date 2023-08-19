@@ -4,13 +4,102 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%
+     //치환 변수 선언합니다.
+      //pageContext.setAttribute("crcn", "\r\n"); //개행문자
+      pageContext.setAttribute("crcn" , "\n"); //Ajax로 변경 시 개행 문자 
+      pageContext.setAttribute("br", "<br/>"); //br 태그
+%>  
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
+<c:set var="goods"  value="${goodsMap.goodsVO}"  />
+<c:set var="imageList"  value="${goodsMap.imageList }"  />
+
 
 <html>
 <head>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="/css/detail.css" />
+	<script type="text/javascript">
+	
+	function add_cart(goods_id) {
+	    var _isLogOn = document.getElementById("isLogOn");
+	    var isLogOn = _isLogOn.value;
+	    
+	    
+		
+		var cart_goods_qty = document.getElementById("cart_goods_qty").value;	
+		var goods_option = document.getElementById("goods_option").value;
+		
+		cart_goods_qty *=1;
+		
+	    if (isLogOn === "false" || isLogOn === '') {
+	        alert("로그인 후 이용 가능합니다.");
+	        location.href = "${contextPath}/member/loginForm.do"; // 로그인 페이지 경로로 변경해야 합니다.
+	    } else {
+	    	$.ajax({
+				type : "post",
+				async : false, //false인 경우 동기식으로 처리한다.
+				url : "${contextPath}/cart/addGoodsInCart.do",
+				data : {
+					goods_id:goods_id,
+					cart_goods_qty:cart_goods_qty,
+					goods_option:goods_option
+					
+				},
+				success : function(data, textStatus) {
+					// alert(result);
+					$('#message').append(data);
+					if(data.result.trim()=='add_success'){
+					    alert("장바구니에 상품이 추가되었습니다."); // 메시지 변경
+					    // imagePopup('open', '.layer01'); // 팝업 표시
+					} else if(data.result.trim()=='already_existed'){
+					    alert("이미 카트에 등록된 상품입니다.");
+					}
+					
+				},
+				error : function(data, textStatus) {
+					alert("에러가 발생했습니다."+data);
+				},
+				complete : function(data, textStatus) {
+					//alert("작업을완료 했습니다");
+				}
+			}); //end ajax	
+	    }
+	}
+
+
+	function imagePopup(type) {
+		if (type == 'open') {
+			// 팝업창을 연다.
+			jQuery('#layer').attr('style', 'visibility:visible');
+
+			// 페이지를 가리기위한 레이어 영역의 높이를 페이지 전체의 높이와 같게 한다.
+			jQuery('#layer').height(jQuery(document).height());
+		}
+
+		else if (type == 'close') {
+
+			// 팝업창을 닫는다.
+			jQuery('#layer').attr('style', 'visibility:hidden');
+		}
+	}
+	
+	function fn_order_each_goods(goods_id, goods_title, goods_sales_price, fileName) {
+	    var _isLogOn = document.getElementById("isLogOn");
+	    var isLogOn = _isLogOn.value;
+	    
+	    if (isLogOn !== "false" && isLogOn !== '') {
+	        location.href = "${contextPath}/order/orderEachGoods.do"; // 주문 페이지 경로로 변경해야 합니다.
+	    } else {
+	        alert("로그인 후 주문이 가능합니다.");
+	        location.href = "${contextPath}/member/loginForm.do"; // 로그인 페이지 경로로 변경해야 합니다.
+	    }
+	}
+	
+</script>
+
+
 <style>
 	hgroup{
 		text-align: left;
@@ -181,6 +270,10 @@
 	
 </head>
 <body>
+<input type="hidden" id="isLogOn" value="${memberInfo.member_id }" />
+<input type="hidden" id="contextPath" data-context="${contextPath}" />
+
+
 	<br><br>
 	<hgroup>
 		<h1>${goodsVO.goods_title}</h1>
@@ -197,6 +290,7 @@
 
 	<div id="detail_table">
 		<form action="${contextPath}/order/orderEachGoods.do?goods_id=${goodsVO.goods_id}" method="post" name="orderForm">
+		<input type="hidden" id="gooos_id"  value="${goodsVO.goods_id}" />
 		<table>
 			<tbody>
 				<tr>
@@ -216,21 +310,19 @@
 				<tr>
 					<td class="fixed">수량</td>
 					<td class="fixed">
-			      <input type="number" style="width: 400px; text-align: center;" id="order_goods_qty" name="order_goods_qty">
+			      <input type="number" style="width: 400px; text-align: center;" id="cart_goods_qty" name="cart_goods_qty" >
 				
 					 </td>
 				</tr>
 				<tr class="dot_line">
 					<td class="fixed">옵션</td>
 					<td class="fixed">
-						<select style="width: 400px;  text-align: center" id="order_goods_qty">
-
-							<option name="goods_option" value="${goodsVO.goods_option1}">${goodsVO.goods_option1}</option>
-							<option name="goods_option" value="${goodsVO.goods_option2}">${goodsVO.goods_option2}</option>
-							<option name="goods_option" value="${goodsVO.goods_option3}">${goodsVO.goods_option3}</option>
-							<option name="goods_option" value="${goodsVO.goods_option4}">${goodsVO.goods_option4}</option>
-							<option name="goods_option" value="${goodsVO.goods_option5}">${goodsVO.goods_option5}</option>
-		
+						<select style="width: 400px;  text-align: center" id="goods_option" name="goods_option">
+							<option  value="${goodsVO.goods_option1}">${goodsVO.goods_option1}</option>
+							<option  value="${goodsVO.goods_option2}">${goodsVO.goods_option2}</option>
+							<option  value="${goodsVO.goods_option3}">${goodsVO.goods_option3}</option>
+							<option  value="${goodsVO.goods_option4}">${goodsVO.goods_option4}</option>
+							<option  value="${goodsVO.goods_option5}">${goodsVO.goods_option5}</option>
 					   </select>
 						   </td>
 				</tr>
@@ -250,25 +342,14 @@
 	
 		<ul>
 			
-					<script>
-						function Login(){
-							console.log("${isLogOn}")
-						if("${isLogOn}"==false){
-						 alert("로그인 이후 이용 가능합니다.");
-						 location.replace("${contextPath}/member/loginForm.do");
-						}else{
-							var orderForm=document.orderForm;
-							orderForm.submit();
-						}
-					}
-					</script>
-			<li><a class="buy" href="javascript:Login()">구매하기 </a></li>
-			<li><a class="cart" href="javascript:add_cart('${goods.goods_id }')">장바구니</a></li>
+		
+			<li><a class="buy" href="javascript:fn_order_each_goods('${goods.goods_id }','${goods.goods_title }','${goods.goods_sales_price}','${goods.goods_fileName}');">구매하기 </a></li>
+			<li><a class="cart" href="javascript:add_cart('${goodsVO.goods_id}')">장바구니</a></li>
 		
 			<li><button type="button" id="wishBtn" class="btn_add_wish"><span>찜하기</span></button></li>
 		</ul>
 	</div>
-
+</form>
 	<div class="clear"></div>
 	<!-- 내용 들어 가는 곳 -->
 	<br><br><br>

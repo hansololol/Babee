@@ -242,7 +242,7 @@ function showCategory() {
                     <ul class="top-link" style="margin-left: 50px;">
                        <li class="last"><a href="${contextPath}/member/loginForm.do"><img src="https://agabantr6740.cdn-nhncommerce.com/data/skin/front/moment/img/dimg/top_login.png" alt="로그인/회원가입"><br>로그인</a></li>
                       
-                       <li class="last"><a href="${contextPath}/cart/myCartList.do"><img src="https://agabantr6740.cdn-nhncommerce.com/data/skin/front/moment/img/dimg/top_cart.png" alt="장바구니"><br>장바구니</a></li>
+                       <li class="last"><a href="javascript:login()"><img src="https://agabantr6740.cdn-nhncommerce.com/data/skin/front/moment/img/dimg/top_cart.png" alt="장바구니"><br>장바구니</a></li>
                      
                        <li class="last"><a href="javascript:login()"><img src="https://agabantr6740.cdn-nhncommerce.com/data/skin/front/moment/img/dimg/top_mypage.png" alt="마이페이지" id="mypage"><br>마이페이지</a></li>
                     </ul>
