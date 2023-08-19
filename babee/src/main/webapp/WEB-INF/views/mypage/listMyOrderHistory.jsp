@@ -226,7 +226,7 @@ function fn_cancel_order(order_id){
                   <a class="sel-page"    href="${contextPath}/mypage/listMyOrderHistory.do?section=${section}&pageNum=${page}">${page }</a>
                   </c:when>
                <c:otherwise>
-                  <a class="no-uline"    href="${contextPath}/mypage/listMyOrderHistory.do?section=${section}&pageNum=${page}">${page }</a>
+                  <a class="no-uline" href="${contextPath}/mypage/listMyOrderHistory.do?section=${section}&pageNum=${page}">${page }</a>
                </c:otherwise>
                </c:choose>
             </c:forEach>
