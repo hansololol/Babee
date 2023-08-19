@@ -76,15 +76,13 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		String _pageNum = request.getParameter("pageNum");
 		int section = Integer.parseInt(((_section==null)? "1":_section));
 		int pageNum = Integer.parseInt(((_pageNum==null)? "1":_pageNum));
-		
-		Map<String, Integer> pagingMap = new HashMap<String, Integer>();
-		pagingMap.put("section", section);
-		pagingMap.put("pageNum", pageNum);
+	
 		
 		List<OrderVO> myOrderListGoods=myPageService.listMyOrderGoods(member_id);
 		List<OrderVO> myOrderList = new ArrayList<>();
 		int ListSize = myOrderListGoods.size();
-		for(int i =0; i < ListSize;i++) {
+		
+		for(int i =(pageNum-1)*10+1; i <ListSize;i++) {
 			orderVO = myOrderListGoods.get(i);
 			String goods_id = orderVO.getGoods_id();
 			System.out.println(goods_id + "아이디 값 확인");
