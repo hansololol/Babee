@@ -93,8 +93,9 @@
       <tr>
          <td width="200" style="border:1px solid gray; background:#ffffcc; padding:10px;"> <p align="center"> 작성자</p></td>
          <td width="250" colspan="2" style="border:1px solid gray; padding:10px;" > 
-            { 작성자 }
-         <input type="hidden" name="member_id"> </td>
+            
+            ${memberInfo.member_name}
+         <input type="hidden" name="member_id" value=${memberInfo.member_id }> </td>
       </tr>
       
       <tr>
