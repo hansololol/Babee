@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
-
+<fmt:parseNumber var="discounted_price" integerOnly="true" value="${goods.goods_price/10}"	/>
 
 <!DOCTYPE html>
 <html>
@@ -62,25 +62,28 @@
 
       <table  class="order_ilst" align="center" width="50%" >
          <tr height="10" >
-               <td colspan="3" style="border: none; border-bottom: 1px solid gray;"><h4 style="margin-bottom:0px;">주문내역</h4></td>
+               <td colspan="5" style="border: none; border-bottom: 1px solid gray;"><h4 style="margin-bottom:0px;">주문내역</h4></td>
          </tr>
            <tr height="10" align="center" >
-              <td width="25%" >주문상품</td>
-              <td colspan="3" >주문상품 상세</td>
+              <td width="50%" >주문상품</td>
+              <td>판매금액</td>
+              <td>할인금액</td>
+              <td>수량</td>
+              <td>소계금액</td>
            </tr>
            
            <c:forEach  var="order" items="${myOrderList}" varStatus="articleNum" >
              <tr width="80px;" height="10">
                  
-                  <td style="width:100px;"> <img src="${contextPath}/thumbnails.do?goods_id=${goods.goods_id}&fileName=${goods.goods_image_name1}" width="100px"> </td>
-                  <td >
-                     <ul>
-                        <li> 상품명  ${goods.goods_title} </li>
-                        <li> 가격  ${goods.goods_price} 원 </li>
-                        <li> 상품옵션   ${order.goods_option} </li>                       
-                     </ul> 
-                  </td>  
+                  <td style="width:100px;"> <img src="${contextPath}/thumbnails.do?goods_id=${goods.goods_id}&fileName=${goods.goods_image_name1}" width="100px">  ${goods.goods_title}</td>
+                  <td>${goods.goods_price} 원</td>
+                  <td>${discounted_price} 원</td>
+                  <td>${order.order_goods_qty} </td>
+                  <td>${(goods.goods_price - discounted_price) * order.order_goods_qty} 원</td>
              </tr>
+             <tr height="10" >
+               <td colspan="5" style="border: none; border-bottom: 1px solid gray;"><h4 style="margin-bottom:0px;">최종 결제 금액 ${(goods.goods_price - discounted_price) * order.order_goods_qty} 원</h4></td>
+         		</tr>
             </c:forEach>
              
       </table>
