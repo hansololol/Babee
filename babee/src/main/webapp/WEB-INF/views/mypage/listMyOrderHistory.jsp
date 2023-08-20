@@ -2,6 +2,7 @@
    pageEncoding="utf-8"
    isELIgnored="false"%>  
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 <!DOCTYPE html >
 <html>
@@ -43,6 +44,24 @@
     text-decoration:none;
     font-size:1px;
 }
+ .paging-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .paging-button {
+            display: inline-block;
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f0f0f0;
+            color: #333;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .paging-button:hover {
+            background-color: #ccc;
+        }
 
 
 /* 버튼에 호버 효과 */
@@ -163,7 +182,7 @@ function fn_cancel_order(order_id){
             <td><img src="${contextPath}/thumbnails.do?goods_id=${order.goods_id}&fileName=${order.goods_image_name}" width="100px"/></td>
             <td> 
                <ul class="goods">
-                  <li style="text-align:left;"> ${order.goods_title} [<a href="${contextPath}/member/myOrderDetail.do">${order.order_id}</a>] </li>
+                  <li style="text-align:left;"> ${order.goods_title} [<a href="${contextPath}/mypage/myOrderDetail.do">${order.order_id}</a>] </li>
                   <li style="text-align:left;"> 가격: ${order.final_total_price} </li>
                   <li style="text-align:left;"> 주문일자: ${order.payment_order_time} </li>
                </ul>
@@ -197,25 +216,25 @@ function fn_cancel_order(order_id){
    </table>
    
    </div>
-      
-<div class="cls2">
+   
+       <div class="paging-container">
    <c:if test="${totArticles !=null}">
       <c:choose>
          <c:when test="${totArticles > 100 }"> 
             <c:forEach var="page" begin="1" end="10" step="1">
                <c:if test="${section >1 && page==1 }" >
-                  <a class="no-uline" href="${contextPath}/mypage/listMyOrderHistory.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp; pre </a>
+                  <a class="paging-button"  href="${contextPath}/mypage/listMyOrderHistory.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp; pre </a>
                </c:if>
-                  <a class="no-uline" href="${contextPath}/mypage/listMyOrderHistory.do?section=${section-1}&pageNum=${(section-1)*10 +page }"> </a>
+                  <a class="paging-button"  href="${contextPath}/mypage/listMyOrderHistory.do?section=${section-1}&pageNum=${(section-1)*10 +page }"> </a>
                <c:if test="${page ==10 }">
-               <a class="no-uline" href="${contextPath}/mypage/listMyOrderHistory.do?section=${section-1}&pageNum=${section*10 +1 }">&nbsp; next </a>
+               <a class="paging-button"  href="${contextPath}/mypage/listMyOrderHistory.do?section=${section-1}&pageNum=${section*10 +1 }">&nbsp; next </a>
                </c:if>
             </c:forEach>
          </c:when>
          
          <c:when test="${totArticles ==100 }">
             <c:forEach var="page" begin="1" end="10" step="1">
-            <a class="no-uline" href="#"> ${page }</a>
+            <a class="paging-button"  href="#"> ${page }</a>
             </c:forEach>
          </c:when>
          
@@ -223,10 +242,10 @@ function fn_cancel_order(order_id){
             <c:forEach var="page" begin="1" end="${totArticles/10 +1 }" step="1">
                <c:choose>
                   <c:when test="${page==pageNum }">
-                  <a class="sel-page"    href="${contextPath}/mypage/listMyOrderHistory.do?section=${section}&pageNum=${page}">${page }</a>
+                  <a class="paging-button" href="${contextPath}/mypage/listMyOrderHistory.do?section=${section}&pageNum=${page}">${page }</a>
                   </c:when>
                <c:otherwise>
-                  <a class="no-uline" href="${contextPath}/mypage/listMyOrderHistory.do?section=${section}&pageNum=${page}">${page }</a>
+                  <a class="paging-button"  href="${contextPath}/mypage/listMyOrderHistory.do?section=${section}&pageNum=${page}">${page }</a>
                </c:otherwise>
                </c:choose>
             </c:forEach>

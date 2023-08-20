@@ -42,7 +42,7 @@
                 <div class="member_cont">
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">이름</label>
-                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="아이디를 입력해주세요">
+                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="이름을 입력해주세요">
               </div>
               <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">이메일</label>
