@@ -1,6 +1,8 @@
 package com.babee.mypage.controller;
 
-import java.io.PrintWriter;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -81,17 +83,30 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		List<OrderVO> myOrderListGoods=myPageService.listMyOrderGoods(member_id);
 		List<OrderVO> myOrderList = new ArrayList<>();
 		int ListSize = myOrderListGoods.size();
+		SimpleDateFormat format= new SimpleDateFormat("yyyy-MM-dd");
+	
+		Date now = new Date();
+		if(request.getParameter("beginDate")!=null) {
+			String beginDateS = request.getParameter("beginDate");
+			now=  (Date)format.parse(beginDateS);
+			System.out.println(now + "시작 일 확인");
+		}else {
+			now = new Date(System.currentTimeMillis());
+			System.out.println(now);
+		}
 		
 		for(int i =(pageNum-1)*10+1; i <ListSize;i++) {
 			orderVO = myOrderListGoods.get(i);
+				
 			String goods_id = orderVO.getGoods_id();
-			System.out.println(goods_id + "아이디 값 확인");
 			Map goodsVOMap = goodsService.goodsDetail(goods_id);
 			GoodsVO goodsVO = (GoodsVO)goodsVOMap.get("goodsVO");
 			String img_id= goodsVO.getGoods_image_name1();
-			
 			orderVO.setGoods_image_name(img_id);
+			Date orderTime =  orderVO.getPayment_order_time();
+	
 			myOrderList.add(orderVO);
+
 		}
 		mav.addObject("myOrderList", myOrderList);
 		mav.addObject("section", section);

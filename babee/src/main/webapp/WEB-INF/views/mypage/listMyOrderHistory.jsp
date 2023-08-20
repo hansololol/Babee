@@ -78,32 +78,42 @@
 <title>주문내역/배송조회 창</title>
 <script>
 function search_order_history(fixedSearchPeriod){
-   var formObj=document.createElement("form");
-   var i_fixedSearch_period = document.createElement("input");
-   i_fixedSearch_period.name="fixedSearchPeriod";
-   i_fixedSearch_period.value=fixedSearchPeriod;
-    formObj.appendChild(i_fixedSearch_period);
-    document.body.appendChild(formObj); 
-    formObj.method="get";
-    formObj.action="${contextPath}/mypage/listMyOrderHistory.do";
-    formObj.submit();
-}
-
-function fn_cancel_order(order_id){
-   var answer=confirm("주문을 취소하시겠습니까?");
-   if(answer==true){
-      var formObj=document.createElement("form");
-      var i_order_id = document.createElement("input"); 
-       
-       i_order_id.name="order_id";
-       i_order_id.value=order_id;
-      
-       formObj.appendChild(i_order_id);
-       document.body.appendChild(formObj); 
-       formObj.method="post";
-       formObj.action="${contextPath}/mypage/cancelMyOrder.do";
-       formObj.submit();   
+   var fixedSearch_period = fixedSearchPeriod;
+   var formObj=document.dateForm;
+   
+	var i_fixedSearch_period = document.createElement("input");
+	i_fixedSearch_period.name="beginDate";
+	
+   var now = new Date();
+   if(fixedSearch_period =='today'){
+	   var today = new Date(now.setDate(now.getDate()));	
+	   var year = today.getFullYear();
+	   var month = ('0' + (today.getMonth() + 1)).slice(-2);
+	   var day = ('0' + today.getDate()).slice(-2);
+	   var dateString = year + '-' + month  + '-' + day;
+	   console.log(dateString);
+	   i_fixedSearch_period.value=dateString;
+	  
+   }else if(fixedSearch_period =='week'){
+	   var week = new Date(now.setDate(now.getDate()-7));
+	   i_fixedSearch_period.value=week;
+	 
+   }else if(fixedSearch_period =='month'){
+	   var month = new Date(now.setMonth(now.getMonth() - 1));
+	   i_fixedSearch_period.value=month;
+	  
+   }else if(fixedSearch_period =='threemonth'){
+	   var threemonth = new Date(now.setMonth(now.getMonth() - 3));
+	   i_fixedSearch_period.value=threemonth;
+	  
    }
+   formObj.appendChild(i_fixedSearch_period);
+ 
+   document.body.appendChild(formObj); 
+   formObj.method="get";
+   formObj.action="${contextPath}/mypage/listMyOrderHistory.do";
+   formObj.submit();
+   
 }
 
 </script>
@@ -113,7 +123,6 @@ function fn_cancel_order(order_id){
    <div class="order_delivery_list">
    <H3>주문내역/배송조회</H3>
    <hr>
-   <form  method="post">   
       <table align="center" style="margin-left: 0px;">
          <tr>
             <td> 
@@ -126,30 +135,22 @@ function fn_cancel_order(order_id){
       </table>
       
       <hr>
-      
+      <form  method="post" name = "dateForm">   
       <table align="center" style="margin-left: 0px;">
          <tr>
             <td>
-               <a href="javascript:search_order_history('today')">
+               <a href="javascript:search_order_history('today')" id="today">
                   <img   src="/image/btn_search_one_day.jpg">
                </a>
-               <a href="javascript:search_order_history('one_week')">
+               <a href="javascript:search_order_history('one_week')" id="week">
                   <img   src="/image/btn_search_1_week.jpg">
                </a>
-               <a href="javascript:search_order_history('two_week')">
-                  <img   src="/image/btn_search_2_week.jpg">
-               </a>
-               <a href="javascript:search_order_history('one_month')">
+    
+               <a href="javascript:search_order_history('one_month')" id="month">
                   <img   src="/image/btn_search_1_month.jpg">
                </a>
-               <a href="javascript:search_order_history('two_month')">
-                  <img   src="/image/btn_search_2_month.jpg">
-               </a>
-               <a href="javascript:search_order_history('three_month')">
+               <a href="javascript:search_order_history('three_month')" id="threemonth">
                   <img   src="/image/btn_search_3_month.jpg">
-               </a>
-               <a href="javascript:search_order_history('four_month')">
-                  <img   src="/image/btn_search_4_month.jpg">
                </a>
       </td>
          <tr>
