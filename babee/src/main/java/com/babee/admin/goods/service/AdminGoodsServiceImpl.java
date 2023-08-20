@@ -28,7 +28,7 @@ public class AdminGoodsServiceImpl implements AdminGoodsService {
 		int goods_id = adminGoodsDAO.insertNewGoods(newGoodsMap);
 		ArrayList<ImageFileVO> imageFileList = (ArrayList)newGoodsMap.get("imageFileList");
 		for(ImageFileVO imageFileVO : imageFileList) {
-			
+			System.out.println("    "+newGoodsMap);
 		}
 		adminGoodsDAO.insertGoodsImageFile(imageFileList);
 		return goods_id;

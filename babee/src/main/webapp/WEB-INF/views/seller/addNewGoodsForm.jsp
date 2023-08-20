@@ -8,9 +8,7 @@
 
 <html>
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/css/detail.css" />
+
 <style>
     hgroup{
         text-align: left;
@@ -64,20 +62,21 @@
 </style>
 <script type="text/javascript">
     $(document).ready(function() {
-        $('input[name="imageUpload1"]').on('change', function(event) {
+        $('input[name="goods_image_name1"]').on('change', function(event) {
             var file = event.target.files[0];
             var reader = new FileReader();
             reader.onload = function(e) {
-                $('.file-preview').html('<img src="' + e.target.result + '" alt="Preview" style="width: 200px; height: 200px; margin: 10px 0 10px 0;"> <br><input type="file">');
+                $('.file-preview1').html('<img src="' + e.target.result + '" alt="Preview" style="width: 200px; height: 200px; margin: 10px 0 10px 0;"> <br><input type="file">');
             };
             reader.readAsDataURL(file);
         });
-
-        $('input[name="imageUpload2"]').on('change', function(event) {
+    });
+    $(document).ready(function() {
+        $('input[name="goods_image_name2"]').on('change', function(event) {
             var file = event.target.files[0];
             var reader = new FileReader();
             reader.onload = function(e) {
-                $('.file-preview').html('<img src="' + e.target.result + '" alt="Preview" style="width: 200px; height: 200px; margin: 10px 0 10px 0;"> <br><input type="file">');
+                $('.file-preview2').html('<img src="' + e.target.result + '" alt="Preview" style="width: 200px; height: 200px; margin: 10px 0 10px 0;"> <br><input type="file">');
             };
             reader.readAsDataURL(file);
         });
@@ -158,18 +157,18 @@
                     <tr>
                         <td class="fixed">관련 태그</td>
                         <td class="fixed">
-                            <textarea name="related_tags" cols="30" rows="10"></textarea>
+                            <textarea name="related_tags1" cols="30" rows="10"></textarea>
                         </td>
                     </tr>
                     <!-- 상품 옵션 -->
                     <tr>
                         <td class="fixed">상품 옵션</td>
                         <td class="fixed">
-                            <input type="text" name="tag_option1">
-                            <input type="text" name="tag_option2">
-                            <input type="text" name="tag_option3">
-                            <input type="text" name="tag_option4">
-                            <input type="text" name="tag_option5">
+                            <input type="text" name="goods_option1">
+                            <input type="text" name="goods_option2">
+                            <input type="text" name="goods_option3">
+                            <input type="text" name="goods_option4">
+                            <input type="text" name="goods_option5">
                         </td>
                     </tr>
                     <!-- ... 기타 폼 요소들 추가 ... -->
@@ -177,18 +176,19 @@
             </table>
             <div class="clear"></div>
             <br><br><br>
-            <div class="file-preview" style="margin-left:35%;">
-			    <p>첫번째 이미지</p>
-			    <div style="display: inline-block;">
-			        <input type="file" name="imageUpload1" style="margin-left:10%;">
-			    </div>
-			</div>
-			<div class="file-preview" style="margin-left:35%;">
-			    <p>두번째 이미지</p>
-			    <div style="display: inline-block;">
-			        <input type="file" name="imageUpload2" style="margin-left:10%;">
-			    </div>
-			</div>
+            <div>
+	            <label for="goods_image_name1">Image 1:</label>
+	            <input type="file" name="goods_image_name1">
+	            <div class="file-preview1"></div>
+	        </div>
+	        <div>
+	            <label for="goods_image_name2">Image 2:</label>
+	            <input type="file" name="goods_image_name2">
+	            <div class="file-preview2"></div>
+	        </div>
+            <input type="submit" value="상품 등록">
+            <div class="clear"></div>
+            
         </form>
     </div>
 </body>

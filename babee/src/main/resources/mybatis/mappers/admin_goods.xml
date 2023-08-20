@@ -24,12 +24,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    <result property="relative_tag3" column="relative_tag3" />
 	    <result property="relative_tag4" column="relative_tag4" />
 	    <result property="relative_tag5" column="relative_tag5" />
-	    <result property="tag_option1" column="tag_option1" />
-	    <result property="tag_option2" column="tag_option2" />
-	    <result property="tag_option3" column="tag_option3" />
-	    <result property="tag_option4" column="tag_option4" />
-	    <result property="tag_option5" column="tag_option5" />
-</resultMap>	
+	    <result property="goods_option1" column="goods_option1" />
+	    <result property="goods_option2" column="goods_option2" />
+	    <result property="goods_option3" column="goods_option3" />
+	    <result property="goods_option4" column="goods_option4" />
+	    <result property="goods_option5" column="goods_option5" />
+</resultMap>		
 
 	<resultMap id="imageResult" type="ImageFileVO">
 	   <result property="goods_id" column="goods_id" />
@@ -75,51 +75,53 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="goods_fileName" column="goods_fileName" />
 	</resultMap>
 	
-	
 	<insert id="insertNewGoods" parameterType="java.util.Map">
-	<selectKey resultType="String" keyProperty="goods_id" order="BEFORE">
-	    	select ifnull(max(goods_id)+1,0) from t_shopping_goods
-	    </selectKey>
+	<selectKey resultType="int" keyProperty="goods_id" order="AFTER">
+	    SELECT ifnull(max(goods_id)+1, 1) from t_shopping_goods;
+	</selectKey>
+	  
     <![CDATA[
-    insert into t_shopping_goods(
-        goods_id,
+    INSERT INTO t_shopping_goods(
+    	goods_id,
         goods_title,
         goods_price,
         goods_stock,
-        goods_delivery_price,
         main_category,
         middle_category,
         sub_category,
-        seller_id,
         goods_image_name1,
+        goods_image_name1_id,
         goods_image_name2,
+        goods_image_name2_id,
+        seller_id,
         age_range,
-        goods_creation_date,
-        relative_tag1,
-        relative_tag2,
-        relative_tag3,
-        relative_tag4,
-        relative_tag5
+        goods_option1,
+        goods_option2,
+        goods_option3,
+        goods_option4,
+        goods_option5,
+        relative_tag1
     )
-    values(
-        #{goods_id},
+    VALUES (
+    	#{goods_id},
         #{goods_title},
         #{goods_price},
         #{goods_stock},
-        #{goods_delivery_price},
         #{main_category},
         #{middle_category},
         #{sub_category},
-        #{seller_id},
         #{goods_image_name1},
+        #{goods_image_name1_id},
         #{goods_image_name2},
+        #{goods_image_name2_id},
+        #{reg_id},
         #{age_range},
-        #{goods_creation_date},
-        #{relative_tag1},
-        #{relative_tag2},
-        #{relative_tag3},
-        #{relative_tag4},
-        #{relative_tag5}
+        #{goods_option1},
+        #{goods_option2},
+        #{goods_option3},
+        #{goods_option4},
+        #{goods_option5},
+        #{relative_tag1}
     )
 ]]>
 </insert>
@@ -182,12 +184,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		]]>
 	</insert> 
 	 -->
-		<insert id="insertGoodsImageFile" parameterType="imageFileVO"   >
+	 <insert id="insertGoodsImageFile" parameterType="ImageFileVO"   >
 		<selectKey resultType="int" keyProperty="image_id" order="BEFORE">
-	    	select ifnull(max(image_id)+1, 0) from t_goods_detail_image
+	    	select ifnull(max(image_id)+1, 1) from t_shopping_image
 	    </selectKey>
 	    <![CDATA[
-		   insert into t_goods_detail_image (image_id,
+		   insert into t_shopping_image (image_id
+																				 )
+											   					value(#{image_id})
+		]]>
+	</insert>
+		<!--수정전 <insert id="insertGoodsImageFile" parameterType="ImageFileVO"   >
+		<selectKey resultType="int" keyProperty="image_id" order="BEFORE">
+	    	select ifnull(max(image_id)+1, 0) from t_shopping_image
+	    </selectKey>
+	    <![CDATA[
+		   insert into t_shopping_image (image_id,
 		                                     goods_id,
 																				 fileName,
 																				 fileType,
@@ -198,8 +210,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 											   								 #{fileType},
 											   								 #{reg_id} )
 		]]>
-	</insert> 
-	<select id="selectNewGoodsList" resultMap="goodsResult"   parameterType="java.util.Map"  >
+	</insert> --> 
+	<!-- <select id="selectNewGoodsList" resultMap="goodsResult"   parameterType="java.util.Map"  >
 	    <![CDATA[
 		  select * from (
 			   select rowNum as recNum,
@@ -240,6 +252,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			where				
 		recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10			        
     	
+	</select> -->
+	
+	<select id="selectNewGoodsList" resultMap="goodsResult" parameterType="java.util.Map">
+	    <![CDATA[
+	    SELECT goods_id, goods_title
+	    FROM t_shopping_goods
+	    <if test="search_type=='goods_id'">
+	        WHERE goods_id = #{search_word}
+	    </if>
+	    <if test="search_type=='all'">
+	        WHERE goods_id = #{search_word} OR goods_title LIKE CONCAT('%', #{search_word}, '%')
+	    </if>
+	    <if test="search_type=='goods_name'">
+	        WHERE goods_title LIKE CONCAT('%', #{search_word}, '%')
+	    </if>
+	    <if test="search_type=='goods_publisher'">
+	        WHERE goods_publisher LIKE CONCAT('%', #{search_word}, '%')
+	    </if>
+	    ]]>
 	</select>
 	
 	<select id="selectOrderGoodsList" resultMap="orderGoodsResult"   parameterType="java.util.Map"  >
@@ -269,7 +300,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="selectGoodsDetail" resultMap="goodsResult"   parameterType="String"  >
 	    <![CDATA[
-		     select g.*,g.goods_published_date as goods_published_date, d.fileName from t_shopping_goods g, t_goods_detail_image d
+		     select g.*,g.goods_published_date as goods_published_date, d.fileName from t_shopping_goods g, t_shopping_image d
 	        where g.goods_id=d.goods_id
 	        and d.filetype='main_image'
 	        and g.goods_id=#{goods_id}
@@ -278,7 +309,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<select id="selectGoodsImageFileList" resultMap="imageResult"   parameterType="String"  >
 	    <![CDATA[
-		    	select * from  t_goods_detail_image 
+		    	select * from  t_shopping_image 
 		    	where  
 			    goods_id=#{goods_id}
 			    order by image_id asc
@@ -348,15 +379,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    goods_id=#{goods_id}
 	
 	</update>	
-	<update id="updateGoodsImage" parameterType="imageFileVO">
-		update t_goods_detail_image
+	<update id="updateGoodsImage" parameterType="ImageFileVO">
+		update t_shopping_image
 		set fileName=#{fileName}
 		where	 
 		goods_id=#{goods_id} and image_id=#{image_id}
 	</update>
 	
 	<delete id="deleteGoodsImage" parameterType="String">
-	  delete from t_goods_detail_image
+	  delete from t_shopping_image
 	  where image_id=#{image_id}
 	</delete>
 	
