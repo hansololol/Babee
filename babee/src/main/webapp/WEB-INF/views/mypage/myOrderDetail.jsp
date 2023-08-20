@@ -39,7 +39,9 @@
                  <c:if test="${order.delivery_status=='finished_delivering'}">
                 	배송완료
                 </c:if>
-                
+                 <c:if test="${order.delivery_status=='cancel_order'}">
+                	주문취소
+                </c:if>
                 </td>
             </tr>
         </c:forEach>

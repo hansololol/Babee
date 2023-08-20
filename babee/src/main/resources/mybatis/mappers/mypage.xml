@@ -119,7 +119,7 @@
 	
 	<update id="updateMyOrderCancel" parameterType="String">
 	   update t_shopping_order
-	 	  set delivery_state='cancel_order'
+	 	  set delivery_status='cancel_order'
 	   where order_id=#{order_id}
 	</update>
 		

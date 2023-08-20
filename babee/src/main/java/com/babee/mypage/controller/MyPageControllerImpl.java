@@ -1,5 +1,6 @@
 package com.babee.mypage.controller;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +23,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.babee.common.base.BaseController;
 import com.babee.goods.service.GoodsService;
 import com.babee.goods.vo.GoodsVO;
-import com.babee.goods.vo.ImageFileVO;
 import com.babee.member.vo.MemberVO;
 import com.babee.mypage.service.MyPageService;
 import com.babee.order.vo.OrderVO;
@@ -102,13 +102,12 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 	}	
 	
 	@Override
-	@RequestMapping(value="/cancelMyOrder.do" ,method = RequestMethod.POST)
+	@RequestMapping(value="/cancelMyOrder.do" ,method = RequestMethod.GET)
 	public ModelAndView cancelMyOrder(@RequestParam("order_id")  String order_id,
 			                         HttpServletRequest request, HttpServletResponse response)  throws Exception {
 		ModelAndView mav = new ModelAndView();
 		myPageService.cancelOrder(order_id);
-		mav.addObject("message", "cancel_order");
-		mav.setViewName("redirect:/mypage/myPageMain.do");
+		mav.setViewName("redirect:/mypage/listMyOrderHistory.do");
 		return mav;
 	}
 	

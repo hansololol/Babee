@@ -182,7 +182,7 @@ function fn_cancel_order(order_id){
             <td><img src="${contextPath}/thumbnails.do?goods_id=${order.goods_id}&fileName=${order.goods_image_name}" width="100px"/></td>
             <td> 
                <ul class="goods">
-                  <li style="text-align:left;"> ${order.goods_title} [<a href="${contextPath}/mypage/myOrderDetail.do">${order.order_id}</a>] </li>
+                  <li style="text-align:left;"> ${order.goods_title} [<a href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}">${order.order_id}</a>] </li>
                   <li style="text-align:left;"> 가격: ${order.final_total_price} </li>
                   <li style="text-align:left;"> 주문일자: ${order.payment_order_time} </li>
                </ul>
@@ -193,13 +193,13 @@ function fn_cancel_order(order_id){
                   <td> 배송준비중 </td>
                   <td> 
                      <a class="order_delivery_search" href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}"><b>주문/배송조회</b></a><br>
-                     <a class="order_delivery_search" href="#"><b>주문취소</b></a><br>
+                     <a class="order_delivery_search" href="${contextPath}/mypage/cancelMyOrder.do?order_id=${order.order_id}"><b>주문취소</b></a><br>
                   </td>
                   </c:when>
                   <c:when test="${order.delivery_status=='delivering' }">
                      <td> 배송중 </td>
                      <td> 
-                     <a class="order_delivery_search" href="${contextPath}/member/myOrderDetail.do"><b>주문/배송조회</b></a><br>
+                     <a class="order_delivery_search" href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}"><b>주문/배송조회</b></a><br>
                   </td>
                   </c:when>
 
@@ -208,6 +208,12 @@ function fn_cancel_order(order_id){
                      <td> 
                      <a class="order_delivery_search" href="${contextPath}/member/reviewForm.do"><b>후기작성</b></a><br>
                      <a class="order_delivery_search" href="${contextPath}/member/myrefund.do"><b>반품/교환</b></a>
+                  </td>
+                  </c:when>
+                  <c:when test="${order.delivery_status=='cancel_order' }">
+                     <td> 주문취소 </td>
+                     <td> 
+                     <a class="order_delivery_search" href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}"><b>주문상세</b></a><br>
                   </td>
                   </c:when>
              </c:choose>
