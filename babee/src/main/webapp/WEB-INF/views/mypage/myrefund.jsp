@@ -3,18 +3,18 @@
     isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
-<!-- 二쇰Ц�옄 �쑕���룿 踰덊샇 -->
+<!-- 주문자 휴대폰 번호 -->
 <c:set  var="orderer_hp" value=""/>
-<!-- 理쒖쥌 寃곗젣 湲덉븸 -->
+<!-- 최종 결제 금액 -->
 <c:set var="final_total_order_price" value="0" />
 
-<!-- 珥앹＜臾� 湲덉븸 -->
+<!-- 총주문 금액 -->
 <c:set var="total_order_price" value="0" />
-<!-- 珥� �긽�뭹�닔 -->
+<!-- 총 상품수 -->
 <c:set var="total_order_goods_qty" value="0" />
-<!-- 珥앺븷�씤湲덉븸 -->
+<!-- 총할인금액 -->
 <c:set var="total_discount_price" value="0" />
-<!-- 珥� 諛곗넚鍮� -->
+<!-- 총 배송비 -->
 <c:set var="total_delivery_price" value="0" />
 
 <head>
@@ -78,27 +78,27 @@ ul li{
 }
 
 input[type="submit"] {
-    background-color: #ffcd29; /* 諛곌꼍�깋 */
-    color: black; /* �뀓�뒪�듃�깋 */
-    padding: 10px 20px; /* �궡遺� �뿬諛� */
-    border: none; /* �뀒�몢由� �뾾�쓬 */
-    border-radius: 5px; /* �뀒�몢由� 諛섍꼍 */
-    cursor: pointer; /* 而ㅼ꽌 紐⑥뼇 蹂�寃� */
+    background-color: #ffcd29; /* 배경색 */
+    color: black; /* 텍스트색 */
+    padding: 10px 20px; /* 내부 여백 */
+    border: none; /* 테두리 없음 */
+    border-radius: 5px; /* 테두리 반경 */
+    cursor: pointer; /* 커서 모양 변경 */
 }
 
-/* '援щℓ�븯湲�' 踰꾪듉 �뒪���씪 */
+/* '구매하기' 버튼 스타일 */
 input[type="reset"] {
-    background-color: #ffff80; /* 諛곌꼍�깋 */
-    color: black; /* �뀓�뒪�듃�깋 */
-    padding: 10px 20px; /* �궡遺� �뿬諛� */
-    border: none; /* �뀒�몢由� �뾾�쓬 */
-    border-radius: 5px; /* �뀒�몢由� 諛섍꼍 */
-    cursor: pointer; /* 而ㅼ꽌 紐⑥뼇 蹂�寃� */
+    background-color: #ffff80; /* 배경색 */
+    color: black; /* 텍스트색 */
+    padding: 10px 20px; /* 내부 여백 */
+    border: none; /* 테두리 없음 */
+    border-radius: 5px; /* 테두리 반경 */
+    cursor: pointer; /* 커서 모양 변경 */
 }
 
-/* 踰꾪듉�뿉 �샇踰� �슚怨� */
+/* 버튼에 호버 효과 */
 input[type="submit"]:hover, input[type="reset"]:hover {
-    background-color: #cca300; /* �샇踰� �떆 諛곌꼍�깋 蹂�寃� */
+    background-color: #cca300; /* 호버 시 배경색 변경 */
 }
 
 
@@ -106,7 +106,7 @@ input[type="submit"]:hover, input[type="reset"]:hover {
  width: 200px;
 }
 </style>
-<title>援먰솚 �솚遺덉갹</title>
+<title>교환 환불창</title>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
 
@@ -130,16 +130,16 @@ function fn_pay_card(){
 
 function imagePopup(type) {
    if (type == 'open') {
-      // �뙘�뾽李쎌쓣 �뿰�떎.
+      // 팝업창을 연다.
       jQuery('#layer').attr('style', 'visibility:visible');
 
-      // �럹�씠吏�瑜� 媛�由ш린�쐞�븳 �젅�씠�뼱 �쁺�뿭�쓽 �넂�씠瑜� �럹�씠吏� �쟾泥댁쓽 �넂�씠�� 媛숆쾶 �븳�떎.
+      // 페이지를 가리기위한 레이어 영역의 높이를 페이지 전체의 높이와 같게 한다.
       jQuery('#layer').height(jQuery(document).height());
    }
 
    else if (type == 'close') {
 
-      // �뙘�뾽李쎌쓣 �떕�뒗�떎.
+      // 팝업창을 닫는다.
       jQuery('#layer').attr('style', 'visibility:hidden');
    }
 }
@@ -244,26 +244,26 @@ function fn_show_order_detail(){
    for(var i=0; i<r_pay_method.length;i++){
      if(r_pay_method[i].checked==true){
         pay_method=r_pay_method[i].value
-        if(pay_method=="�떊�슜移대뱶"){
+        if(pay_method=="신용카드"){
          var i_card_com_name=document.getElementById("card_com_name");
          var i_card_pay_month=document.getElementById("card_pay_month");
          card_com_name=i_card_com_name.value;
          card_pay_month=i_card_pay_month.value;
          pay_method+="<Br>"+
-                   "移대뱶�궗:"+card_com_name+"<br>"+
-                   "�븷遺�媛쒖썡�닔:"+card_pay_month;
-         pay_orderer_hp_num="�빐�떦�뾾�쓬";
+                   "카드사:"+card_com_name+"<br>"+
+                   "할부개월수:"+card_pay_month;
+         pay_orderer_hp_num="해당없음";
          
-        }else if(pay_method=="�쑕���룿寃곗젣"){
+        }else if(pay_method=="휴대폰결제"){
          var i_pay_order_tel1=document.getElementById("pay_order_tel1");
          var i_pay_order_tel2=document.getElementById("pay_order_tel2");
          var i_pay_order_tel3=document.getElementById("pay_order_tel3");
          pay_orderer_hp_num=i_pay_order_tel1.value+"-"+
                             i_pay_order_tel2.value+"-"+
                          i_pay_order_tel3.value;
-         pay_method+="<Br>"+"寃곗젣�쑕���룿踰덊샇:"+pay_orderer_hp_num;
-         card_com_name="�빐�떦�뾾�쓬";
-         card_pay_month="�빐�떦�뾾�쓬";
+         pay_method+="<Br>"+"결제휴대폰번호:"+pay_orderer_hp_num;
+         card_com_name="해당없음";
+         card_pay_month="해당없음";
         } //end if
        break;
      }// end for
@@ -284,7 +284,7 @@ function fn_show_order_detail(){
    var i_delivery_message=document.getElementById("delivery_message");
    var i_pay_method=document.getElementById("pay_method");
 
-//   alert("珥앹＜臾� 湲덉븸:"+total_order_goods_price);
+//   alert("총주문 금액:"+total_order_goods_price);
    order_goods_qty=h_order_goods_qty.value;
    //order_total_price=h_order_total_price.value;
    
@@ -301,9 +301,9 @@ function fn_show_order_detail(){
    receiver_hp_num=hp1+"-"+hp2+"-"+hp3;
    receiver_tel_num=tel1+"-"+tel2+"-"+tel3;
    
-   delivery_address="�슦�렪踰덊샇:"+i_zipcode.value+"<br>"+
-                  "�룄濡쒕챸 二쇱냼:"+i_roadAddress.value+"<br>"+
-                  "[吏�踰� 二쇱냼:"+i_jibunAddress.value+"]<br>"+
+   delivery_address="우편번호:"+i_zipcode.value+"<br>"+
+                  "도로명 주소:"+i_roadAddress.value+"<br>"+
+                  "[지번 주소:"+i_jibunAddress.value+"]<br>"+
                           i_namujiAddress.value;
    
    delivery_message=i_delivery_message.value;
@@ -325,8 +325,8 @@ function fn_show_order_detail(){
    
    p_order_goods_id.innerHTML=goods_id;
    p_order_goods_title.innerHTML=goods_title;
-   p_total_order_goods_qty.innerHTML=total_order_goods_qty+"媛�";
-   p_total_order_goods_price.innerHTML=total_order_goods_price+"�썝";
+   p_total_order_goods_qty.innerHTML=total_order_goods_qty+"개";
+   p_total_order_goods_price.innerHTML=total_order_goods_price+"원";
    p_orderer_name.innerHTML=orderer_name;
    p_receiver_name.innerHTML=receiver_name;
    p_delivery_method.innerHTML=delivery_method;
@@ -341,7 +341,7 @@ function fn_show_order_detail(){
 
 function fn_process_pay_order(){
    
-   alert("理쒖쥌 寃곗젣�븯湲�");
+   alert("최종 결제하기");
    var formObj=document.createElement("form");
     var i_receiver_name=document.createElement("input");
     
@@ -428,16 +428,16 @@ function fn_process_pay_order(){
 <body>
    
 <form  name="form_order">   
-   
-      <div style=" display: inline-block;">
-      <h3>二쇰Ц踰덊샇 $[]</h2>
-   <div style=" display: inline-grid;" >
+    <div style=" display: inline-block;">
+      <h3>주문번호 $[] </h3>
+ 	 
       
-      <H2 style="width:530px;">援먰솚 �솚遺� �븞�궡</H2>
+      <H2 style="width:530px;">교환 환불 안내</H2>
+       <div style=" display: inline-grid;" >
       <div class="shipping_address">
-      <h3 style="display: inline-block; margin-right: 320px;"> &nbsp;&nbsp;�슂泥��궗�빆</h3> 
+      <h3 style="display: inline-block; margin-right: 320px;"> &nbsp;&nbsp;요청사항</h3> 
       <ul>
-         <li> �긽�뭹�쓣 臾몄븵�뿉 �넃�븘二쇱꽭�슂.</li>
+         <li> 상품을 문앞에 놓아주세요.</li>
       </ul>
       </div>
       
@@ -448,28 +448,28 @@ function fn_process_pay_order(){
 
    
    <div class="detail_table" style="display: inline-block;">
-         <h3> &nbsp;&nbsp;援먰솚 / 諛섑뭹</h3> 
+         <h3> &nbsp;&nbsp;교환 / 반품</h3> 
    
       <table style="padding-left:10px;">
             <tr>
-               <td width="180px;" ><input type="radio" id="pay_method" name="pay_method" value="諛섑뭹"   onClick="fn_pay_card()" checked>諛섑뭹 
-               <td width="180px;"><input type="radio" id="pay_method" name="pay_method" value="援먰솚"  >&nbsp;&nbsp;援먰솚 </td>
+               <td width="180px;" ><input type="radio" id="pay_method" name="pay_method" value="반품"   onClick="fn_pay_card()" checked>반품 
+               <td width="180px;"><input type="radio" id="pay_method" name="pay_method" value="교환"  >&nbsp;&nbsp;교환 </td>
                <td> </td>
             </tr>
             
             <tr> <td colspan="2"> 
                <div class="selectopt">
-               <select id="selectBox" width="10px;">
-                  <option value="option1">�샃�뀡 1</option>
-                 <option value="option2">�샃�뀡 2</option>
-                  <option value="option3">�샃�뀡 3</option>
-                 <option value="option4">�샃�뀡 4</option> </select>
+               <select id="selectBox">
+                  <option value="option1">옵션 1</option>
+                 <option value="option2">옵션 2</option>
+                  <option value="option3">옵션 3</option>
+                 <option value="option4">옵션 4</option> </select>
                  </div>
                  </td>
                  
               <tr> <td>  <textarea name="opinion" cols="30" rows="5"></textarea> </td> </tr>
               
-                 <tr><td colspan="3"> <h5>*二쇰Ц �떆 �꽑�깮�맂 移대뱶�궗濡� �솚遺덉씠 �슂泥��릺硫� 理쒕� 3�씪源뚯� �냼�슂�맆 �닔 �엳�뒿�땲�떎.</h5></td>
+                 <tr><td colspan="3"> <h5>*주문 시 선택된 카드사로 환불이 요청되며 최대 3일까지 소요될 수 있습니다.</h5></td>
               </tr>
             
          
@@ -486,26 +486,26 @@ function fn_process_pay_order(){
    </div>
    
    <div style="display: inline-table;">
-      <H2>�긽�뭹 �꽑�깮</H2>
+      <H2>상품 선택</H2>
          <div class="order_list" >
             <table>
                <tr>
                   <td><input type="checkbox" class="product-checkbox"/></td>
-                  <td width="180px;"><img src="/image/doog.jpg" width="80px;"/></td>
-                  <td width="180px;"> �긽�뭹紐� </td>
-                  <td  width="80px;"> �닔�웾 (媛�) </td>
+                  <td width="180px;"><img src="images/doog.jpg" width="80px;"/></td>
+                  <td width="180px;"> 상품명 </td>
+                  <td  width="80px;"> 수량 (개) </td>
                </tr>
                <tr>
                   <td><input type="checkbox" class="product-checkbox"/></td>
-                  <td width="180px;"><img src="/image/doog.jpg" width="80px;"/></td>
-                  <td width="60px;"> �긽�뭹紐� </td>
-                  <td width="80px;"> �닔�웾 (媛�) </td>
+                  <td width="180px;"><img src="images/doog.jpg" width="80px;"/></td>
+                  <td width="60px;"> 상품명 </td>
+                  <td width="80px;"> 수량 (개) </td>
                </tr>
                <tr>
                   <td><input type="checkbox" class="product-checkbox"/></td>
-                  <td width="180px;"><img src="/image/doog.jpg" width="80px;"/></td>
-                  <td width="180px;"> �긽�뭹紐� </td>
-                  <td  width="80px;"> �닔�웾 (媛�) </td>
+                  <td width="180px;"><img src="images/doog.jpg" width="80px;"/></td>
+                  <td width="180px;"> 상품명 </td>
+                  <td  width="80px;"> 수량 (개) </td>
                </tr>
                
    
@@ -516,24 +516,24 @@ function fn_process_pay_order(){
                
          </div>
          <div style="display: block;">
-      <H2>�솚遺� �삁�젙 湲덉븸</H2>
+      <H2>환불 예정 금액</H2>
          <div class="order_list" >
             <table>
                <tr>
                   
 
-                  <td width="180px;"> 痍⑥냼 �긽�뭹 珥� �븿怨� </td>
+                  <td width="180px;"> 취소 상품 총 함계 </td>
                   <td  width="80px;"> 30,000 </td>
                </tr>
                <tr>
                   
                   
-                  <td width="60px;"> 諛곗넚鍮� </td>
+                  <td width="60px;"> 배송비 </td>
                   <td width="80px;"> 2,500 </td>
                </tr>
                <tr>
                   
-                  <td width="180px;"> �떎 �솚遺덇툑�븸 </td>
+                  <td width="180px;"> 실 환불금액 </td>
                   <td  width="80px;"> <b>27,000</b> </td>
                </tr>
                
@@ -549,19 +549,16 @@ function fn_process_pay_order(){
       </div>
       <div class="clear"></div>   
       <div style="text-align: center; margin-top:10px;">
-                         <input type="submit" value="�솚遺덊븯湲�">&nbsp;&nbsp;&nbsp;
-                        <input type="reset" value="痍⑥냼">
+                         <input type="submit" value="환불하기">&nbsp;&nbsp;&nbsp;
+                        <input type="reset" value="취소">
                   </div>
       
    </form>
    
    <br>
+  <br> 
    
-   
-   
-            
-         <br> 
-   
+         </body>
          
          
          
