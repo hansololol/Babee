@@ -35,15 +35,11 @@ function add_cart(goods_id){
 			};
 	
 	let memberId = $('#isLogOn').val();								// 로그인 된 ID
-	/* let sellerId = $('#isLogOnSeller').val();	 */							// 로그인 된 ID
-	
 	if(memberId != null && memberId != ''){				// 로그인 된 ID가 member 일 경우 
 		data.member_id =  memberId;
-	}else if(sellerId != null && sellerId != ''){		// 로그인 된 ID가 seller 일 경우
-		data.member_id =  sellerId;
 	}
 	
-	if((memberId === null || memberId === '') && (sellerId === null || sellerId === '')){	// 로그인 ID가 없을 경우
+	if(memberId === null || memberId === ''){	// 로그인 ID가 없을 경우
 		alert('로그인 후 이용하실 수 있습니다.');
 		location.href = "${contextPath}/member/loginForm.do";
 		
@@ -276,8 +272,6 @@ function add_cart(goods_id){
 </head>
 <body>
 	<input type="hidden" id="isLogOn" value="${memberInfo.member_id }" />
-
-	<%-- <input type="hidden" id="isLogOnSeller" value="${memberInfo.seller_id }" /> --%>
 
 	<input type="hidden" id="contextPath" data-context="${contextPath}" />
 

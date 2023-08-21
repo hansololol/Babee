@@ -9,6 +9,7 @@ public class CartVO {
 	private int goods_id;
 	private String member_id;
 	private int cart_goods_qty;
+	private String cart_image_name;
 	public String getGoods_option1() {
 		return goods_option1;
 	}
@@ -139,6 +140,14 @@ public class CartVO {
 	}
 	public void setCreDate(String creDate) {
 		this.creDate = creDate;
+	}
+
+	public String getCart_image_name() {
+		return cart_image_name;
+	}
+
+	public void setCart_image_name(String cart_image_name) {
+		this.cart_image_name = cart_image_name;
 	}
 	
 	

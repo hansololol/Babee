@@ -3,6 +3,7 @@ package com.babee.cart.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.babee.cart.service.CartService;
 import com.babee.cart.vo.CartVO;
 import com.babee.common.base.BaseController;
+import com.babee.goods.service.GoodsService;
 import com.babee.goods.vo.GoodsVO;
 import com.babee.member.vo.MemberVO;
 import com.babee.seller.vo.SellerVO;
@@ -30,6 +32,8 @@ import com.babee.seller.vo.SellerVO;
 public class CartControllerImpl extends BaseController implements CartController{
 	@Autowired
 	private CartService cartService;
+	@Autowired
+	private GoodsService goodsService;
 	@Autowired
 	private CartVO cartVO;
 	@Autowired
@@ -64,10 +68,12 @@ public class CartControllerImpl extends BaseController implements CartController
 			for(int i=0; i<myCartList.size(); i++) {
 				cartVO = myCartList.get(i);
 				int goods_id = cartVO.getGoods_id();
-				System.out.println("goods_id: " + goods_id);
+				String id= String.valueOf(goods_id);
+				Map goods = goodsService.goodsDetail(id);
+				GoodsVO goodsCart = (GoodsVO) goods.get("goodsVO");
+				cartVO.setCart_image_name(goodsCart.getGoods_image_name1());
 				allGoodsList = cartService.selectGoodsList(goods_id);
 				allGoodsList.addAll(allGoodsList);
-				System.out.println("goodsList: " + allGoodsList);
 				
 				
 			}
