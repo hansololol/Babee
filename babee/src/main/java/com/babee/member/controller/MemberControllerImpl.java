@@ -52,11 +52,13 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 			session=request.getSession();
 		if(memberVO != null){
 			session.setAttribute("isLogOn", true);
+			session.setAttribute("userType", "M");
 			session.setAttribute("memberInfo",memberVO);
 			mav.setViewName("/main/main");
 			
 		}else if(sellerVO!=null) {
 			session.setAttribute("isLogOn", true);
+			session.setAttribute("userType", "S");
 			session.setAttribute("memberInfo",sellerVO);
 			mav.setViewName("/main/main");
 		}else {

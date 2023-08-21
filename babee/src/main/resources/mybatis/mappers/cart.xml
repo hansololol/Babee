@@ -36,11 +36,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="goods_intro" column="goods_intro" />
 	</resultMap>
 
-	<select id="selectCartList"  parameterType="cartVO"  resultMap="cartResult"   >
+		<select id="selectCartList"  parameterType="String"  resultType="CartVO" >
 	    <![CDATA[
-		select cart_id, goods_id, member_id, cart_goods_qty, creDate
-		from t_shopping_cart 
-		where member_id=#{member_id} 
+		SELECT	b.goods_title
+			  	,b.goods_price
+		      	,a.cart_goods_qty
+		      	,a.goods_option
+		      	,b.goods_delivery_price
+		FROM 	babee.t_shopping_cart a, babee.t_shopping_goods b
+		WHERE 	a.goods_id = b.goods_id
+		AND 	a.member_id = #{member_id}	
 		]]>
 	</select>
 

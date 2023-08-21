@@ -20,53 +20,57 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="/css/detail.css" />
-	<script type="text/javascript">
+
+
+<script type="text/javascript">
+
+function add_cart(goods_id){
 	
-	function add_cart(goods_id) {
-	    var _isLogOn = document.getElementById("isLogOn");
-	    var isLogOn = _isLogOn.value;
-	    
-	    
-		
-		var cart_goods_qty = document.getElementById("cart_goods_qty").value;	
-		var goods_option = document.getElementById("goods_option").value;
-		
-		cart_goods_qty *=1;
-		
-	    if (isLogOn === "false" || isLogOn === '') {
-	        alert("로그인 후 이용 가능합니다.");
-	        location.href = "${contextPath}/member/loginForm.do"; // 로그인 페이지 경로로 변경해야 합니다.
-	    } else {
-	    	$.ajax({
-				type : "post",
-				async : false, //false인 경우 동기식으로 처리한다.
-				url : "${contextPath}/cart/addGoodsInCart.do",
-				data : {
-					goods_id:goods_id,
-					cart_goods_qty:cart_goods_qty,
-					goods_option:goods_option
-					
-				},
-				success : function(data, textStatus) {
-					// alert(result);
-					$('#message').append(data);
-					if(data.result.trim()=='add_success'){
-					    alert("장바구니에 상품이 추가되었습니다."); // 메시지 변경
-					    // imagePopup('open', '.layer01'); // 팝업 표시
-					} else if(data.result.trim()=='already_existed'){
-					    alert("이미 카트에 등록된 상품입니다.");
-					}
-					
-				},
-				error : function(data, textStatus) {
-					alert("에러가 발생했습니다."+data);
-				},
-				complete : function(data, textStatus) {
-					//alert("작업을완료 했습니다");
-				}
-			}); //end ajax	
-	    }
+	var cart_goods_qty = document.getElementById("order_goods_qty").value;	// 상품 갯수
+	var goods_option = document.getElementById("goods_option").value;		// 상품 옵션
+	let data = {
+			goods_id : goods_id,
+			cart_goods_qty : cart_goods_qty,
+			goods_option : goods_option
+			};
+	
+	let memberId = $('#isLogOnMember').val();								// 로그인 된 ID
+	let sellerId = $('#isLogOnSeller').val();								// 로그인 된 ID
+	
+	if(memberId != null && memberId != ''){				// 로그인 된 ID가 member 일 경우 
+		data.member_id =  memberId;
+	}else if(sellerId != null && sellerId != ''){		// 로그인 된 ID가 seller 일 경우
+		data.member_id =  sellerId;
 	}
+	
+	if((memberId === null || memberId === '') && (sellerId === null || sellerId === '')){	// 로그인 ID가 없을 경우
+		alert('로그인 후 이용하실 수 있습니다.');
+		location.href = "${contextPath}/member/loginForm.do";
+		
+	}else{																	// 로그인 ID가 있을 경우
+		$.ajax({
+			type : "POST",
+			async : false,
+			url : "${contextPath}/cart/addGoodsInCart",
+			data : JSON.stringify(data),
+	        contentType: "application/json",
+			success : function(res){
+				if(res === "add_success"){
+					alert("장바구니에 상품이 추가되었습니다.");
+					if(confirm("장바구니 페이지로 이동하시겠습니까?")){
+						location.href = '/cart/myCartList.do';			
+					}
+				}else{
+					alert("이미 카트에 등록된 상품입니다.");
+				}
+			},
+			error : function(e){
+				console.log('error : ', e);
+			}
+		});
+	}
+	
+}
 
 
 	function imagePopup(type) {
@@ -271,8 +275,9 @@
 	
 </head>
 <body>
-<input type="hidden" id="isLogOn" value="${memberInfo.member_id }" />
-<input type="hidden" id="contextPath" data-context="${contextPath}" />
+	<input type="hidden" id="isLogOnMember" value="${memberInfo.member_id }" />
+	<input type="hidden" id="isLogOnSeller" value="${memberInfo.seller_id }" />
+	<input type="hidden" id="contextPath" data-context="${contextPath}" />
 
 
 	<br><br>
@@ -322,7 +327,7 @@
 					<td class="fixed">옵션</td>
 					<td class="fixed">
 
-						<select style="width: 400px;  text-align: center" id="order_goods_qty" name="goods_option" >
+						<select style="width: 400px;  text-align: center" id="goods_option" name="goods_option" >
 
 							<option value="${goodsVO.goods_option1}">${goodsVO.goods_option1}</option>
 							<option value="${goodsVO.goods_option2}">${goodsVO.goods_option2}</option>
