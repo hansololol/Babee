@@ -34,8 +34,8 @@ function add_cart(goods_id){
 			goods_option : goods_option
 			};
 	
-	let memberId = $('#isLogOnMember').val();								// 로그인 된 ID
-	let sellerId = $('#isLogOnSeller').val();								// 로그인 된 ID
+	let memberId = $('#isLogOn').val();								// 로그인 된 ID
+	/* let sellerId = $('#isLogOnSeller').val();	 */							// 로그인 된 ID
 	
 	if(memberId != null && memberId != ''){				// 로그인 된 ID가 member 일 경우 
 		data.member_id =  memberId;
@@ -275,8 +275,8 @@ function add_cart(goods_id){
 	
 </head>
 <body>
-	<input type="hidden" id="isLogOnMember" value="${memberInfo.member_id }" />
-	<input type="hidden" id="isLogOnSeller" value="${memberInfo.seller_id }" />
+	<input type="hidden" id="isLogOn" value="${memberInfo.member_id }" />
+	<%-- <input type="hidden" id="isLogOnSeller" value="${memberInfo.seller_id }" /> --%>
 	<input type="hidden" id="contextPath" data-context="${contextPath}" />
 
 
