@@ -43,12 +43,14 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		ModelAndView mav = new ModelAndView("/goods/orderGoodsForm");
 		Map goodsVO1=goodsService.goodsDetail(orderVO.getGoods_id());
 		GoodsVO goodsVO =(GoodsVO)goodsVO1.get("goodsVO");
+
 		int order_goods_qty = Integer.valueOf(orderVO.getOrder_goods_qty());
 		int goods_price = Integer.valueOf(goodsVO.getGoods_price());
 		int discounted_price = (goods_price / 10) * order_goods_qty;
 		int total_goods_price = goods_price * order_goods_qty;
 		mav.addObject("total_goods_price", total_goods_price);
 		mav.addObject("discounted_price", discounted_price);
+
 		List ordergoods = new ArrayList<>();
 		ordergoods.add(orderVO);
 		session.setAttribute("goods", goodsVO);

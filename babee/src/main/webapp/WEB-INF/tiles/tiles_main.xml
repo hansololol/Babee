@@ -154,10 +154,12 @@
        <put-attribute name="body" value="/WEB-INF/views/mypage/wishList.jsp" />
     </definition>
     
-      <definition name="/member/mycartList" extends="baseLayout_user">
-       <put-attribute name="title" value="내 장바구니 정보" />
-       <put-attribute name="body" value="/WEB-INF/views/cart/myCartList.jsp" />
-    </definition>
+    <definition name="/cart/myCartList"
+		extends="baseLayout_user">
+		<put-attribute name="title" value="내 장바구니 정보" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/cart/myCartList.jsp" />
+	</definition>
     
      <definition name="/member/modMember" extends="baseLayout_user">
        <put-attribute name="title" value="멤버 정보 수정" />
@@ -174,7 +176,7 @@
        <put-attribute name="title" value="주문 상세창" />
        <put-attribute name="body" value="/WEB-INF/views/mypage/myOrderDetail.jsp" />
      </definition>
-      <definition name="/member/myrefund" extends="baseLayout_user">
+      <definition name="/mypage/myrefund" extends="baseLayout_user">
        <put-attribute name="title" value="교환 환불창" />
        <put-attribute name="body" value="/WEB-INF/views/mypage/myrefund.jsp" />
      </definition>

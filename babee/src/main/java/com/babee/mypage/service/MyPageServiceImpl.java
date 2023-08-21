@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.babee.member.vo.MemberVO;
 import com.babee.mypage.dao.MyPageDAO;
 import com.babee.order.vo.OrderVO;
+import com.babee.order.vo.RefundVO;
 
 @Service("myPageService")
 @Transactional(propagation=Propagation.REQUIRED)
@@ -31,17 +32,11 @@ public class MyPageServiceImpl  implements MyPageService{
 		return myPageDAO.selectMyOrderHistoryList(dateMap);
 	}
 	
-	public MemberVO  modifyMyInfo(Map memberMap) throws Exception{
-		 String member_id=(String)memberMap.get("member_id");
-		 myPageDAO.updateMyInfo(memberMap);
-		 return myPageDAO.selectMyDetailInfo(member_id);
-	}
-	
 	public void cancelOrder(String order_id) throws Exception{
 		myPageDAO.updateMyOrderCancel(order_id);
 	}
-	public MemberVO myDetailInfo(String member_id) throws Exception{
-		return myPageDAO.selectMyDetailInfo(member_id);
+	public void refundOrder(RefundVO refundOrder) throws Exception{
+		myPageDAO.updateMyOrderRefund(refundOrder);
 	}
-	
+
 }
