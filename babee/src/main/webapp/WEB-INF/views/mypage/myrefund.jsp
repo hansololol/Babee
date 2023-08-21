@@ -3,7 +3,10 @@
     isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
+<!DOCTYPE html >
+<html>
 <head>
+<meta   charset="utf-8">
 <style>
 .shipping_address >ul li{ 
    list-style-type: none;
@@ -35,33 +38,7 @@
 
 }
 
-#layer {
-   z-index: 2;
-   position: absolute;
-   top: 0px;
-   left: 0px;
-   width: 100%;
-   /* background-color:rgba(0,0,0,0.8); */
-}
-
-#popup_order_detail {
-   z-index: 3;
-   position: fixed;
-   text-align: center;
-   left: 10%;
-   top: 0%;
-   width: 60%;
-   height: 100%;
-   background-color:#ccff99;
-   border: 2px solid  #0000ff;
-}
-
-#close {
-   z-index: 4;
-   float: right;
-}
-
-input[type="submit"] {
+#buttonRefund > input[type="submit"] {
     background-color: #ffcd29; /* 배경색 */
     color: black; /* 텍스트색 */
     padding: 10px 20px; /* 내부 여백 */
@@ -71,7 +48,7 @@ input[type="submit"] {
 }
 
 /* '구매하기' 버튼 스타일 */
-input[type="reset"] {
+#buttonRefund > input[type="reset"] {
     background-color: #ffff80; /* 배경색 */
     color: black; /* 텍스트색 */
     padding: 10px 20px; /* 내부 여백 */
@@ -81,10 +58,9 @@ input[type="reset"] {
 }
 
 /* 버튼에 호버 효과 */
-input[type="submit"]:hover, input[type="reset"]:hover {
+#buttonRefund > input[type="submit"]:hover, input[type="reset"]:hover {
     background-color: #cca300; /* 호버 시 배경색 변경 */
 }
-
 
 #selectBox {
  width: 200px;
@@ -94,13 +70,11 @@ input[type="submit"]:hover, input[type="reset"]:hover {
 </head>
 <body>
    
-<form  name="form_order">   
     <div style=" display: inline-block;">
-      <h3>주문번호 $[] </h3>
- 	 
-      
+
       <H2 style="width:530px;">교환 환불 안내</H2>
-       <div style=" display: inline-grid;" >
+       
+      <div style=" display: inline-grid;" >
       <div class="shipping_address">
       <h3 style="display: inline-block; margin-right: 320px;"> &nbsp;&nbsp;안내사항</h3> 
       <ul>
@@ -111,80 +85,73 @@ input[type="submit"]:hover, input[type="reset"]:hover {
       
    
    
-   <br><br>
+      <br><br>
 
-   
-   <div class="detail_table" style="display: inline-block;">
+      <form name="form_order" method="post" enctype="utf-8" action="${contextPath}/mypage/refundOrder.do">   
+      <div class="detail_table" style="display: inline-block;">
          <h3> &nbsp;&nbsp;교환 / 반품</h3> 
    
       <table style="padding-left:10px;">
             <tr>
-               <td width="180px;" ><input type="radio" id="pay_method" name="pay_method" value="반품"   onClick="fn_pay_card()" checked>반품 
-               <td width="180px;"><input type="radio" id="pay_method" name="pay_method" value="교환"  >&nbsp;&nbsp;교환 </td>
-               <td> </td>
+               <td width="200px;" ><input type="radio" name="delivery_status" value="refund" checked>반품 </td>
+               <td width="200px;"><input type="radio" name="delivery_status" value="change">&nbsp;&nbsp;교환 </td>
             </tr>
             
             <tr> <td colspan="2"> 
                <div class="selectopt">
-               <select id="selectBox">
-                  <option value="option1">불량&오배송</option>
-                 <option value="option2">사이즈 교환</option>
-                  <option value="option3">단순 변심</option>
-                 <option value="option4">기타</option> </select>
+               <select id="selectBox"  name = "reason_option">
+                  <option value="not">불량&오배송</option>
+                 <option  value="size">사이즈 교환</option>
+                  <option value="heart">단순 변심</option>
+                 <option value="other">기타</option> </select>
                  </div>
                  </td>
-                 
-              <tr> <td>  <textarea name="opinion" cols="30" rows="5"></textarea> </td> </tr>
+               </tr>
+              <tr> <td colspan="2"> <textarea name="reason" cols="30" rows="5"></textarea> </td> </tr>
               
-                 <tr><td colspan="3"> <h5>*주문 시 선택된 카드사로 환불이 요청되며 최대 3일까지 소요될 수 있습니다.</h5></td>
-              </tr>
-            
+                 <tr><td colspan="2"> <p>*주문 시 선택된 카드사로 환불이 요청되며 최대 3일까지 소요될 수 있습니다.</p></td></tr>
          
       </table>   
       
       <br>
-   </div>
-   </div>
+    </div>
+    </div>
    
-   <br>
+    <br>
    
    
    
-   </div>
+    </div>
    
-   <div style="display: inline-table;">
+      <div style="display: inline-table;">
       <H2>상품 선택</H2>
          <div class="order_list" >
             <table>
+               <c:forEach var="order" items="${orderList}" varStatus="var">
+                  <input type="hidden" name="order_id" value="${order.order_id}">
+                  <tr>
+                     <td>목록</td>
+                     <td>상품 이미지</td>
+                     <td>상품명</td>
+                     <td>수량</td>
+                     <td>상품 옵션</td>
+                  </tr>
                <tr>
-                  <td><input type="checkbox" class="product-checkbox"/></td>
-                  <td width="180px;"><img src="images/doog.jpg" width="80px;"/></td>
-                  <td width="180px;"> 상품명 </td>
-                  <td  width="80px;"> 수량 (개) </td>
+                  <td><input type="hidden" name="goods_id" value="${order.goods_id}" class="product-checkbox"/>${var.count} </td>
+                  <td><img src="${contextPath}/thumbnails.do?goods_id=${order.goods_id}&fileName=${order.goods_image_name}" width="100px"/></td>
+                  <input type="hidden" name="goods_title" value=" ${order.goods_title}">
+                  <td width="180px;"> ${order.goods_title} </td>
+                  <td  width="80px;"> ${order.order_goods_qty}(개) </td>
+                  <td  width="80px;"> ${order.goods_option} </td>
                </tr>
-               <tr>
-                  <td><input type="checkbox" class="product-checkbox"/></td>
-                  <td width="180px;"><img src="images/doog.jpg" width="80px;"/></td>
-                  <td width="60px;"> 상품명 </td>
-                  <td width="80px;"> 수량 (개) </td>
-               </tr>
-               <tr>
-                  <td><input type="checkbox" class="product-checkbox"/></td>
-                  <td width="180px;"><img src="images/doog.jpg" width="80px;"/></td>
-                  <td width="180px;"> 상품명 </td>
-                  <td  width="80px;"> 수량 (개) </td>
-               </tr>
-               
-   
-               
+               </c:forEach>
             </table>   
-            
-            
+    
                
          </div>
          <div style="display: block;">
-      <H2>환불 예정 금액</H2>
-         <div class="order_list" >
+           <H2>환불 예정 금액</H2>
+         <div class="order_list">
             <table>
                <tr>
                   
@@ -203,28 +170,18 @@ input[type="submit"]:hover, input[type="reset"]:hover {
                   <td width="180px;"> 실 환불금액 </td>
                   <td  width="80px;"> <b>27,000</b> </td>
                </tr>
-               
-   
-               
+       
             </table>   
-            
-            
-               
-         </div>
-                  
 
+         </div>
       </div>
-      <div class="clear"></div>   
-      <div style="text-align: center; margin-top:10px;">
-                         <input type="submit" value="환불하기">&nbsp;&nbsp;&nbsp;
-                        <input type="reset" value="취소">
-                  </div>
-      
+      <div style="text-align: center; margin-top:10px;" id="buttonRefund">
+              <input type="submit" value="환불하기">&nbsp;&nbsp;&nbsp;
+              <input type="reset" value="취소">
+      </div>
+      </div>
    </form>
-   
-   <br>
-  <br> 
-   
-         
+</body>
+</html>
          
          
