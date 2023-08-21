@@ -27,10 +27,12 @@ public class GoodsServiceImpl implements GoodsService{
         return goodsDAO.selectAllGoods();  
     }
 	
+	
 	public List<GoodsVO> getAllCategoryGoods(Map goods) {
 		
 		return goodsDAO.selectAllCategoryGoods(goods);  
 	}
+	
 	
 	public Map goodsDetail(String _goods_id) throws Exception {
 		Map goodsMap=new HashMap();
@@ -41,15 +43,18 @@ public class GoodsServiceImpl implements GoodsService{
 		return goodsMap;
 	}
 	
+	
 	public List<String> keywordSearch(String keyword) throws Exception {
 		List<String> list=goodsDAO.selectKeywordSearch(keyword);
 		return list;
 	}
 	
+	
 	public ImageFileVO goodsDetailImage(String member_id) throws Exception {
 		ImageFileVO image= goodsDAO.selectGoodsDetailImage(member_id);
 		return image;
 	}
+	
 	
 	public List<GoodsVO> searchGoods(String searchWord) throws Exception{
 		List goodsList=goodsDAO.selectGoodsBySearchWord(searchWord);

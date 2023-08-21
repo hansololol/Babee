@@ -67,6 +67,54 @@
 			}); //end ajax	
 	    }
 	}
+	
+function add_wish(goods_id){
+   
+   var cart_goods_qty = document.getElementById("order_goods_qty").value;   // 상품 갯수
+   var goods_option = document.getElementById("goods_option").value;      // 상품 옵션
+   let data = {
+         goods_id : goods_id,
+         cart_goods_qty : cart_goods_qty,
+         goods_option : goods_option
+         };
+   
+   let memberId = $('#isLogOn').val();                        // 로그인 된 ID
+   /* let sellerId = $('#isLogOnSeller').val();    */                     // 로그인 된 ID
+   
+   if(memberId != null && memberId != ''){            // 로그인 된 ID가 member 일 경우 
+      data.member_id =  memberId;
+   }else if(sellerId != null && sellerId != ''){      // 로그인 된 ID가 seller 일 경우
+      data.member_id =  sellerId;
+   }
+   
+   if((memberId === null || memberId === '') && (sellerId === null || sellerId === '')){   // 로그인 ID가 없을 경우
+      alert('로그인 후 이용하실 수 있습니다.');
+      location.href = "${contextPath}/member/loginForm.do";
+      
+   }else{                                                   // 로그인 ID가 있을 경우
+      $.ajax({
+         type : "POST",
+         async : false,
+         url : "${contextPath}/cart/addGoodsInCart",
+         data : JSON.stringify(data),
+           contentType: "application/json",
+         success : function(res){
+            if(res === "add_success"){
+               alert("위시리스트에 상품이 추가되었습니다.");
+               if(confirm("위시리스트 페이지로 이동하시겠습니까?")){
+                  location.href = '/mypage/wishList.do';         
+               }
+            }else{
+               alert("이미 찜한 상품입니다.");
+            }
+         },
+         error : function(e){
+            console.log('error : ', e);
+         }
+      });
+   }
+   
+}
 
 
 	function imagePopup(type) {
@@ -98,6 +146,9 @@
 	    }
 	}
 	
+	$(".btn_add_wish").click(function(){
+		alert("상품을 위시리스트에 추가하였습니다.")
+	})
 </script>
 
 
@@ -351,7 +402,7 @@
 		<ul>
 			<li><a class="buy" href="javascript:fn_order_each_goods()">구매하기 </a></li>
 			<li><a class="cart" href="javascript:add_cart('${goodsVO.goods_id}')">장바구니</a></li>
-			<li><button type="button" id="wishBtn" class="btn_add_wish"><span>찜하기</span></button></li>
+			<li><a class="btn_add_wish" href="javascript:add_wish('${goodsVO.goods_id}')">찜하기</a></li>
 		</ul>
 	</div>
 </form>

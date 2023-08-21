@@ -91,13 +91,13 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		
 		    memberService.addMember(_memberVO);
 		    message  = "<script>";
-		    message +=" alert('회원 가입 완료되었습니다.');";
+		    message +=" alert('회원가입이 완료되었습니다. 로그인 해주시기 바랍니다.');";
 		    message += " location.href='"+request.getContextPath()+"/member/loginForm.do';";
 		    message += " </script>";
 		    
 		}catch(Exception e) {
 			message  = "<script>";
-		    message +=" alert('회원 가입에 실패하였습니다. 다시 입력해주세요');";
+		    message +=" alert('회원가입에 실패하였습니다. 다시 시도해주시기 바랍니다.');";
 		    message += " location.href='"+request.getContextPath()+"/member/memberForm.do';";
 		    message += " </script>";
 			e.printStackTrace();
@@ -115,7 +115,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		return resEntity;
 	}
 	
-	//추가중 
+	//異붽�以� 
 	@RequestMapping(value="/updateMember.do" , method= RequestMethod.POST)
 	public ModelAndView modMember(@ModelAttribute("memberVO") MemberVO _memberVO, HttpServletRequest request, HttpServletResponse response) throws Exception{
 	

@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.babee.goods.dao.GoodsDAO">
 <!-- 리절트 맵 정의 -->   
-   <resultMap id="goodsResult" type="goodsVO">
+   <resultMap id="goodsResult" type="GoodsVO">
       <result property="goods_id" column="goods_id" />
       <result property="goods_title" column="goods_title" />
       <result property="goods_price" column="goods_price" />

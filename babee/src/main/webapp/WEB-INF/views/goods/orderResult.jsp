@@ -54,7 +54,7 @@
    <div class="text_center">
       <img src="/image/check.png" style="display:inline-block; margin-block-end: -6px;"/>
       <h3 style="display:inline-block;">상품 구매가 완료 되었습니다.</h3>
-      <h5>입금계좌 정보</h5>
+      <h5>입금계좌 정보 ${total_goods_price} ${total_goods_price} ${total_goods_price}</h5>
       <h6>3일 이내에 입금이 완료되지 않을 시 주문이 취소됩니다.</h6>
    </div>
 
@@ -81,10 +81,13 @@
                   <td>${order.order_goods_qty} </td>
                   <td>${(goods.goods_price - discounted_price) * order.order_goods_qty} 원</td>
              </tr>
-             <tr height="10" >
-               <td colspan="5" style="border: none; border-bottom: 1px solid gray;"><h4 style="margin-bottom:0px;">최종 결제 금액 ${(goods.goods_price - discounted_price) * order.order_goods_qty} 원</h4></td>
-         		</tr>
             </c:forEach>
+            <tr height="10" >
+               <td colspan="5" style="border: none; border-bottom: 1px solid gray;" text-align="right"><h5>상품 금액  ${total_goods_price} 원 </h5><h4> + </h4><h5>배송비  ${goods.goods_delivery_price} 원</h5></td>
+         	</tr>
+            <tr height="10" >
+               <td colspan="5" style="border: none; border-bottom: 1px solid gray;" text-align="right"><h4> 최종 결제 금액  ${total_goods_price + goods.goods_delivery_price} 원</h4></td>
+         		</tr>
              
       </table>
       <br><br>

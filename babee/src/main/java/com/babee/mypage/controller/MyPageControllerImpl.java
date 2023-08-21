@@ -1,9 +1,8 @@
 package com.babee.mypage.controller;
 
-import java.util.Date;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +39,7 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 	private MemberVO memberVO;
 	@Autowired
 	private OrderVO orderVO;
+	
 	
 	@Override
 	@RequestMapping(value="/myPageMain.do" ,method = RequestMethod.GET)
@@ -189,6 +189,8 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		message  = "mod_success";
 		resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
 		return resEntity;
-	}	
+	}
+	
+	
 	
 }

@@ -64,7 +64,7 @@
         </div>
 
 
- <c:forEach var="i" begin="0" end="5">
+ <c:forEach var="wishList" items="${orderInfo}">
         <div class="product">
             <input type="checkbox" class="product-checkbox"> &nbsp;&nbsp;
             <img src="/image/shopping3.jpg" style="border-radius: 3px;">
