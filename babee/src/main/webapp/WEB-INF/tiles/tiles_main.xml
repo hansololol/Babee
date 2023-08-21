@@ -154,10 +154,12 @@
        <put-attribute name="body" value="/WEB-INF/views/mypage/wishList.jsp" />
     </definition>
     
-      <definition name="/member/mycartList" extends="baseLayout_user">
-       <put-attribute name="title" value="내 장바구니 정보" />
-       <put-attribute name="body" value="/WEB-INF/views/cart/myCartList.jsp" />
-    </definition>
+    <definition name="/cart/myCartList"
+		extends="baseLayout_user">
+		<put-attribute name="title" value="내 장바구니 정보" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/cart/myCartList.jsp" />
+	</definition>
     
      <definition name="/member/modMember" extends="baseLayout_user">
        <put-attribute name="title" value="멤버 정보 수정" />

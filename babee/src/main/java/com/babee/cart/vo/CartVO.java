@@ -13,6 +13,43 @@ public class CartVO {
 	private String goods_option;
 	
 	
+	private String goods_title;
+  	private int goods_price;
+  	private int goods_delivery_price;
+  	
+  	
+  	@Override
+	public String toString() {
+		return "CartVO [cart_id=" + cart_id + ", goods_id=" + goods_id + ", member_id=" + member_id
+				+ ", cart_goods_qty=" + cart_goods_qty + ", creDate=" + creDate + ", goods_option=" + goods_option
+				+ ", goods_title=" + goods_title + ", goods_price=" + goods_price + ", goods_delivery_price="
+				+ goods_delivery_price + "]";
+	}
+	
+	public String getGoods_title() {
+		return goods_title;
+	}
+
+	public void setGoods_title(String goods_title) {
+		this.goods_title = goods_title;
+	}
+
+	public int getGoods_price() {
+		return goods_price;
+	}
+
+	public void setGoods_price(int goods_price) {
+		this.goods_price = goods_price;
+	}
+
+	public int getGoods_delivery_price() {
+		return goods_delivery_price;
+	}
+
+	public void setGoods_delivery_price(int goods_delivery_price) {
+		this.goods_delivery_price = goods_delivery_price;
+	}
+
 	public int getCart_goods_qty() {
 		return cart_goods_qty;
 	}
