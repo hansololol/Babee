@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.babee.member.vo.MemberVO;
 import com.babee.mypage.dao.MyPageDAO;
 import com.babee.order.vo.OrderVO;
 import com.babee.order.vo.RefundVO;
