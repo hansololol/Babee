@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.babee.cart.vo.CartVO;
+import com.babee.goods.vo.GoodsVO;
 
 public interface CartController {
 	public ModelAndView myCartMain(HttpServletRequest request, HttpServletResponse response) throws Exception;

@@ -13,7 +13,7 @@ import com.babee.goods.vo.GoodsVO;
 @Repository("cartDAO")
 public interface CartDAO {
 	public List<CartVO> selectCartList(String memberId) throws DataAccessException;
-	public List<GoodsVO> selectGoodsList(List<CartVO> cartList) throws DataAccessException;
+	public List<GoodsVO> selectGoodsList(int goods_id) throws DataAccessException;
 //	public boolean selectCountInCart(CartVO cartVO) throws DataAccessException;
 	public boolean selectCountInCart(CartVO cartVO) throws DataAccessException;
 	public void insertGoodsInCart(CartVO cartVO) throws DataAccessException;

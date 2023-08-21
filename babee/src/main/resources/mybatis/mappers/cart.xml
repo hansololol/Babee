@@ -12,6 +12,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="cart_goods_qty" column="cart_goods_qty" />
 		<result property="creDate" column="creDate" />
 		<result property="goods_option" column="goods_option" />
+		<result property="goods_option1" column="goods_option1" />
+		<result property="goods_option2" column="goods_option2" />
+		<result property="goods_option3" column="goods_option3" />
+		<result property="goods_option4" column="goods_option4" />
+		<result property="goods_option5" column="goods_option5" />
 	</resultMap>
 	
 	<resultMap id="goodsResult" type="GoodsVO">
@@ -43,13 +48,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		      	,a.cart_goods_qty
 		      	,a.goods_option
 		      	,b.goods_delivery_price
+		      	,b.goods_id
+		      	,a.cart_id
+		      	,a.member_id
+		      	,b.goods_option1
+		      	,b.goods_option2
+		      	,b.goods_option3
+		      	,b.goods_option4
+		      	,b.goods_option5
 		FROM 	babee.t_shopping_cart a, babee.t_shopping_goods b
 		WHERE 	a.goods_id = b.goods_id
 		AND 	a.member_id = #{member_id}	
 		]]>
 	</select>
 
-	<select id="selectGoodsList" resultMap="goodsResult" parameterType="java.util.Map">
+	 <select id="selectGoodsList" parameterType="int" resultType="GoodsVO">
+		<![CDATA[
+		 select goods_option1, goods_option2, goods_option3, goods_option4, goods_option5, goods_image_name1 
+		from t_shopping_goods
+		where goods_id=#{goods_id};
+		]]>
+	 </select>
+
+
+	<!-- <select id="selectGoodsList" resultMap="goodsResult" parameterType="java.util.Map">
       <![CDATA[
           select g.*,d.fileName from t_shopping_goods g, t_goods_detail_image d
           where g.goods_id=d.goods_id
@@ -60,7 +82,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			#{item.goods_id}
 		</foreach>
 		order by g.goods_creDate desc
-	</select>
+	</select> -->
 
 	<select id="selectCountInCart" resultType="boolean" parameterType="cartVO">
 	    <![CDATA[

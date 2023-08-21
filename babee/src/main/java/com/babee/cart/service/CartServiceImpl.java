@@ -1,8 +1,6 @@
 package com.babee.cart.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +12,6 @@ import com.babee.cart.vo.CartVO;
 import com.babee.goods.vo.GoodsVO;
 
 @Service("cartService")
-@Transactional(propagation=Propagation.REQUIRED)
 public class CartServiceImpl  implements CartService{
 	
 	@Autowired
@@ -48,6 +45,11 @@ public class CartServiceImpl  implements CartService{
 	}
 	public void removeCartGoods(int cart_id) throws Exception{
 		cartDAO.deleteCartGoods(cart_id);
+	}
+
+	@Override
+	public List<GoodsVO> selectGoodsList(int goods_id) throws Exception {
+		return cartDAO.selectGoodsList(goods_id);
 	}
 	
 }
