@@ -26,7 +26,7 @@
 
 .order_list td{
 
-    padding-left: 30px;
+    padding-left: 7px;
     padding-top: 15px;
 
 }
@@ -156,19 +156,19 @@
                <tr>
                   
 
-                  <td width="180px;"> 취소 상품 총 함계 </td>
-                  <td  width="80px;"> 30,000 </td>
+                  <td width="180px;"> 취소 상품 계 </td>
+                  <td  width="80px;"> ${orderVO.final_total_price} </td>
                </tr>
                <tr>
                   
                   
                   <td width="60px;"> 배송비 </td>
-                  <td width="80px;"> 2,500 </td>
+                  <td width="80px;"> 3,000 </td>
                </tr>
                <tr>
                   
                   <td width="180px;"> 실 환불금액 </td>
-                  <td  width="80px;"> <b>27,000</b> </td>
+                  <td  width="80px;"> <b>${orderVO.final_total_price-3000}</b> </td>
                </tr>
        
             </table>   

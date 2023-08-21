@@ -33,6 +33,11 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.selectOverlappedID(id);
 	}
 	
+	@Override
+	public void delMember(String id) throws Exception{
+		memberDAO.deleteMember(id);
+	}
+	
 	//회원수정 추가
 	@Override
 	public void modMember(MemberVO memberVO) throws Exception{

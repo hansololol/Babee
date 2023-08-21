@@ -95,10 +95,9 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 			now = new Date(System.currentTimeMillis());
 			System.out.println(now);
 		}
-		
-		for(int i =(pageNum-1)*10; i <ListSize;i++) {
+	
+		for(int i =(pageNum-1)*10; i <pageNum*10;i++) {
 			orderVO = myOrderListGoods.get(i);
-				
 			String goods_id = orderVO.getGoods_id();
 			Map goodsVOMap = goodsService.goodsDetail(goods_id);
 			GoodsVO goodsVO = (GoodsVO)goodsVOMap.get("goodsVO");
@@ -147,6 +146,8 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		}
 		HttpSession session=request.getSession();
 		session.setAttribute("orderList", OrderList);
+		orderVO = (OrderVO) OrderListAll.get(0);
+		mav.addObject("orderVO", orderVO);
 		return mav;
 	}
 	@Override
