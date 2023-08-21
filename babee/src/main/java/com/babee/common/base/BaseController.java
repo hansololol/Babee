@@ -22,7 +22,7 @@ public abstract class BaseController  {
 	private static final String CURR_IMAGE_REPO_PATH = "C:\\shopping\\file_repo";
 	
 	protected List upload(MultipartHttpServletRequest multipartRequest) throws Exception{
-		System.out.println("깃허브 확인");
+		System.out.println("업로드 완료");
 		List fileList= new ArrayList<ImageFileVO>();
 		Iterator<String> fileNames = multipartRequest.getFileNames();
 		while(fileNames.hasNext()){
@@ -36,12 +36,12 @@ public abstract class BaseController  {
 			
 			File file = new File(CURR_IMAGE_REPO_PATH +"\\"+ fileName);
 			if(mFile.getSize()!=0){ //File Null Check
-				if(! file.exists()){ //  λ                          
-					if(file.getParentFile().mkdirs()){ //  ο   ش  ϴ     丮         
+				if(! file.exists()){ //  貫                          
+					if(file.getParentFile().mkdirs()){ //  恝   娩  求     訝�         
 							file.createNewFile(); //              
 					}
 				}
-				mFile.transferTo(new File(CURR_IMAGE_REPO_PATH +"\\"+"temp"+ "\\"+originalFileName)); // ӽ÷        multipartFile           Ϸ      
+				mFile.transferTo(new File(CURR_IMAGE_REPO_PATH +"\\"+"temp"+ "\\"+originalFileName)); // 擔첨        multipartFile           狗      
 			}
 		}
 		return fileList;
@@ -50,7 +50,7 @@ public abstract class BaseController  {
 	protected  ModelAndView viewForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName=(String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
-		System.out.println("view name 확인 " + viewName);
+		System.out.println("view name = " + viewName);
 		return mav;
 	}
 	
