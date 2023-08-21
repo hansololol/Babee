@@ -89,7 +89,7 @@ function add_cart(goods_id){
 		}
 	}
 	
-	function fn_order_each_goods(goods_id, goods_title, goods_sales_price, fileName) {
+	function fn_order_each_goods() {
 	    var _isLogOn = document.getElementById("isLogOn");
 	    var isLogOn = _isLogOn.value;
 	    
@@ -276,7 +276,9 @@ function add_cart(goods_id){
 </head>
 <body>
 	<input type="hidden" id="isLogOn" value="${memberInfo.member_id }" />
+
 	<%-- <input type="hidden" id="isLogOnSeller" value="${memberInfo.seller_id }" /> --%>
+
 	<input type="hidden" id="contextPath" data-context="${contextPath}" />
 
 

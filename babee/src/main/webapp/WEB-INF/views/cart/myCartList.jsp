@@ -5,12 +5,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
-<c:set var="myCartList"  value="${cartMap.myCartList}"  />
+<%-- <c:set var="myCartList"  value="${myCartList}"/> --%>
 <c:set var="myGoodsList"  value="${cartMap.myGoodsList}"  />
 
-<c:set  var="totalGoodsNum" value="0" />  <!--주문 개수 -->
-<c:set  var="totalDeliveryPrice" value="0" /> <!-- 총 배송비 --> 
-<c:set  var="totalDiscountedPrice" value="0" /> <!-- 총 할인금액 -->
+<%-- <c:set  var="totalGoodsNum" value="0" />  <!--주문 개수 --> --%>
+<%-- <c:set  var="totalDeliveryPrice" value="0" /> <!-- 총 배송비 -->  --%>
+<%-- <c:set  var="totalDiscountedPrice" value="0" /> <!-- 총 할인금액 --> --%>
 <head>
 <style>
 .text_center{ 
@@ -69,6 +69,39 @@ function selectAll() {
     }
 }
 
+$(document).ready(function() {
+   
+    // 클래스가 "product-checkbox"인 체크박스 변경 감지
+    $(".product-checkbox").change(function() {
+       
+       var totalGoodsNum = 0;
+      var totalGoodsPrice = 0;
+      var totalDeliveryPrice = 0;
+          
+        $(".product-checkbox:checked").each(function() {
+             var parent = $(this).closest("tr");
+           var priceElement = parseInt(parent.find(".price").text());
+            var quantityElement = parseInt(parent.find(".quantity").text());
+            var deliveryPriceElement = parseInt(parent.find(".deliveryPrice").text());
+            
+            totalGoodsNum++;
+            totalGoodsPrice += (priceElement * quantityElement);
+            totalDeliveryPrice += deliveryPriceElement;
+        });
+        
+        if(totalDeliveryPrice >= 3000){
+           totalDeliveryPrice = 3000;
+        }
+        
+        var finalTotalPrice = totalGoodsPrice + totalDeliveryPrice;
+
+        // 선택된 상품 정보 업데이트
+        $("#p_totalGoodsNum").text(totalGoodsNum + "개");
+        $("#p_totalGoodsPrice").text(totalGoodsPrice + "원");
+        $("#p_totalDeliveryPrice").text(totalDeliveryPrice + "원");
+        $("#p_final_totalPrice").text(finalTotalPrice + "원");
+    });
+});
 
 
 function calcGoodsPrice(bookPrice,obj){
@@ -243,198 +276,96 @@ function fn_order_all_cart_goods(){
 </head>
 <body>
 
-<div class="text_center" style="width:50%;">
+   <div class="text_center" style="width: 50%;">
 
-   <div style="text-align:left;">
-      <img src="/image/cart.png" style="display:inline-block; margin-block-end: -6px;" width="30"/>
-      <h3 style="display:inline-block;">나의 장바구니</h3>
-   <hr>
-   <br>
-   </div>
-   
-   <div class="text_center">
-   <table class="cart_list">
-      <tr>
-         <td width="30%" height="15px;"> 
-         <div class="text_center">
-           <input type="checkbox" id="select-all-checkbox" onchange="selectAll()"> 전체 선택
-          </div>
-         </td>
-         
-         <td colspan=3 width="600px">상품 정보</td>
-      </tr>
-	  <c:forEach var="i" begin="0" end="5">
-      <tr>
-         <td  class="text_center" > <input type="checkbox" class="product-checkbox" style="margin-left: -71px;"> </td>
-         <td> <img src="/image/lego.jpg" width="100px"/> </td>
-         <td> 
-            <ul>
+      <div style="text-align: left;">
+         <img src="/image/cart.png"
+            style="display: inline-block; margin-block-end: -6px;" width="30" />
+         <h3 style="display: inline-block;">나의 장바구니</h3>
+         <hr>
+         <br>
+      </div>
 
-               <li> 레고장난감 </li>
-               <li> 가격 &nbsp;&nbsp;&nbsp;&nbsp; 24,000 원 </li>
-               <li> 수량 2 개 </li>
-            </ul>
-         </td>
-         <td>
-             <a href="#" style="font-size: 3px;"><b><span>삭제</span></b>
-             </a>
-         </td>
-		</c:forEach>
-      
-   </table>
-   </div>
-
-
-
-
-<!--
-   <table class="list_view">
-      <tbody align=center >
-         <tr style="background:#33ff00" >
-            <td class="fixed" >구분</td>
-            <td colspan=2 class="fixed">상품명</td>
-            <td>정가</td>
-            <td>판매가</td>
-            <td>수량</td>
-            <td>합계</td>
-            <td>주문</td>
-         </tr>
-         
-          <c:choose>
-                <c:when test="${ empty myCartList }">
-                <tr>
-                   <td colspan=8 class="fixed">
-                     <strong>장바구니에 상품이 없습니다.</strong>
-                   </td>
-                 </tr>
-                </c:when>
-                 <c:otherwise>
-          <tr>       
-               <form name="frm_order_all_cart">
-                  <c:forEach var="item" items="${myGoodsList }" varStatus="cnt">
-                   <c:set var="cart_goods_qty" value="${myCartList[cnt.count-1].cart_goods_qty}" />
-                   <c:set var="cart_id" value="${myCartList[cnt.count-1].cart_id}" />
-               <td><input type="checkbox" checked name="checked_goods" value="${item.goods_id }" onClick="calcGoodsPrice(${item.goods_sales_price },this)"></td>
-               <td class="goods_image">
-               <a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
-                  <img width="75" alt="" src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}"  />
-               </a>
+      <div class="text_center">
+         <table class="cart_list">
+            <tr>
+               <td width="30%" height="15px;">
+                  <div class="text_center">
+                     <input type="checkbox" id="select-all-checkbox" onchange="selectAll()"> 전체 선택
+                  </div>
                </td>
-               <td>
-                  <h2>
-                     <a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">${item.goods_title }</a>
-                  </h2>
-               </td>
-               <td class="price"><span>${item.goods_price }원</span></td>
-               <td>
-                  <strong>
-                     <fmt:formatNumber  value="${item.goods_sales_price*0.9}" type="number" var="discounted_price" />
-                        ${discounted_price}원(10%할인)
-                     </strong>
-               </td>
-               <td>
-                  <input type="text" id="cart_goods_qty" name="cart_goods_qty" size=3 value="${cart_goods_qty}"><br>
-                  <a href="javascript:modify_cart_qty(${item.goods_id },${item.goods_sales_price*0.9 },${cnt.count-1 });" >
-                      <img width=25 alt=""  src="${contextPath}/resources/image/btn_modify_qty.jpg">
-                  </a>
-               </td>
-               <td>
-                  <strong>
-                   <fmt:formatNumber  value="${item.goods_sales_price*0.9*cart_goods_qty}" type="number" var="total_sales_price" />
-                     ${total_sales_price}원
-               </strong> </td>
-               <td>
-                     <a href="javascript:fn_order_each_goods('${item.goods_id }','${item.goods_title }','${item.goods_sales_price}','${item.goods_fileName}');">
-                         <img width="75" alt=""  src="${contextPath}/resources/image/btn_order.jpg">
-                     </a><br>
-                   <a href=""> 
-                      <img width="75" alt=""
-                     src="${contextPath}/resources/image/btn_order_later.jpg">
-                  </a><br> 
-                  <a href=""> 
-                     <img width="75" alt=""
-                     src="${contextPath}/resources/image/btn_add_list.jpg">
-                  </A><br> 
-                  <a href="javascript:delete_cart_goods('${cart_id}');"> 
-                     <img width="75" alt=""
-                        src="${contextPath}/resources/image/btn_delete.jpg">
-                  </a>
-               </td>
-         </tr>
-            <c:set  var="totalGoodsPrice" value="${totalGoodsPrice+item.goods_sales_price*0.9*cart_goods_qty }" />
-            <c:set  var="totalGoodsNum" value="${totalGoodsNum+1 }" />
+               <td colspan=3 width="600px">상품 정보</td>
+            </tr>
+
+            <c:forEach var="cartVO" items="${myCartList}">
+               <tr>
+                  <td class="text_center"><input type="checkbox" class="product-checkbox" style="margin-left: -71px;"></td>
+                  <td><img src="/image/lego.jpg" width="100px" /></td>
+                  <td>
+                     <ul>
+                        <li>${cartVO.goods_title}</li>
+                        <li>가격 <span class="price">${cartVO.goods_price}</span></li>
+                        <li>수량 <span class="quantity">${cartVO.cart_goods_qty}</span> 개</li>
+                        <li>옵션 <span>${cartVO.goods_option}</span> 번</li>
+                        <li>배송비 <span class="deliveryPrice">${cartVO.goods_delivery_price}</span> 원</li>
+                     </ul>
+                  </td>
+                  <td><a href="javascript:fn_order_all_cart_goods()" style="font-size: 3px;"><b><span>삭제</span></b></a>
+                  </td>
+               </tr>
             </c:forEach>
-          
-      </tbody>
-   </table>
-        
-   <div class="clear"></div>
-    </c:otherwise>
-   </c:choose> 
-   
-   -->
-   
-   
-   <br>
-   <br>
-   
-   
-   <div class="text_center">
-   <table  width=80%   class="text_center" style="background:#cacaff">
-   <tbody>
-        <tr  align=center  class="fixed" >
-          <td class="fixed">총 상품수 </td>
-          <td>총 상품금액</td>
-          <td>  </td>
-          <td>총 배송비</td>
-          
-          <td>  </td>
-          <td>최종 결제금액</td>
-        </tr>
-      <tr cellpadding=40  align=center >
-         <td id="">
-           <p id="p_totalGoodsNum">${totalGoodsNum}개 </p>
-           <input id="h_totalGoodsNum"type="hidden" value="${totalGoodsNum}"  />
-         </td>
-          <td>
-             <p id="p_totalGoodsPrice">
-             <fmt:formatNumber  value="${totalGoodsPrice}" type="number" var="total_goods_price" />
-                     ${total_goods_price}원
-             </p>
-             <input id="h_totalGoodsPrice"type="hidden" value="${totalGoodsPrice}" />
-          </td>
-          <td> 
-             <img width="25" alt="" src="/image/plus.jpg">  
-          </td>
-          <td>
-            <p id="p_totalDeliveryPrice">${totalDeliveryPrice}원  </p>
-            <input id="h_totalDeliveryPrice"type="hidden" value="${totalDeliveryPrice}" />
-          </td>
-          <td>  
-            <img width="25" alt="" src="/image/equal.jpg">
-          </td>
-          <td>
-             <p id="p_final_totalPrice">
-             <fmt:formatNumber  value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" type="number" var="total_price" />
-               ${total_price}원
-             </p>
-             <input id="h_final_totalPrice" type="hidden" value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" />
-          </td>
-      </tr>
-      </tbody>
-   </table>
+
+         </table>
+      </div>
+      <br> <br>
+
+      <!-- 체크 한 상품의 정보 출력해주는 div -->
+      <div class="text_center">
+         <form action="">
+            <table width=80% class="text_center" style="background: #cacaff">
+               <tbody>
+                  <tr align=center class="fixed">
+                     <td class="fixed">총 상품수</td>
+                     <td>총 상품금액</td>
+                     <td>총 배송비</td>
+                     <td>최종 결제금액</td>
+                  </tr>
+                  
+                  <tr cellpadding=40 align=center>
+                     <td>
+                        <p id="p_totalGoodsNum">0개</p>
+                        <input id="h_totalGoodsNum" type="hidden" value="${totalGoodsNum}" />
+                     </td>
+                     <td>
+                        <p id="p_totalGoodsPrice">
+                           <fmt:formatNumber value="${totalGoodsPrice}" type="number" var="total_goods_price" />${total_goods_price}원
+                        </p>
+                        <input id="h_totalGoodsPrice" type="hidden" value="${totalGoodsPrice}" />
+                     </td>
+                     <td>
+                        <p id="p_totalDeliveryPrice">${totalDeliveryPrice}원</p>
+                        <input id="h_totalDeliveryPrice" type="hidden" value="${totalDeliveryPrice}" />
+                     </td>
+                     <td>
+                        <p id="p_final_totalPrice">
+                           <fmt:formatNumber value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" type="number" var="total_price" /> ${total_price}원
+                        </p>
+                        <input id="h_final_totalPrice" type="hidden" value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" />
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </form>
+      </div>
    </div>
-   </div>
-   
-   
-    <br><br>   
-       <a href="javascript:fn_order_all_cart_goods()">
-          <img width="75"  src="/image/btn_order_final.jpg">
-       </a>
-       <a href="#">
-          <img width="75" src="/image/btn_shoping_continue.jpg">
-       </a>
-	  
-</form>
-<br><br>     <br><br>      
+
+
+   <br><br>   
+      <a href="javascript:fn_order_all_cart_goods()">
+      <img width="75"  src="/image/btn_order_final.jpg">
+   </a>
+   <a href="#">
+      <img width="75" src="/image/btn_shoping_continue.jpg">
+   </a>
+<br><br><br><br>   
 </body>

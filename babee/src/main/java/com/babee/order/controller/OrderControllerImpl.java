@@ -43,7 +43,6 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		ModelAndView mav = new ModelAndView("/goods/orderGoodsForm");
 		Map goodsVO1=goodsService.goodsDetail(orderVO.getGoods_id());
 		GoodsVO goodsVO =(GoodsVO)goodsVO1.get("goodsVO");
-		mav.addObject("goods", goodsVO);
 		List ordergoods = new ArrayList<>();
 		ordergoods.add(orderVO);
 		session.setAttribute("goods", goodsVO);
