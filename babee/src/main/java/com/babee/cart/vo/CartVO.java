@@ -9,8 +9,52 @@ public class CartVO {
 	private int goods_id;
 	private String member_id;
 	private int cart_goods_qty;
+	public String getGoods_option1() {
+		return goods_option1;
+	}
+
+	public void setGoods_option1(String goods_option1) {
+		this.goods_option1 = goods_option1;
+	}
+
+	public String getGoods_option2() {
+		return goods_option2;
+	}
+
+	public void setGoods_option2(String goods_option2) {
+		this.goods_option2 = goods_option2;
+	}
+
+	public String getGoods_option3() {
+		return goods_option3;
+	}
+
+	public void setGoods_option3(String goods_option3) {
+		this.goods_option3 = goods_option3;
+	}
+
+	public String getGoods_option4() {
+		return goods_option4;
+	}
+
+	public void setGoods_option4(String goods_option4) {
+		this.goods_option4 = goods_option4;
+	}
+
+	public String getGoods_option5() {
+		return goods_option5;
+	}
+
+	public void setGoods_option5(String goods_option5) {
+		this.goods_option5 = goods_option5;
+	}
 	private String creDate;
 	private String goods_option;
+	private String goods_option1;
+	private String goods_option2;
+	private String goods_option3;
+	private String goods_option4;
+	private String goods_option5;
 	
 	
 	private String goods_title;

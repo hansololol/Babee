@@ -1,6 +1,7 @@
 package com.babee.cart.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.babee.cart.service.CartService;
 import com.babee.cart.vo.CartVO;
 import com.babee.common.base.BaseController;
+import com.babee.goods.vo.GoodsVO;
 import com.babee.member.vo.MemberVO;
 import com.babee.seller.vo.SellerVO;
 
@@ -32,6 +34,8 @@ public class CartControllerImpl extends BaseController implements CartController
 	private CartVO cartVO;
 	@Autowired
 	private MemberVO memberVO;
+
+	
 	
 	@RequestMapping(value="/myCartList.do" ,method = RequestMethod.GET)
 	public ModelAndView myCartMain(HttpServletRequest request, HttpServletResponse response)  throws Exception {
@@ -48,6 +52,7 @@ public class CartControllerImpl extends BaseController implements CartController
 		
 		// 로그인한 사용자 ID 가져오기(memberId)
 		List<CartVO> myCartList = null;
+		List<GoodsVO> allGoodsList = new ArrayList<>();
 		if(userType.equals("M")) {
 			MemberVO memberVO = (MemberVO)session.getAttribute("memberInfo");
 			String memberId = memberVO.getMember_id();
@@ -56,7 +61,19 @@ public class CartControllerImpl extends BaseController implements CartController
 			
 			myCartList = cartService.myCartList(memberId);
 			
+			for(int i=0; i<myCartList.size(); i++) {
+				cartVO = myCartList.get(i);
+				int goods_id = cartVO.getGoods_id();
+				System.out.println("goods_id: " + goods_id);
+				allGoodsList = cartService.selectGoodsList(goods_id);
+				allGoodsList.addAll(allGoodsList);
+				System.out.println("goodsList: " + allGoodsList);
+				
+				
+			}
 			System.out.println("myCartList : " + myCartList);
+			
+			
 			
 		}else if(userType.equals("S")) {
 			SellerVO sellerVO = (SellerVO)session.getAttribute("memberInfo");
@@ -71,7 +88,10 @@ public class CartControllerImpl extends BaseController implements CartController
 			
 		}
 		
+		
 		mav.addObject("myCartList", myCartList);
+		mav.addObject("goodsList", allGoodsList);
+
 		
 		return mav;
 	}
@@ -94,6 +114,9 @@ public class CartControllerImpl extends BaseController implements CartController
 	}
 	
 	
+	
+	
+	
 	@RequestMapping(value="/modifyCartQty.do" ,method = RequestMethod.POST)
 	public @ResponseBody String  modifyCartQty(@RequestParam("goods_id") int goods_id,
 			                                   @RequestParam("cart_goods_qty") String cart_goods_qty,
@@ -113,6 +136,10 @@ public class CartControllerImpl extends BaseController implements CartController
 		}
 		
 	}
+	
+	
+	
+	
 	
 	@RequestMapping(value="/removeCartGoods.do" ,method = RequestMethod.POST)
 	public ModelAndView removeCartGoods(@RequestParam("cart_id") int cart_id,
