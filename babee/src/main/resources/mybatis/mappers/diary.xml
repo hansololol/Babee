@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.babee.diary.dao.DiaryDAO">
+	<!-- 리절트 맵 정의 -->
+	<resultMap id="diaryResult" type="DiaryVO">
+		<result property="dir_no" column="dir_no" />
+		<result property="member_id" column="member_id" />
+		<result property="dir_title" column="dir_title" />
+		<result property="dir_main_img" column="dir_main_img" />
+		<result property="baby_condition" column="baby_condition" />
+		<result property="dir_content" column="dir_content" />
+		<result property="dir_writeDate" column="dir_writeDate" />
+	</resultMap>
+	
+	
+	<insert id="insertNewDiary"  parameterType="diaryVO">
+  <![CDATA[
+    	insert into t_shopping_dir(dir_no,
+				 					 member_id,
+                                     dir_title,
+                                     dir_main_img,
+                                     baby_condition,
+                                     dir_content,
+                                     dir_writeDate)
+							 values(#{dir_no},
+									#{member_id},
+									#{dir_title},
+                                   	#{dir_main_img}, 
+                                    #{baby_condition},
+                                    #{dir_content},
+                                    now())
+                                  
+                                      
+   ]]>      
+  </insert>
+  
+  
+</mapper>

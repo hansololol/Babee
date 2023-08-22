@@ -47,7 +47,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 		ModelAndView mav = new ModelAndView(viewName);
 		//HttpSession session=request.getSession();
 		//session=request.getSession();
-		//session.setAttribute("side_menu", "admin_mode"); //              永�   嚥�         髥� .
+		//session.setAttribute("side_menu", "admin_mode");
 		
 		String fixedSearchPeriod = dateMap.get("fixedSearchPeriod");
 		String section = dateMap.get("section");
@@ -76,7 +76,8 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 		condMap.put("search_type", search_type);
 		condMap.put("search_word", search_word);
 		List<GoodsVO> newGoodsList=adminGoodsService.listNewGoods(condMap);
-		System.out.println( newGoodsList.size() + "占쎄퉱嚥≪뮆踰묉에�빜釉� 占쎄맒占쎈�� �뵳�딅뮞占쎈뱜");
+
+
 		mav.addObject("newGoodsList", newGoodsList);
 		
 		String beginDate1[]=beginDate.split("-");
@@ -110,7 +111,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 	    List<MultipartFile> image1FileList = multipartRequest.getFiles("goods_image_name1");
 	    for (MultipartFile file : image1FileList) {
 	        String fileName = file.getOriginalFilename();
-	        System.out.println("name1:" + fileName);
+	       
 	        goodsVO.setGoods_image_name1(fileName);
 
 	        // 이미지1 처리 로직
@@ -132,7 +133,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 	    List<MultipartFile> image2FileList = multipartRequest.getFiles("goods_image_name2");
 	    for (MultipartFile file : image2FileList) {
 	        String fileName = file.getOriginalFilename();
-	        System.out.println("name2" + fileName);
+	     
 	        goodsVO.setGoods_image_name2(fileName);
 
 	        // 이미지2 처리 로직
@@ -154,15 +155,17 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 	        String name = enu.nextElement();
 	        String value = multipartRequest.getParameter(name);
 	        newGoodsMap.put(name, value);
-	        System.out.println(name + ": " + value);
+	     
 	    }
 
 	    HttpSession session = multipartRequest.getSession();
 	    SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
 	    String reg_id = sellerVO.getSeller_id();
 	    sellerVO.setSeller_id(reg_id);
+
 	    System.out.println("셀러아이디" + reg_id);
 	    newGoodsMap.put("seller_id", reg_id);
+
 	    newGoodsMap.put("reg_id", reg_id);
 	    //ImageFileVO imageFileVO = new ImageFileVO();
 	    
@@ -182,13 +185,13 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 	    int goods_id = (int) newGoodsMap.get("goods_id");
 	    //adminGoodsService.addNewGoodsImage(newGoodsMap);
 	    //int goods_id = adminGoodsService.addNewGoods.get("goods_id"));
-	    System.out.println("zzzzzzz"+goods_id);
+	 
 	    try {
 	        if (imageFileList != null && imageFileList.size() != 0) {
 	            for (ImageFileVO imageFileVO : imageFileList) {
 	            	imageFileVO.setReg_id(reg_id);
 	                imageFileName = imageFileVO.getFileName();
-	                System.out.println("File name112221: " + imageFileName);
+	      
 	                File srcFile = new File(CURR_IMAGE_REPO_PATH + "\\" + "temp" + "\\" + imageFileName);
 	                File destDir = new File(CURR_IMAGE_REPO_PATH + "\\" + goods_id);
 	                FileUtils.moveFileToDirectory(srcFile, destDir, true);
@@ -224,7 +227,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 	@RequestMapping(value="/addNewGoodsImage.do" ,method={RequestMethod.POST})
 	public void addNewGoodsImage(MultipartHttpServletRequest multipartRequest, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		System.out.println("addNewGoodsImage");
+	
 		multipartRequest.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		String imageFileName=null;
@@ -252,12 +255,13 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 					imageFileVO.setGoods_id(goods_id);
 					imageFileVO.setReg_id(reg_id);
 				}
-				System.out.println("이미지셀러아이디" + reg_id);
-			   // adminGoodsService.addNewGoodsImage(imageFileList);
+
+			    adminGoodsService.addNewGoodsImage(imageFileList);
+
 				for(ImageFileVO  imageFileVO:imageFileList) {
 					
 					imageFileName = imageFileVO.getFileName();
-					System.out.println("파일네임"+imageFileName);
+					
 					File srcFile = new File(CURR_IMAGE_REPO_PATH+"\\"+"temp"+"\\"+imageFileName);
 					File destDir = new File(CURR_IMAGE_REPO_PATH+"\\"+ 2);
 					FileUtils.moveFileToDirectory(srcFile, destDir,true);
@@ -292,7 +296,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 			                     @RequestParam("attribute") String attribute,
 			                     @RequestParam("value") String value,
 			HttpServletRequest request, HttpServletResponse response)  throws Exception {
-		//System.out.println("modifyGoodsInfo");
+		
 		
 		Map<String,String> goodsMap=new HashMap<String,String>();
 		goodsMap.put("goods_id", goods_id);
@@ -310,7 +314,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 
 	@RequestMapping(value="/modifyGoodsImageInfo.do" ,method={RequestMethod.POST})
 	public void modifyGoodsImageInfo(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)  throws Exception {
-		System.out.println("modifyGoodsImageInfo");
+		
 		multipartRequest.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		String imageFileName=null;

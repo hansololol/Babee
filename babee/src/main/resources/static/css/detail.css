@@ -41,7 +41,8 @@
 #detail_table ul li {
 	padding:0px 21px; float: left;
 }
-#detail_table ul li a {
+#detail_table ul li a.cart, a.buy {
+	background-position: 15px; background-color: rgb(255, 255, 202); color: rgb(0, 0, 0); 
 	border-radius: 5px; border: 2px solid rgb(153, 153, 153); 
 	border-image: none; width: 150px; height: 63px; text-align: center; 
 	padding-top: 18px; font-size: 1.2em; font-weight: bold; 
@@ -49,15 +50,12 @@
 	text-decoration: none;
 }
 
-#detail_table ul li a.cart {
-	background-position: 15px; background-color: rgb(255, 255, 202); color: rgb(0, 0, 0); 
+
+#detail_table ul li a.btn_add_wish {
+	display: block;
+	text-decoration: none;
 }
-#detail_table ul li a.wish {
-	background-position: 15px; background-repeat: no-repeat;
-}
-#detail_table ul li a.buy {
-	 background-position: 15px; background-color: rgb(255, 255, 166); color: rgb(0, 0, 0); 
-}
+
 
 .clear {
 	clear:both;

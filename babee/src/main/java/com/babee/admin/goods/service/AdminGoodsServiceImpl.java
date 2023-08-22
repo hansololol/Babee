@@ -32,9 +32,6 @@ public class AdminGoodsServiceImpl implements AdminGoodsService {
 		for(ImageFileVO imageFileVO : imageFileList) {
 			//imageFileVO.setGoods_id(goods_id);
 			
-			System.out.println("굿굿"+goods_id);//이게문제야시빨ㅃ리ㅏㅣ라집ㄼ지라ㅣ아이
-			System.out.println("뭐야"+newGoodsMap);
-			System.out.println("얘는뭘까?"+newGoodsMap.get("goods_id"));
 		}
 		adminGoodsDAO.insertGoodsImageFile(newGoodsMap);
 		return goods_id;

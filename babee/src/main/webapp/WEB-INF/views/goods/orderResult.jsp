@@ -81,10 +81,13 @@
                   <td>${order.order_goods_qty} </td>
                   <td>${(goods.goods_price - discounted_price) * order.order_goods_qty} 원</td>
              </tr>
-             <tr height="10" >
-               <td colspan="5" style="border: none; border-bottom: 1px solid gray;"><h4 style="margin-bottom:0px;">최종 결제 금액 ${(goods.goods_price - discounted_price) * order.order_goods_qty} 원</h4></td>
-         		</tr>
             </c:forEach>
+            <tr height="10" >
+               <td colspan="5" style="border: none; border-bottom: 1px solid gray;" text-align="right"><h5>상품 금액  ${total_goods_price} 원 </h5><h4> + </h4><h5>배송비  ${goods.goods_delivery_price} 원</h5></td>
+         	</tr>
+            <tr height="10" >
+               <td colspan="5" style="border: none; border-bottom: 1px solid gray;" text-align="right"><h4> 최종 결제 금액  ${total_goods_price + goods.goods_delivery_price} 원</h4></td>
+         		</tr>
              
       </table>
       <br><br>

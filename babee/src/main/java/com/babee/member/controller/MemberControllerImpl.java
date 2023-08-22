@@ -52,14 +52,17 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 			session=request.getSession();
 		if(memberVO != null){
 			session.setAttribute("isLogOn", true);
+			session.setAttribute("userType", "M");
 			session.setAttribute("memberInfo",memberVO);
 			mav.setViewName("/main/main");
 			
 		}else if(sellerVO!=null) {
 			session.setAttribute("isLogOn", true);
+			session.setAttribute("userType", "S");
 			session.setAttribute("memberInfo",sellerVO);
 			mav.setViewName("/main/main");
 		}else {
+			mav.addObject("falseLog", "falseLog");
 			mav.setViewName("/member/loginForm");
 		}
 		
@@ -78,6 +81,28 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 	}
 	
 	@Override
+	@RequestMapping(value="/memberDel.do" ,method = RequestMethod.GET)
+	public ModelAndView memberDel(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		HttpSession session=request.getSession();
+		MemberVO member= (MemberVO) session.getAttribute("memberInfo");
+		String pw= request.getParameter("member_pw");
+		String id = member.getMember_id();
+		String pw2 = member.getMember_pw();
+		if(pw.equals(pw2)) {
+		memberService.delMember(id);
+		session.setAttribute("isLogOn", false);
+		session.removeAttribute("memberInfo");
+		mav.addObject("alertMember", "success");
+		mav.setViewName("/main/main");
+		}else {
+		mav.addObject("alertMember", "fail");
+		mav.setViewName("/main/main");
+		}
+		return mav;
+	}
+	
+	@Override
 	@RequestMapping(value="/addMember.do" ,method = RequestMethod.POST)
 	public ResponseEntity addMember(@ModelAttribute("memberVO") MemberVO _memberVO,
 			                HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -91,13 +116,13 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		
 		    memberService.addMember(_memberVO);
 		    message  = "<script>";
-		    message +=" alert('회원 가입 완료되었습니다.');";
+		    message +=" alert('회원가입이 완료되었습니다. 로그인 해주시기 바랍니다.');";
 		    message += " location.href='"+request.getContextPath()+"/member/loginForm.do';";
 		    message += " </script>";
 		    
 		}catch(Exception e) {
 			message  = "<script>";
-		    message +=" alert('회원 가입에 실패하였습니다. 다시 입력해주세요');";
+		    message +=" alert('회원가입에 실패하였습니다. 다시 시도해주시기 바랍니다.');";
 		    message += " location.href='"+request.getContextPath()+"/member/memberForm.do';";
 		    message += " </script>";
 			e.printStackTrace();
@@ -115,7 +140,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		return resEntity;
 	}
 	
-	//추가중 
+	//異붽�以� 
 	@RequestMapping(value="/updateMember.do" , method= RequestMethod.POST)
 	public ModelAndView modMember(@ModelAttribute("memberVO") MemberVO _memberVO, HttpServletRequest request, HttpServletResponse response) throws Exception{
 	

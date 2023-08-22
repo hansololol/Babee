@@ -6,7 +6,6 @@
 
 
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
-<fmt:parseNumber var="discounted_price" integerOnly="true" value="${goods.goods_price/10}"	/>
 
 
 <head>
@@ -155,7 +154,7 @@ function execDaumPostcode() {
 </script>
 </head>
 <body>
-   <H1>상품 구매하기</H1>
+   <H1>상품 구매하기 </H1>
    
    
       <div style=" display: inline-block;">
@@ -219,22 +218,19 @@ function execDaumPostcode() {
                </tr>
                <tr>
                   <td>상품 옵션 ${order.goods_option}</td>
-
                </tr>
                </c:forEach>
             </table>   
             <hr>
-               <h4 style="padding-left:30px;">상품 금액 ${goods.goods_price}</h4>
-               <h4 style="padding-left:30px;">할인 금액 ${discounted_price}</h4>
+               <h5 style="padding-left:30px;">상품 합계 ${total_goods_price} 원</h4>
+               <h5 style="padding-left:30px;">할인 금액 ${discounted_price} 원</h4>
             <hr>
-               <h5 style="padding-left:30px;" name="goods_delivery_price" value=" ${goods.goods_delivery_price}">배송비  ${goods.goods_delivery_price}</h5>
+               
+               <h6 style="padding-left:30px;" name="goods_delivery_price" value=" ${goods.goods_delivery_price}">배송비  ${goods.goods_delivery_price} 원</h5>
                <input type="hidden" name="goods_delivery_price" value="${goods.goods_delivery_price}">
             <hr>
-               <c:set var="total_goods_price" value="${(goods.goods_price - discounted_price)}"/>
-               <h4 style="padding-left:30px;">총 결제 금액   ${total_goods_price}</h4>
-               <h3 style="padding-right:30px; text-align:right;"></h3>
-               <input type="hidden" name="total_goods_price" value="${total_goods_price}">
-               
+               <h4 style="padding-left:30px;">총 결제 금액   ${total_goods_price - discounted_price + goods.goods_delivery_price} 원</h4>
+               <input type="hidden" name="total_goods_price" value="${total_goods_price - discounted_price}">
          </div>
 
          

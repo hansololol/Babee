@@ -94,7 +94,7 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 		}catch(Exception e) {
 			message  = "<script>";
 		    message +=" alert('회원 가입에 실패하였습니다. 다시 입력해주세요');";
-		    message += " location.href='"+multipartRequest.getContextPath()+"/member/memberForm.do';";
+		    message += " location.href='"+multipartRequest.getContextPath()+"/seller/sellerForm.do';";
 		    message += " </script>";
 			e.printStackTrace();
 		}

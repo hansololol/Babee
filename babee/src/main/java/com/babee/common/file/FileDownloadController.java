@@ -14,14 +14,18 @@ import net.coobird.thumbnailator.Thumbnails;
 
 @Controller
 public class FileDownloadController {
-	private static String CURR_IMAGE_REPO_PATH = "C:/shopping/file_repo";
+
+	private static String DIARY_IMAGE_REPO = "C:/shopping/diary_img";
+	private static String CURR_IMAGE_REPO_PATH_GOODS = "C:/shopping/file_repo";
+	private static String CURR_IMAGE_REPO_PATH_REVIEW = "C:/shopping/review";
+
 	
 	@RequestMapping("/download.do")
 	protected void download(@RequestParam("fileName") String fileName,
 		                 	@RequestParam("goods_id") String goods_id,
 			                 HttpServletResponse response) throws Exception {
 		OutputStream out = response.getOutputStream();
-		String filePath=CURR_IMAGE_REPO_PATH+"\\"+goods_id+"\\"+fileName;
+		String filePath=CURR_IMAGE_REPO_PATH_GOODS+"\\"+goods_id+"\\"+fileName;
 		File image=new File(filePath);
 
 		response.setHeader("Cache-Control","no-cache");
@@ -41,14 +45,18 @@ public class FileDownloadController {
 	
 	@RequestMapping("/thumbnails.do")
 	protected void thumbnails(@RequestParam("fileName") String fileName,
-                            	@RequestParam("goods_id") String goods_id,
+                            	@RequestParam("goods_id") String goods_id, @RequestParam(value="fileType", required=false) String fileType,
 			                 HttpServletResponse response) throws Exception {
 		OutputStream out = response.getOutputStream();
-		String filePath=CURR_IMAGE_REPO_PATH+"/"+goods_id+"/"+fileName;
-		File image=new File(filePath);
+		String filePath;
 		
-		if (image.exists()) { 
-			
+		if(fileType !=null ? fileType.equals("review"):false) {
+		filePath=CURR_IMAGE_REPO_PATH_REVIEW+"/"+goods_id+"/"+fileName;
+		}else {
+		filePath=CURR_IMAGE_REPO_PATH_GOODS+"/"+goods_id+"/"+fileName;
+		}
+		File image=new File(filePath);
+		if (image.exists()) { 	
 			Thumbnails.of(image).size(200,200).outputFormat("jpg").toOutputStream(out);
 		}
 		byte[] buffer = new byte[1024 * 8];

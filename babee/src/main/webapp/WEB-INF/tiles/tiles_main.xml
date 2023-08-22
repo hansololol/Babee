@@ -35,18 +35,24 @@
          <put-attribute name="body" value="/WEB-INF/views/member/findId.jsp" />
       </definition>  
       
-    <!-- 다이어리 페이지 -->  
-       <definition name="/member/diaryForm" extends="baseLayout">
-         <put-attribute name="title" value="다이어리 페이지" />
+    <!-- 다이어리 페이지 -->
+     <definition name="/diary/diaryList" extends="baseLayout">
+         <put-attribute name="title" value="다이어리 목록" />
+         <put-attribute name="body" value="/WEB-INF/views/diary/diaryList.jsp" />
+      </definition>
+      
+       <definition name="/diary/diaryForm" extends="baseLayout">
+         <put-attribute name="title" value="다이어리 작성 페이지" />
          <put-attribute name="body" value="/WEB-INF/views/diary/diaryForm.jsp" />
       </definition>  
       
-      <definition name="/member/diaryList" extends="baseLayout">
-         <put-attribute name="title" value="다이어리 페이지" />
-         <put-attribute name="body" value="/WEB-INF/views/diary/diaryList.jsp" />
-      </definition>  
-      <definition name="/member/diaryOrder" extends="baseLayout">
-         <put-attribute name="title" value="다이어리 페이지" />
+      <definition name="/diary/diaryDetail" extends="baseLayout">
+         <put-attribute name="title" value="다이어리 상세페이지" />
+         <put-attribute name="body" value="/WEB-INF/views/diary/diaryDetail.jsp" />
+      </definition> 
+       
+      <definition name="/diary/diaryOrder" extends="baseLayout">
+         <put-attribute name="title" value="다이어리 주문 페이지" />
          <put-attribute name="body" value="/WEB-INF/views/diary/diaryOrder.jsp" />
       </definition> 
       
@@ -140,7 +146,8 @@
        <put-attribute name="title" value="마이페이지 메인" />
        <put-attribute name="body" value="/WEB-INF/views/mypage/myPageMain.jsp" />
     </definition>
-       <definition name="/member/myReviewList" extends="baseLayout_user">
+    
+       <definition name="/mypage/myReviewList" extends="baseLayout_user">
        <put-attribute name="title" value="리뷰 관리창" />
        <put-attribute name="body" value="/WEB-INF/views/mypage/myReviewList.jsp" />
     </definition>
@@ -149,15 +156,17 @@
        <put-attribute name="body" value="/WEB-INF/views/mypage/modpassword.jsp" />
     </definition>
     
-     <definition name="/member/wishList" extends="baseLayout_user">
+     <definition name="/mypage/wishList" extends="baseLayout_user">
        <put-attribute name="title" value="위시리스트" />
        <put-attribute name="body" value="/WEB-INF/views/mypage/wishList.jsp" />
     </definition>
     
-      <definition name="/member/mycartList" extends="baseLayout_user">
-       <put-attribute name="title" value="내 장바구니 정보" />
-       <put-attribute name="body" value="/WEB-INF/views/cart/myCartList.jsp" />
-    </definition>
+    <definition name="/cart/myCartList"
+		extends="baseLayout_user">
+		<put-attribute name="title" value="내 장바구니 정보" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/cart/myCartList.jsp" />
+	</definition>
     
      <definition name="/member/modMember" extends="baseLayout_user">
        <put-attribute name="title" value="멤버 정보 수정" />
@@ -174,7 +183,7 @@
        <put-attribute name="title" value="주문 상세창" />
        <put-attribute name="body" value="/WEB-INF/views/mypage/myOrderDetail.jsp" />
      </definition>
-      <definition name="/member/myrefund" extends="baseLayout_user">
+      <definition name="/mypage/myrefund" extends="baseLayout_user">
        <put-attribute name="title" value="교환 환불창" />
        <put-attribute name="body" value="/WEB-INF/views/mypage/myrefund.jsp" />
      </definition>

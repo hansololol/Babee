@@ -44,6 +44,13 @@
 
 
 </style>
+<script>
+   function delMember(){
+      var password = document.getElementById('inPassword').value;
+      console.log(password);
+      location.href="${contextPath}/member/memberDel.do?member_pw=" +password
+   }
+</script>
 
 <title>마이페이지 메인창</title>
 
@@ -73,9 +80,9 @@
           감사합니다.<br><br>
         <b>Babee</b>드림</p>  
         
-        <input type="password" placeholder="비밀번호를 입력해 주세요."/> <br><br><br>
+        <input type="password" placeholder="비밀번호를 입력해 주세요." id="inPassword"/> <br><br><br>
          <div class="del_btn">
-    <a href="#"><b><span>탈퇴하기</span></b> 
+    <a href="javascript:delMember()"><b><span>탈퇴하기</span></b> 
    
    
    </div>

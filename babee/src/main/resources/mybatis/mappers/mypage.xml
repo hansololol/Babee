@@ -5,7 +5,7 @@
 
 <mapper namespace="com.babee.mypage.dao.MyPageDAO">
 
-	<resultMap id="orderGoodsResult" type="orderVO">
+	<resultMap id="orderGoodsResult" type="OrderVO">
 		<result property="order_id" column="order_id" />
 		<result property="member_id" column="member_id" />
 		<result property="goods_id" column="goods_id" />
@@ -24,8 +24,26 @@
 		<result property="final_total_price" column="final_total_price" />
 		<result property="goods_option" column="goods_option" />
 	</resultMap> 
-
 	
+	<resultMap id="wishResult" type="WishVO">
+      <result property="articleNO" column="articleNO" />
+      <result property="member_id" column="member_id" />
+      <result property="goods_id" column="goods_id" />
+      <result property="goods_title" column="goods_title" />
+      <result property="goods_price" column="goods_price" />
+      <result property="goods_image_name1" column="goods_image_name1" />
+   </resultMap>
+	<resultMap id="reviewResult" type="reviewVO">
+      <result property="member_id" column="member_id" />
+      <result property="goods_id" column="goods_id" />
+      <result property="goods_star" column="goods_star" />
+      <result property="review_title" column="review_title" />
+      <result property="review_content" column="review_content" />
+      <result property="review_img" column="review_img" />
+      <result property="review_writeDate" column="review_writeDate" />
+   </resultMap>
+   
+   
 	 <select id="selectMyOrderGoodsList" resultMap="orderGoodsResult"  parameterType="String"  >
 	   
 	    <![CDATA[
@@ -36,13 +54,13 @@
 	</select>
 	
 
-	<select id="selectMyOrderInfo" resultMap="orderGoodsResult"   parameterType="String"  >
+	<select id="selectMyOrderInfo" resultMap="orderGoodsResult"  parameterType="String"  >
 	    <![CDATA[
 		    select * from t_shopping_order
             where order_id=#{order_id}
     	]]>
 	</select>
-		<select id="selectMyOrderHistoryList" resultMap="orderGoodsResult"   parameterType="java.util.Map"  >
+		<select id="selectMyOrderHistoryList" resultMap="orderGoodsResult" parameterType="java.util.Map"  >
 	    <![CDATA[
 		  select * from t_shopping_order
           where member_id=#{member_id}
@@ -51,78 +69,118 @@
     	]]>
 	</select>	
 	
-	<update id="updateMyInfo" parameterType="java.util.HashMap">
-	   update t_shopping_member
-			   <set>
-			      <if test=" member_pw!='' and member_pw!=null">
-			        member_pw=#{member_pw},
-			      </if>
-			      <if test=" member_gender!='' and member_gender!=null">
-			         member_gender=#{member_gender},
-			      </if>
-			       <if test=" member_birth_y!='' and member_birth_y!=null">
-			         member_birth_y=#{member_birth_y},
-			      </if>
-			      <if test=" member_birth_m!='' and member_birth_m!=null">
-			         member_birth_m=#{member_birth_m},
-			      </if>
-			      <if test=" member_birth_d!='' and member_birth_d!=null">
-			         member_birth_d=#{member_birth_d},
-			      </if>
-			      <if test=" tel1!='' and tel1!=null">
-			         tel1=#{tel1},
-			      </if>
-			      <if test=" tel2!='' and tel2!=null">
-			         tel2=#{tel2},
-			      </if>
-			      <if test=" tel3!='' and tel3!=null">
-			         tel3=#{tel3},
-			      </if>
-			      <if test=" hp1!='' and hp1!=null">
-			         hp1=#{hp1},
-			      </if>
-			      <if test=" hp2!='' and hp2!=null">
-			         hp2=#{hp2},
-			      </if>
-			      <if test=" hp3!='' and hp3!=null">
-			         hp3=#{hp3},
-			      </if>
-			      <if test=" smssts_yn!='' and smssts_yn!=null">
-			         smssts_yn=#{smssts_yn},
-			      </if>
-			      <if test=" email1!='' and email1!=null">
-			         email1=#{email1},
-			      </if>
-			      <if test=" email2!='' and email2!=null">
-			         email2=#{email2},
-			      </if>
-			      <if test=" emailsts_yn!='' and emailsts_yn!=null">
-			         emailsts_yn=#{emailsts_yn},
-			      </if>
-			      <if test=" zipcode!='' and zipcode!=null">
-			         zipcode=#{zipcode},
-			      </if>
-			      <if test=" roadAddress!='' and roadAddress!=null">
-			         roadAddress=#{roadAddress},
-			      </if>			     
-			      <if test=" jibunAddress!='' and jibunAddress!=null">
-			         jibunAddress=#{jibunAddress},
-			      </if>
-			      <if test=" namujiAddress!='' and namujiAddress!=null">
-			         namujiAddress=#{namujiAddress}
-			      </if>
-			   </set>
-		where 
-		member_id=#{member_id}
-	</update>
-	
 	
 	<update id="updateMyOrderCancel" parameterType="String">
+		    <![CDATA[
 	   update t_shopping_order
 	 	  set delivery_status='cancel_order'
 	   where order_id=#{order_id}
+	   ]]>
 	</update>
+
+	
+	<insert id="updateMyOrderRefund" parameterType="refundVO">
+	 <![CDATA[
+	  insert t_shopping_refund values(
+	  		#{order_id},
+		    #{delivery_status},
+	   		#{reason},
+	   		#{goods_id},
+	   		#{member_id},
+	   		#{reason_option})
+	   		   ]]>
+	</insert>
+	
+	<insert id="insertNewReview" parameterType="java.util.Map">
+	 <![CDATA[
+	  insert t_shopping_review (member_id, goods_id, goods_star, review_title, review_content, review_img, review_writeDate, review_img_id) values(
+	  		#{member_id},
+		    #{goods_id },
+	   		#{goods_star},
+	   		#{review_title},
+	   		#{review_content},
+	   		#{review_img},
+	   		now(),
+	   		#{review_img_id}
+	   		)
+	   		]]>
+	</insert>
+	
+	<insert id="insertImage" parameterType="java.util.Map">
+	 <![CDATA[
+	  insert t_shopping_image values(
+	  		#{review_img_id},
+		    #{review_img},
+	   		'review',
+	   		#{member_id}
+	   		)
+	  ]]>
+	</insert>
 		
+	<select id="selectCountWishList" resultType="boolean" parameterType="wishVO">
+	    <![CDATA[
+		    select if(count(*)=0, 'false', 'true') from t_shopping_wish
+			where goods_id=#{goods_id}
+			  and member_id=#{member_id} 
+    	]]>
+	</select>
+	
+	<insert id="insertWishList" parameterType="wishVO">
+		<selectKey resultType="int" keyProperty="articleNO" order="BEFORE">
+    		select ifnull(max(articleNO)+1, 1) from t_shopping_wish
+		</selectKey>
+	    <![CDATA[
+		    	insert into t_shopping_wish(articleNO,
+		    								member_id,
+		    	                           goods_id)
+		        				 values(#{articleNO},
+		        				 		#{member_id},
+    							        #{goods_id})
+    	]]>
+	</insert>
 		
+	<select id="selectWishList"  parameterType="String"  resultType="WishVO" >
+	    <![CDATA[
+		SELECT	b.goods_title
+			  	,b.goods_price
+		      	,a.goods_id
+		      	,a.articleNO
+		      	,a.member_id
+		      	,b.goods_option1
+		      	,b.goods_option2
+		      	,b.goods_option3
+		      	,b.goods_option4
+		      	,b.goods_option5
+		FROM 	babee.t_shopping_wish a, babee.t_shopping_goods b
+		WHERE 	a.goods_id = b.goods_id
+		AND 	a.member_id = #{member_id}	
+		]]>
+	</select>
+
+	 <select id="selectWishGoodsList" parameterType="int" resultType="GoodsVO">
+		<![CDATA[
+		 select goods_option1, goods_option2, goods_option3, goods_option4, goods_option5, goods_image_name1 
+		from t_shopping_goods
+		where goods_id=#{goods_id};
+		]]>
+	 </select>
+	 <select id="selectReviewList" resultMap="reviewResult" parameterType="String">
+		<![CDATA[
+		 select * from t_shopping_review where member_id=#{member_id} order by review_writeDate desc
+		]]>
+	 </select>
+	 <select id="selectGoodsReviewList" resultMap="reviewResult" parameterType="String">
+		<![CDATA[
+		 select * from t_shopping_review where goods_id=#{goods_id} order by review_writeDate desc
+		]]>
+	 </select>
+	 
+	 <delete id="deleteWishList" parameterType="int">
+	    <![CDATA[
+	      delete from t_shopping_wish
+	      where articleNO=#{articleNO}
+    	]]>
+	</delete>
+	 
 </mapper>
  

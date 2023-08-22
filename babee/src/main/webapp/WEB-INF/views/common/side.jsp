@@ -59,8 +59,8 @@
 			<a href="${contextPath}/member/modpassword.do" class="list-group-item list-group-item-action">내정보 수정</a>
 			<a href="${contextPath}/mypage/listMyOrderHistory.do" class="list-group-item list-group-item-action">주문내역/배송조회</a>
 			<a href="${contextPath}/cart/myCartList.do" class="list-group-item list-group-item-action">장바구니</a>
-			<a href="${contextPath}/member/wishList.do" class="list-group-item list-group-item-action">찜 리스트</a>
-			<a href="${contextPath}/member/myReviewList.do" class="list-group-item list-group-item-action">리뷰 관리</a>
+			<a href="${contextPath}/mypage/wishList.do" class="list-group-item list-group-item-action">위시리스트</a>
+			<a href="${contextPath}/mypage/myReviewList.do" class="list-group-item list-group-item-action">리뷰 관리</a>
 			<a href="${contextPath}/member/mypageDel.do" class="list-group-item list-group-item-action">회원 탈퇴</a>
 		</div>
 

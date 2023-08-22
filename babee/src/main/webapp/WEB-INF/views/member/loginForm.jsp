@@ -80,6 +80,16 @@
 }
 	
 	</style>
+
+<script>
+  
+	var falseLog = '${falseLog}';
+	 
+	 if(falseLog=='falseLog'){
+	  alert("아이디/비밀번호가 올바르지 않습니다. 다시 입력해주세요");
+	 }
+  
+	</script>
 </head>
 <body>
 	<br><br><br><br>

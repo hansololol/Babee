@@ -9,13 +9,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.babee.member.vo.MemberVO;
+import com.babee.goods.vo.GoodsVO;
 import com.babee.mypage.dao.MyPageDAO;
+import com.babee.mypage.vo.ReviewVO;
+import com.babee.mypage.vo.WishVO;
 import com.babee.order.vo.OrderVO;
+import com.babee.order.vo.RefundVO;
 
 @Service("myPageService")
 @Transactional(propagation=Propagation.REQUIRED)
 public class MyPageServiceImpl  implements MyPageService{
+	
 	@Autowired
 	private MyPageDAO myPageDAO;
 
@@ -31,16 +35,49 @@ public class MyPageServiceImpl  implements MyPageService{
 		return myPageDAO.selectMyOrderHistoryList(dateMap);
 	}
 	
-	public MemberVO  modifyMyInfo(Map memberMap) throws Exception{
-		 String member_id=(String)memberMap.get("member_id");
-		 myPageDAO.updateMyInfo(memberMap);
-		 return myPageDAO.selectMyDetailInfo(member_id);
-	}
-	
 	public void cancelOrder(String order_id) throws Exception{
 		myPageDAO.updateMyOrderCancel(order_id);
 	}
-	public MemberVO myDetailInfo(String member_id) throws Exception{
-		return myPageDAO.selectMyDetailInfo(member_id);
+	public void refundOrder(RefundVO refundOrder) throws Exception{
+		myPageDAO.updateMyOrderRefund(refundOrder);
+	}
+	
+	public boolean findWishList(WishVO wishVO) throws Exception{
+		return myPageDAO.selectCountWishList(wishVO);
+	}
+	
+	public void addWishList(WishVO wishVO) throws Exception{
+		myPageDAO.insertWishList(wishVO);
+	}
+	
+	public List<WishVO> selectWishList(String member_id) throws Exception{
+		
+		List<WishVO> resultWishList = myPageDAO.selectWishList(member_id);
+		
+		return resultWishList;
+	}
+	
+	@Override
+	public List<GoodsVO> selectWishGoodsList(int goods_id) throws Exception {
+		return myPageDAO.selectWishGoodsList(goods_id);
+	}
+	
+	public void removeWishList(int articleNO) throws Exception{
+		myPageDAO.deleteWishList(articleNO);
+	}
+	
+	@Override
+	public void addReview(Map reviewMap) throws Exception {
+		myPageDAO.insertNewReview(reviewMap);
+		myPageDAO.insertImage(reviewMap);
+	}
+	
+	@Override
+	public List<ReviewVO> selectReview(String member_id) throws Exception{
+		return myPageDAO.selectReviewList(member_id);
+	}
+	@Override
+	public List<ReviewVO> selectGoodsReview(String goods_id) throws Exception{
+		return myPageDAO.selectGoodsReviewList(goods_id);
 	}
 }
