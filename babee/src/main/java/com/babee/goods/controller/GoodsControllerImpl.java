@@ -21,12 +21,17 @@ import com.babee.common.base.BaseController;
 import com.babee.goods.service.GoodsService;
 import com.babee.goods.vo.GoodsVO;
 import com.babee.goods.vo.ImageFileVO;
+import com.babee.mypage.service.MyPageService;
+import com.babee.mypage.vo.ReviewVO;
 
 @Controller("goodsController")
 @RequestMapping(value="/goods")
 public class GoodsControllerImpl extends BaseController implements GoodsController {
 	@Autowired
 	private GoodsService goodsService;
+	@Autowired
+	private MyPageService mypageService;
+	
 	
 	@RequestMapping(value="/goodsDetail.do" ,method = RequestMethod.GET)
 	public ModelAndView goodsDetail(@RequestParam("goods_id") String goods_id,
@@ -35,7 +40,9 @@ public class GoodsControllerImpl extends BaseController implements GoodsControll
 		Map goodsMap=goodsService.goodsDetail(goods_id);
 		ModelAndView mav = new ModelAndView(viewName);
 		GoodsVO goodsVO = (GoodsVO)goodsMap.get("goodsVO");
+		List<ReviewVO> reviewList = mypageService.selectGoodsReview(goods_id);
 		mav.addObject("goodsVO", goodsVO);
+		mav.addObject("review", reviewList);
 		return mav;
 	}
 	

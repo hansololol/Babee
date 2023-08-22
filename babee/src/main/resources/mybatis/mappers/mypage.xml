@@ -169,6 +169,11 @@
 		 select * from t_shopping_review where member_id=#{member_id} order by review_writeDate desc
 		]]>
 	 </select>
+	 <select id="selectGoodsReviewList" resultMap="reviewResult" parameterType="String">
+		<![CDATA[
+		 select * from t_shopping_review where goods_id=#{goods_id} order by review_writeDate desc
+		]]>
+	 </select>
 	 
 	 <delete id="deleteWishList" parameterType="int">
 	    <![CDATA[

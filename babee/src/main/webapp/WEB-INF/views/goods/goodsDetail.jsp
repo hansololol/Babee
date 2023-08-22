@@ -4,14 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%
-     //치환 변수 선언합니다.
-      //pageContext.setAttribute("crcn", "\r\n"); //개행문자
-      pageContext.setAttribute("crcn" , "\n"); //Ajax로 변경 시 개행 문자 
-      pageContext.setAttribute("br", "<br/>"); //br 태그
-%>  
+
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
-<c:set var="goods"  value="${goodsMap.goodsVO}"  />
 <c:set var="imageList"  value="${goodsMap.imageList }"  />
 
 
@@ -428,31 +422,12 @@ function add_wish(goods_id){
 	<!-- 내용 들어 가는 곳 -->
 	<br><br><br>
 	
-	<script>
-		function getReview(goods_id){
-	 $.ajax({
-          type: "POST",
-          async: false,
-          url: "${contextPath}/mypage/goodsReviewList.do",
-          data: { goods_id: goods_id },
-          dataType: "JSON",
-          success: function (data, textStatus) {
-            console.log(data);
-          },
-          error: function (e) {
-            console.log("error : ", e);
-          },
-        });
-	}
-
-     
-	</script>
 		<ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item" role="presentation">
     <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">상품상세</button>
   </li>
   <li class="nav-item" role="presentation">
-    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" onclick="getReview('${goodsVO.goods_id}')" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">상품리뷰</button>
+    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">상품리뷰</button>
   </li>
   <li class="nav-item" role="presentation">
     <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">상품문의</button>
@@ -467,7 +442,9 @@ function add_wish(goods_id){
 			<table class="tb_comment tb_comment_common">
 	
 	<caption>상품평 등급, 상품평내용 , 작성자, 등록일, 조회수에 관한 테이블</caption>
-				
+	<c:if test="${review== null}">
+			<p>등록된 상품 리뷰가 없습니다.</p>
+		</c:if>			
 				
 	<colgroup>
 		<col style="width:300px">
@@ -475,32 +452,34 @@ function add_wish(goods_id){
 		<col style="width:400px">
 			
 	</colgroup>
-	<c:forEach var="i" begin="1" end="5">
+	<c:forEach items="${review}" var="review">
 	<tbody>
 					
 			<tr>
 				<td class="comment-grade">
-				<span class="rec rec_a"><img alt="" src="/image/baby.jpg" width="100px"></span>
+				<span class="rec rec_a"><img alt="" src="${contextPath}/thumbnails.do?goods_id=${review.member_id}&fileName=${review.review_img}&fileType=review" width="100px"></span>
 				</td>
 				<td class="comment-content">
-				<p class="pd-tit">E4 다크베이지;10.100L[1개]</p>
-				<p class="con">배송이 빨라요 디자인이 이뻐요</p>
+				<p class="pd-tit">${review.review_title}</p>
+				<p class="con">${review.review_content}</p>
 				</td>
 
 				<td class="info">
 				<dl class="writer-info">
-				<dt>작성자 :</dt>
-				<dd>k#0*******</dd>
+				<dt>작성자 : </dt>
+				<dd>${review.member_id}</dd>
 				<dt>등록일 :</dt>
-				<dd>2023.08.10</dd>
+				<dd>${review.review_writeDate}</dd>
 				</dl>
 				</td>		
 				</tr>
-					<tr><td style="colspan:3"><hr></td></tr>
+					<tr><td ><hr></td></tr>
 					
 	</tbody>
 	</c:forEach>
 </table>
+
+<br><br>
 	</div>
 
   <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0" style="margin-left: 27%;">
@@ -521,7 +500,7 @@ function add_wish(goods_id){
 					
 			<tr>
 				<td class="comment-grade">
-				<span class="rec rec_a"><img alt="" src="/image/baby.jpg" width="100px"></span>
+				<span class="rec rec_a"><img alt="" src="${contextPath}/thumbnails.do?goods_id=${goods_id}&fileName=${order.goods_image_name}" width="100px"></span>
 				</td>
 				<td class="comment-content">
 				<p class="pd-tit">E4 다크베이지;10.100L[1개]</p>

@@ -260,29 +260,6 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 			mav.addObject("totArticles", ListSize);
 		return mav;
 	}
-	
-	@Override
-	@RequestMapping(value="/goodsReviewList.do" ,method = RequestMethod.POST)
-	public ResponseEntity goodsReviewList(@RequestParam("gooos_id") String goods_id, HttpServletRequest request, HttpServletResponse response)  throws Exception {
-		ResponseEntity resEntity = null;
-		HttpSession session=request.getSession();
-		System.out.println("넘어오는지 확인");
-		memberVO = (MemberVO) session.getAttribute("memberInfo");
-		List myReview =myPageService.selectGoodsReview(goods_id);
-		List review = new ArrayList<>();
-		int ListSize = myReview.size();
-		for(int i =0; i <ListSize;i++) {
-			try {
-			reviewVO = (ReviewVO) myReview.get(i);
-			review.add(reviewVO);
-			}catch(IndexOutOfBoundsException e) {
-				break;
-			}
-			}
-		 	resEntity =new ResponseEntity(review, HttpStatus.OK);
-			return resEntity;
-	}
-	
 
 	@Override
 	@RequestMapping(value="/wishList.do" ,method = RequestMethod.POST)
