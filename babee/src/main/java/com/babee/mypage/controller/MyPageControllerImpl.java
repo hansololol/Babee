@@ -95,8 +95,11 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 			now = new Date(System.currentTimeMillis());
 			System.out.println(now);
 		}
-	
+		
+		
+
 		for(int i =(pageNum-1)*10; i <pageNum*10;i++) {
+			try {
 			orderVO = myOrderListGoods.get(i);
 			String goods_id = orderVO.getGoods_id();
 			Map goodsVOMap = goodsService.goodsDetail(goods_id);
@@ -104,10 +107,12 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 			String img_id= goodsVO.getGoods_image_name1();
 			orderVO.setGoods_image_name(img_id);
 			Date orderTime =  orderVO.getPayment_order_time();
-	
 			myOrderList.add(orderVO);
-
-		}
+			}catch(IndexOutOfBoundsException e) {
+				break;
+			}
+			}
+		
 		mav.addObject("myOrderList", myOrderList);
 		mav.addObject("section", section);
 		mav.addObject("pageNum", pageNum);
