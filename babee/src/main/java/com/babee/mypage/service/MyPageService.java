@@ -30,5 +30,6 @@ public interface MyPageService{
 	public List<ReviewVO> selectReview(String member_id) throws Exception;
 	public void removeWishList(int articleNO) throws Exception;
 	public void addReview(Map reviewMap) throws Exception;
+	public List<ReviewVO> selectGoodsReview(String goods_id) throws Exception;
 	
 }

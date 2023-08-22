@@ -76,4 +76,8 @@ public class MyPageServiceImpl  implements MyPageService{
 	public List<ReviewVO> selectReview(String member_id) throws Exception{
 		return myPageDAO.selectReviewList(member_id);
 	}
+	@Override
+	public List<ReviewVO> selectGoodsReview(String goods_id) throws Exception{
+		return myPageDAO.selectGoodsReviewList(goods_id);
+	}
 }

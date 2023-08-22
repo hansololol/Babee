@@ -46,7 +46,8 @@ public class FileDownloadController {
 			                 HttpServletResponse response) throws Exception {
 		OutputStream out = response.getOutputStream();
 		String filePath;
-		if(fileType.equals("review")) {
+		
+		if(fileType !=null ? fileType.equals("review"):false) {
 		filePath=CURR_IMAGE_REPO_PATH_REVIEW+"/"+goods_id+"/"+fileName;
 		}else {
 		filePath=CURR_IMAGE_REPO_PATH_GOODS+"/"+goods_id+"/"+fileName;

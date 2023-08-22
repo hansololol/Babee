@@ -31,4 +31,5 @@ public interface MyPageDAO {
 	public void insertNewReview(Map reviewMap) throws DataAccessException;
 	public void insertImage(Map reviewMap) throws DataAccessException;
 	public List selectReviewList(String member_id) throws DataAccessException;
+	public List selectGoodsReviewList(String goods_id) throws DataAccessException;
 }

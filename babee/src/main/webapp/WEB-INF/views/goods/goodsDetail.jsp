@@ -428,13 +428,31 @@ function add_wish(goods_id){
 	<!-- 내용 들어 가는 곳 -->
 	<br><br><br>
 	
-	
+	<script>
+		function getReview(goods_id){
+	 $.ajax({
+          type: "POST",
+          async: false,
+          url: "${contextPath}/mypage/goodsReviewList.do",
+          data: { goods_id: goods_id },
+          dataType: "JSON",
+          success: function (data, textStatus) {
+            console.log(data);
+          },
+          error: function (e) {
+            console.log("error : ", e);
+          },
+        });
+	}
+
+     
+	</script>
 		<ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item" role="presentation">
     <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">상품상세</button>
   </li>
   <li class="nav-item" role="presentation">
-    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">상품리뷰</button>
+    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" onclick="getReview('${goodsVO.goods_id}')" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">상품리뷰</button>
   </li>
   <li class="nav-item" role="presentation">
     <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">상품문의</button>
