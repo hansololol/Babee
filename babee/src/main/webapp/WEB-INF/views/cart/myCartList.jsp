@@ -124,44 +124,60 @@ ul li {
    }
 
    
-   function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
-      var total_price,final_total_price,_goods_qty;
-      var cart_goods_qty=document.getElementById("cart_goods_qty");
-      
-      _order_goods_qty=cart_goods_qty.value; //장바구니에 담긴 개수 만큼 주문한다.
-      var formObj=document.createElement("form");
-      var i_goods_id = document.createElement("input"); 
-       var i_goods_title = document.createElement("input");
-       var i_goods_sales_price=document.createElement("input");
-       var i_fileName=document.createElement("input");
-       var i_order_goods_qty=document.createElement("input");
-       
-       i_goods_id.name="goods_id";
-       i_goods_title.name="goods_title";
-       i_goods_sales_price.name="goods_sales_price";
-       i_fileName.name="goods_fileName";
-       i_order_goods_qty.name="order_goods_qty";
-       
-       i_goods_id.value=goods_id;
-       i_order_goods_qty.value=_order_goods_qty;
-       i_goods_title.value=goods_title;
-       i_goods_sales_price.value=goods_sales_price;
-       i_fileName.value=fileName;
-       
-       formObj.appendChild(i_goods_id);
-       formObj.appendChild(i_goods_title);
-       formObj.appendChild(i_goods_sales_price);
-       formObj.appendChild(i_fileName);
-       formObj.appendChild(i_order_goods_qty);
+   function fnOrderGoods() {
+	    var cartOrderArr = [];
 
-       document.body.appendChild(formObj); 
-       formObj.method="post";
-       formObj.action="${contextPath}/order/orderEachGoods.do";
-       formObj.submit();
-   }
+	    var selectedCheckboxes = $(".product-checkbox:checked");
+	    if (selectedCheckboxes.length === 0) {
+	        alert("선택된 상품이 없습니다.");
+	        return;
+	    }
 
-   
-   
+	    selectedCheckboxes.each(function () {
+	        var row = $(this).closest("tr");
+	        var goodsId = row.find(".goodsId").val();
+	        var quantity = row.find("#order_goods_qty").val();
+	        var option = row.find("#_goods_option").val();
+
+	        cartOrderArr.push({
+	            goodsId: goodsId,
+	            quantity: quantity,
+	            option: option
+	        });
+	    });
+
+	    console.log("cartOrderArr", cartOrderArr);
+
+	    var form = document.createElement("form");
+	    form.setAttribute("method", "post");
+	    form.setAttribute("action", "${contextPath}/order/cartOrder.do");
+
+	    // cartOrderArr을 반복하며 입력 생성 및 추가
+	    for (var i = 0; i < cartOrderArr.length; i++) {
+	        var orderData = cartOrderArr[i];
+
+	        var inputGoodsId = document.createElement("input");
+	        inputGoodsId.setAttribute("type", "hidden");
+	        inputGoodsId.setAttribute("name", "selected_goods_id");
+	        inputGoodsId.setAttribute("value", orderData.goodsId);
+	        form.appendChild(inputGoodsId);
+
+	        var inputQuantity = document.createElement("input");
+	        inputQuantity.setAttribute("type", "hidden");
+	        inputQuantity.setAttribute("name", "selected_quantity");
+	        inputQuantity.setAttribute("value", orderData.quantity);
+	        form.appendChild(inputQuantity);
+
+	        var inputOption = document.createElement("input");
+	        inputOption.setAttribute("type", "hidden");
+	        inputOption.setAttribute("name", "selected_option");
+	        inputOption.setAttribute("value", orderData.option);
+	        form.appendChild(inputOption);
+	    }
+
+	    document.body.appendChild(form);
+	    form.submit();
+	}
 </script>
 
 </head>
@@ -194,16 +210,17 @@ ul li {
             <c:forEach var="cartVO" items="${myCartList}">
                <tr>
                   <td class="text_center"><input type="checkbox" class="product-checkbox" style="margin-left: -71px;"></td>
+                  <input type="hidden" class="goodsId" value="${cartVO.goods_id}">
                   <td><img src="${contextPath}/thumbnails.do?goods_id=${cartVO.goods_id}&fileName=${cartVO.cart_image_name}" width="100px" /></td>
                   <td>
                      <ul>
                         <li>${cartVO.goods_title}</li>
                         <li>가격 <span class="price">${cartVO.goods_price}</span></li>
                         <li>수량 <span class="quantity">
-                              <input type="number" value="${cartVO.cart_goods_qty}" id="order_goods_qty" name="order_goods_qty" style="width: 200px; text-align: center;"></span> 개</li>
+                              <input type="number" value="${cartVO.cart_goods_qty}" id="order_goods_qty" class="order_goods_qty" name="order_goods_qty" style="width: 200px; text-align: center;"></span> 개</li>
                         <li>옵션
                            
-                              <select style="width: 200px; text-align: center" id="goods_option" name="goods_option" >
+                              <select style="width: 200px; text-align: center" id="_goods_option" name="goods_option" >
                               
                               <option value="${cartVO.goods_option1}">${cartVO.goods_option1}</option>
                               <option value="${cartVO.goods_option2}">${cartVO.goods_option2}</option>
@@ -268,7 +285,7 @@ ul li {
    </div>
 
 
-   <br><br>   <input type="submit" value="구매하기"/>
+   <br><br>   <a href="javascript:fnOrderGoods()" >구매하기</a>
    
  </form>
 </body>

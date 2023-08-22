@@ -56,6 +56,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		      	,b.goods_option3
 		      	,b.goods_option4
 		      	,b.goods_option5
+		      	,b.goods_id
 		FROM 	babee.t_shopping_cart a, babee.t_shopping_goods b
 		WHERE 	a.goods_id = b.goods_id
 		AND 	a.member_id = #{member_id}	

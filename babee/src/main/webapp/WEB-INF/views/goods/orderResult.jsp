@@ -75,18 +75,18 @@
            <c:forEach  var="order" items="${myOrderList}" varStatus="articleNum" >
              <tr width="80px;" height="10">
                  
-                  <td style="width:100px;"> <img src="${contextPath}/thumbnails.do?goods_id=${goods.goods_id}&fileName=${goods.goods_image_name1}" width="100px">  ${goods.goods_title}</td>
-                  <td>${goods.goods_price} 원</td>
-                  <td>${discounted_price} 원</td>
+                  <td style="width:100px;"> <img src="${contextPath}/thumbnails.do?goods_id=${order.goods.goods_id}&fileName=${order.goods.goods_image_name1}" width="100px">  ${order.goods.goods_title}</td>
+                  <td>${order.goods.goods_price * order.order_goods_qty} 원</td>
+                  <td>${discounted_price * order.order_goods_qty} 원</td>
                   <td>${order.order_goods_qty} </td>
-                  <td>${(goods.goods_price - discounted_price) * order.order_goods_qty} 원</td>
+                  <td>${(order.goods.goods_price - discounted_price) * order.order_goods_qty} 원</td>
              </tr>
             </c:forEach>
             <tr height="10" >
-               <td colspan="5" style="border: none; border-bottom: 1px solid gray;" text-align="right"><h5>상품 금액  ${total_goods_price} 원 </h5><h4> + </h4><h5>배송비  ${goods.goods_delivery_price} 원</h5></td>
+               <td colspan="5" style="border: none; border-bottom: 1px solid gray;" text-align="right"><h5>상품 금액  ${total_goods_price} 원 </h5><h4> + </h4><h5>배송비  3000 원</h5></td>
          	</tr>
             <tr height="10" >
-               <td colspan="5" style="border: none; border-bottom: 1px solid gray;" text-align="right"><h4> 최종 결제 금액  ${total_goods_price + goods.goods_delivery_price} 원</h4></td>
+               <td colspan="5" style="border: none; border-bottom: 1px solid gray;" text-align="right"><h4> 최종 결제 금액  ${total_goods_price + 3000} 원</h4></td>
          		</tr>
              
       </table>
