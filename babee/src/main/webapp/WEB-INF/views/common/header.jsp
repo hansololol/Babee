@@ -134,7 +134,7 @@ function showCategory() {
     var isLogOn = '${isLogOn}';
     if(isLogOn){
         document.getElementById("fit").href = "${contextPath}/goods/fitGoods.do";
-        document.getElementById("dir").href = "${contextPath}/member/diaryList.do";
+        document.getElementById("dir").href = "${contextPath}/diary/diaryList.do";
         document.getElementById("mypage").href = "${contextPath}/member/myPageMain.do";
         
      
