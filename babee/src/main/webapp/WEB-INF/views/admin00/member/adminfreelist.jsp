@@ -187,7 +187,7 @@
         <form action="검색결과를_처리할_페이지_주소" method="GET">
             <input name="searchWord" class="search-input" type="text" placeholder="검색어를 입력해주세요.">
             <button type="submit" name="search" class="search-button">
-                <img src="images/glass.png" alt="검색" style="width: 20px; height: 20px; margin-bottom:-5px">
+                <img src="/images/glass.png" alt="검색" style="width: 20px; height: 20px; margin-bottom:0px"">
             </button>
         </form>
     </div>
@@ -212,11 +212,11 @@
 		    <c:forEach var="faq" items="${faqList}">
 		        <tr class="faq-content">
 		            <td><p style="align-items: center;"><span style="color: black;">no${faq.articleNO}</span></p></td>
-		            <td><a href="/member/adminfreedetail.do" style="display: flex; align-items: center;"><span style="color: black;">[질문종류][${faq.id}]</span></a></td>
+		            <td><a href="/member/adminfreedetail.do?page=adminPage" style="display: flex; align-items: center;"><span style="color: black;">[질문종류][${faq.id}]</span></a></td>
 		            <td><p style=" align-items: center;"><span style="color: black;">작성자 ${faq.author}</span></p></td>
 		            <td><p style="align-items: center;"><span style="color: black;">작성일 ${faq.creationDate}</span></p></td>
 		            <td><p style="align-items: center;"><span style="color: black;">조회수 ${faq.views}</span></p></td>
-		            <td><a href="/member/deleteFaq/${faq.articleNO}" style="color: red;" onclick="return confirm('삭제하시겠습니까?');"><span style="font-size: 20px;">&#128683;</span></a></td>
+		            <td><a href="/member/delete/${faq.articleNO}?page=adminPage" style="color: red;" onclick="return confirm('삭제하시겠습니까?');"><span style="font-size: 20px;">&#128683;</span></a></td>
 		        </tr>
 		    </c:forEach>
 		</tbody>
@@ -224,7 +224,7 @@
     </table>
 </div>
 <div style="text-align: right; margin-top: -30px;">
-    <a href="/member/adminfreewrite.do" style="background-color: #ffffcc; padding: 5px 10px; border-radius: 5px; text-decoration: none; margin-right: 120px;">작성하기</a>
+    <a href="/member/adminfreewrite.do?page=adminPage" style="background-color: #ffffcc; padding: 5px 10px; border-radius: 5px; text-decoration: none; margin-right: 120px;">작성하기</a>
 </div>
 <div class="paging-container">
     <a class="paging-button" href="#">이전</a>

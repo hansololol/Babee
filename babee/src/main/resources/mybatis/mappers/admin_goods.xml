@@ -17,6 +17,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    <result property="seller_id" column="seller_id" />
 	    <result property="goods_image_name1" column="goods_image_name1" />
 	    <result property="goods_image_name2" column="goods_image_name2" />
+	    <result property="goods_image_name_id1" column="goods_image_name_id1" />
+	    <result property="goods_image_name_id2" column="goods_image_name_id2" />
 	    <result property="age_range" column="age_range" />
 	    <result property="goods_creation_date" column="goods_creation_date" />
 	    <result property="relative_tag1" column="relative_tag1" />
@@ -32,11 +34,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </resultMap>		
 
 	<resultMap id="imageResult" type="ImageFileVO">
-	   <result property="goods_id" column="goods_id" />
 	   <result property="fileName" column="fileName" />
 	   <result property="reg_id" column="reg_id" />
 	   <result property="image_id" column="image_id" />
 	   <result property="fileType" column="fileType" />
+	   <result property="detailFile" column="detailFile" />
 	</resultMap>
 	
 	<resultMap id="orderGoodsResult" type="OrderVO">
@@ -90,9 +92,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         middle_category,
         sub_category,
         goods_image_name1,
-        goods_image_name1_id,
+        goods_image_name_id1,
         goods_image_name2,
-        goods_image_name2_id,
+        goods_image_name_id2,
         seller_id,
         age_range,
         goods_option1,
@@ -111,10 +113,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         #{middle_category},
         #{sub_category},
         #{goods_image_name1},
-        #{goods_image_name1_id},
+        #{goods_image_name_id1},
         #{goods_image_name2},
-        #{goods_image_name2_id},
-        #{reg_id},
+        #{goods_image_name_id2},
+        #{seller_id},
         #{age_range},
         #{goods_option1},
         #{goods_option2},
@@ -184,22 +186,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		]]>
 	</insert> 
 	 -->
-	 <insert id="insertGoodsImageFile" parameterType="ImageFileVO"   >
+	 <insert id="insertGoodsImageFile" parameterType="java.util.Map"   >
 		<selectKey resultType="int" keyProperty="image_id" order="BEFORE">
 	    	select ifnull(max(image_id)+1, 1) from t_shopping_image
 	    </selectKey>
 	    <![CDATA[
-		   insert into t_shopping_image (image_id
-																				 )
-											   					value(#{image_id})
+		    insert into t_shopping_image (image_id, fileName, reg_id, fileType, detailFile)
+		    values(#{image_id}, #{fileName}, #{reg_id}, '상품', #{detailFile})
 		]]>
 	</insert>
 		<!--수정전 <insert id="insertGoodsImageFile" parameterType="ImageFileVO"   >
 		<selectKey resultType="int" keyProperty="image_id" order="BEFORE">
-	    	select ifnull(max(image_id)+1, 0) from t_shopping_image
+	    	select ifnull(max(image_id)+1, 0) from t_goods_detail_image
 	    </selectKey>
 	    <![CDATA[
-		   insert into t_shopping_image (image_id,
+		   insert into t_goods_detail_image (image_id,
 		                                     goods_id,
 																				 fileName,
 																				 fileType,
@@ -300,7 +301,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="selectGoodsDetail" resultMap="goodsResult"   parameterType="String"  >
 	    <![CDATA[
-		     select g.*,g.goods_published_date as goods_published_date, d.fileName from t_shopping_goods g, t_shopping_image d
+		     select g.*,g.goods_published_date as goods_published_date, d.fileName from t_shopping_goods g, t_goods_detail_image d
 	        where g.goods_id=d.goods_id
 	        and d.filetype='main_image'
 	        and g.goods_id=#{goods_id}
@@ -309,7 +310,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<select id="selectGoodsImageFileList" resultMap="imageResult"   parameterType="String"  >
 	    <![CDATA[
-		    	select * from  t_shopping_image 
+		    	select * from  t_goods_detail_image 
 		    	where  
 			    goods_id=#{goods_id}
 			    order by image_id asc
@@ -380,14 +381,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	</update>	
 	<update id="updateGoodsImage" parameterType="ImageFileVO">
-		update t_shopping_image
+		update t_goods_detail_image
 		set fileName=#{fileName}
 		where	 
 		goods_id=#{goods_id} and image_id=#{image_id}
 	</update>
 	
 	<delete id="deleteGoodsImage" parameterType="String">
-	  delete from t_shopping_image
+	  delete from t_goods_detail_image
 	  where image_id=#{image_id}
 	</delete>
 	

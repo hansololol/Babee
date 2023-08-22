@@ -243,6 +243,7 @@
          <put-attribute name="title" value="관리자 공지사항 내용" />
          <put-attribute name="body" value="/WEB-INF/views/admin00/member/admininfowrite.jsp" />
        </definition>
+       
 <!--       관리자 - 사업자 관리 -->
 <definition name="/member/sellerManageList" extends="baseLayout_user">
 <put-attribute name="title" value="사업자 관리 목롱창(관리자)"/>
@@ -283,6 +284,12 @@
 <put-attribute name="body" value="/WEB-INF/views/admin00/seller/listSellerGoodsAdmin.jsp"/>
 </definition>
       
+<!-- 관리자 회원관리 -->
+<definition name="/member/adminmodMember" extends="baseLayout_user">
+<put-attribute name="title" value="관리자가 회원관리"/>
+<put-attribute name="body" value="/WEB-INF/views/admin00/seller/adminmodMember.jsp"/>
+</definition>
+
        <!-- 사업자 로직 -->
       
          <definition name="/seller/sellerForm" extends="baseLayout">
@@ -296,7 +303,7 @@
        
           <definition name="/seller/modsellerForm" extends="baseLayout_user">
          <put-attribute name="title" value="사업자 수정" />
-         <put-attribute name="body" value="/WEB-INF/views/seller/sellerForm.jsp" />
+         <put-attribute name="body" value="/WEB-INF/views/seller/modsellerForm.jsp" />
        </definition>
        
        <definition name="/seller/addNewGoodsForm" extends="baseLayout_user">

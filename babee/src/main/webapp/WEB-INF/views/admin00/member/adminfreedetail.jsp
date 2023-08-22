@@ -175,7 +175,7 @@
             <textarea id="commentText" rows="4" cols="50"></textarea>
             <br>
             <button type="button" onclick="addComment()">댓글 작성</button>
-            <button type="button" onclick="window.location.href='/member/adminfreelist.do';">뒤로가기</button>
+            <button type="button" onclick="window.location.href='/member/adminfreelist.do?page=adminPage';">뒤로가기</button>
          </div>
       </div>
    </div>

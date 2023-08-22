@@ -47,7 +47,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 		ModelAndView mav = new ModelAndView(viewName);
 		//HttpSession session=request.getSession();
 		//session=request.getSession();
-		//session.setAttribute("side_menu", "admin_mode"); //              永    嚥          髥  .
+		//session.setAttribute("side_menu", "admin_mode"); //              永�   嚥�         髥� .
 		
 		String fixedSearchPeriod = dateMap.get("fixedSearchPeriod");
 		String section = dateMap.get("section");
@@ -76,7 +76,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 		condMap.put("search_type", search_type);
 		condMap.put("search_word", search_word);
 		List<GoodsVO> newGoodsList=adminGoodsService.listNewGoods(condMap);
-		System.out.println( newGoodsList.size() + "占쎄퉱嚥≪뮆踰묉에 빜釉  占쎄맒占쎈    뵳 딅뮞占쎈뱜");
+		System.out.println( newGoodsList.size() + "占쎄퉱嚥≪뮆踰묉에�빜釉� 占쎄맒占쎈�� �뵳�딅뮞占쎈뱜");
 		mav.addObject("newGoodsList", newGoodsList);
 		
 		String beginDate1[]=beginDate.split("-");
@@ -121,9 +121,11 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 	        int randomNumber = random.nextInt(900000) + 100000;
 	        // goods_image_name1_id를 생성하여 newGoodsMap에 추가
 	        String goodsImageName1Id = String.valueOf(randomNumber);
-	        newGoodsMap.put("goods_image_name1_id", goodsImageName1Id);
+	        newGoodsMap.put("goods_image_name_id1", goodsImageName1Id);
+	        
 	        // goodsVO에도 goods_image_name1_id 저장
-	        goodsVO.setGoods_image_name1_id(goodsImageName1Id);
+	        goodsVO.setGoods_image_name_id1(goodsImageName1Id);
+	        newGoodsMap.put("fileName", fileName);
 	    }
 
 	    // 이미지2 처리
@@ -141,9 +143,10 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 	        int randomNumber = random.nextInt(900000) + 100000;
 	        // goods_image_name1_id를 생성하여 newGoodsMap에 추가
 	        String goodsImageName2Id = String.valueOf(randomNumber);
-	        newGoodsMap.put("goods_image_name2_id", goodsImageName2Id);
+	        newGoodsMap.put("goods_image_name_id2", goodsImageName2Id);
 	        // goodsVO에도 goods_image_name1_id 저장
-	        goodsVO.setGoods_image_name2_id(goodsImageName2Id);
+	        goodsVO.setGoods_image_name_id2(goodsImageName2Id);
+	        newGoodsMap.put("detailFile", fileName);
 	    }
 
 	    Enumeration<String> enu = multipartRequest.getParameterNames();
@@ -159,6 +162,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 	    String reg_id = sellerVO.getSeller_id();
 	    sellerVO.setSeller_id(reg_id);
 	    System.out.println("셀러아이디" + reg_id);
+	    newGoodsMap.put("seller_id", reg_id);
 	    newGoodsMap.put("reg_id", reg_id);
 	    //ImageFileVO imageFileVO = new ImageFileVO();
 	    
@@ -176,7 +180,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 	    
 	    adminGoodsService.addNewGoods(newGoodsMap);
 	    int goods_id = (int) newGoodsMap.get("goods_id");
-	    
+	    //adminGoodsService.addNewGoodsImage(newGoodsMap);
 	    //int goods_id = adminGoodsService.addNewGoods.get("goods_id"));
 	    System.out.println("zzzzzzz"+goods_id);
 	    try {
@@ -194,7 +198,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 
 	        message = "<script>";
 	        message += " alert('성공!');";
-	        message += " location.href='" + multipartRequest.getContextPath() + "/seller/addNewGoodsForm.do';";
+	        message += " location.href='" + multipartRequest.getContextPath() + "/seller/listSellerGoods.do?page=sellerPage';";
 	        message += ("</script>");
 	    } catch (Exception e) {
 	        if (imageFileList != null && imageFileList.size() != 0) {
@@ -207,7 +211,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 	        }
 	        message = "<script>";
 	        message += " alert('실패');";
-	        message += " location.href='" + multipartRequest.getContextPath() + "/seller/addNewGoodsForm.do';";
+	        message += " location.href='" + multipartRequest.getContextPath() + "/seller/listSellerGoods.do?page=sellerPage';";
 	        message += ("</script>");
 	        e.printStackTrace();
 	    }
@@ -249,7 +253,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 					imageFileVO.setReg_id(reg_id);
 				}
 				System.out.println("이미지셀러아이디" + reg_id);
-			    adminGoodsService.addNewGoodsImage(imageFileList);
+			   // adminGoodsService.addNewGoodsImage(imageFileList);
 				for(ImageFileVO  imageFileVO:imageFileList) {
 					
 					imageFileName = imageFileVO.getFileName();

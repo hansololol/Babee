@@ -136,8 +136,8 @@
     <c:forEach var="i" begin="0" end="5">
 		<tr style="height: 50px; border-bottom:1px solid gray;">
 			<td> { 1 }</td>
-			<td>  <a href="${contextPath}/member/modMember.do"> { ID } </a></td>
-			<td>  <a href="${contextPath}/member/modMember.do">{ 회원명 } </a></td>
+			<td>  <a href="${contextPath}/member/modMember.do?page=adminPage"> { ID } </a></td>
+			<td>  <a href="${contextPath}/member/modMember.do?page=adminPage">{ 회원명 } </a></td>
 			<td> { 2023-08-12 } </td>
 		</tr>
     </c:forEach>

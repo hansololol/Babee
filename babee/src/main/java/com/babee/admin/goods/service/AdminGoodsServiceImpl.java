@@ -23,14 +23,20 @@ public class AdminGoodsServiceImpl implements AdminGoodsService {
 	@Autowired
 	private AdminGoodsDAO adminGoodsDAO;
 	
+	
 	@Override
 	public int addNewGoods(Map newGoodsMap) throws Exception{
 		int goods_id = adminGoodsDAO.insertNewGoods(newGoodsMap);
+		
 		ArrayList<ImageFileVO> imageFileList = (ArrayList)newGoodsMap.get("imageFileList");
 		for(ImageFileVO imageFileVO : imageFileList) {
-			System.out.println("    "+newGoodsMap);
+			//imageFileVO.setGoods_id(goods_id);
+			
+			System.out.println("굿굿"+goods_id);//이게문제야시빨ㅃ리ㅏㅣ라집ㄼ지라ㅣ아이
+			System.out.println("뭐야"+newGoodsMap);
+			System.out.println("얘는뭘까?"+newGoodsMap.get("goods_id"));
 		}
-		adminGoodsDAO.insertGoodsImageFile(imageFileList);
+		adminGoodsDAO.insertGoodsImageFile(newGoodsMap);
 		return goods_id;
 	}
 	
@@ -78,8 +84,8 @@ public class AdminGoodsServiceImpl implements AdminGoodsService {
 	}
 	
 	@Override
-	public void addNewGoodsImage(List imageFileList) throws Exception{
-		adminGoodsDAO.insertGoodsImageFile(imageFileList);
+	public void addNewGoodsImage(Map newGoodsMap) throws Exception{
+		adminGoodsDAO.insertGoodsImageFile(newGoodsMap);
 	}
 	
 

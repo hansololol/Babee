@@ -22,18 +22,31 @@ public abstract class BaseController  {
 	private static final String CURR_IMAGE_REPO_PATH = "C:\\shopping\\file_repo";
 	
 	protected List upload(MultipartHttpServletRequest multipartRequest) throws Exception{
-		System.out.println("깃허브 확인");
-		List fileList= new ArrayList<ImageFileVO>();
+		List<ImageFileVO> fileList = new ArrayList<>();
+		//List fileList= new ArrayList<ImageFileVO>();
 		Iterator<String> fileNames = multipartRequest.getFileNames();
+		
+		String fileKind = multipartRequest.getParameter("fileKind");
+		
 		while(fileNames.hasNext()){
 			ImageFileVO imageFileVO =new ImageFileVO();
 			String fileName = fileNames.next();
-			imageFileVO.setFileType(fileName);
+			
+			//imageFileVO.setFileType(fileName);
 			MultipartFile mFile = multipartRequest.getFile(fileName);
 			String originalFileName=mFile.getOriginalFilename();
+			
 			imageFileVO.setFileName(originalFileName);
+			imageFileVO.setFileKind(fileKind);
+			//imageFileVO.setFileType(fileType);
+
 			fileList.add(imageFileVO);
 			
+			System.out.println("알알라랄ㄹ리스트 "+ fileList);
+			for (ImageFileVO imageFile : fileList) {
+		        System.out.println("File Name: " + imageFile.getFileName());
+		        System.out.println("File Kind: " + imageFile.getFileKind());
+		    }
 			File file = new File(CURR_IMAGE_REPO_PATH +"\\"+ fileName);
 			if(mFile.getSize()!=0){ //File Null Check
 				if(! file.exists()){ //  λ                          
@@ -44,6 +57,7 @@ public abstract class BaseController  {
 				mFile.transferTo(new File(CURR_IMAGE_REPO_PATH +"\\"+"temp"+ "\\"+originalFileName)); // ӽ÷        multipartFile           Ϸ      
 			}
 		}
+		
 		return fileList;
 	}
 	@RequestMapping(value="/*.do" ,method={RequestMethod.POST,RequestMethod.GET})
