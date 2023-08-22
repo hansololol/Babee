@@ -10,6 +10,18 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <meta charset="utf-8" />
     <title>리뷰 작성창</title>
 
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script>
+      function readURL(input) {
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            $("#preview").attr("src", e.target.result);
+          };
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+    </script>
     <style>
       .star-goods_star {
         display: flex;
@@ -75,7 +87,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
     <form
       method="post"
-      action="${contextPath}/member/적어야해요.do"
+      action="${contextPath}/mypage/reviewWrite.do"
       enctype="multipart/form-data"
       style="margin-left: 110px; width: 800px"
     >
@@ -96,9 +108,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             <input
               type="hidden"
               name="member_id"
-              value="${memberInfo.member_id"
-              }
+              value="${memberInfo.member_id}"
             />
+            <input type="hidden" name="goods_id" value="${goods_id}" />
           </td>
         </tr>
 
@@ -133,7 +145,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           <td width="200">
             <input
               type="file"
-              name="review_img"
+              name="imageFile"
               onChange="readURL(this);"
               style="margin-left: 10px"
             />
@@ -164,7 +176,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           </td>
           <td colspan="2" style="border: 1px solid gray; padding: 10px">
             <textarea
-              name="content"
+              name="review_content"
               rows="10"
               cols="70"
               maxlength="3000"

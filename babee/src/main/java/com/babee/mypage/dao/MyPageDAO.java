@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
-import com.babee.cart.vo.CartVO;
 import com.babee.goods.vo.GoodsVO;
 import com.babee.member.vo.MemberVO;
 import com.babee.mypage.vo.WishVO;
@@ -29,4 +28,7 @@ public interface MyPageDAO {
 	public List<WishVO> selectWishList(String memberId) throws DataAccessException;
 	public List<GoodsVO> selectWishGoodsList(int goods_id) throws DataAccessException;
 	public void deleteWishList(int articleNO) throws DataAccessException;
+	public void insertNewReview(Map reviewMap) throws DataAccessException;
+	public void insertImage(Map reviewMap) throws DataAccessException;
+	public List selectReviewList(String member_id) throws DataAccessException;
 }

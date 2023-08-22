@@ -59,7 +59,7 @@ ul {
                 </ul>
     <div class="inner2">
                     <li class="info">
-                        <span>🏡상호  <span>(주)Babee</span></span>  <span>대표  <span class="han">고아라, 김경민, 김한솔</span></span>  <span>사업자등록번호  <span>811-111-1114</span></span> <br><span>통신판매업 신고   <span>제2020-대전-02653호</span></span><span> <span><a href="#none" onclick="window.open('http://www.ftc.go.kr/bizCommPop.do?wrkr_no=8548701014', 'bizCommPop', 'width=750, height=950;');return false;">[사업자정보확인]</a></span></span> <br><span>전화  <span>042-952-1011</span></span> <span>주소  <span> 대전광역시 서구 그린 컴퓨터학원 1005 10층</span></span> <br><span>개인정보관리책임자  <span>김한솔 (ekfkawnl9593@naver.com)</span></span><br>
+                        <span>🏡상호  <span>(주)Babee</span></span>  <span>대표  <span class="han">고아라, 김경민, 김한솔, 편정은</span></span>  <span>사업자등록번호  <span>811-111-1114</span></span> <br><span>통신판매업 신고   <span>제2020-대전-02653호</span></span><span> <span><a href="#none" onclick="window.open('http://www.ftc.go.kr/bizCommPop.do?wrkr_no=8548701014', 'bizCommPop', 'width=750, height=950;');return false;">[사업자정보확인]</a></span></span> <br><span>전화  <span>042-952-1011</span></span> <span>주소  <span> 대전광역시 서구 그린 컴퓨터학원 1005 10층</span></span> <br><span>개인정보관리책임자  <span>김한솔 (ekfkawnl9593@naver.com)</span></span><br>
     </li>
                 </div>
             </div>
