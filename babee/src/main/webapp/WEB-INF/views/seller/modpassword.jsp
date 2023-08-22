@@ -31,7 +31,7 @@
         <h3>사용자님의 회원정보 수정을 위해 비밀번호를 입력해 주시길 바랍니다.</h3>
         <br>
         
-        <form action="${contextPath}/seller/modsellerForm.do" method="post" onsubmit="return validateForm()">
+        <form action="${contextPath}/seller/modsellerForm.do?page=sellerPage" method="post" onsubmit="return validateForm()">
             <div style="margin-bottom: 15px;">
                 
                 <input type="password" id="password" name="password" required style="width: 30%; padding: 10px; border: 1px solid #ccc; border-radius: 3px; font-size: 16px;">

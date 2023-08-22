@@ -119,7 +119,7 @@
    </form>   
    
    <br>
-   <a class="order_delivery_search" href="${contextPath}/seller/addNewGoodsForm.do" style="width: 125px;
+   <a class="order_delivery_search" href="${contextPath}/seller/addNewGoodsForm.do?page=sellerPage" style="width: 125px;
    float: right;
    font-size: 18px;
    margin-bottom: 10px;"><b>상품 등록하기</b></a>
@@ -144,8 +144,8 @@
             <td> 2,500원 </td>
             
             <td> 
-            <a class="order_delivery_search" href="${contextPath}/seller/addNewGoodsForm.do"><b>수정하기</b></a><br>
-             <a class="order_delivery_search" href=""><b>삭제</b></a><br>
+            <a class="order_delivery_search" href="${contextPath}/seller/addNewGoodsForm.do?page=sellerPage"><b>수정하기</b></a><br>
+             <a class="order_delivery_search?page=sellerPage" href=""><b>삭제</b></a><br>
 
             </tr>
            </c:forEach> 

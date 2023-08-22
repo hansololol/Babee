@@ -142,10 +142,10 @@
 <div class="menu-container">
     <div class="menu-options">
         <div class="menu-option" id="faq">
-            <a href="/member/adminAnswer.do" style="color: black;" >자주묻는질문</a>
+            <a href="/member/adminAnswer.do?page=adminPage" style="color: black;" >자주묻는질문</a>
         </div>
         <div class="menu-option" id="history">
-            <a href="/member/adminlist.do" style="color: black;" class="menu-option-selected">문의내역</a>
+            <a href="/member/adminlist.do?page=adminPage" style="color: black;" class="menu-option-selected">문의내역</a>
         </div>
     </div>
     

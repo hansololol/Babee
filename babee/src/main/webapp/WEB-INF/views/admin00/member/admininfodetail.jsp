@@ -143,7 +143,7 @@
             <p>게시글 내용이 여기에 들어갑니다.</p>
          </div>
          <hr>
-         <button type="button" onclick="window.location.href='/member/admininfolist.do';" style="width:120px; height:45px; margin-top:-50px;">뒤로가기</button>
+         <button type="button" onclick="window.location.href='/member/admininfolist.do?page=adminPage';" style="width:120px; height:45px; margin-top:-50px;">뒤로가기</button>
          
       </div>
    </div>
