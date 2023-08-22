@@ -99,25 +99,16 @@ function add_cart(goods_id){
    }
    
 function add_wish(goods_id){
-   
-   var cart_goods_qty = document.getElementById("order_goods_qty").value;   // 상품 갯수
-   var goods_option = document.getElementById("goods_option").value;      // 상품 옵션
    let data = {
          goods_id : goods_id,
-         cart_goods_qty : cart_goods_qty,
-         goods_option : goods_option
          };
    
    let memberId = $('#isLogOn').val();                        // 로그인 된 ID
-   /* let sellerId = $('#isLogOnSeller').val();    */                     // 로그인 된 ID
-   
    if(memberId != null && memberId != ''){            // 로그인 된 ID가 member 일 경우 
       data.member_id =  memberId;
-   }else if(sellerId != null && sellerId != ''){      // 로그인 된 ID가 seller 일 경우
-      data.member_id =  sellerId;
    }
    
-   if((memberId === null || memberId === '') && (sellerId === null || sellerId === '')){   // 로그인 ID가 없을 경우
+   if(memberId === null || memberId === ''){   // 로그인 ID가 없을 경우
       alert('로그인 후 이용하실 수 있습니다.');
       location.href = "${contextPath}/member/loginForm.do";
       
@@ -125,7 +116,7 @@ function add_wish(goods_id){
       $.ajax({
          type : "POST",
          async : false,
-         url : "${contextPath}/cart/addGoodsInCart",
+         url : "${contextPath}/mypage/addWishList",
          data : JSON.stringify(data),
            contentType: "application/json",
          success : function(res){
@@ -176,9 +167,6 @@ function add_wish(goods_id){
 	    }
 	}
 	
-	$(".btn_add_wish").click(function(){
-		alert("상품을 위시리스트에 추가하였습니다.")
-	})
 </script>
 
 

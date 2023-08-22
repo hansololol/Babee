@@ -18,10 +18,9 @@ public interface MyPageController {
 	public ModelAndView cancelMyOrder(@RequestParam("order_id")  String order_id,HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	public ModelAndView listMyOrderHistory(HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	public ModelAndView myDetailInfo(HttpServletRequest request, HttpServletResponse response)  throws Exception;
-	public ModelAndView refundOrder(@ModelAttribute("refundVO") RefundVO refund,
-			HttpServletRequest request, HttpServletResponse response)  throws Exception;
-	public ModelAndView myrefund(@RequestParam("order_id") String order_id,
-			HttpServletRequest request, HttpServletResponse response)  throws Exception;
-	public ModelAndView reviewWrite(@ModelAttribute("reviewVO") ReviewVO review,
-			MultipartHttpServletRequest multipartRequest, HttpServletRequest request, HttpServletResponse response)  throws Exception;
+	public ModelAndView wishList(HttpServletRequest request, HttpServletResponse response)  throws Exception;
+	public ModelAndView removeWishList(@RequestParam("articleNO") int articleNO, HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView refundOrder(@ModelAttribute("refundVO") RefundVO refund, HttpServletRequest request, HttpServletResponse response)  throws Exception;
+	public ModelAndView myrefund(@RequestParam("order_id") String order_id,HttpServletRequest request, HttpServletResponse response)  throws Exception;
+	public ModelAndView reviewWrite(@ModelAttribute("reviewVO") ReviewVO review, MultipartHttpServletRequest multipartRequest, HttpServletRequest request, HttpServletResponse response)  throws Exception;
 }

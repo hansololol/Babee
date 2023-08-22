@@ -149,7 +149,7 @@
        <put-attribute name="body" value="/WEB-INF/views/mypage/modpassword.jsp" />
     </definition>
     
-     <definition name="/mapage/wishList" extends="baseLayout_user">
+     <definition name="/mypage/wishList" extends="baseLayout_user">
        <put-attribute name="title" value="위시리스트" />
        <put-attribute name="body" value="/WEB-INF/views/mypage/wishList.jsp" />
     </definition>
