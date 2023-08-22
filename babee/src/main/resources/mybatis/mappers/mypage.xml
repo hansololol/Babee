@@ -25,7 +25,16 @@
 		<result property="goods_option" column="goods_option" />
 	</resultMap> 
 	
-	
+	<resultMap id="wishResult" type="WishVO">
+      <result property="articleNO" column="articleNO" />
+      <result property="member_id" column="member_id" />
+      <result property="goods_id" column="goods_id" />
+      <result property="goods_title" column="goods_title" />
+      <result property="goods_price" column="goods_price" />
+      <result property="goods_image_name1" column="goods_image_name1" />
+   </resultMap>
+   
+   
 	 <select id="selectMyOrderGoodsList" resultMap="orderGoodsResult"  parameterType="String"  >
 	   
 	    <![CDATA[
@@ -69,6 +78,61 @@
 	   		#{reason_option})
 	</insert>
 		
+	<select id="selectCountWishList" resultType="boolean" parameterType="wishVO">
+	    <![CDATA[
+		    select if(count(*)=0, 'false', 'true') from t_shopping_wish
+			where goods_id=#{goods_id}
+			  and member_id=#{member_id} 
+
+    	]]>
+	</select>
+	
+	<insert id="insertWishList" parameterType="wishVO">
+		<selectKey resultType="int" keyProperty="articleNO" order="BEFORE">
+    		select ifnull(max(articleNO)+1, 1) from t_shopping_wish
+		</selectKey>
+	    <![CDATA[
+		    	insert into t_shopping_wish(articleNO,
+		    								member_id,
+		    	                           goods_id)
+		        				 values(#{articleNO},
+		        				 		#{member_id},
+    							        #{goods_id})
+    	]]>
+	</insert>
 		
+	<select id="selectWishList"  parameterType="String"  resultType="WishVO" >
+	    <![CDATA[
+		SELECT	b.goods_title
+			  	,b.goods_price
+		      	,a.goods_id
+		      	,a.articleNO
+		      	,a.member_id
+		      	,b.goods_option1
+		      	,b.goods_option2
+		      	,b.goods_option3
+		      	,b.goods_option4
+		      	,b.goods_option5
+		FROM 	babee.t_shopping_wish a, babee.t_shopping_goods b
+		WHERE 	a.goods_id = b.goods_id
+		AND 	a.member_id = #{member_id}	
+		]]>
+	</select>
+
+	 <select id="selectWishGoodsList" parameterType="int" resultType="GoodsVO">
+		<![CDATA[
+		 select goods_option1, goods_option2, goods_option3, goods_option4, goods_option5, goods_image_name1 
+		from t_shopping_goods
+		where goods_id=#{goods_id};
+		]]>
+	 </select>
+	 
+	 <delete id="deleteWishList" parameterType="int">
+	    <![CDATA[
+	      delete from t_shopping_wish
+	      where articleNO=#{articleNO}
+    	]]>
+	</delete>
+	 
 </mapper>
  

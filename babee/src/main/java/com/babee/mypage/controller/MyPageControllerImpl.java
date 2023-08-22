@@ -3,9 +3,6 @@ package com.babee.mypage.controller;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
-import java.util.HashMap;
-
 import java.util.List;
 import java.util.Map;
 
@@ -16,18 +13,26 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.babee.cart.vo.CartVO;
 import com.babee.common.base.BaseController;
 import com.babee.goods.service.GoodsService;
 import com.babee.goods.vo.GoodsVO;
 import com.babee.member.vo.MemberVO;
 import com.babee.mypage.service.MyPageService;
+import com.babee.mypage.vo.WishVO;
 import com.babee.order.vo.OrderVO;
 import com.babee.order.vo.RefundVO;
+import com.babee.seller.vo.SellerVO;
+
+
 
 @Controller("myPageController")
 @RequestMapping(value="/mypage")
@@ -40,6 +45,8 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 	private MemberVO memberVO;
 	@Autowired
 	private OrderVO orderVO;
+	@Autowired
+	private WishVO wishVO;
 	
 	
 	@Override
@@ -168,7 +175,93 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		String viewName=(String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 		return mav;
-	}	
+	}
 	
+	@Override
+	@RequestMapping(value="/wishList.do" ,method = RequestMethod.GET)
+	public ModelAndView wishList(HttpServletRequest request, HttpServletResponse response)  throws Exception {
+		
+		System.out.println("myWishList 메소드 진입");
+		
+		String viewName=(String)request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+		
+		
+		HttpSession session = request.getSession();
+		String userType = (String) session.getAttribute("userType");
+		System.out.println("userType : " + userType);
+		
+		// 로그인한 사용자 ID 가져오기(memberId)
+		List<WishVO> myWishList = null;
+		List<GoodsVO> allGoodsList = new ArrayList<>();
+		if(userType.equals("M")) {
+			MemberVO memberVO = (MemberVO)session.getAttribute("memberInfo");
+			String member_id = memberVO.getMember_id();
+			
+			System.out.println("member_id : " + member_id);
+			
+			myWishList = myPageService.selectWishList(member_id);
+			
+			for(int i=0; i<myWishList.size(); i++) {
+				wishVO = myWishList.get(i);
+				int goods_id = wishVO.getGoods_id();
+				String id= String.valueOf(goods_id);
+				Map goods = goodsService.goodsDetail(id);
+				GoodsVO goodsCart = (GoodsVO) goods.get("goodsVO");
+				wishVO.setGoods_title(goodsCart.getGoods_title());
+				wishVO.setGoods_price(goodsCart.getGoods_price());
+				wishVO.setGoods_image_name1(goodsCart.getGoods_image_name1());
+				allGoodsList = myPageService.selectWishGoodsList(goods_id);
+				allGoodsList.addAll(allGoodsList);
+				
+				
+			}
+			System.out.println("myWishList : " + myWishList);
+			
+			
+			
+		}else if(userType.equals("S")) {
+			SellerVO sellerVO = (SellerVO)session.getAttribute("memberInfo");
+			String member_id = sellerVO.getSeller_id();
+			
+			System.out.println("member_id : " + member_id);
+			
+			myWishList = myPageService.selectWishList(member_id);
+			
+			System.out.println("myWishList : " + myWishList);
+			
+			
+		}
+		
+		
+		mav.addObject("myWishList", myWishList);
+		mav.addObject("goodsList", allGoodsList);
+
+		
+		return mav;
+	}
+	
+	@PostMapping("addWishList")
+	@ResponseBody
+	public String addWishList(@RequestBody WishVO wishVO, HttpServletRequest request, HttpSession session) throws Exception {
+		System.out.println("addWishList 메소드 진입");
+		
+		boolean isAreadyExisted = myPageService.findWishList(wishVO);
+		
+		if(isAreadyExisted==true){
+			return "already_existed";
+			
+		}else{
+			myPageService.addWishList(wishVO);
+			return "add_success";
+		}
+	}
+	@RequestMapping(value="/removeWishList.do" ,method = RequestMethod.POST)
+	public ModelAndView removeWishList(@RequestParam("articleNO") int articleNO, HttpServletRequest request, HttpServletResponse response)  throws Exception{
+		ModelAndView mav=new ModelAndView();
+		myPageService.removeWishList(articleNO);
+		mav.setViewName("redirect:/mypage/wishList.do");
+		return mav;
+	}
 	
 }

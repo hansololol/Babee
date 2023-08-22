@@ -9,13 +9,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.babee.cart.vo.CartVO;
+import com.babee.goods.vo.GoodsVO;
 import com.babee.mypage.dao.MyPageDAO;
+import com.babee.mypage.vo.WishVO;
 import com.babee.order.vo.OrderVO;
 import com.babee.order.vo.RefundVO;
 
 @Service("myPageService")
 @Transactional(propagation=Propagation.REQUIRED)
 public class MyPageServiceImpl  implements MyPageService{
+	
 	@Autowired
 	private MyPageDAO myPageDAO;
 
@@ -37,5 +41,29 @@ public class MyPageServiceImpl  implements MyPageService{
 	public void refundOrder(RefundVO refundOrder) throws Exception{
 		myPageDAO.updateMyOrderRefund(refundOrder);
 	}
-
+	
+	public boolean findWishList(WishVO wishVO) throws Exception{
+		return myPageDAO.selectCountWishList(wishVO);
+	}
+	
+	public void addWishList(WishVO wishVO) throws Exception{
+		myPageDAO.insertWishList(wishVO);
+	}
+	
+	public List<WishVO> selectWishList(String member_id) throws Exception{
+		
+		List<WishVO> resultWishList = myPageDAO.selectWishList(member_id);
+		
+		return resultWishList;
+	}
+	
+	@Override
+	public List<GoodsVO> selectWishGoodsList(int goods_id) throws Exception {
+		return myPageDAO.selectWishGoodsList(goods_id);
+	}
+	
+	public void removeWishList(int articleNO) throws Exception{
+		myPageDAO.deleteWishList(articleNO);
+	}
+	
 }
