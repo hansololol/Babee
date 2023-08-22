@@ -151,6 +151,62 @@ function execDaumPostcode() {
   }).open();
 }
 
+
+function fnOrderGoods() {
+    var cartOrderArr = [];
+
+    var selectedCheckboxes = $(".product-checkbox:checked");
+    if (selectedCheckboxes.length === 0) {
+        alert("선택된 상품이 없습니다.");
+        return;
+    }
+
+    selectedCheckboxes.each(function () {
+        var row = $(this).closest("tr");
+        var goodsId = row.find(".goodsId").val();
+        var quantity = row.find("#order_goods_qty").val();
+        var option = row.find("#_goods_option").val();
+
+        cartOrderArr.push({
+            goodsId: goodsId,
+            quantity: quantity,
+            option: option
+        });
+    });
+
+    console.log("cartOrderArr", cartOrderArr);
+
+    var form = document.createElement("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("action", "${contextPath}/order/payToOrderGoods.do");
+
+    // cartOrderArr을 반복하며 입력 생성 및 추가
+    for (var i = 0; i < cartOrderArr.length; i++) {
+        var orderData = cartOrderArr[i];
+
+        var inputGoodsId = document.createElement("input");
+        inputGoodsId.setAttribute("type", "hidden");
+        inputGoodsId.setAttribute("name", "selected_goods_id");
+        inputGoodsId.setAttribute("value", orderData.goodsId);
+        form.appendChild(inputGoodsId);
+
+        var inputQuantity = document.createElement("input");
+        inputQuantity.setAttribute("type", "hidden");
+        inputQuantity.setAttribute("name", "selected_quantity");
+        inputQuantity.setAttribute("value", orderData.quantity);
+        form.appendChild(inputQuantity);
+
+        var inputOption = document.createElement("input");
+        inputOption.setAttribute("type", "hidden");
+        inputOption.setAttribute("name", "selected_option");
+        inputOption.setAttribute("value", orderData.option);
+        form.appendChild(inputOption);
+    }
+
+    document.body.appendChild(form);
+    form.submit();
+}
+
 </script>
 </head>
 <body>
@@ -209,12 +265,12 @@ function execDaumPostcode() {
       <H2>주문 상품 목록</H2>
          <div class="order_list" >
             <table>
-               <c:forEach var="order" items="${orderInfo}">
+               <c:forEach var="order" items="${orderInfo}" varStatus="status">
                <tr>
-                  <td width="180px;"><img src="${contextPath}/thumbnails.do?goods_id=${goods.goods_id}&fileName=${goods.goods_image_name1}" width="80px;"/></td>
-                  <td width="180px;"> ${goods.goods_title} </td>
-                  <td  width="80px;"> ${order.order_goods_qty} (개) </td>
-                  <input type="hidden" name="order_goods_qty" value="${order.order_goods_qty}">
+                  <td width="180px;"><img src="${contextPath}/thumbnails.do?goods_id=${order.goods.goods_id}&fileName=${order.goods.goods_image_name1}" width="80px;"/></td>
+                  <td width="180px;"> ${order.goods_title}</td> 
+                  <td  width="80px;"> ${order.order_goods_qty} <input type="hidden" name="order_goods_qty" value="${order.order_goods_qty}"> (개) </td> 
+                  
                </tr>
                <tr>
                   <td>상품 옵션 ${order.goods_option}</td>
@@ -226,10 +282,10 @@ function execDaumPostcode() {
                <h5 style="padding-left:30px;">할인 금액 ${discounted_price} 원</h4>
             <hr>
                
-               <h6 style="padding-left:30px;" name="goods_delivery_price" value=" ${goods.goods_delivery_price}">배송비  ${goods.goods_delivery_price} 원</h5>
-               <input type="hidden" name="goods_delivery_price" value="${goods.goods_delivery_price}">
+               <h6 style="padding-left:30px;" name="goods_delivery_price">배송비  3000 원</h5>
+               <input type="hidden" name="goods_delivery_price" value="3000">
             <hr>
-               <h4 style="padding-left:30px;">총 결제 금액   ${total_goods_price - discounted_price + goods.goods_delivery_price} 원</h4>
+               <h4 style="padding-left:30px;">총 결제 금액   ${total_goods_price - discounted_price + 3000} 원</h4>
                <input type="hidden" name="total_goods_price" value="${total_goods_price - discounted_price}">
          </div>
 
@@ -241,6 +297,6 @@ function execDaumPostcode() {
 
 
     	</div>
-</form>
+	</form>
    </body>
          

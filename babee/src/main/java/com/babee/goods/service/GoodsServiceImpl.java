@@ -60,6 +60,13 @@ public class GoodsServiceImpl implements GoodsService{
 		List goodsList=goodsDAO.selectGoodsBySearchWord(searchWord);
 		return goodsList;
 	}
+
+
+	@Override
+	public List<GoodsVO> selectGoodsList(int goods_id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 	

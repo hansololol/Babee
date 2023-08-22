@@ -5,6 +5,8 @@ import java.sql.Date;
 
 import org.springframework.stereotype.Component;
 
+import com.babee.goods.vo.GoodsVO;
+
 @Component("orderVO")
 public class OrderVO {
 	private String order_id;
@@ -28,6 +30,7 @@ public class OrderVO {
 	private int final_total_price;
 	private String goods_option;
 	private String goods_image_name;
+	private GoodsVO goods;
 	
 	
 	public String getOrder_id() {
@@ -150,6 +153,12 @@ public class OrderVO {
 	public void setGoods_image_name(String goods_image_name) {
 		this.goods_image_name = goods_image_name;
 	}
-
-
+	public GoodsVO getGoods() {
+		return goods;
+	}
+	public void setGoods(GoodsVO goods) {
+		this.goods = goods;
+	}
+	
+	
 }
