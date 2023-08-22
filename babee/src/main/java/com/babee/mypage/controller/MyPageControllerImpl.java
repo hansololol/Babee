@@ -201,6 +201,7 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 			String name=(String)enu.nextElement();
 			String value = multipartRequest.getParameter(name);
 			reviewMap.put(name, value);		
+			System.out.println(reviewMap);
 		}
 		List imageFileName = upload(multipartRequest);
 		reviewMap.put("review_img", imageFileName.get(0));

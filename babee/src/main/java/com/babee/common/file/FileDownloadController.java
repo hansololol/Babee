@@ -48,16 +48,9 @@ public class FileDownloadController {
                             	@RequestParam("goods_id") String goods_id, @RequestParam(value="fileType", required=false) String fileType,
 			                 HttpServletResponse response) throws Exception {
 		OutputStream out = response.getOutputStream();
-		String filePath;
-		
-		/*if(fileType !=null ? fileType.equals("review"):false) {
-		filePath=CURR_IMAGE_REPO_PATH_REVIEW+"/"+goods_id+"/"+fileName;
-		} else {
-		filePath=CURR_IMAGE_REPO_PATH_GOODS+"/"+goods_id+"/"+fileName;
-		}
-		*/
-		
-		switch(fileType != null ? fileType:"null") {
+		String filePath=CURR_IMAGE_REPO_PATH_GOODS+"/"+goods_id+"/"+fileName;
+		if(fileType!=null) {
+		switch(fileType) {
 			case "review" :
 						filePath = CURR_IMAGE_REPO_PATH_REVIEW+"/"+goods_id+"/"+fileName;
 						break;
@@ -65,9 +58,7 @@ public class FileDownloadController {
 			case "diary" :
 						filePath = CURR_IMAGE_REPO_PATH_DIARY+"/"+goods_id+"/"+fileName;
 						break;
-			default :
-				filePath=CURR_IMAGE_REPO_PATH_GOODS+"/"+goods_id+"/"+fileName;
-				break;
+		}
 		}
 		
 		File image=new File(filePath);

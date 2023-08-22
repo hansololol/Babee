@@ -108,7 +108,8 @@
 	
 	<insert id="insertImage" parameterType="java.util.Map">
 	 <![CDATA[
-	  insert t_shopping_image values(
+	
+	  insert t_shopping_image (image_id , fileName, fileType, reg_id) values(
 	  		#{review_img_id},
 		    #{review_img},
 	   		'review',
