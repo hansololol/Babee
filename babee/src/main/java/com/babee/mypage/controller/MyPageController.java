@@ -14,14 +14,22 @@ import com.babee.order.vo.RefundVO;
 
 public interface MyPageController {
 	public ModelAndView myPageMain(HttpServletRequest request, HttpServletResponse response)  throws Exception ;
+	
+	//주문
 	public ModelAndView myOrderDetail(@RequestParam("order_id")  String order_id,HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	public ModelAndView cancelMyOrder(@RequestParam("order_id")  String order_id,HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	public ModelAndView listMyOrderHistory(HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	public ModelAndView myDetailInfo(HttpServletRequest request, HttpServletResponse response)  throws Exception;
+	
+	//위시리스트
 	public ModelAndView wishList(HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	public ModelAndView removeWishList(@RequestParam("articleNO") int articleNO, HttpServletRequest request, HttpServletResponse response) throws Exception;
+	
+	//환불
 	public ModelAndView refundOrder(@ModelAttribute("refundVO") RefundVO refund, HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	public ModelAndView myrefund(@RequestParam("order_id") String order_id,HttpServletRequest request, HttpServletResponse response)  throws Exception;
+	
+	//리뷰
 	public ModelAndView reviewWrite(@ModelAttribute("reviewVO") ReviewVO review, MultipartHttpServletRequest multipartRequest, HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	public ModelAndView myReviewList(HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	public ResponseEntity goodsReviewList(@RequestParam("gooos_id") String goods_id, HttpServletRequest request, HttpServletResponse response)  throws Exception;

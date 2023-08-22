@@ -14,6 +14,8 @@ public class ReviewVO {
 	private String review_img;
 	private Date review_writeDate;
 	private String review_img_id;
+	
+	
 	public String getMember_id() {
 		return member_id;
 	}

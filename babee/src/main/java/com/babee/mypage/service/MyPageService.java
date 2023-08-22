@@ -22,13 +22,13 @@ public interface MyPageService{
 	public void refundOrder(RefundVO refundOrder) throws Exception;
 	
 	public boolean findWishList(WishVO wishVO) throws Exception;	//위시리스트 값 여부 확인
-	
 	public void addWishList(WishVO wishVO) throws Exception;	//위시리스트 추가
-	
 	public List<WishVO> selectWishList(String member_id) throws Exception;
 	public List<GoodsVO> selectWishGoodsList(int goods_id) throws Exception;
-	public List<ReviewVO> selectReview(String member_id) throws Exception;
 	public void removeWishList(int articleNO) throws Exception;
+	
+	
+	public List<ReviewVO> selectReview(String member_id) throws Exception;
 	public void addReview(Map reviewMap) throws Exception;
 	public List<ReviewVO> selectGoodsReview(String goods_id) throws Exception;
 	
