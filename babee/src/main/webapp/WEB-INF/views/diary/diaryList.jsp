@@ -157,14 +157,14 @@ input[type="reset"]:hover {
 
   
    <div style= "padding: 0 15%;" >
-      <c:forEach var="i" begin="0" end="20">
+      <c:forEach var="diary" items="${diary}">
       <div class="diary_list">
          <ul>
             <li style="text-align: left;"> <input type="checkbox" id="check" hidden> </li>
-            <li> <img src="/image/baby.jpg"/> </li>
-            <li style="text-align: left;"> 하루의 기록 </li>
-            <li> 오늘 하루의 기록을 Babee에서 도와드립니다. </li>
-            <li style="text-align: right;"> 작성일 </li>
+            <li><img src="${contextPath}/thumbnails.do?goods_id=${diary.member_id}&fileName=${diary.dir_main_img}&fileType=diary" width="100px"> </li>
+            <li style="text-align: left;">${diary.dir_title}</li>
+            <li>${diary.dir_content}</li>
+            <li style="text-align: right;">${diary.dir_writeDate}</li>
          </ul>
 
       </div>

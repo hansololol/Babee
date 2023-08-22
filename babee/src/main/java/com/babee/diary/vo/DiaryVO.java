@@ -15,6 +15,7 @@ public class DiaryVO {
 	private String baby_condition;
 	private String dir_content;
 	private Date dir_writeDate;
+	private String dir_main_img_id;
 	
 	
 	
@@ -65,6 +66,12 @@ public class DiaryVO {
 	}
 	public void setDir_writeDate(Date dir_writeDate) {
 		this.dir_writeDate = dir_writeDate;
+	}
+	public String getDir_main_img_id() {
+		return dir_main_img_id;
+	}
+	public void setDir_main_img_id(String dir_main_img_id) {
+		this.dir_main_img_id = dir_main_img_id;
 	}
 	
 	

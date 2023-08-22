@@ -115,7 +115,7 @@ input[type="submit"]:hover, input[type="reset"]:hover {
    
       <tr>
          <td align="center">표지 </td>
-         <td width="200"><input type="file" name="dir_main_img" onChange="readURL(this);" style="margin-left:10px;"/> 
+         <td width="200"><input type="file" name="dir_main_img1" onChange="readURL(this);" style="margin-left:10px;"/> 
             <p style="font-size:12px">&nbsp;다음 파일 형식만 지원됩니다.<br>
             <p style="font-size:12px">&nbsp;.jpg(JPEG), .png(Portable Network Graphics), .gif(Graphics Interchange Format)
          </td>

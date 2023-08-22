@@ -13,29 +13,49 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="baby_condition" column="baby_condition" />
 		<result property="dir_content" column="dir_content" />
 		<result property="dir_writeDate" column="dir_writeDate" />
+		<result property="dir_main_img_id" column="dir_main_img_id" />
 	</resultMap>
 	
+	<select id="selectALLDiaryList" resultMap="diaryResult" parameterType="String">
+		<![CDATA[
+		 select * from t_shopping_dir where member_id=#{member_id} order by dir_writeDate desc
+		]]>
+	 </select>
 	
-	<insert id="insertNewDiary"  parameterType="diaryVO">
-  <![CDATA[
+	<insert id="insertNewDiary"  parameterType="java.util.Map">
+  		<![CDATA[
     	insert into t_shopping_dir(dir_no,
 				 					 member_id,
                                      dir_title,
                                      dir_main_img,
                                      baby_condition,
                                      dir_content,
-                                     dir_writeDate)
+                                     dir_writeDate,
+                                     dir_main_img_id
+                                     )
 							 values(#{dir_no},
 									#{member_id},
 									#{dir_title},
                                    	#{dir_main_img}, 
                                     #{baby_condition},
                                     #{dir_content},
-                                    now())
-                                  
-                                      
-   ]]>      
-  </insert>
+                                    now(),
+                                    #{dir_main_img_id}
+                                    )
+                                                               
+  		 ]]>      
+  	</insert>
+  	
+  	<insert id="insertDiaryImage" parameterType="java.util.Map">
+	 <![CDATA[
+	  insert t_shopping_image values(
+	  		#{dir_main_img_id},
+		    #{dir_main_img},
+	   		'diary',
+	   		#{member_id}
+	   		)
+	  ]]>
+	</insert>
   
   
 </mapper>

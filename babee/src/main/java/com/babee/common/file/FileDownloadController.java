@@ -15,9 +15,9 @@ import net.coobird.thumbnailator.Thumbnails;
 @Controller
 public class FileDownloadController {
 
-	private static String DIARY_IMAGE_REPO = "C:/shopping/diary_img";
 	private static String CURR_IMAGE_REPO_PATH_GOODS = "C:/shopping/file_repo";
 	private static String CURR_IMAGE_REPO_PATH_REVIEW = "C:/shopping/review";
+	private static String CURR_IMAGE_REPO_PATH_DIARY = "C:/shopping/diary";
 
 	
 	@RequestMapping("/download.do")
@@ -50,11 +50,26 @@ public class FileDownloadController {
 		OutputStream out = response.getOutputStream();
 		String filePath;
 		
-		if(fileType !=null ? fileType.equals("review"):false) {
+		/*if(fileType !=null ? fileType.equals("review"):false) {
 		filePath=CURR_IMAGE_REPO_PATH_REVIEW+"/"+goods_id+"/"+fileName;
-		}else {
+		} else {
 		filePath=CURR_IMAGE_REPO_PATH_GOODS+"/"+goods_id+"/"+fileName;
 		}
+		*/
+		
+		switch(fileType != null ? fileType:"null") {
+			case "review" :
+						filePath = CURR_IMAGE_REPO_PATH_REVIEW+"/"+goods_id+"/"+fileName;
+						break;
+			
+			case "diary" :
+						filePath = CURR_IMAGE_REPO_PATH_DIARY+"/"+goods_id+"/"+fileName;
+						break;
+			default :
+				filePath=CURR_IMAGE_REPO_PATH_GOODS+"/"+goods_id+"/"+fileName;
+				break;
+		}
+		
 		File image=new File(filePath);
 		if (image.exists()) { 	
 			Thumbnails.of(image).size(200,200).outputFormat("jpg").toOutputStream(out);
