@@ -140,7 +140,8 @@
        <put-attribute name="title" value="마이페이지 메인" />
        <put-attribute name="body" value="/WEB-INF/views/mypage/myPageMain.jsp" />
     </definition>
-       <definition name="/member/myReviewList" extends="baseLayout_user">
+    
+       <definition name="/mypage/myReviewList" extends="baseLayout_user">
        <put-attribute name="title" value="리뷰 관리창" />
        <put-attribute name="body" value="/WEB-INF/views/mypage/myReviewList.jsp" />
     </definition>

@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.babee.mypage.vo.ReviewVO;
@@ -23,4 +22,5 @@ public interface MyPageController {
 	public ModelAndView refundOrder(@ModelAttribute("refundVO") RefundVO refund, HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	public ModelAndView myrefund(@RequestParam("order_id") String order_id,HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	public ModelAndView reviewWrite(@ModelAttribute("reviewVO") ReviewVO review, MultipartHttpServletRequest multipartRequest, HttpServletRequest request, HttpServletResponse response)  throws Exception;
+	public ModelAndView myReviewList(HttpServletRequest request, HttpServletResponse response)  throws Exception;
 }

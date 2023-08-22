@@ -207,7 +207,7 @@ function search_order_history(fixedSearchPeriod){
                   <c:when test="${order.delivery_status=='finished_delivering' }">
                      <td> 배송완료 </td>
                      <td> 
-                     <a class="order_delivery_search" href="${contextPath}/member/reviewForm.do"><b>후기작성</b></a><br>
+                     <a class="order_delivery_search" href="${contextPath}/member/reviewForm.do?goods_id=${order.goods_id})"><b>후기작성</b></a><br>
                      <a class="order_delivery_search" href="${contextPath}/mypage/myrefund.do?order_id=${order.order_id}"><b>반품/교환</b></a>
                   </td>
                   </c:when>

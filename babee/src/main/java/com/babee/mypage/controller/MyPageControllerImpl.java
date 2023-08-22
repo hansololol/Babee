@@ -107,10 +107,10 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		if(request.getParameter("beginDate")!=null) {
 			String beginDateS = request.getParameter("beginDate");
 			now=  (Date)format.parse(beginDateS);
-			System.out.println(now + "시작 일 확인");
+	
 		}else {
 			now = new Date(System.currentTimeMillis());
-			System.out.println(now);
+		
 		}
 		
 		
@@ -159,7 +159,7 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		List OrderList = new ArrayList<>();
 		for(int i=0; i<OrderListAll.size(); i++) {
 			OrderVO orderVO = (OrderVO) OrderListAll.get(i);
-			System.out.println(orderVO.getDelivery_status() +"출력 확인");
+		
 			Map goods = goodsService.goodsDetail(orderVO.getGoods_id());
 			GoodsVO goodsVO = (GoodsVO) goods.get("goodsVO");
 			orderVO.setGoods_title(goodsVO.getGoods_title());
@@ -201,20 +201,23 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 			reviewMap.put(name, value);		
 		}
 		List imageFileName = upload(multipartRequest);
+		reviewMap.put("review_img", imageFileName.get(0));
+		int img_id = (int) Math.floor(Math.random()*1000000);
+		String review_img_id = String.valueOf(img_id);
+		reviewMap.put("review_img_id", review_img_id);
 		
-		reviewMap.put("review_img", imageFileName.get(0));	
-		/*
-		 * try {
-		 * 
-		 * myPageService.addReview(reviewMap); if(imageFileName !=null &&
-		 * imageFileName.size() !=0) { File srcFile = new File(ARTICLE_IMAGE_REPO+
-		 * "\\" + "temp" + "\\" + imageFileName.get(0)); File destDir = new
-		 * File(ARTICLE_IMAGE_REPO+ "\\" + seller_id);
-		 * FileUtils.moveFileToDirectory(srcFile, destDir, true); }catch (Exception e) {
-		 * // TODO: handle exception }
-		 */
-		
-		mav.setViewName("/member/myReviewList");
+		  try {
+		  
+		  myPageService.addReview(reviewMap); 
+		  if(imageFileName !=null && imageFileName.size() !=0) { 
+			  File srcFile = new File(ARTICLE_IMAGE_REPO+ "\\" + "temp" + "\\" + imageFileName.get(0)); 
+			  File destDir = new File(ARTICLE_IMAGE_REPO+ "\\" + memberVO.getMember_id());
+		  FileUtils.moveFileToDirectory(srcFile, destDir, true); 
+		  mav.setViewName("redirect:/mypage/myReviewList.do");
+		  }
+		  }catch (Exception e) {
+			  e.printStackTrace();
+	    	}
 		return mav;
 	}
 	
@@ -226,12 +229,41 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		return mav;
 	}
 	
+	@Override
+	@RequestMapping(value="/myReviewList.do" ,method = RequestMethod.GET)
+	public ModelAndView myReviewList(HttpServletRequest request, HttpServletResponse response)  throws Exception {
+		String viewName=(String)request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+		HttpSession session=request.getSession();
+		  String _section = request.getParameter("section"); 
+		  String _pageNum = request.getParameter("pageNum"); 
+		  int section =Integer.parseInt(((_section==null)? "1":_section)); 
+		  int pageNum = Integer.parseInt(((_pageNum==null)? "1":_pageNum));
+		 
+		memberVO = (MemberVO) session.getAttribute("memberInfo");
+		List myReview =myPageService.selectReview(memberVO.getMember_id());
+		List review = new ArrayList<>();
+		int ListSize = myReview.size();
+		for(int i =(pageNum-1)*10; i <pageNum*10;i++) {
+			try {
+			reviewVO = (ReviewVO) myReview.get(i);
+			review.add(reviewVO);
+			}catch(IndexOutOfBoundsException e) {
+				break;
+			}
+			}
+		 	mav.addObject("review", review);
+			mav.addObject("section", section);
+			mav.addObject("pageNum", pageNum);
+			mav.addObject("totArticles", ListSize);
+		return mav;
+	}
+	
 
 	@Override
-	@RequestMapping(value="/wishList.do" ,method = RequestMethod.GET)
+	@RequestMapping(value="/wishList.do" ,method = RequestMethod.POST)
 	public ModelAndView wishList(HttpServletRequest request, HttpServletResponse response)  throws Exception {
 		
-		System.out.println("myWishList 메소드 진입");
 		
 		String viewName=(String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
@@ -239,8 +271,7 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		
 		HttpSession session = request.getSession();
 		String userType = (String) session.getAttribute("userType");
-		System.out.println("userType : " + userType);
-		
+	
 		// 로그인한 사용자 ID 가져오기(memberId)
 		List<WishVO> myWishList = null;
 		List<GoodsVO> allGoodsList = new ArrayList<>();
@@ -248,7 +279,7 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 			MemberVO memberVO = (MemberVO)session.getAttribute("memberInfo");
 			String member_id = memberVO.getMember_id();
 			
-			System.out.println("member_id : " + member_id);
+		
 			
 			myWishList = myPageService.selectWishList(member_id);
 			
@@ -266,21 +297,15 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 				
 				
 			}
-			System.out.println("myWishList : " + myWishList);
 			
 			
 			
 		}else if(userType.equals("S")) {
 			SellerVO sellerVO = (SellerVO)session.getAttribute("memberInfo");
 			String member_id = sellerVO.getSeller_id();
-			
-			System.out.println("member_id : " + member_id);
-			
+
 			myWishList = myPageService.selectWishList(member_id);
-			
-			System.out.println("myWishList : " + myWishList);
-			
-			
+		
 		}
 		
 		
@@ -294,7 +319,6 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 	@PostMapping("addWishList")
 	@ResponseBody
 	public String addWishList(@RequestBody WishVO wishVO, HttpServletRequest request, HttpSession session) throws Exception {
-		System.out.println("addWishList 메소드 진입");
 		
 		boolean isAreadyExisted = myPageService.findWishList(wishVO);
 		
@@ -320,6 +344,7 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		Iterator<String> fileNames = multipartRequest.getFileNames();
 		
 		while(fileNames.hasNext()) {
+			System.out.println("이미지 네임 값 확인");
 			String fileName = fileNames.next();
 			MultipartFile mFile = multipartRequest.getFile(fileName);
 			String imgfname = mFile.getOriginalFilename();

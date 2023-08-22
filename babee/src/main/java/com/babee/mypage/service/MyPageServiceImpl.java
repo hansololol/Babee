@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.babee.cart.vo.CartVO;
 import com.babee.goods.vo.GoodsVO;
 import com.babee.mypage.dao.MyPageDAO;
+import com.babee.mypage.vo.ReviewVO;
 import com.babee.mypage.vo.WishVO;
 import com.babee.order.vo.OrderVO;
 import com.babee.order.vo.RefundVO;
@@ -66,4 +66,14 @@ public class MyPageServiceImpl  implements MyPageService{
 		myPageDAO.deleteWishList(articleNO);
 	}
 	
+	@Override
+	public void addReview(Map reviewMap) throws Exception {
+		myPageDAO.insertNewReview(reviewMap);
+		myPageDAO.insertImage(reviewMap);
+	}
+	
+	@Override
+	public List<ReviewVO> selectReview(String member_id) throws Exception{
+		return myPageDAO.selectReviewList(member_id);
+	}
 }
