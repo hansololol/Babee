@@ -181,7 +181,7 @@
         <form action="검색결과를_처리할_페이지_주소" method="GET">
             <input name="searchWord" class="search-input" type="text" placeholder="검색어를 입력해주세요.">
             <button type="submit" name="search" class="search-button">
-                <img src="/image/glass.png" alt="검색" style="width: 20px; height: 20px; margin-bottom:-5px">
+                <img src="/image/glass.png" alt="검색" style="width: 20px; height: 20px; margin-bottom:0px">
             </button>
         </form>
     </div>
@@ -190,17 +190,17 @@
 <div class="menu-container">
     <div class="menu-options">
         <div class="menu-option" id="faq">
-            <a href="/member/adminAnswer.do" style="color: black;" class="menu-option-selected">자주묻는질문</a>
+            <a href="/member/adminAnswer.do?page=adminPage" style="color: black;" class="menu-option-selected">자주묻는질문</a>
         </div>
         
         <div class="menu-option" id="history">
-            <a href="/member/adminlist.do" style="color: black; " >문의내역</a>
+            <a href="/member/adminlist.do?page=adminPage" style="color: black; " >문의내역</a>
         </div>
         
     </div>
     
     <hr width="66%" style= "margin-left: 170px">
-    <a href="/member/adminwrite.do" style=" margin-left: 600px; background-color: #ffffcc; padding: 5px 10px; border-radius: 5px; text-decoration: none;">작성하기</a>
+    <a href="/member/adminwrite.do?page=adminPage" style=" margin-left: 600px; background-color: #ffffcc; padding: 5px 10px; border-radius: 5px; text-decoration: none;">작성하기</a>
 </div>
 
 <div class="table-container">

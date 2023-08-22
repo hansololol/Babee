@@ -54,7 +54,7 @@
    <div class="text_center">
       <img src="/image/check.png" style="display:inline-block; margin-block-end: -6px;"/>
       <h3 style="display:inline-block;">상품 구매가 완료 되었습니다.</h3>
-      <h5>입금계좌 정보 ${total_goods_price} ${total_goods_price} ${total_goods_price}</h5>
+      <h5>입금계좌 정보</h5>
       <h6>3일 이내에 입금이 완료되지 않을 시 주문이 취소됩니다.</h6>
    </div>
 

@@ -4,8 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+  
     <meta charset="UTF-8">
 <title>회원 관리창(관리자)</title>
 <style>
@@ -136,8 +135,8 @@
     <c:forEach var="i" begin="0" end="5">
 		<tr style="height: 50px; border-bottom:1px solid gray;">
 			<td> { 1 }</td>
-			<td>  <a href="${contextPath}/member/modMember.do"> { ID } </a></td>
-			<td>  <a href="${contextPath}/member/modMember.do">{ 회원명 } </a></td>
+			<td>  <a href="${contextPath}/member/modMember.do?page=adminPage"> { ID } </a></td>
+			<td>  <a href="${contextPath}/member/modMember.do?page=adminPage">{ 회원명 } </a></td>
 			<td> { 2023-08-12 } </td>
 		</tr>
     </c:forEach>

@@ -119,10 +119,10 @@
 <div class="menu-container">
         <div class="menu-options">
             <div class="menu-option" id="total">
-                <a href="${contextPath}/member/sellerManageList.do" style="color: black;">사업자 목록</a>
+                <a href="${contextPath}/member/sellerManageList.do?page=adminPage" style="color: black;">사업자 목록</a>
             </div>
             <div class="menu-option" id="wait">
-                <a href="${contextPath}/member/sellerManageWait.do" style="color: black; margin-right: 380px; background-color:orange; border-radius: 5px; padding:10px;">사업자 등록 요청</a>
+                <a href="${contextPath}/member/sellerManageWait.do?page=adminPage" style="color: black; margin-right: 380px; background-color:orange; border-radius: 5px; padding:10px;">사업자 등록 요청</a>
             </div>
 
         </div>
@@ -145,8 +145,8 @@
     <c:forEach var="i" begin="0" end="5">
 		<tr style="height: 50px; border-bottom:1px solid gray;">
 			<td> { 1 } </td>
-			<td>   <a href="${contextPath}/member/sellerWaitDetail.do"> { 123-00-1234567 } </a> </td>
-			<td>  <a href="${contextPath}/member/sellerWaitDetail.do">{ 별나라 베이비샵 } </a> </td>
+			<td>   <a href="${contextPath}/member/sellerWaitDetail.do?page=adminPage"> { 123-00-1234567 } </a> </td>
+			<td>  <a href="${contextPath}/member/sellerWaitDetail.do?page=adminPage">{ 별나라 베이비샵 } </a> </td>
 			<td> { 반려 } </td>
 			<td> { 2023-08-12 } </td>
 		</tr>

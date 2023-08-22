@@ -25,7 +25,25 @@
 		<result property="goods_option" column="goods_option" />
 	</resultMap> 
 	
-	
+	<resultMap id="wishResult" type="WishVO">
+      <result property="articleNO" column="articleNO" />
+      <result property="member_id" column="member_id" />
+      <result property="goods_id" column="goods_id" />
+      <result property="goods_title" column="goods_title" />
+      <result property="goods_price" column="goods_price" />
+      <result property="goods_image_name1" column="goods_image_name1" />
+   </resultMap>
+	<resultMap id="reviewResult" type="reviewVO">
+      <result property="member_id" column="member_id" />
+      <result property="goods_id" column="goods_id" />
+      <result property="goods_star" column="goods_star" />
+      <result property="review_title" column="review_title" />
+      <result property="review_content" column="review_content" />
+      <result property="review_img" column="review_img" />
+      <result property="review_writeDate" column="review_writeDate" />
+   </resultMap>
+   
+   
 	 <select id="selectMyOrderGoodsList" resultMap="orderGoodsResult"  parameterType="String"  >
 	   
 	    <![CDATA[
@@ -53,13 +71,16 @@
 	
 	
 	<update id="updateMyOrderCancel" parameterType="String">
+		    <![CDATA[
 	   update t_shopping_order
 	 	  set delivery_status='cancel_order'
 	   where order_id=#{order_id}
+	   ]]>
 	</update>
 
 	
 	<insert id="updateMyOrderRefund" parameterType="refundVO">
+	 <![CDATA[
 	  insert t_shopping_refund values(
 	  		#{order_id},
 		    #{delivery_status},
@@ -67,8 +88,99 @@
 	   		#{goods_id},
 	   		#{member_id},
 	   		#{reason_option})
+	   		   ]]>
+	</insert>
+	
+	<insert id="insertNewReview" parameterType="java.util.Map">
+	 <![CDATA[
+	  insert t_shopping_review (member_id, goods_id, goods_star, review_title, review_content, review_img, review_writeDate, review_img_id) values(
+	  		#{member_id},
+		    #{goods_id },
+	   		#{goods_star},
+	   		#{review_title},
+	   		#{review_content},
+	   		#{review_img},
+	   		now(),
+	   		#{review_img_id}
+	   		)
+	   		]]>
+	</insert>
+	
+	<insert id="insertImage" parameterType="java.util.Map">
+	 <![CDATA[
+	  insert t_shopping_image values(
+	  		#{review_img_id},
+		    #{review_img},
+	   		'review',
+	   		#{member_id}
+	   		)
+	  ]]>
 	</insert>
 		
+	<select id="selectCountWishList" resultType="boolean" parameterType="wishVO">
+	    <![CDATA[
+		    select if(count(*)=0, 'false', 'true') from t_shopping_wish
+			where goods_id=#{goods_id}
+			  and member_id=#{member_id} 
+    	]]>
+	</select>
+	
+	<insert id="insertWishList" parameterType="wishVO">
+		<selectKey resultType="int" keyProperty="articleNO" order="BEFORE">
+    		select ifnull(max(articleNO)+1, 1) from t_shopping_wish
+		</selectKey>
+	    <![CDATA[
+		    	insert into t_shopping_wish(articleNO,
+		    								member_id,
+		    	                           goods_id)
+		        				 values(#{articleNO},
+		        				 		#{member_id},
+    							        #{goods_id})
+    	]]>
+	</insert>
 		
+	<select id="selectWishList"  parameterType="String"  resultType="WishVO" >
+	    <![CDATA[
+		SELECT	b.goods_title
+			  	,b.goods_price
+		      	,a.goods_id
+		      	,a.articleNO
+		      	,a.member_id
+		      	,b.goods_option1
+		      	,b.goods_option2
+		      	,b.goods_option3
+		      	,b.goods_option4
+		      	,b.goods_option5
+		FROM 	babee.t_shopping_wish a, babee.t_shopping_goods b
+		WHERE 	a.goods_id = b.goods_id
+		AND 	a.member_id = #{member_id}	
+		]]>
+	</select>
+
+	 <select id="selectWishGoodsList" parameterType="int" resultType="GoodsVO">
+		<![CDATA[
+		 select goods_option1, goods_option2, goods_option3, goods_option4, goods_option5, goods_image_name1 
+		from t_shopping_goods
+		where goods_id=#{goods_id};
+		]]>
+	 </select>
+	 <select id="selectReviewList" resultMap="reviewResult" parameterType="String">
+		<![CDATA[
+		 select * from t_shopping_review where member_id=#{member_id} order by review_writeDate desc
+		]]>
+	 </select>
+	 <select id="selectGoodsReviewList" resultMap="reviewResult" parameterType="String">
+		<![CDATA[
+		 select * from t_shopping_review where goods_id=#{goods_id} order by review_writeDate desc
+		]]>
+	 </select>
+	 
+	 <delete id="deleteWishList" parameterType="int">
+	    <![CDATA[
+	      delete from t_shopping_wish
+	      where articleNO=#{articleNO}
+    	]]>
+	</delete>
+	 
 </mapper>
  

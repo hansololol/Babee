@@ -146,9 +146,9 @@ input[type="reset"]:hover {
 <br>
 
 
-<form method="post" action="${contextPath}/member/diaryOrder.do" enctype="multipart/form-data">
+<form method="post" action="${contextPath}/diary/diaryOrder.do" enctype="multipart/form-data">
    <div style="text-align: center;">
-         <a href="${contextPath}/member/diaryForm.do"><input type="button" value="다이어리 작성"></a>&nbsp;&nbsp;&nbsp;
+         <a href="${contextPath}/diary/diaryForm.do"><input type="button" value="다이어리 작성"></a>&nbsp;&nbsp;&nbsp;
         
          <button type="button" class="tooltip-button" onclick="fn:order(this.form)">다이어리 주문</button>
              

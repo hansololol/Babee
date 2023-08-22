@@ -153,7 +153,7 @@
       <br>
       <div class="btn-container">
          <button type="submit">작성하기</button>
-         <a href="/member/admininfolist.do">뒤로가기</a>
+         <a href="/member/admininfolist.do?page=adminPage">뒤로가기</a>
       </div>
    </form>
 </div>

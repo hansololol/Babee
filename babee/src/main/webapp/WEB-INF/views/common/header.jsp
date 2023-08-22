@@ -134,7 +134,7 @@ function showCategory() {
     var isLogOn = '${isLogOn}';
     if(isLogOn){
         document.getElementById("fit").href = "${contextPath}/goods/fitGoods.do";
-        document.getElementById("dir").href = "${contextPath}/member/diaryList.do";
+        document.getElementById("dir").href = "${contextPath}/diary/diaryList.do";
         document.getElementById("mypage").href = "${contextPath}/member/myPageMain.do";
         
      
@@ -218,7 +218,7 @@ function showCategory() {
                        <li class="last"><a href="${contextPath}/member/myPageMain.do"><img src="https://agabantr6740.cdn-nhncommerce.com/data/skin/front/moment/img/dimg/top_mypage.png" alt="마이페이지"><br>마이페이지</a></li>
                        <c:if test="${memberInfo.seller_id!=null}">
                             <li class="last">
-                                <a href="${contextPath}/member/myPageMain.do?page=sellerPage">
+<!-- 이부분 -->                                <a href="${contextPath}/member/myPageMain.do?page=sellerPage">
                                     <img src="/image/setting.png" width="35px" height="35px" alt="마이페이지"><br>사업자페이지
                                 </a>
                             </li>

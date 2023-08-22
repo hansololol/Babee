@@ -124,6 +124,7 @@ ul li {
    }
 
    
+
    function fnOrderGoods() {
 	    var cartOrderArr = [];
 
@@ -178,6 +179,45 @@ ul li {
 	    document.body.appendChild(form);
 	    form.submit();
 	}
+
+   function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
+      var total_price,final_total_price,_goods_qty;
+      var cart_goods_qty=document.getElementById("cart_goods_qty");
+      
+      _order_goods_qty=cart_goods_qty.value; //장바구니에 담긴 개수 만큼 주문한다.
+      var formObj=document.createElement("form");
+      var i_goods_id = document.createElement("input"); 
+       var i_goods_title = document.createElement("input");
+       var i_goods_sales_price=document.createElement("input");
+       var i_fileName=document.createElement("input");
+       var i_order_goods_qty=document.createElement("input");
+       
+       i_goods_id.name="goods_id";
+       i_goods_title.name="goods_title";
+       i_goods_sales_price.name="goods_sales_price";
+       i_fileName.name="goods_fileName";
+       i_order_goods_qty.name="order_goods_qty";
+       
+       i_goods_id.value=goods_id;
+       i_order_goods_qty.value=_order_goods_qty;
+       i_goods_title.value=goods_title;
+       i_goods_sales_price.value=goods_sales_price;
+       i_fileName.value=fileName;
+       
+       formObj.appendChild(i_goods_id);
+       formObj.appendChild(i_goods_title);
+       formObj.appendChild(i_goods_sales_price);
+       formObj.appendChild(i_fileName);
+       formObj.appendChild(i_order_goods_qty);
+
+       document.body.appendChild(formObj); 
+       formObj.method="post";
+       formObj.action="${contextPath}/order/orderEachGoods.do";
+       formObj.submit();
+   }
+
+   
+
 </script>
 
 </head>

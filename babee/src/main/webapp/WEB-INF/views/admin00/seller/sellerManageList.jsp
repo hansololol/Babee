@@ -4,8 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+   
     <meta charset="UTF-8">
 <title>사업자 관리창(관리자)</title>
 <style>
@@ -119,10 +118,10 @@
 <div class="menu-container">
         <div class="menu-options">
             <div class="menu-option" id="total">
-                <a href="#" style="color: black; background-color:orange; border-radius: 5px; padding: 10px;">사업자 목록</a>
+                <a href="${contextPath}/member/sellerManageList.do?page=adminPage" style="color: black; background-color:orange; border-radius: 5px; padding: 10px;">사업자 목록</a>
             </div>
             <div class="menu-option" id="wait">
-                <a href="${contextPath}/member/sellerManageWait.do" style="color: black; margin-right: 380px;">사업자 등록 요청</a>
+                <a href="${contextPath}/member/sellerManageWait.do?page=adminPage" style="color: black; margin-right: 380px;">사업자 등록 요청</a>
             </div>
 
         </div>
@@ -144,8 +143,8 @@
     <c:forEach var="i" begin="0" end="5">
 		<tr style="height: 50px; border-bottom:1px solid gray;">
 			<td> { 1 }</td>
-			<td>  <a href="${contextPath}/member/sellerDetail.do"> { 123-00-1234567 } </a></td>
-			<td>  <a href="${contextPath}/member/sellerDetail.do">{ 별나라 베이비샵 } </a></td>
+			<td>  <a href="${contextPath}/member/sellerDetail.do?page=adminPage"> { 123-00-1234567 } </a></td>
+			<td>  <a href="${contextPath}/member/sellerDetail.do?page=adminPage">{ 별나라 베이비샵 } </a></td>
 			<td> { 2023-08-12 } </td>
 		</tr>
     </c:forEach>
