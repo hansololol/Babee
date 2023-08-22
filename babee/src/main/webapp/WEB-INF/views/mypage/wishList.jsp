@@ -48,14 +48,6 @@
             button.parentElement.remove();
         }
 
-        function selectAll() {
-            var checkboxes = document.querySelectorAll('.product-checkbox');
-            var selectAllCheckbox = document.getElementById('select-all-checkbox');
-
-            for (var i = 0; i < checkboxes.length; i++) {
-                checkboxes[i].checked = selectAllCheckbox.checked;
-            }
-        }
         function delete_wishList(articleNO) {
         var articleNO = Number(articleNO);
         var formObj = document.createElement("form");
@@ -78,19 +70,15 @@
         <h1>나의 위시리스트</h1>
         <table class="wish_list">
             <tr>
-               <td width="100px" height="15px;">
-                  <div class="text_center">
-                     <input type="checkbox" id="select-all-checkbox" onchange="selectAll()">전체 선택
-                  </div>
-               </td>
+               <td width="100px" height="15px;">순번</td>
                <td width="400px" style="text-align: center;">상품 정보</td>
                <td width="100px">가격</td>
                <td width="100px"></td>
             </tr>
 
-            <c:forEach var="wishVO" items="${myWishList}">
+            <c:forEach var="wishVO" items="${myWishList}" varStatus="wishNO">
                <tr>
-                  <td class="text_center"><input type="checkbox" class="product-checkbox"></td>
+                  <td class="text_center">${wishNO.count}</td>
                   <td><img src="${contextPath}/thumbnails.do?goods_id=${wishVO.goods_id}&fileName=${wishVO.goods_image_name1}" width="100px" class="goods_img" />${wishVO.goods_title}</td>
                   <td>${wishVO.goods_price}</td>
                   <td><a href="javascript:delete_wishList(${wishVO.articleNO})" style="font-size: 3px;"><b><span>삭제</span></b></a></td>

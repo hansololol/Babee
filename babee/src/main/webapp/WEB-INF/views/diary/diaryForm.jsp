@@ -92,7 +92,7 @@ input[type="submit"]:hover, input[type="reset"]:hover {
 </head>
 <body>
 
-<form method="post" action="${contextPath}/student/addStudent.do" enctype="multipart/form-data">
+<form method="post" action="${contextPath}/diary/addDiary.do" enctype="multipart/form-data">
    <div style="text-align: center;">
    <h1 class="text_center">다이어리</h1>
    <h4 class="text_center" style="color:#996633;">작은 발자국, 큰 사랑의 다이어리</h4>
@@ -103,18 +103,19 @@ input[type="submit"]:hover, input[type="reset"]:hover {
    <table class="tb" align="center">
       
       <tr>
-         <td width="200"> <p align="center"  style=" margin-top: 30px;"> 작성자</p></td>
-         <td width="250"> <input type="text" name="name" style="margin-left:10px; margin-top: 30px; "> </td>
+         <td width="200"> <p align="center"  style=" margin-top: 30px;">작성자</p></td>
+         <td width="250"> <input type="text" style="margin-left:10px; margin-top: 30px;" value="${memberInfo.member_name}" disabled></td>
+                        <input type="hidden" name="member_id" value="${memberInfo.member_id}" ></td>
       </tr>
       
       <tr>
          <td width="200" height="50"> <p align="center"> 제목</td>
-         <td width="250"> <input type="text" name="name" style="margin-left:10px;"> </td>
+         <td width="250"> <input type="text" name="dir_title" style="margin-left:10px;"> </td>
       </tr>
    
       <tr>
          <td align="center">표지 </td>
-         <td width="200"><input type="file" name="imageFileName" onChange="readURL(this);" style="margin-left:10px;"/> 
+         <td width="200"><input type="file" name="dir_main_img" onChange="readURL(this);" style="margin-left:10px;"/> 
             <p style="font-size:12px">&nbsp;다음 파일 형식만 지원됩니다.<br>
             <p style="font-size:12px">&nbsp;.jpg(JPEG), .png(Portable Network Graphics), .gif(Graphics Interchange Format)
          </td>
@@ -123,11 +124,11 @@ input[type="submit"]:hover, input[type="reset"]:hover {
 
       <tr>
          <td width="200"> <p align="center" > 아이의 상태</td>
-         <td colspan = "2"><textarea name="content" rows = "4" cols="70" maxlength="4000" ></textarea> </td>
+         <td colspan = "2"><textarea name="baby_condition" rows = "4" cols="70" maxlength="4000" ></textarea> </td>
       </tr>
       <tr>
          <td width="200"> <p align="center"> 기록</td>
-         <td colspan = "2"><textarea name="content" rows = "10" cols="70" maxlength="4000" ></textarea></td>
+         <td colspan = "2"><textarea name="dir_content" rows = "10" cols="70" maxlength="4000" ></textarea></td>
       </tr>
    </table>
    <br><br><br><br><br>

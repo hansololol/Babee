@@ -24,7 +24,7 @@ import com.babee.goods.vo.ImageFileVO;
 
 @Controller("goodsController")
 @RequestMapping(value="/goods")
-public class GoodsControllerImpl extends BaseController   implements GoodsController {
+public class GoodsControllerImpl extends BaseController implements GoodsController {
 	@Autowired
 	private GoodsService goodsService;
 	
