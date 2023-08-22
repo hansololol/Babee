@@ -23,8 +23,7 @@ public abstract class BaseController  {
 	
 	protected List upload(MultipartHttpServletRequest multipartRequest) throws Exception{
 
-		List<ImageFileVO> fileList = new ArrayList<>();
-		List fileList= new ArrayList<ImageFileVO>();
+		List<ImageFileVO> fileList= new ArrayList<ImageFileVO>();
 
 		Iterator<String> fileNames = multipartRequest.getFileNames();
 		
@@ -44,7 +43,6 @@ public abstract class BaseController  {
 
 			fileList.add(imageFileVO);
 			
-			System.out.println("알알라랄ㄹ리스트 "+ fileList);
 			for (ImageFileVO imageFile : fileList) {
 		        System.out.println("File Name: " + imageFile.getFileName());
 		        System.out.println("File Kind: " + imageFile.getFileKind());

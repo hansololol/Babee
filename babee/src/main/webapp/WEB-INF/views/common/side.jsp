@@ -22,7 +22,7 @@
 <c:choose>
 	<c:when test="${isLogOn==true && param.page=='adminPage'}">
 		<div class="list-group">
-			<a href="${contextPath}/member/myPageMain.do" class="list-group-item list-group-item-action active" aria-current="true">
+			<a href="${contextPath}/member/myPageMain.do?page=adminPage" class="list-group-item list-group-item-action active" aria-current="true">
 				관리자 님의 마이페이지 <br>user@naver.com
 			</a>
 			<a href="${contextPath}/member/sellerManageList.do?page=adminPage" class="list-group-item list-group-item-action">사업자 관리</a>
