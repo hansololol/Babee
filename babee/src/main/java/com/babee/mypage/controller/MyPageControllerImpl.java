@@ -1,11 +1,13 @@
 package com.babee.mypage.controller;
 
+import java.io.File;
+import java.net.http.HttpRequest;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
+import java.util.Enumeration;
 import java.util.HashMap;
-
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -13,12 +15,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.babee.common.base.BaseController;
@@ -26,6 +32,7 @@ import com.babee.goods.service.GoodsService;
 import com.babee.goods.vo.GoodsVO;
 import com.babee.member.vo.MemberVO;
 import com.babee.mypage.service.MyPageService;
+import com.babee.mypage.vo.ReviewVO;
 import com.babee.order.vo.OrderVO;
 import com.babee.order.vo.RefundVO;
 
@@ -40,13 +47,15 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 	private MemberVO memberVO;
 	@Autowired
 	private OrderVO orderVO;
+	@Autowired
+	private ReviewVO reviewVO;
 	
+	private static String ARTICLE_IMAGE_REPO = "c:/shopping/review";
 	
 	@Override
 	@RequestMapping(value="/myPageMain.do" ,method = RequestMethod.GET)
 	public ModelAndView myPageMain(
 			   HttpServletRequest request, HttpServletResponse response)  throws Exception {
-		
 		String viewName=(String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 		return mav;
@@ -167,6 +176,39 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		mav.setViewName("redirect:/mypage/listMyOrderHistory.do");
 		return mav;
 	}
+	@Override
+	@RequestMapping(value="/reviewWrite.do" ,method = RequestMethod.POST)
+	public ModelAndView reviewWrite(@ModelAttribute("reviewVO") ReviewVO review,
+			MultipartHttpServletRequest multipartRequest, HttpServletRequest request, HttpServletResponse response)  throws Exception {
+		multipartRequest.setCharacterEncoding("utf-8");
+		ModelAndView mav = new ModelAndView();
+		HttpSession session=request.getSession();
+		memberVO = (MemberVO) session.getAttribute("memberInfo");
+
+		Map<String, Object> reviewMap = new HashMap<String, Object>();
+		Enumeration enu = multipartRequest.getParameterNames();
+		while(enu.hasMoreElements()) {
+			String name=(String)enu.nextElement();
+			String value = multipartRequest.getParameter(name);
+			reviewMap.put(name, value);		
+		}
+		List imageFileName = upload(multipartRequest);
+		
+		reviewMap.put("review_img", imageFileName.get(0));	
+		/*
+		 * try {
+		 * 
+		 * myPageService.addReview(reviewMap); if(imageFileName !=null &&
+		 * imageFileName.size() !=0) { File srcFile = new File(ARTICLE_IMAGE_REPO+
+		 * "\\" + "temp" + "\\" + imageFileName.get(0)); File destDir = new
+		 * File(ARTICLE_IMAGE_REPO+ "\\" + seller_id);
+		 * FileUtils.moveFileToDirectory(srcFile, destDir, true); }catch (Exception e) {
+		 * // TODO: handle exception }
+		 */
+		
+		mav.setViewName("/member/myReviewList");
+		return mav;
+	}
 	
 	@Override
 	@RequestMapping(value="/myDetailInfo.do" ,method = RequestMethod.GET)
@@ -176,5 +218,23 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		return mav;
 	}	
 	
-	
+	protected List upload(MultipartHttpServletRequest multipartRequest) throws Exception{
+		List imageFileName = new ArrayList();
+		Iterator<String> fileNames = multipartRequest.getFileNames();
+		
+		while(fileNames.hasNext()) {
+			String fileName = fileNames.next();
+			MultipartFile mFile = multipartRequest.getFile(fileName);
+			String imgfname = mFile.getOriginalFilename();
+			imageFileName.add(imgfname);
+			File file = new File(ARTICLE_IMAGE_REPO+ "\\" + "temp" + "\\" + fileName);
+			if(mFile.getSize()!=0) {
+				if(!file.exists()) {
+				file.getParentFile().mkdirs();
+				mFile.transferTo(new File(ARTICLE_IMAGE_REPO+ "\\" + "temp" + "\\" + imgfname));
+				}
+			}
+		}
+		return imageFileName;
+	}
 }

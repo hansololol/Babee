@@ -5,9 +5,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.babee.order.vo.OrderVO;
+import com.babee.mypage.vo.ReviewVO;
 import com.babee.order.vo.RefundVO;
 
 public interface MyPageController {
@@ -20,4 +22,6 @@ public interface MyPageController {
 			HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	public ModelAndView myrefund(@RequestParam("order_id") String order_id,
 			HttpServletRequest request, HttpServletResponse response)  throws Exception;
+	public ModelAndView reviewWrite(@ModelAttribute("reviewVO") ReviewVO review,
+			MultipartHttpServletRequest multipartRequest, HttpServletRequest request, HttpServletResponse response)  throws Exception;
 }
