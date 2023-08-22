@@ -12,7 +12,20 @@
    <title>Insert title here</title>
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-   <style>
+  <script>
+  
+  var alertMember = '${alertMember}';
+   
+   
+   console.log(alertMember + "탈퇴 여부 확인")
+   if(alertMember=='success'){
+    alert("탈퇴성공");
+   }else if(alertMember=='fail'){
+    alert("탈퇴실패")
+   }
+
+  </script>
+  <style>
       #search input.main_input::placeholder {
          font-size: 8px;
       }

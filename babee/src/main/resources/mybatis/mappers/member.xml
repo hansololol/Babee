@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			select * from t_shopping_member 
 			 where member_id=#{member_id}
 			 and member_pw=#{member_pw}			
-			 
+			 and member_status ='active'
 		]]>
 	</select>
 	
@@ -44,6 +44,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	   from t_shopping_member
 	   where member_id = #{id}
 	</select>
+	
+	<update id="deleteMember" parameterType="String">
+	 <![CDATA[
+	  update t_shopping_member set 
+	   member_status = 'delete',
+	   member_delDate = now()
+	   where member_id = #{id}
+	   ]]>
+	</update>
 	
   <insert id="insertNewMember"  parameterType="memberVO">
   <![CDATA[

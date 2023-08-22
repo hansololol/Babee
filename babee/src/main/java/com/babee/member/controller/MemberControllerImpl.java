@@ -62,6 +62,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 			session.setAttribute("memberInfo",sellerVO);
 			mav.setViewName("/main/main");
 		}else {
+			mav.addObject("falseLog", "falseLog");
 			mav.setViewName("/member/loginForm");
 		}
 		
@@ -76,6 +77,28 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		session.setAttribute("isLogOn", false);
 		session.removeAttribute("memberInfo");
 		mav.setViewName("redirect:/main/main.do");
+		return mav;
+	}
+	
+	@Override
+	@RequestMapping(value="/memberDel.do" ,method = RequestMethod.GET)
+	public ModelAndView memberDel(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		HttpSession session=request.getSession();
+		MemberVO member= (MemberVO) session.getAttribute("memberInfo");
+		String pw= request.getParameter("member_pw");
+		String id = member.getMember_id();
+		String pw2 = member.getMember_pw();
+		if(pw.equals(pw2)) {
+		memberService.delMember(id);
+		session.setAttribute("isLogOn", false);
+		session.removeAttribute("memberInfo");
+		mav.addObject("alertMember", "success");
+		mav.setViewName("/main/main");
+		}else {
+		mav.addObject("alertMember", "fail");
+		mav.setViewName("/main/main");
+		}
 		return mav;
 	}
 	
