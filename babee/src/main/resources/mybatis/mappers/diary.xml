@@ -47,15 +47,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	</insert>
   	
   	<insert id="insertDiaryImage" parameterType="java.util.Map">
-	 <![CDATA[
-	  insert t_shopping_image values(
-	  		#{dir_main_img_id},
-		    #{dir_main_img},
-	   		'diary',
-	   		#{member_id}
-	   		)
-	  ]]>
+	  <![CDATA[
+     insert into t_shopping_image
+        (image_id,fileName, fileType, reg_id)
+      values(
+           #{dir_main_img_id},
+          #{dir_main_img},
+            'diary',
+            #{member_id}
+            )
+     ]]>
 	</insert>
+	
+	<select id="selectDiaryDetail" resultMap="diaryResult"   parameterType="String">
+       <![CDATA[
+        select * from t_shopping_dir
+        where dir_no=#{dir_no};
+       ]]>
+   </select>
   
   
 </mapper>

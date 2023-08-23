@@ -10,4 +10,5 @@ import com.babee.diary.vo.DiaryVO;
 public interface DiaryService {
 	public List<DiaryVO> selectDiary(String member_id) throws Exception;
 	public void addDiary(Map diaryMap) throws DataAccessException;
+	public Map diaryDetail(String dir_no) throws Exception;
 }

@@ -23,7 +23,7 @@
 #header{
    width: 100%;
    padding:5px;
-   height: 120px;
+   height: 150px;
   
    color: #003d0a;
    border: 0px solid #ffffff;
