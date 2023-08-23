@@ -24,6 +24,9 @@ ul li{
    width: 500px;
    
 }
+.shipping_address > li {
+   width: 400px;
+}
 
 .order_list{
    border: 1px solid gray;
@@ -210,6 +213,7 @@ function fnOrderGoods() {
 </script>
 </head>
 <body>
+   <br>
    <H1>상품 구매하기 </H1>
    
    
@@ -219,18 +223,20 @@ function fnOrderGoods() {
       <H2 style="width:530px;">주문자 정보 입력</H2>
 
       <div class="shipping_address">
-      <h3 style="display: inline-block; margin-right: 320px;"> &nbsp;&nbsp;배송지</h3> <button onclick="execDaumPostcode()" style="cursor: pointer;">배송지 변경</button>
+         <br>
+      <h3 style="display: inline-block; margin-right: 320px;"> &nbsp;&nbsp;배송지</h3> <button onclick="execDaumPostcode()" style="cursor: pointer; float: right;
+      margin: 0 58px;">배송지 변경</button>
       <form  name="form_order" action="${contextPath}/order/payToOrderGoods.do" enctype="utf-8" method="post">
       <ul>
-         <li> 주문자 :  ${memberInfo.member_name } </li>         
+         <li style="margin-top: 20px;"></li>         
      	 <li> 우편번호 : <input name="member_zipcode" type="text" size="10" value="${memberInfo.member_zipcode }"  id="member_zipcode" ><br>
- 		 	  도로명 주소 <input name="member_roadAddr" type="text" size="50" value="${memberInfo.member_roadAddr }"  id="member_roadAddr" > <br>
- 			  지번 주소 <input name="member_jibunAddr" type="text" size="50" value="${memberInfo.member_jibunAddr }" id="member_jibunAddr" > <br>
- 			  나머지 주소<input name="member_namujiAddr" type="text" size="50" value="${memberInfo.member_namujiAddr }" id="member_namujiAddr" ></li>
+ 		 	  도로명 주소 <input name="member_roadAddr" type="text" size="45" value="${memberInfo.member_roadAddr }"  id="member_roadAddr" > <br>
+ 			  지번 주소 <input name="member_jibunAddr" type="text" size="45" value="${memberInfo.member_jibunAddr }" id="member_jibunAddr" > <br>
+ 			  나머지 주소<input name="member_namujiAddr" type="text" size="45" value="${memberInfo.member_namujiAddr }" id="member_namujiAddr" ></li>
  
          <li> 연락처 : ${memberInfo.member_hp1} - ${memberInfo.member_hp2} - ${memberInfo.member_hp3} </li>
          <br>
-         <li><input type="text" size="50" placeholder="요청사항을1 입력해주세요." name="deliveryMessage"></li>
+         <li><input type="text" size="45" placeholder="요청사항을1 입력해주세요." name="deliveryMessage"></li>
       </ul>
       </div>
       
