@@ -32,12 +32,12 @@ public class GoodsServiceImpl implements GoodsService{
 		return goodsDAO.selectAllGoodsQna(goods_id);  
 	}
 	
-	
+	@Override
 	public List<GoodsVO> getAllCategoryGoods(Map goods) {
 		return goodsDAO.selectAllCategoryGoods(goods);  
 	}
 	
-	
+	@Override
 	public Map goodsDetail(String _goods_id) throws Exception {
 		Map goodsMap=new HashMap();
 		GoodsVO goodsVO = goodsDAO.selectGoodsDetail(_goods_id);
@@ -47,35 +47,40 @@ public class GoodsServiceImpl implements GoodsService{
 		return goodsMap;
 	}
 	
-	
+	@Override
 	public List<String> keywordSearch(String keyword) throws Exception {
 		List<String> list=goodsDAO.selectKeywordSearch(keyword);
 		return list;
 	}
 	
-	
+	@Override
 	public ImageFileVO goodsDetailImage(String member_id) throws Exception {
 		ImageFileVO image= goodsDAO.selectGoodsDetailImage(member_id);
 		return image;
 	}
 	
-	
+	@Override
 	public List<GoodsVO> searchGoods(String searchWord) throws Exception{
 		List goodsList=goodsDAO.selectGoodsBySearchWord(searchWord);
 		return goodsList;
 	}
+	@Override
 	public void insertGoodsQNA(GoodsQNA goodsQNA) throws Exception{
 		goodsDAO.insertGoodsQNA(goodsQNA);
-		
+	}
+	
+	@Override
+	public void deleteGoodsQNA(GoodsQNA goodsQNA) throws Exception{
+		goodsDAO.deleteGoodsQNA(goodsQNA);
 	}
 
 	
-	
+	@Override
 	public List<GoodsVO> hotGoodsList()throws Exception{
 		return goodsDAO.hotGoodsList();
 		
 	}
-	
+	@Override
 	public List<GoodsVO> seasonGoodsList()throws Exception{
 		return goodsDAO.seasonGoodsList();
 		
