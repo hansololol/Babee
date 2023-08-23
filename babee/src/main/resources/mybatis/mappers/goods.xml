@@ -62,6 +62,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     SELECT * FROM t_shopping_goodsqna where goods_id=#{goods_id}
      ]]>
   </select>
+  
+ <delete id="deleteGoodsQNA" parameterType="GoodsQNA">
+	    <![CDATA[
+	      delete from t_shopping_goodsqna
+	      where member_id=#{member_id} and goods_id=#{goods_id} and goods_qna_title =#{goods_qna_title}
+    	]]>
+	</delete>
    
     <select id="selectAllCategoryGoods" resultType="goodsVO" parameterType="java.util.Map">
 <![CDATA[

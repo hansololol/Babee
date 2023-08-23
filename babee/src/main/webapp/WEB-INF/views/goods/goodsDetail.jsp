@@ -583,7 +583,9 @@ function add_wish(goods_id){
 				</td>
 				<td>${qna.goods_qna_writeDate}</td>
 				<td>
-				  <button onclick="deleteQNA('${varSta.index}')">삭제</button>
+					<c:if test="${memberInfo.member_id == qna.member_id}">
+				  <button onclick="location.href='${contextPath}/goods/goodsDetail.do?goods_id=${param.goods_id}&num=${varSta.index}'">삭제</button>
+					</c:if>
 				</td>
 			  </tr>
 			  <tr
@@ -599,17 +601,6 @@ function add_wish(goods_id){
 					} else {
 					  answer.style.display = "none";
 					}
-				  }
-
-				  function deleteQNA(num){
-					var num = num;
-					document.body.appendChild(formObj); 
- 					formObj.method="get";
-  					 formObj.action="${contextPath}/goods/goodsQna.do";
-  					 formObj.submit();
-   
-					var orderForm=document.orderForm;
-         			orderForm.submit();
 				  }
 				</script>
 				<td></td>

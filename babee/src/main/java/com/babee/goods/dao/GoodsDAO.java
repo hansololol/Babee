@@ -26,6 +26,7 @@ public interface GoodsDAO {
 	
 	public List<CategoryVO> getAllcg() throws DataAccessException;
 	public void insertGoodsQNA(GoodsQNA goodsQNA) throws DataAccessException;
+	public void deleteGoodsQNA(GoodsQNA goodsQNA) throws DataAccessException;
 	public List<GoodsVO> hotGoodsList() throws DataAccessException;
 	public List<GoodsVO> seasonGoodsList() throws DataAccessException;
 }
