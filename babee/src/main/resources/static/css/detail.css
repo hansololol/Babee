@@ -29,7 +29,7 @@
 	border-bottom-color: rgb(102, 102, 102); border-bottom-width: 1px; border-bottom-style: solid;
 }
 #detail_table table td span {
-	font-family: "omyu_pretty"; font-size: 1.2em; font-weight: bold;
+	font-size: 1.2em; font-weight: bold;
 }
 #detail_table table td.fixed {
 	width: 110px; font-weight: bold;font-size: 0.8em;

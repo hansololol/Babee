@@ -31,9 +31,6 @@
 </script>
 
 <style>
-body{
-    font-family: 'omyu_pretty', sans-serif;
-}
 .text_center{ 
    text-align:center;
    }
@@ -95,12 +92,21 @@ input[type="reset"]:hover {
 .diary_list li img{
     width: 230px;
     height: 200px;
+    margin-bottom: 10px;
 }
 .diary_list a{
     color: black;
     text-decoration: none;
 }
- 
+.ellipsis {
+    width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  margin: 10px auto;
+}
  
  
  .tooltip-button {
@@ -169,14 +175,15 @@ input[type="reset"]:hover {
       <div class="diary_list">
          <ul>
             <li style="text-align: left;"> <input type="checkbox" id="check" hidden> </li>
+            
             <a href="${contextPath}/diary/diaryDetail.do?dir_no=${diary.dir_no}">
                 <li><img src="${contextPath}/thumbnails.do?goods_id=${diary.member_id}&fileName=${diary.dir_main_img}&fileType=diary" width="100px"> </li>
-                <li style="text-align: left;">${diary.dir_title}</li>
-                <li>${diary.dir_content}</li>
-                <li style="text-align: right;">${diary.dir_writeDate}</li>
+                <li style="font-weight: bold;">${diary.dir_title}</li>
+                <div class="ellipsis">
+                    <li>${diary.dir_content}</li></div>
+                <li style="text-align: right; font-size: 12px;">${diary.dir_writeDate}</li>
             </a>
          </ul>
-
       </div>
    </c:forEach>        
    
