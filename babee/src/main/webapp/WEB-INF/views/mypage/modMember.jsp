@@ -257,7 +257,7 @@ window.onload = function() {
     		<input type="radio" name="baby_age" value="36~" style="width:20px; margin-right: 5px;"> 36개월 이상
   			</label>
 		</td>
-      </tr>s
+      </tr>
       </table>
 		<button type="submit" class="member_mod_order_btn" style="width: 300px; height: 50px; background-color: #007bff; color: white; font-size: 16px; font-weight: bold; border: none; border-radius: 8px;">수정하기</button>
 					

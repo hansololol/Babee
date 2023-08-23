@@ -39,8 +39,12 @@ public class DiaryServiceImpl implements DiaryService  {
 		Map diaryMap=new HashMap();
 		DiaryVO diaryVO = diaryDAO.selectDiaryDetail(dir_no);
 		diaryMap.put("diaryVO", diaryVO);
-		//List<ImageFileVO> imageList =goodsDAO.selectGoodsDetailImage(_goods_id);
-		//goodsMap.put("imageList", imageList);
 		return diaryMap;
+	}
+	
+	@Override
+	public void modDiary(Map diaryMap) throws DataAccessException {
+		diaryDAO.updateDiary(diaryMap);
+		diaryDAO.updateDiaryImage(diaryMap);
 	}
 }
