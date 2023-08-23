@@ -12,7 +12,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>다어이리 목롱창</title>
+<title>검색결과창</title>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <script type="text/javascript">
@@ -112,7 +112,7 @@
       </select>
       
    <div>
-   <c:forEach var="goods" items="${newGoodsList}">
+   <c:forEach var="goods" items="${goodsList}">
       <div class="diary_list">
          <ul>                                                                                                            
             <li style="text-align: left;"> <input type="checkbox" id="check" hidden> </li>

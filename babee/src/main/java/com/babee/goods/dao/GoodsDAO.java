@@ -22,5 +22,8 @@ public interface GoodsDAO {
 	public List<GoodsVO> selectAllGoods() throws DataAccessException;
 	public List<GoodsQNA> selectAllGoodsQna(String goods_id) throws DataAccessException;
 	public List<GoodsVO> selectAllCategoryGoods(Map goods) throws DataAccessException;
+
 	public void insertGoodsQNA(GoodsQNA goodsQNA) throws DataAccessException;
+	public List<GoodsVO> hotGoodsList() throws DataAccessException;
+
 }

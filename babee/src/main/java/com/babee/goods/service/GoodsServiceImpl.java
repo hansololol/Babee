@@ -71,4 +71,9 @@ public class GoodsServiceImpl implements GoodsService{
 
 	
 	
+	public List<GoodsVO> hotGoodsList()throws Exception{
+		return goodsDAO.hotGoodsList();
+		
+	}
+	
 }

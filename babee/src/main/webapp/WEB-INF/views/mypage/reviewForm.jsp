@@ -91,6 +91,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       enctype="multipart/form-data"
       style="margin-left: 110px; width: 800px"
     >
+       <input type="hidden" name="goods_id" value="${param.goods_id}" />
       <table style="border-collapse: collapse; margin: 0 auto">
         <tr>
           <td
@@ -110,7 +111,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
               name="member_id"
               value="${memberInfo.member_id}"
             />
-            <input type="hidden" name="goods_id" value="${goods_id}" />
           </td>
         </tr>
 
@@ -183,7 +183,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             ></textarea>
           </td>
         </tr>
-
+	
         <tr>
           <td
             width="200"
@@ -238,10 +238,10 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         </tr>
       </table>
 
-      <br />
-      <br />
-      <br />
-
+      <br>
+      <br>
+      <br>
+       
       <div class="diary_write_btn">
         <input type="submit" value="작성하기" />&nbsp;&nbsp;&nbsp;
         <input type="reset" value="다시입력" />
