@@ -368,6 +368,14 @@ function add_wish(goods_id){
         text-align: center;
         border: 1px solid #ccc;
       }
+	  .table-container >button {
+    background-color: #ffcd29; /* 배경색 */
+    color: black; /* 텍스트색 */
+    padding: 10px 20px; /* 내부 여백 */
+    border: none; /* 테두리 없음 */
+    border-radius: 5px; /* 테두리 반경 */
+    cursor: pointer; /* 커서 모양 변경 */
+}
 </style>
 
 	
@@ -487,9 +495,9 @@ function add_wish(goods_id){
 		</c:if>			
 				
 	<colgroup>
-		<col style="width:300px">
-		<col>
 		<col style="width:400px">
+		<col>
+		<col style="width:500px">
 			
 	</colgroup>
 	<c:forEach items="${review}" var="review">
@@ -575,7 +583,7 @@ function add_wish(goods_id){
 				</td>
 				<td>${qna.goods_qna_writeDate}</td>
 				<td>
-				  <button onclick="deleteQNA()">삭제</button>
+				  <button onclick="deleteQNA('${varSta.index}')">삭제</button>
 				</td>
 			  </tr>
 			  <tr
@@ -591,6 +599,17 @@ function add_wish(goods_id){
 					} else {
 					  answer.style.display = "none";
 					}
+				  }
+
+				  function deleteQNA(num){
+					var num = num;
+					document.body.appendChild(formObj); 
+ 					formObj.method="get";
+  					 formObj.action="${contextPath}/goods/goodsQna.do";
+  					 formObj.submit();
+   
+					var orderForm=document.orderForm;
+         			orderForm.submit();
 				  }
 				</script>
 				<td></td>

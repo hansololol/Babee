@@ -71,6 +71,10 @@ public class MyPageServiceImpl  implements MyPageService{
 		myPageDAO.insertNewReview(reviewMap);
 		myPageDAO.insertImage(reviewMap);
 	}
+	@Override
+	public void delReview(Map delMap) throws Exception {
+		myPageDAO.deleteReview(delMap);
+	}
 	
 	@Override
 	public List<ReviewVO> selectReview(String member_id) throws Exception{

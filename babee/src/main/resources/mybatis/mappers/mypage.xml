@@ -177,6 +177,12 @@
 	      where articleNO=#{articleNO}
     	]]>
 	</delete>
+	 <delete id="deleteReview" parameterType="java.util.Map">
+	    <![CDATA[
+	      delete from t_shopping_review
+	      where member_id=#{member_id} and goods_id=#{goods_id}
+    	]]>
+	</delete>
 	 
 </mapper>
  
