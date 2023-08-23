@@ -147,11 +147,6 @@
 		      	,a.goods_id
 		      	,a.articleNO
 		      	,a.member_id
-		      	,b.goods_option1
-		      	,b.goods_option2
-		      	,b.goods_option3
-		      	,b.goods_option4
-		      	,b.goods_option5
 		FROM 	babee.t_shopping_wish a, babee.t_shopping_goods b
 		WHERE 	a.goods_id = b.goods_id
 		AND 	a.member_id = #{member_id}	
@@ -160,7 +155,7 @@
 
 	 <select id="selectWishGoodsList" parameterType="int" resultType="GoodsVO">
 		<![CDATA[
-		 select goods_option1, goods_option2, goods_option3, goods_option4, goods_option5, goods_image_name1 
+		 select goods_image_name1 
 		from t_shopping_goods
 		where goods_id=#{goods_id};
 		]]>

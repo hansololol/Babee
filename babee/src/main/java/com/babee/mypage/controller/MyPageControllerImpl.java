@@ -263,7 +263,7 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 	}
 
 	@Override
-	@RequestMapping(value="/wishList.do" ,method = RequestMethod.POST)
+	@RequestMapping(value="/wishList.do" ,method = RequestMethod.GET)
 	public ModelAndView wishList(HttpServletRequest request, HttpServletResponse response)  throws Exception {
 		
 		
@@ -273,16 +273,13 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		
 		HttpSession session = request.getSession();
 		String userType = (String) session.getAttribute("userType");
-	
 		// 로그인한 사용자 ID 가져오기(memberId)
 		List<WishVO> myWishList = null;
 		List<GoodsVO> allGoodsList = new ArrayList<>();
 		if(userType.equals("M")) {
 			MemberVO memberVO = (MemberVO)session.getAttribute("memberInfo");
 			String member_id = memberVO.getMember_id();
-			
-		
-			
+
 			myWishList = myPageService.selectWishList(member_id);
 			
 			for(int i=0; i<myWishList.size(); i++) {
@@ -297,10 +294,8 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 				allGoodsList = myPageService.selectWishGoodsList(goods_id);
 				allGoodsList.addAll(allGoodsList);
 				
-				
 			}
-			
-			
+						
 			
 		}else if(userType.equals("S")) {
 			SellerVO sellerVO = (SellerVO)session.getAttribute("memberInfo");
@@ -313,7 +308,7 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		
 		mav.addObject("myWishList", myWishList);
 		mav.addObject("goodsList", allGoodsList);
-
+			System.out.println(myWishList.get(0).getGoods_id() + "정보 확인");
 		
 		return mav;
 	}
@@ -346,7 +341,6 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		Iterator<String> fileNames = multipartRequest.getFileNames();
 		
 		while(fileNames.hasNext()) {
-			System.out.println("이미지 네임 값 확인");
 			String fileName = fileNames.next();
 			MultipartFile mFile = multipartRequest.getFile(fileName);
 			String imgfname = mFile.getOriginalFilename();
