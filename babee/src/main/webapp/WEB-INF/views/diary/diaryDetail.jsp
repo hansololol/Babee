@@ -9,72 +9,93 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>다이어리 상세창(관리자)</title>
-
+<title>다이어리 상세창</title>
+<link rel="stylesheet" href="/css/font.css" type="text/css">
+<script>
+   $(document).ready(function(){
+        $("#btnList").click(function(){
+            // 페이지 주소 변경(이동)
+            location.href = "${contextPath}/diary/diaryList.do";
+        });
+    })
+</script>
 
 <style>
+.detail_title h3{
+   display: flex;
+   margin: 20px auto;
+   flex-direction: column-reverse
+}
 
-.diaryDetail_admin_tb tr td {
+.diaryDetail_tb {
+   width: 600px;
+   margin: 0 auto;
+}
+.diaryDetail_tb tr td {
    border:1px solid gray;
    padding: 5px;
 }
-
-
-.diaryDetail_admin_btn {
+.diaryDetail_list{
+   width: 120px;
+   font-weight: bold;
+   text-align:center; 
+   background:#ffffcc;
+   border:1px solid gray;
+}
+.back_to_List_btn {
     background-color: orange; /* 배경색 */
     color: black; /* 텍스트색 */
     padding: 10px 20px; /* 내부 여백 */
     border: none; /* 테두리 없음 */
     border-radius: 5px; /* 테두리 반경 */
     cursor: pointer; /* 커서 모양 변경 */
+    margin-bottom: 50px;
 }
 
 
 /* 버튼에 호버 효과 */
-.diaryDetail_admin_btn:hover {
+.back_to_List_btn:hover {
     background-color: #cca300; /* 호버 시 배경색 변경 */
 }
 
- 
 </style>
+
 </head>
 
 <body>
-
-<div style="width:66%; margin: 0 auto;">
+<div style="width:800px; margin: 0 auto;">
    
-   <div>
-   <h3 style="display:inline-block;margin-bottom: 5px;">{ 제목 } <span style="color:gray; display:inline-block; font-size:5px;">YYYY-MM-DD</span></h3>
-   <hr>   
+   <div class="detail_title">
+   <h3>${diary.dir_title} <span style="color:gray; display:inline-block; font-size: 15px;">${diary.dir_writeDate}</span></h3>   
    </div>
    
-   <table class="diaryDetail_admin_tb" widht="100%">
-      <tr>
-         <td width="200px" style="text-align:center; background:#ffffcc; border:1px solid gray;">작성자</td>
-         <td width="90%"> { 작성자 } </td>
-      <tr>
-         <td width="150" style="text-align:center; background:#ffffcc; border:1px solid gray;">제목</td>
-         <td> { 제목 } </td>
+   <table class="diaryDetail_tb">
+      <tr height="80px">
+         <td class="diaryDetail_list">작성자</td>
+         <td>${memberInfo.member_name}</td>
+      <tr height="80px">
+         <td class="diaryDetail_list">제목</td>
+         <td> ${diary.dir_title} </td>
       </tr>
-      <tr>
-         <td width="200px" style="text-align:center; background:#ffffcc; border:1px solid gray;">표지</td>
-         <td><img src="images/baby.jpg" widht="300" height="200"/></td>
+      <tr height="150px">
+         <td class="diaryDetail_list">표지</td>
+         <td><img src="${contextPath}/thumbnails.do?goods_id=${diary.member_id}&fileName=${diary.dir_main_img}&fileType=diary" width="100px"></td>
       </tr>
-      <tr>
-         <td width="200px" style="text-align:center; background:#ffffcc; border:1px solid gray;">아이의 상태</td>
-         <td height="150"> { 아이의 상태입니다. }</td>
+      <tr height="80xp">
+         <td class="diaryDetail_list">아이의 상태</td>
+         <td> ${diary.baby_condition}</td>
       </tr>
-      <tr>
-         <td width="200px" style="text-align:center; background:#ffffcc; border:1px solid gray;">기록</td>
-         <td height="300"> { 기록 내용입니다. }</td>
+      <tr height="300px">
+         <td class="diaryDetail_list">기록</td>
+         <td> ${diary.dir_content}</td>
       </tr>
    </table>
    
    <br><br>
    
    <div style="text-align: -webkit-center;">
-    <div class="diaryDetail_admin_btn" style="width: 50px; text-align: center;">
-        <a href="다이어리 리스트로" style="display: block; width: fit-content; margin: 0 auto; padding: 5px; text-decoration-line: none; color: black; font-weight: bold;"> 이전 </a>
+      <input type="button" value="리스트로 돌아가기" class="back_to_List_btn" id="btnList" >
+   
        </div>
 
 

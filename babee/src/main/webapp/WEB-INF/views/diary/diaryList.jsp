@@ -11,6 +11,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="/css/font.css" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <meta charset="UTF-8">
@@ -30,6 +31,9 @@
 </script>
 
 <style>
+body{
+    font-family: 'omyu_pretty', sans-serif;
+}
 .text_center{ 
    text-align:center;
    }
@@ -69,7 +73,7 @@ input[type="reset"]:hover {
 .diary_list {
     display: inline-block;
     margin: 10px;
-    padding: 10px;
+    padding: 10px 30px;
     width:300px;
     
 }
@@ -89,8 +93,12 @@ input[type="reset"]:hover {
 
 
 .diary_list li img{
-    width: 200px;
-    height: 180px;
+    width: 230px;
+    height: 200px;
+}
+.diary_list a{
+    color: black;
+    text-decoration: none;
 }
  
  
@@ -161,10 +169,12 @@ input[type="reset"]:hover {
       <div class="diary_list">
          <ul>
             <li style="text-align: left;"> <input type="checkbox" id="check" hidden> </li>
-            <li><img src="${contextPath}/thumbnails.do?goods_id=${diary.member_id}&fileName=${diary.dir_main_img}&fileType=diary" width="100px"> </li>
-            <li style="text-align: left;">${diary.dir_title}</li>
-            <li>${diary.dir_content}</li>
-            <li style="text-align: right;">${diary.dir_writeDate}</li>
+            <a href="${contextPath}/diary/diaryDetail.do?dir_no=${diary.dir_no}">
+                <li><img src="${contextPath}/thumbnails.do?goods_id=${diary.member_id}&fileName=${diary.dir_main_img}&fileType=diary" width="100px"> </li>
+                <li style="text-align: left;">${diary.dir_title}</li>
+                <li>${diary.dir_content}</li>
+                <li style="text-align: right;">${diary.dir_writeDate}</li>
+            </a>
          </ul>
 
       </div>
