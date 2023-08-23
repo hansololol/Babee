@@ -62,15 +62,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
        ]]>
    </select>
    
-   <select id="selectGoodsBySearchWord" resultMap="goodsResult" parameterType="String">
+<!--    <select id="selectGoodsBySearchWord" resultMap="goodsResult" parameterType="String">
      <![CDATA[
-            select g.*,d.fileName from t_shopping_goods g, t_goods_detail_image d
+          select g.*,d.fileName from t_shopping_goods g, t_goods_detail_image d
           where g.goods_id=d.goods_id
           and d.filetype='main_image'
           and g.goods_title like concat('%', #{searchWord} ,'%')
           order by g.goods_creDate desc
       ]]>
-   </select>   
+   </select>  
+    -->
+   
+      <select id="selectGoodsBySearchWord" resultMap="goodsResult" parameterType="String">
+     <![CDATA[
+          SELECT g.*, d.fileName 
+		FROM t_shopping_goods g
+		LEFT JOIN t_shopping_image d ON g.goods_image_name1 = d.fileName
+		WHERE g.goods_title LIKE CONCAT('%', #{searchWord} ,'%')
+		ORDER BY g.goods_creation_date DESC;
+      ]]>
+   </select>  
+    
    
    <select id="selectKeywordSearch" resultType="String" parameterType="String">
        <![CDATA[
@@ -80,5 +92,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         order by goods_creDate desc
       ]]>
    </select>
+   
+   
+    <select id="hotGoodsList" resultType="com.babee.goods.vo.GoodsVO">
+	 <![CDATA[
+		SELECT b.*, COUNT(a.goods_id) AS order_count
+		FROM t_shopping_goods b
+		LEFT JOIN t_shopping_order a ON b.goods_id = a.goods_id
+		GROUP BY b.goods_id
+		ORDER BY order_count DESC
+		LIMIT 3;
+      ]]>
+  </select>
    
 </mapper>

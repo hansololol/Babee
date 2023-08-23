@@ -17,4 +17,7 @@ public interface GoodsService {
 	public List<GoodsVO> searchGoods(String searchWord) throws Exception;
 	public List<GoodsVO> getAllGoods() throws Exception;
 	public ImageFileVO goodsDetailImage(String member_id) throws Exception;
+	
+	
+	public List<GoodsVO> hotGoodsList()throws Exception;
 }
