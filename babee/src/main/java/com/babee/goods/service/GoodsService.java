@@ -20,4 +20,5 @@ public interface GoodsService {
 	
 	
 	public List<GoodsVO> hotGoodsList()throws Exception;
+	public List<GoodsVO> seasonGoodsList()throws Exception;
 }

@@ -47,6 +47,7 @@
       .my_img2{
          transition: filter 0.3s;
          border-radius: 9%;
+         display: flex;
       }
    
       .my_img_container:hover .my_img {
@@ -97,7 +98,9 @@
   </div>
   <div class="carousel-inner">
     <div class="carousel-item active">
+	  <a href="${contextPath}/goods/goodsDetail.do?goods_id=28&fileName=화면 캡처 2023-08-23 143147.png"  width="30px" height="50px" style="margin-top: 500%; cursor: pointer;">
       <img src="/image/main_banner01.png" class="d-block w-100" height="500px" alt="...">
+    </a>
     </div>
     <div class="carousel-item">
       <img src="/image/banner2.png" class="d-block w-100" height="500px">
@@ -106,6 +109,8 @@
       <img src="/image/main_banner01.png" class="d-block w-100" height="500px">
     </div>
   </div>
+ 
+ 
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Previous</span>
@@ -158,37 +163,29 @@
 	</div>
 	  <br>
 	    <br>  <br>  
-<div class="gray_bg">
+<div class="gray_bg"  style="padding:0px; width:1100px; height:1200px; margin:auto;">
  <br>  
         <h1 align=center>시즌오프 세일 ~70%</h1>
         <h2 align=center>보다 저렴하게 구매가능한 시즌오프 세일 모음</h2>
-        <br><br> 
-      <div class="my_img2_container" style="border-radius: 50%; float: left;">
-            <a href="#">
-                <img src="/image/sale3.jpg" alt="sale4" class="my_img2" width="300px" height="500px">
-                <div class="img_text">sale4</div>
-            </a>
-        </div>
-      <div  style="border-radius: 50%; float: left;">
-      <div class="my_img2_container" style="border-radius: 50%; ">
-            <a href="#">
-                <img src="/image/sale1.jpg" alt="sale1" class="my_img2" width="250px" height="250px">
-                <div class="img_text">sale1</div>
-            </a>
-        </div>
-        <div class="my_img2_container" style="border-radius: 50%; display: inline; margin-left: 20px; ">
-            <a href="#">
-                <img src="/image/sale2.jpg" alt="sale2" class="my_img2" width="250px" height="250px">
-                <div class="img_text">sale2</div>
-            </a>
-        </div>
-   </div>
-        <div class="my_img2_container" style="border-radius: 50%; margin-left: 20px; float: left;">
-            <a href="#">
-                <img src="/image/sale5.png" alt="sale5" class="my_img2" width="300px" height="500px">
-                <div class="img_text">sale5</div>
-            </a>
-        </div>
+        <br><br>
+		
+		
+<c:forEach var="goods" items="${seosonList}" varStatus="loopStatus">
+    <div class="my_img_container" style="border-radius: 50%; float: left;">
+        <a href="${contextPath}/goods/goodsDetail.do?goods_id=${goods.goods_id}&fileName=${goods.goods_image_name1}">
+            <img src="${contextPath}/thumbnails.do?goods_id=${goods.goods_id}&fileName=${goods.goods_image_name1}" style="margin-right:30px; margin-bottom:10px;" class="my_img"
+                <c:if test="${loopStatus.index == 0}">
+                    width="300px" height="500px"
+                </c:if>
+                <c:if test="${loopStatus.index != 0}">
+                    width="250px" height="250px"
+                </c:if>
+            />
+        </a>
+        <div class="img_text">${goods.goods_title}</div>
+    </div>
+</c:forEach>
+       
         <br><br>
 </div>
 </div>

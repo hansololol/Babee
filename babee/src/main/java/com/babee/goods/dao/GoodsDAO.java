@@ -22,4 +22,5 @@ public interface GoodsDAO {
 	public List<GoodsVO> selectAllCategoryGoods(Map goods) throws DataAccessException;
 	
 	public List<GoodsVO> hotGoodsList() throws DataAccessException;
+	public List<GoodsVO> seasonGoodsList() throws DataAccessException;
 }

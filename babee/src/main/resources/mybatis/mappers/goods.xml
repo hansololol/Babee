@@ -62,17 +62,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
        ]]>
    </select>
    
-<!--    <select id="selectGoodsBySearchWord" resultMap="goodsResult" parameterType="String">
-     <![CDATA[
-          select g.*,d.fileName from t_shopping_goods g, t_goods_detail_image d
-          where g.goods_id=d.goods_id
-          and d.filetype='main_image'
-          and g.goods_title like concat('%', #{searchWord} ,'%')
-          order by g.goods_creDate desc
-      ]]>
-   </select>  
-    -->
-   
       <select id="selectGoodsBySearchWord" resultMap="goodsResult" parameterType="String">
      <![CDATA[
           SELECT g.*, d.fileName 
@@ -103,6 +92,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ORDER BY order_count DESC
 		LIMIT 3;
       ]]>
-  </select>
+  	</select>
+  	
+  	    <select id="seasonGoodsList" resultType="com.babee.goods.vo.GoodsVO">
+	 <![CDATA[
+		SELECT g.*, d.fileName 
+		FROM t_shopping_goods g
+		LEFT JOIN t_shopping_image d ON g.goods_image_name1 = d.fileName
+		WHERE g.goods_title LIKE CONCAT('%', "명절" ,'%')
+		ORDER BY g.goods_creation_date DESC;
+      ]]>
+  	</select>
    
 </mapper>
