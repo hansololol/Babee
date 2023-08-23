@@ -20,4 +20,6 @@ public interface GoodsDAO {
 	public List<GoodsVO> selectGoodsBySearchWord(String searchWord) throws DataAccessException;
 	public List<GoodsVO> selectAllGoods() throws DataAccessException;
 	public List<GoodsVO> selectAllCategoryGoods(Map goods) throws DataAccessException;
+	
+	public List<GoodsVO> hotGoodsList() throws DataAccessException;
 }

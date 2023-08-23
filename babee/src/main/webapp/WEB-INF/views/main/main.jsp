@@ -135,25 +135,19 @@
    </span>
 
 
-        <div class="my_img_container">
-            <a href="${contextPath}/goods/goodsDetail.do?goods_id=1">
-                <img src="/image/shopping1.jpg" class="my_img">
-                <div class="img_text">우리 아이 안심 물병</div>
-            </a>
-        </div>
-        <div class="my_img_container">
-            <a href="#2">
-                <img src="/image/shopping2.jpg" class="my_img" >
-                <div class="img_text">여름 쿨 아동 의류 2</div>
-            </a>
-        </div>
-        <div class="my_img_container">
-            <a href="#3">
-                <img src="/image/shopping3.jpg" class="my_img">
-                <div class="img_text">귀여운 동물 양말</div>
-            </a>
-        </div>
-        <div class="my_img_container">
+		<c:forEach var="goods" items="${hotGoodsList}">
+			<div class="my_img_container">
+				<ul>
+					<li><a href="${contextPath}/goods/goodsDetail.do?goods_id=${goods.goods_id}&fileName=${goods.goods_image_name1}"  width="30px" height="50px" style="margin-top: 500%; cursor: pointer;">
+						<img src="${contextPath}/thumbnails.do?goods_id=${goods.goods_id}&fileName=${goods.goods_image_name1}"  class="my_img"> 
+						</a>
+					</li>
+					<div class="img_text">${goods.goods_title}</div>
+				</ul>
+			</div>
+		</c:forEach>
+		
+		  <div class="my_img_container">
           <a href="${contextPath}/goods/goodsList.do"><img src="/image/rightButton.png" width="30px" height="50px" style="margin-top: 500%; cursor: pointer;"></a>
         </div>
     </div>
