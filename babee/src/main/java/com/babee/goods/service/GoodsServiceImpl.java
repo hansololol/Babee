@@ -76,4 +76,9 @@ public class GoodsServiceImpl implements GoodsService{
 		
 	}
 	
+	public List<GoodsVO> seasonGoodsList()throws Exception{
+		return goodsDAO.seasonGoodsList();
+		
+	}
+	
 }

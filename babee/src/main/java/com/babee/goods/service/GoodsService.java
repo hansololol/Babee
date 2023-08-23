@@ -22,5 +22,6 @@ public interface GoodsService {
 	public void insertGoodsQNA(GoodsQNA goodsQNA) throws Exception;
 	public List<GoodsQNA> getAllGoodsQna(String goods_id)throws Exception;
 	public List<GoodsVO> hotGoodsList()throws Exception;
+	public List<GoodsVO> seasonGoodsList()throws Exception;
 
 }
