@@ -328,6 +328,54 @@ function add_wish(goods_id){
     vertical-align: middle;
     border-bottom: 1px solid #ececec;
 }
+
+.faq-content {
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+      .faq-answer {
+        margin-top: 10px;
+        display: none;
+      }
+      .answer-textarea {
+       
+        height: 100px;
+        resize: none;
+        margin-top: 10px;
+        border: 1px solid #ccc;
+        padding: 5px;
+      }
+      .answer-button {
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #f0f0f0;
+        color: #333;
+        cursor: pointer;
+      }
+      .answer-button:hover {
+        background-color: #ccc;
+      }
+      .faq-table {
+       
+        margin: 20px auto;
+        border-collapse: collapse;
+      }
+      .faq-table th,
+      .faq-table td {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid #ccc;
+      }
+	  .table-container >button {
+    background-color: #ffcd29; /* 배경색 */
+    color: black; /* 텍스트색 */
+    padding: 10px 20px; /* 내부 여백 */
+    border: none; /* 테두리 없음 */
+    border-radius: 5px; /* 테두리 반경 */
+    cursor: pointer; /* 커서 모양 변경 */
+}
 </style>
 
 	
@@ -447,9 +495,9 @@ function add_wish(goods_id){
 		</c:if>			
 				
 	<colgroup>
-		<col style="width:300px">
-		<col>
 		<col style="width:400px">
+		<col>
+		<col style="width:500px">
 			
 	</colgroup>
 	<c:forEach items="${review}" var="review">
@@ -482,11 +530,8 @@ function add_wish(goods_id){
 <br><br>
 	</div>
 
-  <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0" style="margin-left: 27%;">
-	  <table class="tb_comment tb_comment_common">
-	
-	<caption>상품 문의 테이블</caption>
-				
+  <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0" >
+	  <table class="tb_comment tb_comment_common">	
 				
 	<colgroup>
 		<col style="width:300px">
@@ -495,33 +540,123 @@ function add_wish(goods_id){
 			
 			
 	</colgroup>
-	<c:forEach var="i" begin="1" end="5">
-	<tbody>
-					
-			<tr>
-				<td class="comment-grade">
-				<span class="rec rec_a"><img alt="" src="${contextPath}/thumbnails.do?goods_id=${goods_id}&fileName=${order.goods_image_name}" width="100px"></span>
-				</td>
-				<td class="comment-content">
-				<p class="pd-tit">E4 다크베이지;10.100L[1개]</p>
-				<p class="con">배송이 안와요</p>
-				</td>
+	<div class="table-container">
+		<br>
+		<button style="margin-left: 40%;" onclick="javascript:qnaGoods()">문의글 작성하기</button>
+		<script>
 
-				<td class="info">
-				<dl class="writer-info">
-				<dt>작성자 :</dt>
-				<dd>k#0*******</dd>
-				<dt>등록일 :</dt>
-				<dd>2023.08.10</dd>
-				</dl>
-				</td>		
-				</tr>
-					<tr><td style="colspan:3"><hr></td></tr>
+			function qnaGoods() {
+				if('${sessionScope.isLogOn}'=='true'){
+				var qnaGodosList= document.getElementById("qnaGoods");
+				var qnaWrite= document.getElementById("qnaWrite");
+				qnaGodosList.style.display="none";
+				qnaWrite.style.display="table"
+				}else{
 					
-	</tbody>
-	</c:forEach>
+					alert("로그인 이후 이용 가능합니다!")
+					location.replace("${contextPath}/member/loginForm.do")
+				}
+			}
+		  </script>
+		<table class="faq-table" id="qnaGoods">
+			</tr>
+		  <thead>
+			<tr>
+			  <th style="width: 18%">문의자</th>
+			  <th style="width: 55%">문의 내역</th>
+			  <th style="width: 20%">문의일자</th>
+			  <th style="width: 8%">삭제</th>
+			</tr>
+		  </thead>
+		  <tbody>
+			<c:forEach var="qna" items="${qna}" varStatus="varSta">
+			  <tr class="faq-content">
+				<td>${qna.member_id}</td>
+				<td>
+				  <a
+					href="#"
+					style="color: black; display: flex; align-items: center; text-decoration: none;"
+					onclick="toggleAnswer('${varSta.count}')"
+				  >
+					<b>${qna.goods_qna_title}</b><br>
+				  </a>
+				</td>
+				<td>${qna.goods_qna_writeDate}</td>
+				<td>
+				  <button onclick="deleteQNA('${varSta.index}')">삭제</button>
+				</td>
+			  </tr>
+			  <tr
+				class="faq-answer${varSta.count}"
+				id="faqAnswer${varSta.count}"
+				style="display: none"
+			  >
+			  <script>
+				  function toggleAnswer(numberId) {
+					var answer = document.getElementById("faqAnswer"+numberId);
+					if (answer.style.display === "none") {
+					  answer.style.display = "table-row";
+					} else {
+					  answer.style.display = "none";
+					}
+				  }
+
+				  function deleteQNA(num){
+					var num = num;
+					document.body.appendChild(formObj); 
+ 					formObj.method="get";
+  					 formObj.action="${contextPath}/goods/goodsQna.do";
+  					 formObj.submit();
+   
+					var orderForm=document.orderForm;
+         			orderForm.submit();
+				  }
+				</script>
+				<td></td>
+			  <td colspan="3" style="text-align: left;">
+				  <p>${qna.goods_qna_content}</p>
+			  </td>
+			  
+			  </tr>
+			</c:forEach>
+		  </tbody>
+		</table>
+	  </div>
 </table>
 	  
+	<table class="faq-table" id="qnaWrite" style="display: none; width: 60%;">
+	</tr>
+	<thead>
+	<tr>
+  <th style="width: 15%">구분</th>
+  <th style="width: 45%">문의 내역</th>
+  <th style="width: 8%">등록</th>
+	</tr>
+	</thead>
+	<form action="${contextPath}/goods/goodsQna.do" method="post" enctype="UTF-8">
+	<tbody>
+		<tr>
+			<td>제목</td>
+			<td>
+				<input type="text" name= "goods_qna_title" style="width: 100%">
+			</td>
+			<td rowspan="2"><input type="submit" value="등록하기"></td>
+
+		</tr>
+		<tr>
+			<td>
+			내용
+			</td>
+			<input type="hidden" name="goods_id" value="${param.goods_id}">
+ 			<td>
+			<textarea style="width: 100%;" name = "goods_qna_content"></textarea>
+			</td>
+		
+		</tr>
+	
+	</tbody>
+	</form>
+	</table>
 	</div>
 	</div>
 

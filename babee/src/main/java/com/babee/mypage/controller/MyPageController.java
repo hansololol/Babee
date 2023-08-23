@@ -33,4 +33,5 @@ public interface MyPageController {
 	//리뷰
 	public ModelAndView reviewWrite(@ModelAttribute("reviewVO") ReviewVO review, MultipartHttpServletRequest multipartRequest, HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	public ModelAndView myReviewList(HttpServletRequest request, HttpServletResponse response)  throws Exception;
+	public ModelAndView removeGoodsReview(HttpServletRequest request, HttpServletResponse response)  throws Exception;
 }

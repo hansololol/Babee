@@ -27,8 +27,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       <result property="tag_option3" column="tag_option3" />
       <result property="tag_option4" column="tag_option4" />
       <result property="tag_option5" column="tag_option5" />
-      
-      
    </resultMap>   
 
    <resultMap id="imageResult" type="ImageFileVO">
@@ -37,10 +35,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       <result property="reg_id" column="reg_id" />
       <result property="fileType" column="fileType" />
    </resultMap>
+   <resultMap id="goodsQnaResult" type="GoodsQNA">
+      <result property="goods_id" column="goods_id" />
+      <result property="member_id" column="member_id" />
+      <result property="goods_qna_title" column="goods_qna_title" />
+      <result property="goods_qna_content" column="goods_qna_content" />
+      <result property="goods_qna_writeDate" column="goods_qna_writeDate" />
+      <result property="goods_qna_answer" column="goods_qna_answer" />
+      <result property="seller_id" column="seller_id" />
+   </resultMap>
 
 
-   <select id="selectAllGoods" resultType="com.babee.goods.vo.GoodsVO">
-    SELECT * FROM t_shopping_goods;
+   <select id="selectAllGoods" resultType="GoodsVO">
+    SELECT * FROM t_shopping_goods
+  </select>
+   <select id="selectAllGoodsQna" resultMap="goodsQnaResult" parameterType="String">
+   <![CDATA[
+    SELECT * FROM t_shopping_goodsqna where goods_id=#{goods_id}
+     ]]>
   </select>
    
     <select id="selectAllCategoryGoods" resultType="goodsVO" parameterType="java.util.Map">
@@ -81,6 +93,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         order by goods_creDate desc
       ]]>
    </select>
+
+   <insert id="insertGoodsQNA" parameterType="GoodsQNA">
+   	   <![CDATA[
+   	   	insert into t_shopping_goodsqna 
+   	   		(goods_id, member_id, goods_qna_title, 
+			goods_qna_content, goods_qna_writeDate)
+			values(#{goods_id}, #{member_id}, #{goods_qna_title}, 
+			#{goods_qna_content}, now())
+   	    ]]>
+   </insert>
+
    
    
     <select id="hotGoodsList" resultType="com.babee.goods.vo.GoodsVO">

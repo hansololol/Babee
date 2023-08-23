@@ -266,7 +266,7 @@ function showCategory() {
                     
                     <ul  class="subcategory-list-li">
                     
-                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=ready&middle_category=bokdae">임산부 복대</a></li>
+                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=출산준비&middle_category=임산부복대">임산부 복대</a></li>
                     <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=ready&middle_category=skin">스킨케어</a></li>
                     <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=ready&middle_category=imbubok">임부복</a></li>
                     <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=ready&middle_category=sanhu">산후용품</a></li>
