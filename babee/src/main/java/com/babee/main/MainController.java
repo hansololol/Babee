@@ -31,6 +31,12 @@ public class MainController extends BaseController {
 		String viewName=(String)request.getAttribute("viewName");
 		mav.setViewName(viewName);
 		
+		 List<GoodsVO> hotGoodsList = goodsService.hotGoodsList();
+	     mav.addObject("hotGoodsList", hotGoodsList);
+		
+	     
+	     List<GoodsVO> seosonList = goodsService.seasonGoodsList();
+	     mav.addObject("seosonList", seosonList);
 		//session=request.getSession();
 		//session.setAttribute("side_menu", "user");
 		/*

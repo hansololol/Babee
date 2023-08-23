@@ -186,6 +186,22 @@ pageEncoding="UTF-8" isELIgnored="false"%>
           </tr>
         </thead>
         <tbody>
+          <script>
+              function deleteReview(goods_id){
+                var goods_id = goods_id;
+                var formObj = document.createElement("form");
+               var i_goods = document.createElement("input");
+                 i_goods.name = "goods_id";
+                 i_goods.value = goods_id;
+
+                formObj.appendChild(i_goods);
+                document.body.appendChild(formObj);
+                formObj.method = "post";
+                formObj.action = "${contextPath}/mypage/removeGoodsReview.do";
+                formObj.submit();
+              }
+            
+          </script>
           <c:forEach var="faq" items="${review}" varStatus="varSta">
             <tr class="faq-content">
               <td>${varSta.count}</td>
@@ -200,7 +216,7 @@ pageEncoding="UTF-8" isELIgnored="false"%>
               </td>
               <td>${faq.review_writeDate}</td>
               <td>
-                <button onclick="deleteReview()">삭제</button>
+                <button onclick="deleteReview('${faq.goods_id}')">삭제</button>
               </td>
             </tr>
             <tr
@@ -228,7 +244,7 @@ pageEncoding="UTF-8" isELIgnored="false"%>
             </td>
               <td colspan="2">
                
-                <img src="${contextPath}/thumbnails.do?goods_id=${faq.member_id}&fileName=${faq.review_img}&fileType=review" >
+                <img src="${contextPath}/thumbnails.do?goods_id=${faq.member_id}&fileName=${faq.review_img}&fileType=review" width="200px">
               </td>
             </tr>
           </c:forEach>

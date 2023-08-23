@@ -57,6 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{member_id}
             )
      ]]>
+
 	</insert>
 	
 	<select id="selectDiaryDetail" resultMap="diaryResult"   parameterType="String">

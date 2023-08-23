@@ -75,7 +75,7 @@
       
       <definition name="/goods/searchGoods" extends="baseLayout">
          <put-attribute name="title" value="상품 검색 결과 페이지" />
-         <put-attribute name="body" value="/WEB-INF/views/goods/searchGoods.jsp" />
+         <put-attribute name="body" value="/WEB-INF/views/goods/searchGoodsResult.jsp" />
       </definition>
       
           <definition name="/goods/goodsList" extends="baseLayout">

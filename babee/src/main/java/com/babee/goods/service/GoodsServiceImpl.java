@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.babee.goods.dao.GoodsDAO;
+import com.babee.goods.vo.GoodsQNA;
 import com.babee.goods.vo.GoodsVO;
 import com.babee.goods.vo.ImageFileVO;
 
@@ -23,13 +24,16 @@ public class GoodsServiceImpl implements GoodsService{
 	private GoodsDAO goodsDAO;
 	
 	@Override
-    public List<GoodsVO> getAllGoods() {
+    public List<GoodsVO> getAllGoods() throws Exception {
         return goodsDAO.selectAllGoods();  
     }
+	@Override
+	public List<GoodsQNA> getAllGoodsQna(String goods_id) throws Exception {
+		return goodsDAO.selectAllGoodsQna(goods_id);  
+	}
 	
 	
 	public List<GoodsVO> getAllCategoryGoods(Map goods) {
-		
 		return goodsDAO.selectAllCategoryGoods(goods);  
 	}
 	
@@ -60,7 +64,21 @@ public class GoodsServiceImpl implements GoodsService{
 		List goodsList=goodsDAO.selectGoodsBySearchWord(searchWord);
 		return goodsList;
 	}
+	public void insertGoodsQNA(GoodsQNA goodsQNA) throws Exception{
+		goodsDAO.insertGoodsQNA(goodsQNA);
+		
+	}
 
 	
+	
+	public List<GoodsVO> hotGoodsList()throws Exception{
+		return goodsDAO.hotGoodsList();
+		
+	}
+	
+	public List<GoodsVO> seasonGoodsList()throws Exception{
+		return goodsDAO.seasonGoodsList();
+		
+	}
 	
 }
