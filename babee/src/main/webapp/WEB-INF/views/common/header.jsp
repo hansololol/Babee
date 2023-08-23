@@ -102,7 +102,7 @@
 .last {
    width:100px;
 }
-.last a{
+.last > a{
    color: black;
 }
 .btn-secondary {
@@ -114,7 +114,7 @@
     
     font-size: large;
 }
-.middlecategory-list-li >li >a{
+.middlecategory-list-li > li >a{
   
     color: black;
     
@@ -263,11 +263,11 @@ function showCategory() {
    	
          
         <ul class="category-list" onmouseleave="hideCategory()">
-            <li style="padding-bottom: 15px;"><a href="${contextPath}/goods/goodsCategoryList.do?main_category=출산준비" style="font-size: 20px; color: white;"><img src="/image/icon-1.png" width="30px" style="float: left; ">출산준비</a>
+            <label><li style="padding-bottom: 15px;"><a href="${contextPath}/goods/goodsCategoryList.do?main_category=출산준비" style="font-size: 20px; color: white;"><img src="/image/icon-1.png" width="30px" style="float: left; ">출산준비</a></label>
                 <div class="child-container">
                     
                     <ul class="middlecategory-list-li">
-                      <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=출산준비&middle_category=임산부복대">임산부 복대</a></li>
+                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=출산준비&middle_category=임산부복대">임산부 복대</a></li>
                   <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=출산준비&middle_category=스킨케어">스킨케어</a></li>
                   <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=출산준비&middle_category=임부복">임부복</a></li>
                   <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=출산준비&middle_category=산후용품">산후용품</a></li>

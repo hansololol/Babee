@@ -240,6 +240,13 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 		reviewMap.put("member_id", member_id);
 		reviewMap.put("goods_id", goods_id);
 		myPageService.delReview(reviewMap);
+		
+		String goods_img = request.getParameter("goods_img");
+		System.out.println(goods_img + "상품 이미지 확인");
+		if(goods_img!=null) {
+			File path = new File("C:/shopping/review" + "/" + member_id + "/" + goods_img);
+			path.delete();
+		}
 		ModelAndView mav = new ModelAndView("redirect:/mypage/myReviewList.do");
 		return mav;
 	}

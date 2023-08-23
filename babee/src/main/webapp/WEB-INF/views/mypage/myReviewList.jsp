@@ -187,14 +187,16 @@ pageEncoding="UTF-8" isELIgnored="false"%>
         </thead>
         <tbody>
           <script>
-              function deleteReview(goods_id){
-                var goods_id = goods_id;
+              function deleteReview(goods_id, image){
                 var formObj = document.createElement("form");
                var i_goods = document.createElement("input");
                  i_goods.name = "goods_id";
                  i_goods.value = goods_id;
-
-                formObj.appendChild(i_goods);
+                 formObj.appendChild(i_goods);
+                 var i_goods_img = document.createElement("input");
+                 i_goods_img.name = "goods_img";
+                 i_goods_img.value = image;
+                formObj.appendChild(i_goods_img);
                 document.body.appendChild(formObj);
                 formObj.method = "post";
                 formObj.action = "${contextPath}/mypage/removeGoodsReview.do";
@@ -216,7 +218,7 @@ pageEncoding="UTF-8" isELIgnored="false"%>
               </td>
               <td>${faq.review_writeDate}</td>
               <td>
-                <button onclick="deleteReview('${faq.goods_id}')">삭제</button>
+                <button onclick="deleteReview('${faq.goods_id}', '${faq.review_img}')">삭제</button>
               </td>
             </tr>
             <tr
