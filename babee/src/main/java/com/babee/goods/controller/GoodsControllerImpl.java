@@ -1,26 +1,22 @@
 package com.babee.goods.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import org.h2.util.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.babee.common.base.BaseController;
 import com.babee.goods.service.GoodsService;
+import com.babee.goods.vo.CategoryVO;
 import com.babee.goods.vo.GoodsVO;
-import com.babee.goods.vo.ImageFileVO;
 import com.babee.mypage.service.MyPageService;
 import com.babee.mypage.vo.ReviewVO;
 
@@ -51,7 +47,10 @@ public class GoodsControllerImpl extends BaseController implements GoodsControll
 	   public ModelAndView goodsList(HttpServletRequest request, HttpServletResponse response) throws Exception {      
 	       ModelAndView mav = new ModelAndView("/goods/goodsList"); 
 	       List<GoodsVO> newGoodsList = goodsService.getAllGoods();
+	       
+	       List<CategoryVO> allCategories = goodsService.getAllcg();
 	       mav.addObject("newGoodsList", newGoodsList);
+	       mav.addObject("allCategories", allCategories);
 	       return mav;
 	   }
 	   //end
