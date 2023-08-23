@@ -35,6 +35,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       <result property="reg_id" column="reg_id" />
       <result property="fileType" column="fileType" />
    </resultMap>
+
+   
+   <resultMap id="categoryResult" type="CategoryVO">
+    <result property="main_Category" column="main_category"/>
+    <result property="middle_Category" column="middle_category"/>
+    <result property="sub_Category" column="sub_category"/>
+</resultMap>
+
    <resultMap id="goodsQnaResult" type="GoodsQNA">
       <result property="goods_id" column="goods_id" />
       <result property="member_id" column="member_id" />
@@ -126,5 +134,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ORDER BY g.goods_creation_date DESC;
       ]]>
   	</select>
+   
+   <select id="getAllcg" resultType="CategoryVO" >
+	    SELECT sub_category
+		FROM t_shopping_category
+		WHERE main_category = '출산준비' AND middle_category = '임산부 복대';
+	</select>
    
 </mapper>

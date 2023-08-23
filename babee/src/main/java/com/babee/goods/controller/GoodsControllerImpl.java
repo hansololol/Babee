@@ -5,7 +5,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.babee.common.base.BaseController;
 import com.babee.goods.service.GoodsService;
+import com.babee.goods.vo.CategoryVO;
+import com.babee.goods.vo.GoodsVO;
 import com.babee.goods.vo.GoodsQNA;
 import com.babee.goods.vo.GoodsVO;
 import com.babee.member.vo.MemberVO;
@@ -65,6 +66,15 @@ public class GoodsControllerImpl extends BaseController implements GoodsControll
 	}
 	
 	 @RequestMapping(value="/goodsList.do", method = RequestMethod.GET)
+	   public ModelAndView goodsList(HttpServletRequest request, HttpServletResponse response) throws Exception {      
+	       ModelAndView mav = new ModelAndView("/goods/goodsList"); 
+	       List<GoodsVO> newGoodsList = goodsService.getAllGoods();
+	       
+	       List<CategoryVO> allCategories = goodsService.getAllcg();
+	       mav.addObject("newGoodsList", newGoodsList);
+	       mav.addObject("allCategories", allCategories);
+	       return mav;
+	   }
 	 public ModelAndView goodsList(HttpServletRequest request, HttpServletResponse response) throws Exception {      
 		 ModelAndView mav = new ModelAndView("/goods/goodsList"); 
 		 List<GoodsVO> newGoodsList = goodsService.getAllGoods();
