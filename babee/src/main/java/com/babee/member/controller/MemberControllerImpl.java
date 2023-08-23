@@ -65,7 +65,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 			mav.addObject("falseLog", "falseLog");
 			mav.setViewName("/member/loginForm");
 		}
-		
+		mav.setViewName("redirect:/main/main.do"); 
 		return mav;
 	}
 	

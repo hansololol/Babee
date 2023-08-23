@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,7 +26,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.babee.common.base.BaseController;
 import com.babee.diary.service.DiaryService;
 import com.babee.diary.vo.DiaryVO;
+import com.babee.goods.vo.GoodsVO;
 import com.babee.member.vo.MemberVO;
+import com.babee.mypage.vo.ReviewVO;
 
 
 
@@ -105,6 +108,21 @@ public class DiaryControllerImpl extends BaseController implements DiaryControll
 		  }catch (Exception e) {
 			  e.printStackTrace();
 	    	}
+		return mav;
+	}
+	
+	@RequestMapping(value="/diaryDetail.do" ,method = RequestMethod.GET)
+	public ModelAndView diaryDetail(@RequestParam("dir_no") String dir_no,
+			                       HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName=(String)request.getAttribute("viewName");
+		HttpSession session=request.getSession();
+		memberVO = (MemberVO) session.getAttribute("memberInfo");
+		
+		Map diaryMap=diaryService.diaryDetail(dir_no);
+		ModelAndView mav = new ModelAndView(viewName);
+		DiaryVO diaryVO = (DiaryVO)diaryMap.get("diaryVO");
+		mav.addObject("diary", diaryVO);
+		
 		return mav;
 	}
 	

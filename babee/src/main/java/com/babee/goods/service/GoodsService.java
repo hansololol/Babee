@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.babee.goods.vo.CategoryVO;
+import com.babee.goods.vo.GoodsQNA;
 import com.babee.goods.vo.GoodsVO;
 import com.babee.goods.vo.ImageFileVO;
 
@@ -18,6 +19,9 @@ public interface GoodsService {
 	public List<GoodsVO> searchGoods(String searchWord) throws Exception;
 	public List<GoodsVO> getAllGoods() throws Exception;
 	public ImageFileVO goodsDetailImage(String member_id) throws Exception;
-	
 	public List<CategoryVO> getAllcg() throws Exception;
+	public void insertGoodsQNA(GoodsQNA goodsQNA) throws Exception;
+	public List<GoodsQNA> getAllGoodsQna(String goods_id)throws Exception;
+	public List<GoodsVO> hotGoodsList()throws Exception;
+	public List<GoodsVO> seasonGoodsList()throws Exception;
 }

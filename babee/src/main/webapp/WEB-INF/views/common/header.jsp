@@ -10,6 +10,7 @@
 <!DOCTYPE html>
 <html>
 <head> 
+    <link rel="stylesheet" href="/css/font.css" type="text/css">
    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
@@ -152,7 +153,7 @@ function showCategory() {
 <body>
 
 <div >
-<table width="70%" style="margin: 0 auto " >
+<table width="70%" style="margin: 10px auto " >
 
    <tr>
       <td>
@@ -266,7 +267,7 @@ function showCategory() {
                     
                     <ul  class="subcategory-list-li">
                     
-                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=ready&middle_category=bokdae">임산부 복대</a></li>
+                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=출산준비&middle_category=임산부복대">임산부 복대</a></li>
                     <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=ready&middle_category=skin">스킨케어</a></li>
                     <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=ready&middle_category=imbubok">임부복</a></li>
                     <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=ready&middle_category=sanhu">산후용품</a></li>
