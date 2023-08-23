@@ -155,5 +155,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  ]]>
 	</select>
 	
+   <select id="selectFitGodos" resultType="java.util.Map" parameterType="CategoryVO">
+    <![CDATA[
+	   select count(*)as '판매순위', a.sub_category from(select g.sub_category, g.goods_id, o.order_id from (t_shopping_goods g
+		inner join t_shopping_member m  
+		on m.baby_age = g.age_range)
+		inner join t_shopping_order o on  o.goods_id = g.goods_id)as a
+		group by sub_category order by count(*) desc;
+	  ]]>
+	</select>
+	
 
 </mapper>
