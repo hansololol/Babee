@@ -7,12 +7,15 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
+import com.babee.diary.vo.DiaryVO;
+
 @Mapper
 @Repository("diaryDAO")
 public interface DiaryDAO {
 	public List selectALLDiaryList(String member_id) throws DataAccessException;
 	public void insertNewDiary(Map diaryMap) throws DataAccessException;
 	public void insertDiaryImage(Map diaryMap) throws DataAccessException;
+	public DiaryVO selectDiaryDetail(String dir_no) throws DataAccessException;
 	
 	
 }

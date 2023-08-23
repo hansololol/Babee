@@ -1,11 +1,8 @@
 package com.babee.goods.service;
 
-import java.lang.reflect.Member;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.swing.text.html.ImageView;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +10,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.babee.goods.dao.GoodsDAO;
+import com.babee.goods.vo.CategoryVO;
 import com.babee.goods.vo.GoodsQNA;
 import com.babee.goods.vo.GoodsVO;
 import com.babee.goods.vo.ImageFileVO;
@@ -68,12 +66,16 @@ public class GoodsServiceImpl implements GoodsService{
 	public void insertGoodsQNA(GoodsQNA goodsQNA) throws Exception{
 		goodsDAO.insertGoodsQNA(goodsQNA);
 	}
-	
+
 	@Override
 	public void deleteGoodsQNA(GoodsQNA goodsQNA) throws Exception{
 		goodsDAO.deleteGoodsQNA(goodsQNA);
 	}
 
+
+	public List<CategoryVO> getAllcg() throws Exception {
+        return goodsDAO.getAllcg();
+    }
 	
 	@Override
 	public List<GoodsVO> hotGoodsList()throws Exception{

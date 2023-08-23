@@ -1,5 +1,6 @@
 package com.babee.diary.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.babee.diary.dao.DiaryDAO;
 import com.babee.diary.vo.DiaryVO;
+import com.babee.goods.vo.GoodsVO;
 
 
 @Service("diaryService")
@@ -30,5 +32,15 @@ public class DiaryServiceImpl implements DiaryService  {
 	public void addDiary(Map diaryMap) throws DataAccessException {
 		diaryDAO.insertNewDiary(diaryMap);
 		diaryDAO.insertDiaryImage(diaryMap);
+	}
+	
+	@Override
+	public Map diaryDetail(String dir_no) throws Exception {
+		Map diaryMap=new HashMap();
+		DiaryVO diaryVO = diaryDAO.selectDiaryDetail(dir_no);
+		diaryMap.put("diaryVO", diaryVO);
+		//List<ImageFileVO> imageList =goodsDAO.selectGoodsDetailImage(_goods_id);
+		//goodsMap.put("imageList", imageList);
+		return diaryMap;
 	}
 }
