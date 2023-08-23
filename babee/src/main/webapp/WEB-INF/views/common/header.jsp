@@ -41,7 +41,7 @@
              }
             
            
-             .subcategory-list {
+             .middlecategory-list {
             display: none;
             position: absolute;
             top: 100%;
@@ -56,19 +56,19 @@
             transition: opacity 0.3s; /* 투명도 변화에 대한 트랜지션 설정 */
           
         }
-        .subcategory-list a {
+        .middlecategory-list a {
             display: block;
             margin: 5px 0;
         }
-        .category-list:hover .subcategory-list,
-        .subcategory-list:hover {
+        .category-list:hover .middlecategory-list,
+        .middlecategory-list:hover {
             display: block;
             opacity: 1;
         }
-        .category-list .subcategory-list li:hover {
+        .category-list .middlecategory-list li:hover {
             background-color: rgba(0, 0, 0, 0.7); /* 선택된 호버 영역의 배경색을 연한 검은색으로 변경 */
         }
-        .category-list .subcategory-list:hover {
+        .category-list .middlecategory-list:hover {
             opacity: 1;
         }
         .category-list li:hover .child-container {
@@ -109,17 +109,18 @@
    --bs-btn-color: #000;
    
 }
-.subcategory-list-li >li{
+.middlecategory-list-li >li{
     padding-bottom: 15px;
     
     font-size: large;
 }
-.subcategory-list-li >li >a{
+.middlecategory-list-li >li >a{
   
     color: black;
     
 }
 </style>
+
 <script>
 function showCategory() {
 
@@ -262,116 +263,116 @@ function showCategory() {
    	
          
         <ul class="category-list" onmouseleave="hideCategory()">
-            <li style="padding-bottom: 15px;"><a href="${contextPath}/goods/goodsCategoryList.do?main_category=ready" style="font-size: 20px; color: white;"><img src="/image/icon-1.png" width="30px" style="float: left; ">출산준비</a>
+            <li style="padding-bottom: 15px;"><a href="${contextPath}/goods/goodsCategoryList.do?main_category=출산준비" style="font-size: 20px; color: white;"><img src="/image/icon-1.png" width="30px" style="float: left; ">출산준비</a>
                 <div class="child-container">
                     
-                    <ul  class="subcategory-list-li">
+                    <ul class="middlecategory-list-li">
+                      <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=출산준비&middle_category=임산부복대">임산부 복대</a></li>
+                  <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=출산준비&middle_category=스킨케어">스킨케어</a></li>
+                  <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=출산준비&middle_category=임부복">임부복</a></li>
+                  <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=출산준비&middle_category=산후용품">산후용품</a></li>
+                     </ul>
+              
+                
+            </div>
+            </li>
+            <li style="padding-bottom: 15px;"><a href="${contextPath}/goods/goodsCategoryList.do?main_category=생활용품" style="font-size: 20px; color: white;"><img src="/image/icon-2.png" width="30px" style="float: left; clear: both;">생활용품</a>
+                <div class="child-container">
                     
-                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=출산준비&middle_category=임산부복대">임산부 복대</a></li>
-                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=ready&middle_category=skin">스킨케어</a></li>
-                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=ready&middle_category=imbubok">임부복</a></li>
-                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=ready&middle_category=sanhu">산후용품</a></li>
+                    <ul  class="middlecategory-list-li">
+                  <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=생활용품&middle_category=구강용품">구강용품</a></li>
+                  <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=생활용품&middle_category=목욕용품">목욕용품</a></li>
+                  <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=생활용품&middle_category=위생용품">위생용품</a></li>
+                  <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=생활용품&middle_category=세탁용품">세탁용품</a></li>
+                  <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=생활용품&middle_category=유아스킨케어">유아스킨케어</a></li>
                     </ul>
               
                 
             </div>
             </li>
-            <li style="padding-bottom: 15px;"><a href="${contextPath}/goods/goodsCategoryList.do?main_category=life" style="font-size: 20px; color: white;"><img src="/image/icon-2.png" width="30px" style="float: left; clear: both;">생활용품</a>
+            <li style="padding-bottom: 15px;"><a href="${contextPath}/goods/goodsCategoryList.do?main_category=유아식품" style="font-size: 20px; color: white;"><img src="/image/icon-3.png" width="30px" style="float: left; clear: both; ">유아식품</a>
                 <div class="child-container">
                     
-                    <ul  class="subcategory-list-li">
-                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=life&middle_category=mouth">구강용품</a></li>
-                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=life&middle_category=bath">목욕용품</a></li>
-                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=life&middle_category=clean">위생용품</a></li>
-                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=life&middle_category=laundry">세탁용품</a></li>
-                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=life&middle_category=babyskin">유아스킨케어</a></li>
+                    <ul  class="middlecategory-list-li">
+                  <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=유아식품&middle_category=분유">분유</a></li>
+                  <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=유아식품&middle_category=이유식">이유식</a></li>
+                  <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=유아식품&middle_category=유아음료">유아음료</a></li>
+                  <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=유아식품&middle_category=유아간식">유아간식</a></li>
                     </ul>
               
                 
             </div>
             </li>
-            <li style="padding-bottom: 15px;"><a href="${contextPath}/goods/goodsCategoryList.do?main_category=food" style="font-size: 20px; color: white;"><img src="/image/icon-3.png" width="30px" style="float: left; clear: both; ">유아식품</a>
+            <li style="padding-bottom: 15px;"><a href="${contextPath}/goods/goodsCategoryList.do?main_category=외출용품" style="font-size: 20px; color: white;"><img src="/image/icon-4.png" width="30px" style="float: left; clear: both;">외출용품</a>
                 <div class="child-container">
                     
-                    <ul  class="subcategory-list-li">
-                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=life&middle_category=milk">분유</a></li>
-                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=life&middle_category=eu">이유식</a></li>
-                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=life&middle_category=drink">유아음료</a></li>
-                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=life&middle_category=snack">유아간식</a></li>
+                    <ul  class="middlecategory-list-li">
+                    
+                  <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=외출용품&middle_category=유모차">유모차</a></li>
+                  <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=외출용품&middle_category=아기띠">아기띠</a></li>
+                  <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=외출용품&middle_category=보호대">보호대</a></li>
+                  <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=외출용품&middle_category=마스크">마스크</a></li>
+                  <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=외출용품&middle_category=우산">우산</a></li>
                     </ul>
               
                 
             </div>
             </li>
-            <li style="padding-bottom: 15px;"><a href="${contextPath}/goods/goodsCategoryList.do?main_category=out" style="font-size: 20px; color: white;"><img src="/image/icon-4.png" width="30px" style="float: left; clear: both;">외출용품</a>
+            <li style="padding-bottom: 15px;"><a href="${contextPath}/goods/goodsCategoryList.do?main_category=아동패션" style="font-size: 20px; color: white;"><img src="/image/icon-4.png" width="30px" style="float: left; clear: both;">아동패션</a>
                 <div class="child-container">
                     
-                    <ul  class="subcategory-list-li">
-                    
-                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=out&middle_category=youmocar">유모차</a></li>
-                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=out&middle_category=babyline">아기띠</a></li>
-                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=out&middle_category=protect">보호대</a></li>
-                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=out&middle_category=mask">마스크</a></li>
-                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=out&middle_category=umb">우산</a></li>
-                    </ul>
-              
-                
-            </div>
-            </li>
-            <li style="padding-bottom: 15px;"><a href="${contextPath}/goods/goodsCategoryList.do?main_category=fashion" style="font-size: 20px; color: white;"><img src="/image/icon-4.png" width="30px" style="float: left; clear: both;">아동패션</a>
-                <div class="child-container">
-                    
-                    <ul  class="subcategory-list-li">
-                   
-                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=fashion&middle_category=top">상의</a></li>
-                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=fashion&middle_category=bottom">하의</a></li>
-                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=fashion&middle_category=inner">내의</a></li>
-                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=fashion&middle_category=outter">아우터</a></li>
-                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=fashion&middle_category=shoes">신발</a></li>
-                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=fashion&middle_category=jap">잡화</a></li>
+                    <ul  class="middlecategory-list-li">
+                                     
+                  <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=아동패션&middle_category=상의">상의</a></li>
+                  <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=아동패션&middle_category=하의">하의</a></li>
+                  <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=아동패션&middle_category=내의">내의</a></li>
+                  <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=아동패션&middle_category=아우터">아우터</a></li>
+                  <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=아동패션&middle_category=신발">신발</a></li>
+                  <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=아동패션&middle_category=잡화">잡화</a></li>
                     </ul>
               
                 
             </div>
             </li>
            
-            <li style="padding-bottom: 15px;"><a href="${contextPath}/goods/goodsCategoryList.do?main_category=toy" style="font-size: 20px; color: white;"><img src="/image/icon-6.png" width="30px" style="float: left; clear: both;">완구/교구</a>
+            <li style="padding-bottom: 15px;"><a href="${contextPath}/goods/goodsCategoryList.do?main_category=완구/교구" style="font-size: 20px; color: white;"><img src="/image/icon-6.png" width="30px" style="float: left; clear: both;">완구/교구</a>
                 <div class="child-container">
                     
-                    <ul  class="subcategory-list-li">
-                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=toy&middle_category=babytoy">신생아 완구</a></li>
-                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=toy&middle_category=edutoy">교육 완구</a></li>
-                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=toy&middle_category=doll">인형</a></li>
-                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=toy&middle_category=character">캐릭터 완구</a></li>
+                    <ul  class="middlecategory-list-li">
+                  <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=완구/교구&middle_category=신생아 완구">신생아 완구</a></li>
+                  <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=완구/교구&middle_category=교육 완구">교육 완구</a></li>
+                  <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=완구/교구&middle_category=인형">인형</a></li>
+                  <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=완구/교구&middle_category=캐릭터 완구">캐릭터 완구</a></li>
                     </ul>
               
                 
             </div>
             </li>
-            <li style="padding-bottom: 15px;"><a href="${contextPath}/goods/goodsCategoryList.do?main_category=safe" style="font-size: 20px; color: white;"><img src="/image/icon-7.png" width="30px" style="float: left; clear: both; ">안전용품</a>
+            <li style="padding-bottom: 15px;"><a href="${contextPath}/goods/goodsCategoryList.do?main_category=안전용품" style="font-size: 20px; color: white;"><img src="/image/icon-7.png" width="30px" style="float: left; clear: both; ">안전용품</a>
                 <div class="child-container">
                     
-                    <ul  class="subcategory-list-li">
-                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=safe&middle_category=boho">보호대</a></li>
-                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=safe&middle_category=safedoor">안전문</a></li>
-                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=safe&middle_category=safelock">잠금장치</a></li>
-                    <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=safe&middle_category=safeso">안전소품</a></li>
+                    <ul  class="middlecategory-list-li">
+                  <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=안전용품&middle_category=보호대">보호대</a></li>
+                  <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=안전용품&middle_category=안전문">안전문</a></li>
+                  <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=안전용품&middle_category=잠금장치">잠금장치</a></li>
+                  <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=안전용품&middle_category=안전소품">안전소품</a></li>
                     </ul>
               
                 
             </div>
             </li>
             <li >
-                <a href="${contextPath}/goods/goodsCategoryList.do?main_category=house" style="font-size: 20px; color: white;"><img src="/image/icon-5.png" width="30px" style="float: left; clear: both;">아동가구</a>
+                <a href="${contextPath}/goods/goodsCategoryList.do?main_category=아동가구" style="font-size: 20px; color: white;"><img src="/image/icon-5.png" width="30px" style="float: left; clear: both;">아동가구</a>
                 <div class="child-container">
                     
-                        <ul class="subcategory-list-li">
-                        <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=house&middle_category=bed">침대</a></li>
-                        <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=house&middle_category=play">놀이가구</a></li>
-                        <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=house&middle_category=sopum">소품</a></li>
-                        <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=house&middle_category=desk">책상</a></li>
-                        <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=house&middle_category=chair">의자</a></li>
+                        <ul class="middlecategory-list-li">
+                     <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=아동가구&middle_category=침대">침대</a></li>
+                     <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=아동가구&middle_category=놀이가구">놀이가구</a></li>
+                     <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=아동가구&middle_category=소품">소품</a></li>
+                     <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=아동가구&middle_category=책상">책상</a></li>
+                     <li><a href="${contextPath}/goods/goodsCategoryList.do?main_category=아동가구&middle_category=의자">의자</a></li>   
                         </ul>
+
                   
                     
                 </div>

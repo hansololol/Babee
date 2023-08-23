@@ -38,9 +38,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
    
    <resultMap id="categoryResult" type="CategoryVO">
-    <result property="main_Category" column="main_category"/>
-    <result property="middle_Category" column="middle_category"/>
-    <result property="sub_Category" column="sub_category"/>
+    <result property="main_category" column="main_category"/>
+    <result property="middle_category" column="middle_category"/>
+    <result property="sub_category" column="sub_category"/>
 </resultMap>
 
    <resultMap id="goodsQnaResult" type="GoodsQNA">
@@ -71,9 +71,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
    
     <select id="selectAllCategoryGoods" resultType="goodsVO" parameterType="java.util.Map">
-<![CDATA[
-   SELECT * FROM t_shopping_goods where main_category=#{main_category} or middle_category=#{middle_category} or sub_category=#{sub_category};
-		 ]]>
+
+   SELECT * FROM t_shopping_goods where main_category=#{main_category}
+		  <if test='middle_category != null'>
+		   and middle_category=#{middle_category}
+		  </if>
+		  <if test='sub_category != null'>
+		   and sub_category=#{sub_category}
+		  </if>
 </select>
    
    <select id="selectGoodsDetail" resultMap="goodsResult"   parameterType="String">
@@ -121,7 +126,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
    
    
-    <select id="hotGoodsList" resultType="com.babee.goods.vo.GoodsVO">
+    <select id="hotGoodsList" resultType="GoodsVO">
 	 <![CDATA[
 		SELECT b.*, COUNT(a.goods_id) AS order_count
 		FROM t_shopping_goods b
@@ -132,7 +137,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       ]]>
   	</select>
   	
-  	    <select id="seasonGoodsList" resultType="com.babee.goods.vo.GoodsVO">
+  	    <select id="seasonGoodsList" resultType="GoodsVO">
 	 <![CDATA[
 		SELECT g.*, d.fileName 
 		FROM t_shopping_goods g
@@ -142,10 +147,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       ]]>
   	</select>
    
-   <select id="getAllcg" resultType="CategoryVO" >
+   <select id="getAllcg" resultType="java.util.Map" parameterType="CategoryVO">
+    <![CDATA[
 	    SELECT sub_category
 		FROM t_shopping_category
-		WHERE main_category = '출산준비' AND middle_category = '임산부 복대';
+		WHERE main_category = #{main_category} or middle_category = #{middle_category};
+	  ]]>
 	</select>
-   
+	
+
 </mapper>

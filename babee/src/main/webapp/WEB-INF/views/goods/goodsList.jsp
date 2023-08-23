@@ -28,29 +28,6 @@
             }
 
     }
-    
-   
-   
-    $(document).ready(function() {
-        // 대분류 링크 클릭 이벤트 처리
-        $(".category-list > li > a").click(function() {
-            // 대분류 값을 가져와서 업데이트
-            var mainCategory = $(this).text().trim();
-            $("#mainCategory").text(mainCategory);
-        });
-
-        // 중분류 링크 클릭 이벤트 처리
-        $(".middlecategory-list li a").click(function() {
-            // 대분류, 중분류 값을 가져와서 업데이트
-            var mainCategory = $("#mainCategory").text();
-            var middleCategory = $(this).text();
-            var subCategory = $(this).data("sub-category");
-
-            $("#mainCategory").text(mainCategory);
-            $("#middleCategory").text(middleCategory);
-            $("#subCategory").text(subCategory);
-        });
-    });
 </script>
 
 <style>
@@ -113,25 +90,24 @@
 <body>
 
     <div style= "padding:19px 21%;" >
-    <nav style="--bs-breadcrumb-divider: '>'; font-size: 20px;" aria-label="breadcrumb">
-	    <ol class="breadcrumb">
-	        <li class="breadcrumb-item" id="mainCategory">대분류</li>
-	        <li class="breadcrumb-item" id="middleCategory">중분류</li>
-	        <li class="breadcrumb-item active" id="subCategory" aria-current="page">소분류</li>
-	    </ol>
-	</nav>
-    <c:out value="${param.main_category}"/> - <c:out value="${param.middle_category}"/>
-		<c:if test="${param.main_category == '출산준비' && param.middle_category == '임산부복대'}">
-		    <p>조건 만족</p>
-		</c:if>
-    
-	<c:if test="${param.main_category eq '출산준비' && param.middle_category eq '임산부복대'}">
+        <nav style="--bs-breadcrumb-divider: '>'; font-size: 20px;" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <c:if test="${category.main_category !=null}">
+                <li class="breadcrumb-item" id="mainCategory">${category.main_category}</li>
+                </c:if>
+                <c:if test="${category.middle_category !=null}">
+                <li class="breadcrumb-item" id="middleCategory"> ${category.middle_category}</li>
+                </c:if>
+                <c:if test="${category.sub_category !=null}">
+                <li class="breadcrumb-item active" id="subCategory" aria-current="page"> ${category.sub_category}</li>
+                </c:if>
+            </ol>
+        </nav>
 	    <div style="margin: 60px;">
-	        <c:forEach var="subCategory" items="${allCategories}">
-	            <button type="button" class="btn btn-outline-warning">${subCategory.sub_Category}</button>
+	        <c:forEach var="subcategory" items="${sub_category}">
+	            <button type="button" class="btn btn-outline-warning" onclick="location.href='${contextPath}/goods/goodsCategoryList.do?main_category=${category.main_category}&middle_category=${category.middle_category}&sub_category=${subcategory.sub_category}'">${subcategory.sub_category}</button>
 	        </c:forEach>
 	    </div>
-	</c:if>
 
     <select class="form-select form-select-lg mb-3" aria-label="Large select example">
         <option selected>정렬 기준</option>

@@ -23,8 +23,7 @@ public interface GoodsDAO {
 	public List<GoodsVO> selectAllGoods() throws DataAccessException;
 	public List<GoodsQNA> selectAllGoodsQna(String goods_id) throws DataAccessException;
 	public List<GoodsVO> selectAllCategoryGoods(Map goods) throws DataAccessException;
-	
-	public List<CategoryVO> getAllcg() throws DataAccessException;
+	public List getAllcg(CategoryVO category) throws DataAccessException;
 	public void insertGoodsQNA(GoodsQNA goodsQNA) throws DataAccessException;
 	public void deleteGoodsQNA(GoodsQNA goodsQNA) throws DataAccessException;
 	public List<GoodsVO> hotGoodsList() throws DataAccessException;

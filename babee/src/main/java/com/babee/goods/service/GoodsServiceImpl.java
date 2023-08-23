@@ -72,9 +72,9 @@ public class GoodsServiceImpl implements GoodsService{
 		goodsDAO.deleteGoodsQNA(goodsQNA);
 	}
 
-
-	public List<CategoryVO> getAllcg() throws Exception {
-        return goodsDAO.getAllcg();
+	@Override
+	public List<CategoryVO> getAllcg(CategoryVO category) throws Exception {
+        return goodsDAO.getAllcg(category);
     }
 	
 	@Override
@@ -87,5 +87,6 @@ public class GoodsServiceImpl implements GoodsService{
 		return goodsDAO.seasonGoodsList();
 		
 	}
+
 	
 }

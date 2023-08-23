@@ -1,29 +1,31 @@
 package com.babee.goods.vo;
 
+import org.springframework.stereotype.Component;
+
+@Component("categoryVO")
 public class CategoryVO {
-	private String main_Category;
-    private String middle_Category;
-    private String sub_Category;
-	public String getMain_Category() {
-		return main_Category;
+	private String main_category;
+    private String middle_category;
+    private String sub_category;
+	public String getMain_category() {
+		return main_category;
 	}
-	public void setMain_Category(String main_Category) {
-		this.main_Category = main_Category;
+	public void setMain_category(String main_category) {
+		this.main_category = main_category;
 	}
-	public String getMiddle_Category() {
-		return middle_Category;
+	public String getMiddle_category() {
+		return middle_category;
 	}
-	public void setMiddle_Category(String middle_Category) {
-		this.middle_Category = middle_Category;
+	public void setMiddle_category(String middle_category) {
+		this.middle_category = middle_category;
 	}
-	public String getSub_Category() {
-		return sub_Category;
+	public String getSub_category() {
+		return sub_category;
 	}
-	public void setSub_Category(String sub_Category) {
-		this.sub_Category = sub_Category;
+	public void setSub_category(String sub_category) {
+		this.sub_category = sub_category;
 	}
-    
-    
+	
 
     
     
