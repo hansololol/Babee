@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.babee.common.base.BaseController;
 import com.babee.goods.service.GoodsService;
 import com.babee.goods.vo.CategoryVO;
-import com.babee.goods.vo.GoodsVO;
 import com.babee.goods.vo.GoodsQNA;
 import com.babee.goods.vo.GoodsVO;
 import com.babee.member.vo.MemberVO;
@@ -33,6 +33,8 @@ public class GoodsControllerImpl extends BaseController implements GoodsControll
 	private MyPageService mypageService;
 	@Autowired
 	private GoodsQNA goodsQNA;
+	@Autowired
+	private CategoryVO categoryVO;
 	
 	
 	@RequestMapping(value="/goodsDetail.do" ,method = RequestMethod.GET)
@@ -75,25 +77,25 @@ public class GoodsControllerImpl extends BaseController implements GoodsControll
 	   public ModelAndView goodsList(HttpServletRequest request, HttpServletResponse response) throws Exception {      
 	       ModelAndView mav = new ModelAndView("/goods/goodsList"); 
 	       List<GoodsVO> newGoodsList = goodsService.getAllGoods();
-	       
-	       List<CategoryVO> allCategories = goodsService.getAllcg();
 	       mav.addObject("newGoodsList", newGoodsList);
-	       mav.addObject("allCategories", allCategories);
 	       return mav;
 	   }
-	 public ModelAndView goodsList(HttpServletRequest request, HttpServletResponse response) throws Exception {      
-		 ModelAndView mav = new ModelAndView("/goods/goodsList"); 
-		 List<GoodsVO> newGoodsList = goodsService.getAllGoods();
-		 mav.addObject("newGoodsList", newGoodsList);
-		 return mav;
-	 }
 	   //end
 	 @RequestMapping(value="/goodsCategoryList.do", method = RequestMethod.GET)
 	 public ModelAndView goodsCategoryList(@RequestParam(required = false) Map<String, String> category,HttpServletRequest request, HttpServletResponse response) throws Exception {     
+		 request.setCharacterEncoding("utf-8");
 		 ModelAndView mav = new ModelAndView("/goods/goodsList"); // 수정된 부분
-		 System.out.println(category.get("main_category"));
 		 List<GoodsVO> newGoodsList = goodsService.getAllCategoryGoods(category);
+		 categoryVO.setMain_category(category.get("main_category"));
+		 String middle = category.get("middle_category");
+		 if(middle !=null) {
+		 categoryVO.setMiddle_category(category.get("middle_category"));
+		 }
+		 List sub_category= goodsService.getAllcg(categoryVO);
 		 mav.addObject("newGoodsList", newGoodsList); 
+		 mav.addObject("category", category);
+		 mav.addObject("sub_category", sub_category);
+		 System.out.println(sub_category.get(0)+ "서브 카테고리 확인");
 		 return mav;
 	 }
 	 //end
