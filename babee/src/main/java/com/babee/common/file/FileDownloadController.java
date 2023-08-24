@@ -45,7 +45,7 @@ public class FileDownloadController {
 	
 	@RequestMapping("/thumbnails.do")
 	protected void thumbnails(@RequestParam("fileName") String fileName,
-                            	@RequestParam("goods_id") String goods_id, @RequestParam(value="fileType", required=false) String fileType,
+                            	@RequestParam("goods_id") String goods_id, @RequestParam(value="fileType", required=false) String fileType, @RequestParam(value="dir_no",  required=false) String dir_no,
 			                 HttpServletResponse response) throws Exception {
 		OutputStream out = response.getOutputStream();
 		String filePath=CURR_IMAGE_REPO_PATH_GOODS+"/"+goods_id+"/"+fileName;
@@ -56,7 +56,7 @@ public class FileDownloadController {
 						break;
 			
 			case "diary" :
-						filePath = CURR_IMAGE_REPO_PATH_DIARY+"/"+goods_id+"/"+fileName;
+						filePath = CURR_IMAGE_REPO_PATH_DIARY+"/"+goods_id+"/" + dir_no + "/" + fileName;
 						break;
 		}
 		}

@@ -47,4 +47,11 @@ public class DiaryServiceImpl implements DiaryService  {
 		diaryDAO.updateDiary(diaryMap);
 		diaryDAO.updateDiaryImage(diaryMap);
 	}
+	
+	@Override
+	public void delDiary(Map diaryMap) throws Exception {
+		diaryDAO.deleteDiary(diaryMap);
+		diaryDAO.deleteDiaryImage(diaryMap);
+		
+	}
 }

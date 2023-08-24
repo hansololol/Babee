@@ -17,4 +17,8 @@ public interface DiaryController {
 	public ModelAndView addDiary(@ModelAttribute("diaryVO") DiaryVO diary, MultipartHttpServletRequest multipartRequest, HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	public ModelAndView diaryDetail(@RequestParam("dir_no") String dir_no,HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView modDiary(@ModelAttribute("diaryVO") DiaryVO diary, MultipartHttpServletRequest multipartRequest, HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView removeDiary(HttpServletRequest request, HttpServletResponse response)  throws Exception;
+	
+	
+	
 }

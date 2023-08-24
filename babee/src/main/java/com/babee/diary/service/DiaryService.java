@@ -12,4 +12,6 @@ public interface DiaryService {
 	public void addDiary(Map diaryMap) throws DataAccessException;
 	public Map diaryDetail(String dir_no) throws Exception;
 	public void modDiary(Map diaryMap) throws DataAccessException;
+	public void delDiary(Map diaryMap) throws Exception;
+	
 }
