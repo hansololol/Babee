@@ -177,7 +177,7 @@ request.setCharacterEncoding("utf-8"); %>
               border-bottom: 1px solid #ddd;
             "
           >
-            결제금액 &nbsp; &nbsp; &nbsp; ${myOrder.total_goods_price}
+            결제금액 &nbsp; &nbsp; &nbsp; ${myOrder.final_total_price} 원
           </th>
         </tr>
       </table>

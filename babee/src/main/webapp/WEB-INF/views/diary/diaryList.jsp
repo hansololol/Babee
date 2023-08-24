@@ -17,18 +17,6 @@
 <meta charset="UTF-8">
 <title>다어이리 목롱창</title>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script type="text/javascript">
-  
-    function order(obj){
-        $("#check").attr('hidden', 'visibility')
-            if($("#check").change){
-                obj.submit();
-            }
-
-    }
-   
-</script>
 
 <style>
 .text_center{ 
@@ -164,23 +152,74 @@ input[type="reset"]:hover {
    <div style="text-align: center;">
          <a href="${contextPath}/diary/diaryForm.do"><input type="button" value="다이어리 작성"></a>&nbsp;&nbsp;&nbsp;
         
-         <button type="button" class="tooltip-button" onclick="fn:order(this.form)">다이어리 주문</button>
+         <button type="button" class="tooltip-button" id ="orderButton" onclick="fn:order()">다이어리 주문</button>
              
    </div>
    
+   <script>
+     var orderButton= document.getElementById("orderButton");
+    function order(){
+        if(orderButton.disabled==false){
+        orderButton.disabled=true;
+        orderButton.style.backgroundColor="#ffcccc";
+        }
+        }
 
+
+   </script>
   
    <div style= "padding: 0 15%;" >
-      <c:forEach var="diary" items="${diary}">
-      <div class="diary_list">
+      <c:forEach var="diary" items="${diary}" varStatus = "dir">
+      <div class="diary_list" id="dirList${diary.dir_no}" onclick="findDir('${diary.dir_no}')">
+    
          <ul>
-            <li style="text-align: left;"> <input type="checkbox" id="check" hidden> </li>
+            <li style="text-align: left;"> </li>
             
-            <a href="${contextPath}/diary/diaryDetail.do?dir_no=${diary.dir_no}">
+            <script>
+        
+                function findDir(index){
+        
+                    if(orderButton.disabled == true){
+                        var coun = 0;
+                         coun++;
+                $("#dirhref"+index).removeAttr('href');
+                $("#dirList"+index).on("click", function(){
+                 $("#dirList"+index).css("border", "5px solid #ffcccc").css('border-radius', '25px');
+                });
+                    }
+                    
+                $("#selecdir"+index).each(function(i, obj) {
+                    console.log(obj.name);
+                    
+                });
+
+                if(count>10){
+                    function order_dir_goods(index) {
+                var dir_id = index;
+                var formObj = document.createElement("form");
+                var i_dir= document.createElement("input");
+                i_dir.name = "dir_id";
+                i_dir.value = dir_id;
+
+                formObj.appendChild(i_dir);
+                document.body.appendChild(formObj);
+                formObj.method = "post";
+                formObj.action = "${contextPath}/cart/removeCartGoods.do";
+                formObj.submit();
+            }
+        }
+
+            
+                }
+                
+            
+            </script>
+            <a href="${contextPath}/diary/diaryDetail.do?dir_no=${diary.dir_no}" id="dirhref${diary.dir_no}">
                 <li><img src="${contextPath}/thumbnails.do?goods_id=${diary.member_id}&fileName=${diary.dir_main_img}&fileType=diary&dir_no=${diary.dir_no}" width="100px"> </li>
                 <li style="font-weight: bold;">${diary.dir_title}</li>
                 <div class="ellipsis">
                     <li>${diary.dir_content}</li></div>
+                   <input type="hidden" id="selecdir${diary.dir_no}" name="selectdir${diary.dir_no}" value="${diary.dir_no}">
                 <li style="text-align: right; font-size: 12px;">${diary.dir_writeDate}</li>
             </a>
          </ul>

@@ -42,10 +42,35 @@ ul li{
 }
 
 .detail_table{
-   border: 1px solid gray;
    width: 500px;
+   border: 1px solid gray;
    margin-top:-30px;
 
+}
+#cardList {
+   width: 70px;
+   display:block;
+   margin-left: 20px;
+}
+#cardList button {
+   margin: 10px;
+   border: none;
+}
+#cardList img {
+   width: 80px;
+   height: 70px;
+}
+#kakaopayBtn button {
+   margin-top: 50px;
+   margin-bottom: 50px;
+   border: none;
+}
+#kakaopayBtn img{
+   width: 300px;
+}
+#bankbookBtn {
+   width: 1000px;
+   margin: 70px;
 }
 
 #layer {
@@ -97,6 +122,8 @@ ul li{
 .orderinput > input[type="submit"]:hover, input[type="reset"]:hover {
     background-color: #cca300; /* 호버 시 배경색 변경 */
 }
+
+
 
 </style>
 
@@ -209,6 +236,38 @@ function fnOrderGoods() {
     document.body.appendChild(form);
     form.submit();
 }
+$(function (){
+  $('input[type="radio"][id="card"]').on('click', function(){
+   var chkValue = $('input[type=radio][id="card"]:checked').val();
+   if(chkValue){
+              $('#cardList').css('display','block');
+              $('#kakaopayBtn').css('display','none');
+              $('#bankbookBtn').css('display','none');
+   } 
+ }); 
+});
+$(function (){
+  $('input[type="radio"][id="kakaopay"]').on('click', function(){
+   var chkValue = $('input[type=radio][id="kakaopay"]:checked').val();
+   if(chkValue){
+              $('#cardList').css('display','none');
+              $('#kakaopayBtn').css('display','block');
+              $('#bankbookBtn').css('display','none');
+   } 
+ }); 
+});
+
+$(function (){
+  $('input[type="radio"][id="bankbook"]').on('click', function(){
+   var chkValue = $('input[type=radio][id="bankbook"]:checked').val();
+   if(chkValue){
+              $('#cardList').css('display','none');
+              $('#kakaopayBtn').css('display','none');
+              $('#bankbookBtn').css('display','block');
+   } 
+ }); 
+});
+
 
 </script>
 </head>
@@ -236,7 +295,7 @@ function fnOrderGoods() {
  
          <li> 연락처 : ${memberInfo.member_hp1} - ${memberInfo.member_hp2} - ${memberInfo.member_hp3} </li>
          <br>
-         <li><input type="text" size="45" placeholder="요청사항을1 입력해주세요." name="deliveryMessage"></li>
+         <li><input type="text" size="45" placeholder="요청사항을 입력해주세요." name="deliveryMessage"></li>
       </ul>
       </div>
       
@@ -246,19 +305,43 @@ function fnOrderGoods() {
    <br><br>
 
    
-   <div class="detail_table" style="display: inline-block;">
-         <h3> &nbsp;&nbsp;결제 수단</h3> 
-   
-      <table style="padding-left:10px;">
+   <div class="detail_table">
+         <h3>결제 수단</h3> 
+         <div><span><input type="radio" id="card" name="pay_method" value="체크/신용카드" checked>체크/신용카드</span>
+               <span><input type="radio" id="kakaopay" name="pay_method" value="카카오 페이">카카오 페이</span>
+               <span><input type="radio" id="bankbook" name="pay_method" value="무통장 입금">무통장 입금</span>
+         </div>
+      <table id="cardList">
+         <tr>
+            <td><button type="button" name="card_com_name" value="현대카드" onClick="#"><img src="/image/1.현대카드.png"></button></td>
+            <td><button type="button" name="card_com_name" value="국민카드" onClick="#"><img src="/image/2.국민카드.png"></button></td>
+            <td><button type="button" name="card_com_name" value="신한카드" onClick="#"><img src="/image/3.신한카드.png"></button></td>
+            <td><button type="button" name="card_com_name" value="삼성카드" onClick="#"><img src="/image/4.삼성카드.png"></button></td>
+         </tr>
+         <tr>
+            <td><button type="button" name="card_com_name" value="비씨카드" onClick="#"><img src="/image/5.비씨카드.png"></button></td>
+            <td><button type="button" name="card_com_name" value="우리카드" onClick="#"><img src="/image/6.우리카드.png"></button></td>
+            <td><button type="button" name="card_com_name" value="농협카드" onClick="#"><img src="/image/7.농협카드.png"></button></td>
+            <td><button type="button" name="card_com_name" value="하나카드" onClick="#"><img src="/image/8.하나카드.png"></button></td>
+         </tr>
+         <tr>
+            <td><button type="button" name="card_com_name" value="롯데카드" onClick="#"><img src="/image/9.롯데카드.png"></button></td>
+            <td><button type="button" name="card_com_name" value="마스터카드" onClick="#"><img src="/image/10.마스터카드.png"></button></td>
+            <td><button type="button" name="card_com_name" value="씨티카드" onClick="#"><img src="/image/11.씨티카드.png"></button></td>
+            <td><button type="button" name="card_com_name" value="카카오뱅크" onClick="#"><img src="/image/12.카카오뱅크.png"></button></td>
+         </tr>
+      </table>
+      <div id="kakaopayBtn" style="display:none;"><button type="button" name="card_com_name" value="카카오페이" onClick="#"><img src="/image/카카오페이.PNG"></button></div>   
+      <div id="bankbookBtn" style="display:none;">
+         <table>
             <tr>
-               <td width="180px;" ><input type="radio" id="card" name="pay_method" value="체크/신용카드"   onClick="fn_pay_card()" checked>체크/신용카드 
-               <td width="180px;"><input type="radio" id="kakaopay" name="pay_method" value="카카오 페이"  >&nbsp;&nbsp;카카오 페이 </td>
-               <td width="180px;"><input type="radio" id="bankbook" name="pay_method" value="무통장 입금">&nbsp;무통장 입금 </td>
+               <td><input type="radio" name="card_com_name" value="국민은행" checked>국민은행</td>
+               <td><input type="radio" name="card_com_name" value="신한은행" checked>신한은행</td>
+               <td><input type="radio" name="card_com_name" value="하나은행" checked>하나은행</td>
+               <td><input type="radio" name="card_com_name" value="우리은행" checked>우리은행</td>
             </tr>
-         <tr>
-         <td  colspan="3" ><a href="#"><img src="/image/pay.png" width="460px" style="padding-top: 10px;"></a></td>
-         <tr>
-      </table>   
+         </table>
+      </div>
    </div>
    
    <br>

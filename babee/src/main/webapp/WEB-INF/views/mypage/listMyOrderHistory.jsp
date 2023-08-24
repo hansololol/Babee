@@ -184,11 +184,11 @@ function search_order_history(fixedSearchPeriod){
             <td> 
                <ul class="goods">
                   <li style="text-align:left;"> ${order.goods_title} [<a href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}">${order.order_id}</a>] </li>
-                  <li style="text-align:left;"> 가격: ${order.final_total_price} </li>
+                  <li style="text-align:left;"> 가격: ${order.final_total_price} 원 </li>
                   <li style="text-align:left;"> 주문일자: ${order.payment_order_time} </li>
                </ul>
             </td>
-            <td> 2,500원 </td>
+            <td> 3,000원 </td>
             <c:choose>
                <c:when test="${order.delivery_status=='delivery_prepared'}">
                   <td> 배송준비중 </td>
