@@ -142,7 +142,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT g.*, d.fileName 
 		FROM t_shopping_goods g
 		LEFT JOIN t_shopping_image d ON g.goods_image_name1 = d.fileName
-		WHERE g.goods_title LIKE CONCAT('%', "명절" ,'%')
+		WHERE g.goods_title LIKE CONCAT('%', "시즌" ,'%')
 		ORDER BY g.goods_creation_date DESC;
       ]]>
   	</select>
@@ -151,8 +151,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <![CDATA[
 	    SELECT sub_category
 		FROM t_shopping_category
-		WHERE main_category = #{main_category} or middle_category = #{middle_category};
-	  ]]>
+		WHERE main_category = #{main_category} 
+		 ]]>
+		<if test='middle_category != null'>
+		   and middle_category=#{middle_category}
+		 </if>
+		
+	 
 	</select>
    <select id="getsubcg" resultType="java.util.Map" parameterType="String">
     <![CDATA[

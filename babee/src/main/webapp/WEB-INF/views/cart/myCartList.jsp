@@ -261,6 +261,11 @@ ul li {
                   <td>                   
                      <select style="width: 100px; text-align: center" id="_goods_option" name="goods_option" >
                               
+                        </li>
+                        <li>배송비 <span class="deliveryPrice">3000</span> 원</li>
+                     </ul>
+                  </td>
+                  <td><a href="javascript:delete_cart_goods(${cartVO.cart_id})" style="font-size: 3px;"><b><span>삭제</span></b></a>
                         <option value="${cartVO.goods_option1}">${cartVO.goods_option1}</option>
                         <option value="${cartVO.goods_option2}">${cartVO.goods_option2}</option>
                         <option value="${cartVO.goods_option3}">${cartVO.goods_option3}</option>

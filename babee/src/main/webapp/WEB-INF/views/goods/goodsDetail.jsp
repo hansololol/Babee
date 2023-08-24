@@ -448,7 +448,7 @@ function add_wish(goods_id){
 				
 				<tr>
 					<td class="fixed">배송료</td>
-					<td class="fixed"><strong name="total_goods_price" value="${goodsVO.goods_delivery_price}">${goodsVO.goods_delivery_price}</strong></td>
+					<td class="fixed"><strong name="total_goods_price" value="${goodsVO.goods_delivery_price}">3000원</strong></td>
 				</tr>
 				
 				<tr>
