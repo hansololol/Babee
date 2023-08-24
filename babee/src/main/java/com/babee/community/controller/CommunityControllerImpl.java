@@ -27,6 +27,7 @@ import com.babee.common.base.BaseController;
 import com.babee.community.service.CommunityService;
 import com.babee.community.vo.CommentVO;
 import com.babee.community.vo.FreeboardVO;
+import com.babee.community.vo.QnaVO;
 import com.babee.member.vo.MemberVO;
 
 
@@ -44,6 +45,8 @@ public class CommunityControllerImpl extends BaseController implements Community
 	private MemberVO memberVO;
 	@Autowired
 	private CommentVO commentVO;
+	@Autowired
+	private QnaVO qnaVO;
 	
 	@Override
 	@RequestMapping(value="/freeboardList.do" ,method = RequestMethod.GET)
@@ -235,7 +238,65 @@ public class CommunityControllerImpl extends BaseController implements Community
 	 * 
 	 * return mav; }
 	 */
-	 
+	
+	
+	
+	@Override
+	@RequestMapping(value="/addqna.do" ,method = RequestMethod.POST)
+	public ModelAndView addqna(HttpServletRequest request, HttpServletResponse response)  throws Exception {
+		ModelAndView mav = new ModelAndView();
+		HttpSession session=request.getSession();
+		memberVO = (MemberVO) session.getAttribute("memberInfo");
+		String member_id = memberVO.getMember_id();
+		System.out.println("아이디: " + member_id);
+		String qna_title = request.getParameter("qna_title");
+		String qna_content = request.getParameter("qna_content"); 
+		
+		QnaVO qnaVO = new QnaVO();
+		qnaVO.setMember_id(member_id);
+		qnaVO.setQna_title(qna_title);
+		qnaVO.setQna_content(qna_content);
+		
+		System.out.println("vo:" + qnaVO.getQna_title());
+		
+		communityService.addQan(qnaVO);
+		
+		
+		mav.setViewName("redirect:/community/questionList.do");
+		return mav;
+		
+	}
+	
+	
+	@Override
+	@RequestMapping(value="/questionList.do" ,method = RequestMethod.GET)
+	public ModelAndView myqnaList(HttpServletRequest request, HttpServletResponse response)  throws Exception {
+		System.out.println("myqnaList.do 실행");
+		String viewName=(String)request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+		HttpSession session=request.getSession();
+		String _section = request.getParameter("section"); 
+		String _pageNum = request.getParameter("pageNum"); 
+		int section =Integer.parseInt(((_section==null)? "1":_section)); 
+		int pageNum = Integer.parseInt(((_pageNum==null)? "1":_pageNum));
+		
+		
+		memberVO = (MemberVO) session.getAttribute("memberInfo");
+		String member_id = memberVO.getMember_id();
+		
+		List qnaList = new ArrayList<>();
+		qnaList = communityService.selectMyQnaList(member_id);
+		int ListSize = qnaList.size();
+		mav.addObject("qnaList", qnaList);
+		mav.addObject("section", section);
+		mav.addObject("pageNum", pageNum);
+		mav.addObject("totArticles", ListSize);
+		
+		return mav;
+	}
+	
+	
+	
 	
 	protected List upload(MultipartHttpServletRequest multipartRequest) throws Exception{
 		List imageFileName = new ArrayList();

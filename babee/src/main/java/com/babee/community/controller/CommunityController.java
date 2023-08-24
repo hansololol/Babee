@@ -20,5 +20,7 @@ public interface CommunityController {
 	
 	public ModelAndView addComment(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView removeFreeboard(HttpServletRequest request, HttpServletResponse response)  throws Exception;
+	public ModelAndView addqna(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	ModelAndView myqnaList(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 }

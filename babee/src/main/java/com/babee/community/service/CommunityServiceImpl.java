@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.babee.community.dao.CommunityDAO;
 import com.babee.community.vo.CommentVO;
 import com.babee.community.vo.FreeboardVO;
+import com.babee.community.vo.QnaVO;
 
 
 @Service("commnityService")
@@ -65,6 +66,18 @@ public class CommunityServiceImpl implements CommunityService  {
 		communityDAO.deleteFreeboardImage(freeboardMap);
 		
 	}
+	
+	@Override
+	public void addQan(QnaVO qnaVO) throws Exception {
+		communityDAO.insertNewQna(qnaVO);
+		
+	}
+	
+	@Override
+	public List<QnaVO> selectMyQnaList(String member_id) throws Exception{
+		return communityDAO.selectMyQnaList(member_id);
+	}
+	
 	/*
 	 * @Override public void modDiary(Map diaryMap) throws DataAccessException {
 	 * diaryDAO.updateDiary(diaryMap); diaryDAO.updateDiaryImage(diaryMap); }

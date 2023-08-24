@@ -26,6 +26,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="articleNO" column="articleNO" />
 	</resultMap>
 	
+	<resultMap id="qnaResult" type="QnaVO">
+		<result property="articleNO" column="articleNO" />
+		<result property="member_id" column="member_id" />
+		<result property="qna_title" column="qna_title" />
+		<result property="qna_content" column="qna_content" />
+		<result property="qna_writeDate" column="qna_writeDate" />
+		<result property="qna_answer" column="qna_answer" />
+	</resultMap>
+	
 	<select id="selectALLFreeboardList" resultMap="freeboardResult" parameterType="String">
 		<![CDATA[
 		SELECT a.*, COALESCE(b.comment_count, 0) as commentCnt
@@ -35,7 +44,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	FROM t_shopping_freeboard_comment
     	GROUP BY articleNO
     	) b ON a.articleNO = b.articleNO
-		ORDER BY a.free_writeDate DESC;
+		ORDER BY a.free_writeDate DESC
 		]]>
 	 </select>
 	
@@ -126,7 +135,40 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	      where image_id=#{free_img_id}
     	]]>
 	</delete>
+	
+	
+	<insert id="insertNewQna"  parameterType="QnaVO">
+	   <selectKey resultType="int" keyProperty="articleNO" order="BEFORE">
+       SELECT ifnull(max(articleNO)+1, 1) from t_shopping_qna;
+   </selectKey>
+     
+  		<![CDATA[
+    	insert into t_shopping_qna(	articleNO,
+				 					member_id,
+                                    qna_title,
+                                    qna_content,
+                                    qna_writeDate
+                                     )
+							 values(#{articleNO},
+									#{member_id},
+									#{qna_title},
+                                   	#{qna_content}, 
+                                    now()
+                               
+                                    )
+                                                               
+  		 ]]>      
+   </insert>
    
+   <select id="selectMyQnaList" resultMap="qnaResult" parameterType="String">
+		<![CDATA[
+		SELECT * 
+		FROM t_shopping_qna
+		WHERE member_id = #{member_id}
+		]]>
+	 </select>
+	 
+	 
    <!-- <update id="updateDiary" parameterType="java.util.Map">
  		<![CDATA[
  			update t_shopping_dir

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.babee.community.vo.CommentVO;
 import com.babee.community.vo.FreeboardVO;
+import com.babee.community.vo.QnaVO;
 
 @Mapper
 @Repository("commnityDAO")
@@ -29,5 +30,8 @@ public interface CommunityDAO {
 	
 	public void deleteFreeboard(Map freeboardMap) throws DataAccessException;
 	public void deleteFreeboardImage(Map freeboardMap) throws DataAccessException;
+	
+	public void insertNewQna (QnaVO qnaVO)throws DataAccessException;
+	public List selectMyQnaList(String member_id)throws DataAccessException;
 	
 }
