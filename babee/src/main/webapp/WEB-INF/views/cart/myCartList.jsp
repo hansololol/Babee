@@ -49,6 +49,9 @@ ul li {
     background-color: rgb(255, 255, 166);
     color: rgb(0, 0, 0);
 }
+.cart_img {
+   margin-right: 30px;
+}
 </style>
 
 
@@ -78,31 +81,26 @@ ul li {
 
                                  var totalGoodsNum = 0;
                                  var totalGoodsPrice = 0;
-                                 var totalDeliveryPrice = 0;
+                                 
 
                                  $(".product-checkbox:checked").each(
                                              function() {
                                                 var parent = $(this).closest("tr");
                                                 var priceElement = parseInt(parent.find(".price").text());
                                                 var quantityElement = document.getElementById('order_goods_qty').value; 
-                                                var deliveryPriceElement = parseInt(parent.find(".deliveryPrice").text());
+                                                
 
                                                 
                                                 totalGoodsNum++;
                                                 totalGoodsPrice += (priceElement * quantityElement); 
-                                                totalDeliveryPrice += deliveryPriceElement;
+                                                
                                              });
 
-                                 if (totalDeliveryPrice >= 3000) {
-                                    totalDeliveryPrice = 3000;
-                                 }
-
-                                 var finalTotalPrice = totalGoodsPrice + totalDeliveryPrice;
+                                 var finalTotalPrice = totalGoodsPrice + 3000;
 
                                  // 선택된 상품 정보 업데이트
                                  $("#p_totalGoodsNum").text(totalGoodsNum + "개");
                                  $("#p_totalGoodsPrice").text(totalGoodsPrice + "원");
-                                 $("#p_totalDeliveryPrice").text(totalDeliveryPrice + "원");
                                  $("#p_final_totalPrice").text(finalTotalPrice + "원");
                               });
                });
@@ -239,44 +237,38 @@ ul li {
       <div class="text_center">
          <table class="cart_list">
             <tr>
-               <td width="80px;" height="15px;">
+               <td width="100px;" height="15px;">
                   <div class="text_center">
                      <input type="checkbox" id="select-all-checkbox" onchange="selectAll()"> 전체 선택
                   </div>
                </td>
-               <td colspan=3 width="600px">상품 정보</td>
+               <td colspan="2" width="300px">상품 정보</td>
+               <td width="100px">가격</td>
+               <td width="150px">수량</td>
+               <td width="100px">옵션</td>
+               <td width="70px"></td>
             </tr>
 
             <c:forEach var="cartVO" items="${myCartList}">
                <tr>
-                  <td class="text_center"><input type="checkbox" class="product-checkbox" style="margin-left: -71px;"></td>
-                  <input type="hidden" class="goodsId" value="${cartVO.goods_id}">
-                  <td><img src="${contextPath}/thumbnails.do?goods_id=${cartVO.goods_id}&fileName=${cartVO.cart_image_name}" width="100px" /></td>
-                  <td>
-                     <ul>
-                        <li>${cartVO.goods_title}</li>
-                        <li>가격 <span class="price">${cartVO.goods_price}</span></li>
-                        <li>수량 <span class="quantity">
-                              <input type="number" value="${cartVO.cart_goods_qty}" id="order_goods_qty" class="order_goods_qty" name="order_goods_qty" style="width: 200px; text-align: center;"></span> 개</li>
-                        <li>옵션
-                           
-                              <select style="width: 200px; text-align: center" id="_goods_option" name="goods_option" >
+                  <td class="text_center"><input type="checkbox" class="product-checkbox"></td>
+                        <input type="hidden" class="goodsId" value="${cartVO.goods_id}">
+                  <td style="text-align: left;"><img src="${contextPath}/thumbnails.do?goods_id=${cartVO.goods_id}&fileName=${cartVO.cart_image_name}" width="100px" class="cart_img"/></td>
+                  <td style="text-align: left;">${cartVO.goods_title}</td>
+                  <td><span class="price">${cartVO.goods_price} 원</span></td>
+                  <td><span class="quantity">
+                              <input type="number" value="${cartVO.cart_goods_qty}" id="order_goods_qty" class="order_goods_qty" name="order_goods_qty" style="width: 100px; text-align: center;"></span> 개</td>
+                  <td>                   
+                     <select style="width: 100px; text-align: center" id="_goods_option" name="goods_option" >
                               
-                              <option value="${cartVO.goods_option1}">${cartVO.goods_option1}</option>
-                              <option value="${cartVO.goods_option2}">${cartVO.goods_option2}</option>
-                              <option value="${cartVO.goods_option3}">${cartVO.goods_option3}</option>
-                              <option value="${cartVO.goods_option4}">${cartVO.goods_option4}</option>
-                              <option value="${cartVO.goods_option5}">${cartVO.goods_option5}</option>
-                           
-                              </select>
-                           
-                              
-                        </li>
-                        <li>배송비 <span class="deliveryPrice">${cartVO.goods_delivery_price}</span> 원</li>
-                     </ul>
+                        <option value="${cartVO.goods_option1}">${cartVO.goods_option1}</option>
+                        <option value="${cartVO.goods_option2}">${cartVO.goods_option2}</option>
+                        <option value="${cartVO.goods_option3}">${cartVO.goods_option3}</option>
+                        <option value="${cartVO.goods_option4}">${cartVO.goods_option4}</option>
+                        <option value="${cartVO.goods_option5}">${cartVO.goods_option5}</option>
+                     </select>
                   </td>
-                  <td><a href="javascript:delete_cart_goods(${cartVO.cart_id})" style="font-size: 3px;"><b><span>삭제</span></b></a>
-                  </td>
+                  <td><a href="javascript:delete_cart_goods(${cartVO.cart_id})" style="font-size: 3px;"><b><span>삭제</span></b></a></td>
                </tr>
             </c:forEach>
 
@@ -308,14 +300,13 @@ ul li {
                         <input id="h_totalGoodsPrice" type="hidden" value="${totalGoodsPrice}" />
                      </td>
                      <td>
-                        <p id="p_totalDeliveryPrice">${totalDeliveryPrice}원</p>
-                        <input id="h_totalDeliveryPrice" type="hidden" value="${totalDeliveryPrice}" />
+                        <p>3000 원</p>
                      </td>
                      <td>
                         <p id="p_final_totalPrice">
-                           <fmt:formatNumber value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" type="number" var="total_price" /> ${total_price}원
+                           <fmt:formatNumber value="${totalGoodsPrice-totalDiscountedPrice}" type="number" var="total_price" /> ${total_price}원
                         </p>
-                        <input id="h_final_totalPrice" type="hidden" value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" />
+                        <input id="h_final_totalPrice" type="hidden" value="${totalGoodsPrice-totalDiscountedPrice}" />
                      </td>
                   </tr>
                </tbody>
@@ -325,7 +316,7 @@ ul li {
    </div>
 
 
-   <br><br>   <a href="javascript:fnOrderGoods()" >구매하기</a>
+   <br><br>   <input type="button" onClick="javascript:fnOrderGoods()" value="구매하기">
    
  </form>
 </body>
