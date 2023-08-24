@@ -144,7 +144,7 @@
 
         var isLogOn = '${isLogOn}';
         if(isLogOn=='true'){
-         location.replace("${contextPath}/goods/questionForm.do");
+         location.replace("${contextPath}/community/questionForm.do");
           
         }else{
             alert("로그인 이후 이용 가능한 서비스입니다.");
@@ -276,20 +276,18 @@
 
 <div style="text-align: center; display: none;" id="jajuList2">
    
-    <c:forEach var="myfnq" items="${myfnq}" varStatus="varSta">
-   
+    <c:forEach var="myfnq" items="${qnaList}" varStatus="cnt">
+   	 
     <div style="text-align: center;">
         <div style="display: flex; margin-left: 33%;">
             <p style="margin-left: 25px;" >
                 <img src="/image/glass.png" alt="FAQ" style="width: 20px; height: 20px;">
-                <a href="#"  onclick="toggleAnswer(1)">[sdfsdf어요]</a>
+                <a href="#"  onclick="toggleAnswer('${7 + cnt.count}')">${myfnq.qna_title}</a>
             </p>
         </div>
-        <div id="faqAnswer1"
-        style="display: flex;text-align: left; margin-left: 33%;  display: none;">
-        
-        <p ></p>
-     </div>
+        <div id="faqAnswer${7 + cnt.count}" style="display: flex;text-align: left; margin-left: 33%;  display: none;">
+        <p>	${myfnq.qna_content} </p>
+   		</div>
     </div>
     <hr width="50%" id="foreachhr">
 </c:forEach>

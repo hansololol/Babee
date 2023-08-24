@@ -99,12 +99,8 @@ pageEncoding="UTF-8"%>
   </head>
   <body>
     <div class="custom-style">
-      <form
-        class="form-container"
-        method="post"
-        action="${contextPath}/main.do"
-        enctype="multipart/form-data"
-      >
+      <form  class="form-container" method="post" action="${contextPath}/community/addqna.do" >
+      
         <h1 style="text-align: center">고객센터</h1>
         <h3 style="text-align: center">문의하기</h3>
         <hr />

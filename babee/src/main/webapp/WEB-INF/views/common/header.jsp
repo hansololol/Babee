@@ -178,7 +178,7 @@ function showCategory() {
 
       <span style="width: 40px;"></span>
       <td>
-         <a href="${contextPath}/goods/questionList.do" style="font-size: 20px;" class="category">고객센터</a>
+         <a href="${contextPath}/community/questionList.do" style="font-size: 20px;" class="category">고객센터</a>
       </td>
       <span style="width: 40px;"></span>
       <td>
