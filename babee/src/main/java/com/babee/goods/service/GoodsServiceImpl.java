@@ -87,6 +87,12 @@ public class GoodsServiceImpl implements GoodsService{
 		return goodsDAO.seasonGoodsList();
 		
 	}
-
-	
+	@Override
+	public List getfitList(String baby_age) throws Exception{
+		return goodsDAO.selectFitGodos(baby_age);
+	}
+	@Override
+	public Map<String, String> getsubcg(String sub_category) throws Exception{
+		return goodsDAO.getsubcg(sub_category);
+	}
 }

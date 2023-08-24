@@ -72,7 +72,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    
     <select id="selectAllCategoryGoods" resultType="goodsVO" parameterType="java.util.Map">
 
-   SELECT * FROM t_shopping_goods where main_category=#{main_category}
+   		SELECT * FROM t_shopping_goods where main_category=#{main_category}
 		  <if test='middle_category != null'>
 		   and middle_category=#{middle_category}
 		  </if>
@@ -154,12 +154,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE main_category = #{main_category} or middle_category = #{middle_category};
 	  ]]>
 	</select>
+   <select id="getsubcg" resultType="java.util.Map" parameterType="String">
+    <![CDATA[
+	    SELECT main_category, middle_category, sub_category
+		FROM t_shopping_category
+		WHERE sub_category = #{sub_category}
+	  ]]>
+	</select>
 	
-   <select id="selectFitGodos" resultType="java.util.Map" parameterType="CategoryVO">
+   <select id="selectFitGodos" resultType="java.util.Map" parameterType="String">
     <![CDATA[
 	   select count(*)as '판매순위', a.sub_category from(select g.sub_category, g.goods_id, o.order_id from (t_shopping_goods g
 		inner join t_shopping_member m  
-		on m.baby_age = g.age_range)
+		on #{baby_age} = g.age_range)
 		inner join t_shopping_order o on  o.goods_id = g.goods_id)as a
 		group by sub_category order by count(*) desc;
 	  ]]>
