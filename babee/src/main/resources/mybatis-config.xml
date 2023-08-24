@@ -15,5 +15,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mybatis/mappers/mypage.xml"/>
 		<mapper resource="mybatis/mappers/order.xml"/>
 		<mapper resource="mybatis/mappers/diary.xml"/>
+		<mapper resource="mybatis/mappers/community.xml"/>
 	</mappers>
 </configuration>

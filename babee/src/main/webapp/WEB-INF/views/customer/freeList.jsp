@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
-<title>고객센터</title>
+<title>자유게시판 목록</title>
 <style>
    
     #search {
@@ -129,32 +129,31 @@ input[type="button"]:hover, button[type="button"]:hover {
     </form>
 </div>
 </div>
+	<div id="freeboardList" style="padding-top: 30px;">
+		<table style="margin: auto;">
+			<tr>
+				<td width="50px" style="border-bottom:1px solid gray"> 번호 </td>
+				<td width="500px" style="border-bottom:1px solid gray"> 제목 </td>
+				<td width="150px" style="border-bottom:1px solid gray"> 작성자 </td>
+				<td width="150px" style="border-bottom:1px solid gray"> 작성일 </td>
+			</tr>
+			
+			<c:forEach var="freeboard" items="${freeboard}">
+			<tr> 
+				<td style="padding-bottom:5px; padding-top:5px; height: 45px; border-bottom:1px solid gray"> ${freeboard.articleNO } </td>
+				<td style="padding-bottom:5px; padding-top:5px; height: 45px; border-bottom:1px solid gray"> 
+					<a href="${contextPath}/community/freeboardDetail.do?articleNO=${freeboard.articleNO}"> ${freeboard.free_title } [ ${freeboard.free_view_count} ] </a></td>
+				<td style="padding-bottom:5px; padding-top:5px; height: 45px; border-bottom:1px solid gray"> ${freeboard.member_id } </td>
+				<td style="padding-bottom:5px; padding-top:5px; height: 45px; border-bottom:1px solid gray"> ${freeboard.free_writeDate } </td>
+			</tr>
+			</c:forEach>
+		</table>
+	
+	
+	</div>
 
-    
-    <c:forEach var="i" begin="0" end="5">
-    <div style="text-align: center; ">
-        <div style="display: flex; justify-content: center; align-items: center;">
-            <img src="/image/glass.png" alt="FAQ" style="width: 20px; height: 20px; margin-right: 10px; margin-top: 15px; margin-left: -350px;">
-            <p style="margin-left: 25px;">
-                <a href="${contextPath}/goods/freedetail.do">[질문종류1][질문제목]</a>
-            </p>
-        </div>
-    </div>
-    <hr width="50%" id="foreachhr">
-    </c:forEach>
-    <a href="${contextPath}/goods/freeForm.do"><input type="button" value="글쓰기"></a>
-
-    
-    <!-- 페이징 버튼 -->
-    <div class="paging-container">
-        <a class="paging-button" href="#">이전</a>
-        <a class="paging-button" href="#">1</a>
-        <a class="paging-button" href="#">2</a>
-        <a class="paging-button" href="#">3</a>
-        <a class="paging-button" href="#">4</a>
-        <a class="paging-button" href="#">5</a>
-        <a class="paging-button" href="#">다음</a>
-    </div>
-    <br><br><br><br><br>
+     <br><br><br><br>
+    <a href="${contextPath}/community/freeForm.do"><input type="button" value="글쓰기" style="margin-left:700px;"></a>
+	<br><br>
 </body>
 </html>
