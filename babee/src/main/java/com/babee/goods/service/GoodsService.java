@@ -25,4 +25,6 @@ public interface GoodsService {
 	public List<GoodsVO> hotGoodsList()throws Exception;
 	public List<GoodsVO> seasonGoodsList()throws Exception;
 	public List getAllcg(CategoryVO category) throws Exception;
+	public List getfitList(String baby_age) throws Exception;
+	public Map getsubcg(String sub_category) throws Exception;
 }

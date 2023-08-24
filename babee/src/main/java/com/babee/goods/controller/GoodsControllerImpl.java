@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -107,6 +108,35 @@ public class GoodsControllerImpl extends BaseController implements GoodsControll
 		List<GoodsVO> goodsList=goodsService.searchGoods(searchWord);
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("goodsList", goodsList);
+		return mav;
+		
+	}
+	@RequestMapping(value="/fitGoods.do" ,method = RequestMethod.GET)
+	public ModelAndView fitGoods(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		String viewName=(String)request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+		HttpSession session=request.getSession();
+		MemberVO member = (MemberVO) session.getAttribute("memberInfo");
+		String baby_age = member.getBaby_age();
+		List fitList = goodsService.getfitList(baby_age);
+		mav.addObject("fit", fitList);
+		Map sub_c = (Map) fitList.get(0);
+		String sub_category = (String) sub_c.get("sub_category");
+		String sub = request.getParameter("sub_category");
+		if(sub !=null) {
+			sub_category = sub;
+		}
+		Map<String, String> category = goodsService.getsubcg(sub_category);
+		String main_category = category.get("main_category");
+		String middle_category = category.get("middle_category");
+		main_category =  main_category.trim();
+		middle_category = sub_category.trim();
+		Map<String, String> cate = new HashedMap();
+		cate.put("main_category", main_category);
+		cate.put("middle_category", middle_category);
+		List<GoodsVO> goodsList = goodsService.getAllCategoryGoods(category);
+		System.out.println(goodsList.size() + "상품 사이즈 확인");
+		mav.addObject("goods", goodsList);
 		return mav;
 		
 	}

@@ -28,4 +28,6 @@ public interface GoodsDAO {
 	public void deleteGoodsQNA(GoodsQNA goodsQNA) throws DataAccessException;
 	public List<GoodsVO> hotGoodsList() throws DataAccessException;
 	public List<GoodsVO> seasonGoodsList() throws DataAccessException;
+	public List selectFitGodos(String baby_age) throws DataAccessException;
+	public Map<String,String> getsubcg(String sub_category) throws DataAccessException;
 }
