@@ -28,11 +28,7 @@
       obj.submit();
    }
    
-   var cnt=1;
-   function fn_addFile(){
-      $("#d_file").append("<br>"+"<input type='file' name='file"+cnt+"' />");
-      cnt++;
-   }
+   
 </script>
 
 <style>
@@ -44,7 +40,7 @@
     left: 30px;
     top: 30px;
     width: 850px;
-    height: 700px;
+    height: 800px;
     background:#ededed;
    
     box-shadow: 25px 25px 39px rgba(0, 104, 255, 0.25);
@@ -102,21 +98,21 @@ input[type="submit"]:hover, input[type="reset"]:hover {
    <br><br><br>
    <table class="tb" align="center">
       
-      <tr>
+      <tr style="height: 70px;">
 
-         <td width="200"> <p align="center"  style=" margin-top: 30px;">작성자</p></td>
-         <td width="250"> <input type="text" style="margin-left:10px; margin-top: 30px;" value="${memberInfo.member_name}" disabled></td>
+         <td width="200">작성자</td>
+         <td width="250"> <input type="text"  value="${memberInfo.member_name}" disabled></td>
                         <input type="hidden" name="member_id" value="${memberInfo.member_id}" ></td>
       </tr>
       
-      <tr>
-         <td width="200" height="50"> <p align="center"> 제목</td>
-         <td width="250"> <input type="text" name="dir_title" style="margin-left:10px;"> </td>
+      <tr style="height: 70px;">
+         <td width="200"> 제목</td>
+         <td width="250"> <input type="text" name="dir_title" > </td>
       </tr>
    
       <tr>
          <td align="center">표지 </td>
-         <td width="200"><input type="file" name="dir_main_img1" onChange="readURL(this);" style="margin-left:10px;"/> 
+         <td width="200"><input type="file" name="dir_main_img1" onChange="readURL(this);"/> 
             <p style="font-size:12px">&nbsp;다음 파일 형식만 지원됩니다.<br>
             <p style="font-size:12px">&nbsp;.jpg(JPEG), .png(Portable Network Graphics), .gif(Graphics Interchange Format)
          </td>
@@ -124,12 +120,12 @@ input[type="submit"]:hover, input[type="reset"]:hover {
       </tr>
 
       <tr>
-         <td width="200"> <p align="center" > 아이의 상태</td>
-         <td colspan = "2"><textarea name="baby_condition" rows = "4" cols="70" maxlength="4000" ></textarea> </td>
+         <td width="200">아이의 상태</td>
+         <td colspan = "2"><textarea name="baby_condition" rows = "4" cols="65" maxlength="4000" ></textarea> </td>
       </tr>
       <tr>
-         <td width="200"> <p align="center"> 기록</td>
-         <td colspan = "2"><textarea name="dir_content" rows = "10" cols="70" maxlength="4000" ></textarea></td>
+         <td width="200">기록</td>
+         <td colspan = "2"><textarea name="dir_content" rows = "10" cols="65" maxlength="4000" ></textarea></td>
       </tr>
    </table>
    <br><br><br><br><br>
