@@ -118,9 +118,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    	   <![CDATA[
    	   	insert into t_shopping_goodsqna 
    	   		(goods_id, member_id, goods_qna_title, 
-			goods_qna_content, goods_qna_writeDate)
+			goods_qna_content, goods_qna_writeDate, goods_qna_middle_title)
 			values(#{goods_id}, #{member_id}, #{goods_qna_title}, 
-			#{goods_qna_content}, now())
+			#{goods_qna_content}, now(), #{goods_qna_middle_title})
    	    ]]>
    </insert>
 

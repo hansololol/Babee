@@ -13,6 +13,7 @@ public class GoodsQNA {
 	private Date goods_qna_writeDate;
 	private String seller_id;
 	private String goods_qna_answer;
+	private String goods_qna_middle_title;
 	public String getGoods_id() {
 		return goods_id;
 	}
@@ -55,5 +56,11 @@ public class GoodsQNA {
 	}
 	public void setGoods_qna_writeDate(Date goods_qna_writeDate) {
 		this.goods_qna_writeDate = goods_qna_writeDate;
+	}
+	public String getGoods_qna_middle_title() {
+		return goods_qna_middle_title;
+	}
+	public void setGoods_qna_middle_title(String goods_qna_middle_title) {
+		this.goods_qna_middle_title = goods_qna_middle_title;
 	}
 }

@@ -45,14 +45,15 @@ public class GoodsControllerImpl extends BaseController implements GoodsControll
 		Map goodsMap=goodsService.goodsDetail(goods_id);
 		ModelAndView mav = new ModelAndView(viewName);
 		GoodsVO goodsVO = (GoodsVO)goodsMap.get("goodsVO");
-		List<ReviewVO> reviewList = mypageService.selectGoodsReview(goods_id);
-		List<GoodsQNA> qnaList = goodsService.getAllGoodsQna(goods_id);
 		String number=request.getParameter("num");
+		List<GoodsQNA> qnaList = goodsService.getAllGoodsQna(goods_id);
 		if(number!=null) {
 			int num = Integer.parseInt(number);
 			goodsQNA =qnaList.get(num);
 			goodsService.deleteGoodsQNA(goodsQNA);
 		}
+		List<ReviewVO> reviewList = mypageService.selectGoodsReview(goods_id);
+		qnaList = goodsService.getAllGoodsQna(goods_id);
 		mav.addObject("goodsVO", goodsVO);
 		mav.addObject("review", reviewList);
 		mav.addObject("qna", qnaList);

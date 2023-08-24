@@ -631,8 +631,19 @@ function add_wish(goods_id){
 			<td>
 				<input type="text" name= "goods_qna_title" style="width: 100%">
 			</td>
-			<td rowspan="2"><input type="submit" value="등록하기"></td>
+			<td rowspan="3"><input type="submit" value="등록하기"></td>
 
+		</tr>
+		<tr>
+			<td>구분</td>
+			<td>
+				<select name="goods_qna_middle_title" style="width: 100%;">
+					<option value="배송문제">배송문제</option>
+					<option value="상품문제">상품문제</option>
+					<option value="교환/환불문제">교환/환불</option>
+					<option value="기타">기타</option>
+				</select>
+			</td>
 		</tr>
 		<tr>
 			<td>
