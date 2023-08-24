@@ -14,6 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="free_view_count" column="free_view_count" />
 		<result property="free_img" column="free_img" />
 		<result property="free_img_id" column="free_img_id" />
+		<result property="commentCnt" column="commentCnt" />
 	</resultMap>
 		
 	<resultMap id="commentResult" type="CommentVO">
@@ -27,9 +28,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="selectALLFreeboardList" resultMap="freeboardResult" parameterType="String">
 		<![CDATA[
-		 SELECT * 
-		 FROM t_shopping_freeboard 
-		 order by free_writeDate desc
+		SELECT a.*, COALESCE(b.comment_count, 0) as commentCnt
+		FROM t_shopping_freeboard a
+		LEFT JOIN (
+    	SELECT articleNO, COUNT(*) as comment_count
+    	FROM t_shopping_freeboard_comment
+    	GROUP BY articleNO
+    	) b ON a.articleNO = b.articleNO
+		ORDER BY a.free_writeDate DESC;
 		]]>
 	 </select>
 	
@@ -41,8 +47,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                                      free_img,
                                      free_content,
                                      free_writeDate,
-                                     free_img_id,
-                                     free_view_count
+                                     free_img_id
+                                     
                                      )
 							 values(#{articleNO},
 									#{member_id},
@@ -50,8 +56,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                                    	#{free_img}, 
                                     #{free_content},
                                     now(),
-                                    #{free_img_id},
-                                    #{free_view_count}
+                                    #{free_img_id}
+                                    
                                     )
                                                                
   		 ]]>      
@@ -100,6 +106,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
      ]]>
 
 	</insert>
+	
+	<update id="updateViewCnt">
+    update  t_shopping_freeboard
+    set free_view_count = free_view_count +1
+    where articleNO = #{articleNO}
+	</update>
    
    <!-- <update id="updateDiary" parameterType="java.util.Map">
  		<![CDATA[

@@ -39,8 +39,13 @@ public class CommunityServiceImpl implements CommunityService  {
 	@Override
 	public Map freeboardDetail(String articleNO) throws Exception {
 		Map freeboardMap = new HashMap();
+		
+		int free_view_count =  communityDAO.updateViewCnt(articleNO);
+		
 		FreeboardVO freeboardVO = communityDAO.selectFreeboardDetail(articleNO);
+		freeboardVO.setFree_view_count(free_view_count);
 		freeboardMap.put("freeboardVO", freeboardVO);
+		
 		return freeboardMap;
 	}
 
@@ -54,6 +59,7 @@ public class CommunityServiceImpl implements CommunityService  {
 		communityDAO.insertCommnet(comentVO);
 	}
 	
+
 	/*
 	 * @Override public void modDiary(Map diaryMap) throws DataAccessException {
 	 * diaryDAO.updateDiary(diaryMap); diaryDAO.updateDiaryImage(diaryMap); }
