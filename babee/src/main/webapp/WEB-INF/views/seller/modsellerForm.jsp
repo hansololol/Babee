@@ -11,8 +11,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <title>사업자 가입창</title>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -21,7 +19,7 @@
 <style>
 
 .member_cont {
-	padding: 20px 100px;
+	padding: 20px 70px;
     border: 1px solid #dbdbdb;
 	width: 690px;
 	margin: 0 auto;
@@ -148,11 +146,11 @@ function execDaumPostcode() {
 </script>
 </head>
 <body>
-	<br><br><br><br>
+	<br>
 	<div class="content_box">
 		<div class="seller_wrap">
 			<div class="member_tit">
-				<h2>사업자 가입</h2>
+				<h2>사업자 수정</h2>
 			</div>
 
 	<div class="member_cont">
@@ -170,48 +168,48 @@ function execDaumPostcode() {
    
       <tr>
          <td width="200"><p align="center">사업자 아이디 *</td>
-         <td  width="300"><input type="text" name="seller_id" style="width: 189px; margin-right: 0;  display: inherit;">
+         <td  width="300"><input type="text" name="seller_id" value="${memberInfo.seller_id}" style="width: 189px; margin-right: 0;  display: inherit;">
          <button type="button">중복확인</button></td>
       </tr>
       
       <tr>
          <td width="200"><p align="center">비밀번호 *</td>
-         <td><input type="password" name="seller_pw"></td>
+         <td><input type="password" name="seller_pw" value="${memberInfo.seller_pw}"></td>
       </tr>
       
       <tr>
          <td width="200"><p align="center">이름 *</td>
-         <td><input type="text"name="seller_name"></td>
+         <td><input type="text"name="seller_name" value="${memberInfo.seller_name}"></td>
       </tr>
       
       <tr>
          <td width="200"><p align="center">이메일 *</td>
-         <td><input type="email" name="seller_email"></td>
+         <td><input type="email" name="seller_email" value="${memberInfo.seller_email}"></td>
       </tr>
       
       <tr>
          <td width="200"><p align="center">일반전화</td>
-         <td><input type="text" size="5" name="seller_tel1"style="width: 75px; display: inline-block;">-<input type="text" size="5" name="seller_tel2"style="width: 75px; display: inline-block;">-<input type="text" size="5" name="seller_tel3" style="width: 75px; display: inline-block;"></td>
+         <td><input type="text" size="5" name="seller_tel1"value="${memberInfo.seller_tel1}" style="width: 75px; display: inline-block;">-<input type="text" size="5" name="seller_tel2" value="${memberInfo.seller_tel2}" style="width: 75px; display: inline-block;">-<input type="text" size="5" name="seller_tel3" value="${memberInfo.seller_tel3}" style="width: 75px; display: inline-block;"></td>
       </tr>
       
       <tr>
          <td width="200"><p align="center">휴대전화 *</td>
-         <td><input type="text" size="5" name="seller_hp1" style="width: 75px; display: inline-block;">-<input type="text" size="5" name="seller_hp2" style="width: 75px; display: inline-block;">-<input type="text" size="5" name="seller_hp3" style="width: 75px; display: inline-block;"></td>
+         <td><input type="text" size="5" name="seller_hp1" value="${memberInfo.seller_hp1}" style="width: 75px; display: inline-block;">-<input type="text" size="5" name="seller_hp2" style="width: 75px; display: inline-block;"value="${memberInfo.seller_hp2}">-<input type="text" size="5" name="seller_hp3" style="width: 75px; display: inline-block;" value="${memberInfo.seller_hp3}"></td>
       </tr>
       
       <tr>
          <td width="200"><p align="center">주소</td>
-         <td><input type="text" size="7"  style=" margin-bottom: 5px;" name="seller_zipcode" id="seller_zipcode">
+         <td><input type="text" size="7"  style=" margin-bottom: 5px;" name="seller_zipcode" id="seller_zipcode" value="${memberInfo.seller_zipcode}">
             <a href="javascript:execDaumPostcode()"> &nbsp;우편 검색</a>  <br>
-               <input type="text" placeholder="도로명 주소" name="seller_roadAddr" id="seller_roadAddr" style="margin-bottom: 5px;"><br>
-                 <input type="text" placeholder="지번 주소" name="seller_jibunAddr" id="seller_jibunAddr" style="margin-bottom: 5px;"><br>
-                 <input type="text" placeholder="나머지 주소"  name="seller_namujiAddr" id="seller_namujiAddr" style="margin-bottom: 15px;"></td>
+               <input type="text" placeholder="도로명 주소" name="seller_roadAddr" id="seller_roadAddr" style="margin-bottom: 5px;" value="${memberInfo.seller_roadAddr}"><br>
+                 <input type="text" placeholder="지번 주소" name="seller_jibunAddr" id="seller_jibunAddr" style="margin-bottom: 5px;"  value="${memberInfo.seller_jibunAddr}"><br>
+                 <input type="text" placeholder="나머지 주소"  name="seller_namujiAddr" id="seller_namujiAddr" style="margin-bottom: 15px;"  value="${memberInfo.seller_namujiAddr}"></td>
       </tr>
    </table>
 
-</div>
+      </div>
 
-<div>
+      <div>
    <table  class="join_input_sec">
       <tr>
          <td width="150"><h4 align="right"><h4>사업자 정보 </h4>
@@ -220,34 +218,36 @@ function execDaumPostcode() {
 
       <tr>
          <td ><p align="center">은행정보</p></td><br>
-         <td >은행명<input type="text" name="seller_bank_com"><br>
-           통장번호<input type="text" name="seller_bank_num"><br>
-           예금주명<input type="text" name="seller_bank_name">
+         <td >은행명<input type="text" name="seller_bank_com" value="${memberInfo.seller_bank_com}"><br>
+           통장번호<input type="text" name="seller_bank_num" value="${memberInfo.seller_bank_num}"><br>
+           예금주명<input type="text" name="seller_bank_name" value="${memberInfo.seller_bank_name}">
       </tr>
       
       <tr>
          <td width="200"><p align="center">회사 정보<br>
-            <td>회사 명<input type="text" name="seller_company"><br>
-           회사 소개<textarea name="seller_company_info"></textarea>
+            <td>회사 명<input type="text" name="seller_company" value="${memberInfo.seller_company}"><br>
+           회사 소개<textarea name="seller_company_info" value="${memberInfo.seller_company_info}"></textarea>
          </tr>
       
       <tr>
          <td><p align="center">필요 서류<br></td>
             <td>
-        사업자 등록증<input type="file"  multiple="multiple"name="seller_img1"><br>
+        사업자 등록증<input type="file" name="seller_img1"><br>
         
       </td>
       </tr>
       </table>
-</div>
+   </div>
 </div>
 
-<br>
+   <br>
     <p><input type="submit" value="수정하기" class="member_join_order_btn" style="width: 300px; height: 50px; background-color: #007bff; color: white; font-size: 16px; font-weight: bold; border: none; border-radius: 8px;"></p>
 
     
 </form>
 </div>
 <br><br><br>
+</div>
+</div>
 </body>
 </html>

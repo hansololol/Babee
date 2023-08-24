@@ -18,9 +18,9 @@ public class SellerVO {
 	private String seller_hp3;
 	private String seller_email;
 	
-	private String seller_roadAdder;
-	private String seller_jibunAdder;
-	private String seller_namujiAdder;
+	private String seller_roadAddr;
+	private String seller_jibunAddr;
+	private String seller_namujiAddr;
 	private String seller_zipcode;
 	private Date seller_joinDate;
 	private String seller_bank_num;
@@ -89,24 +89,7 @@ public class SellerVO {
 	public void setSeller_hp3(String seller_hp3) {
 		this.seller_hp3 = seller_hp3;
 	}
-	public String getSeller_roadAdder() {
-		return seller_roadAdder;
-	}
-	public void setSeller_roadAdder(String seller_roadAdder) {
-		this.seller_roadAdder = seller_roadAdder;
-	}
-	public String getSeller_jibunAdder() {
-		return seller_jibunAdder;
-	}
-	public void setSeller_jibunAdder(String seller_jibunAdder) {
-		this.seller_jibunAdder = seller_jibunAdder;
-	}
-	public String getSeller_namujiAdder() {
-		return seller_namujiAdder;
-	}
-	public void setSeller_namujiAdder(String seller_namujiAdder) {
-		this.seller_namujiAdder = seller_namujiAdder;
-	}
+
 	public String getSeller_zipcode() {
 		return seller_zipcode;
 	}
@@ -185,6 +168,24 @@ public class SellerVO {
 	}
 	public void setMember_pw(String member_pw) {
 		this.member_pw = member_pw;
+	}
+	public String getSeller_roadAddr() {
+		return seller_roadAddr;
+	}
+	public void setSeller_roadAddr(String seller_roadAddr) {
+		this.seller_roadAddr = seller_roadAddr;
+	}
+	public String getSeller_jibunAddr() {
+		return seller_jibunAddr;
+	}
+	public void setSeller_jibunAddr(String seller_jibunAddr) {
+		this.seller_jibunAddr = seller_jibunAddr;
+	}
+	public String getSeller_namujiAddr() {
+		return seller_namujiAddr;
+	}
+	public void setSeller_namujiAddr(String seller_namujiAddr) {
+		this.seller_namujiAddr = seller_namujiAddr;
 	}
 	
 	

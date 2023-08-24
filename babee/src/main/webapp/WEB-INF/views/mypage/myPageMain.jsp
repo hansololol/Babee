@@ -48,8 +48,9 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
       <h3 style="display: inline-block">내 정보</h3>
       <hr />
       <br />
-
       <h4><span style="color: #cc9900">●</span> 기본정보</h4>
+      
+      <c:if test="${userType == 'M'}">
       <table class="basic_tb" width="455px">
         <tr>
           <td width="150">이름</td>
@@ -98,11 +99,11 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
           </td>
         </tr>
       </table>
-    </div>
+     </div>
 
-    <br />
+     <br />
 
-    <div style="text-align: left">
+      <div style="text-align: left">
       <h4><span style="color: #cc9900">●</span> 추가정보</h4>
       <table class="add_tb" width="455px">
         <tr>
@@ -133,6 +134,62 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
           </td>
         </tr>
       </table>
+      </div>
+      </c:if>
+  
+
+
+      <c:if test="${userType == 'S'}">
+        <table class="basic_tb" width="455px">
+          <tr>
+            <td width="150">이름</td>
+            <td style="border-right: none">
+              <strong>${memberInfo.seller_name }</strong>
+            </td>
+          </tr>
+  
+          <tr>
+            <td>이메일</td>
+            <td style="border-right: none">
+              <strong>${memberInfo.seller_email}</strong>
+            </td>
+          </tr>
+  
+          <tr>
+            <td>일반전화</td>
+            <td style="border-right: none">
+              <strong
+                >${memberInfo.seller_hp1}-${memberInfo.seller_hp2}-${memberInfo.seller_hp3
+                }</strong
+              >
+            </td>
+          </tr>
+  
+          <tr>
+            <td>휴대전화</td>
+            <td style="border-right: none">
+              <strong
+                >${memberInfo.seller_hp1
+                }-${memberInfo.seller_hp2}-${memberInfo.seller_hp3 }</strong
+              >
+            </td>
+          </tr>
+  
+          <tr>
+            <td>도로명</td>
+            <td style="border-right: none">
+              &nbsp;&nbsp; <strong>${memberInfo.seller_roadAddr }</strong> <br />
+            </td>
+          </tr>
+          <tr>
+            <td style="border-bottom: none">지번</td>
+            <td style="border-right: none; border-bottom: none">
+              &nbsp;&nbsp; <strong>${memberInfo.seller_jibunAddr }</strong>
+            </td>
+          </tr>
+        </table>
+      </c:if>
+
     </div>
   </div>
 </body>

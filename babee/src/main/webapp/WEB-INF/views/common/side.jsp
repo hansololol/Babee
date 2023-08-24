@@ -40,10 +40,10 @@
 	<c:when test="${isLogOn==true && param.page=='sellerPage'}">
         <!-- 사업자 side 메뉴 -->
         <div class="list-group">
-            <a href="${contextPath}/member/myPageMain.do" class="list-group-item list-group-item-action active" aria-current="true">
+            <a href="${contextPath}/member/myPageMain.do?page=sellerPage" class="list-group-item list-group-item-action active" aria-current="true">
                 사업자 님의 마이페이지 <br>user@naver.com
             </a>
-            <a href="${contextPath}/seller/modpassword.do?page=sellerPage" class="list-group-item list-group-item-action">사업자 정보 수정</a>
+            <a href="${contextPath}/member/modpassword.do?page=sellerPage" class="list-group-item list-group-item-action">사업자 정보 수정</a>
             <a href="${contextPath}/seller/listSellerGoods.do?page=sellerPage" class="list-group-item list-group-item-action">상품 관리</a>
             <a href="${contextPath}/seller/listSellerOrder.do?page=sellerPage" class="list-group-item list-group-item-action">주문 관리</a>
             <a href="${contextPath}/seller/sellerQuestionAnswer.do?page=sellerPage" class="list-group-item list-group-item-action">문의 내역 관리</a>
