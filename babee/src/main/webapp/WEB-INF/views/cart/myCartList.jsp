@@ -272,7 +272,7 @@ ul li {
                            
                               
                         </li>
-                        <li>배송비 <span class="deliveryPrice">${cartVO.goods_delivery_price}</span> 원</li>
+                        <li>배송비 <span class="deliveryPrice">3000</span> 원</li>
                      </ul>
                   </td>
                   <td><a href="javascript:delete_cart_goods(${cartVO.cart_id})" style="font-size: 3px;"><b><span>삭제</span></b></a>

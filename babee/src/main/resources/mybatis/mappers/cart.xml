@@ -31,7 +31,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="goods_published_date" column="goods_published_date" />
 		<result property="goods_total_page" column="goods_total_page" />
 		<result property="goods_isbn" column="goods_isbn" />
-		<result property="goods_delivery_price" column="goods_delivery_price" />
 		<result property="goods_delivery_date" column="goods_delivery_date" />
 
 		<result property="goods_fileName" column="fileName" />
@@ -47,7 +46,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			  	,b.goods_price
 		      	,a.cart_goods_qty
 		      	,a.goods_option
-		      	,b.goods_delivery_price
 		      	,b.goods_id
 		      	,a.cart_id
 		      	,a.member_id

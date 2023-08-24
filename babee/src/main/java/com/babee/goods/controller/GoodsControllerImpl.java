@@ -127,6 +127,8 @@ public class GoodsControllerImpl extends BaseController implements GoodsControll
 		if(sub !=null) {
 			sub_category = sub;
 		}
+		
+		System.out.println(sub_category + "서브");
 		Map<String, String> category = goodsService.getsubcg(sub_category);
 		String main_category = category.get("main_category");
 		String middle_category = category.get("middle_category");
