@@ -134,15 +134,17 @@ input[type="button"]:hover, button[type="button"]:hover {
 			<tr>
 				<td width="50px" style="border-bottom:1px solid gray"> 번호 </td>
 				<td width="500px" style="border-bottom:1px solid gray"> 제목 </td>
+				<td width="100px" style="border-bottom:1px solid gray"> 조회수 </td>
 				<td width="150px" style="border-bottom:1px solid gray"> 작성자 </td>
 				<td width="150px" style="border-bottom:1px solid gray"> 작성일 </td>
 			</tr>
 			
-			<c:forEach var="freeboard" items="${freeboard}">
+			<c:forEach var="freeboard" items="${freeboard}" varStatus ="free">
 			<tr> 
-				<td style="padding-bottom:5px; padding-top:5px; height: 45px; border-bottom:1px solid gray"> ${freeboard.articleNO } </td>
+				<td style="padding-bottom:5px; padding-top:5px; height: 45px; border-bottom:1px solid gray"> ${free.count } </td>
 				<td style="padding-bottom:5px; padding-top:5px; height: 45px; border-bottom:1px solid gray"> 
-					<a href="${contextPath}/community/freeboardDetail.do?articleNO=${freeboard.articleNO}"> ${freeboard.free_title } [ ${freeboard.free_view_count} ] </a></td>
+					<a href="${contextPath}/community/freeboardDetail.do?articleNO=${freeboard.articleNO}"> ${freeboard.free_title } [ ${freeboard.commentCnt } ]</a></td>
+				<td style="padding-bottom:5px; padding-top:5px; height: 45px; border-bottom:1px solid gray"> ${freeboard.free_view_count} </td>
 				<td style="padding-bottom:5px; padding-top:5px; height: 45px; border-bottom:1px solid gray"> ${freeboard.member_id } </td>
 				<td style="padding-bottom:5px; padding-top:5px; height: 45px; border-bottom:1px solid gray"> ${freeboard.free_writeDate } </td>
 			</tr>

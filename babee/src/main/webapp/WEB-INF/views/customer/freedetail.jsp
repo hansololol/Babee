@@ -207,36 +207,27 @@ function readURL(input){
             <p>${freeboard.free_title }</p>
          </div>
          <hr>
-         <div class="comment-container" id="commentList">
-            <!-- 여러 댓글들 추가될 공간 -->
-         </div>
          
-          <form id="comment" method="post" action="${contextPath}/community/addCommnet.do" novalidate="novalidate" >
-         <div class="comment-form">
-            <p style="text-align:left;">댓글 작성</p>
-            <textarea id="commentText" name="free_comment" rows="4" cols="50"></textarea>
-
-        <!--     <button type="button" onclick="addComment()" style="float: right;  height: 120px;">댓글 작성</button>
-         -->   
-            <input type="submit" value="작성"/>
-            <table>
-            	<tr>
-            		<td width="100px"> 작성자 </td>
-            		<td width="600px"> 댓글 </td>
-            		<td width="150px"> 작성일 </td>
-            		
-             <c:forEach var="comment" items="${commentList}">
-            	<tr>
-            		<td> ${comment.member_id} </td>
-             		<td> ${comment.free_comment} </td>
-             		<td> ${comment.free_commentDate}  </td>
- 				</tr>
+         <div class="comment-container" id="commentList" style="background:#e6e6e6; padding-top:30px; padding-bottom: 40px;">
+     	        <c:forEach var="comment" items="${commentList}">
+     	       		<ul>
+            		<li> <strong>${comment.member_id}</strong> </li>
+             		<li> ${comment.free_comment} </li>
+             		<%-- <td> ${comment.free_commentDate}  </td> --%>
+ 					</ul>
+ 					<hr>
+ 				</c:forEach>
  				
-             </c:forEach>
-             </table>
-         </div>
-         </form>
+      	<form id="comment" method="post" action="${contextPath}/community/addCommnet.do" novalidate="novalidate" >
+					<div class="comment-form">
+						<p style="text-align: left; margin-bottom: 0px; margin-left: 20px;">댓글	작성</p>
+						<textarea id="commentText" name="free_comment" rows="4" cols="50" style="width: 95%; margin-left: 20px;"></textarea>
+
+						<input type="submit" value="작성" style="margin-left: 90%; padding: 5px 10px; background-color: #fef7dd; color: black; border: none; border-radius: 4px; cursor: pointer;" />
+					</div>
+				</form>
+          </div>
       </div>
-   </div>
+  
 </body>
 </html>

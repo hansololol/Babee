@@ -24,4 +24,6 @@ public interface CommunityDAO {
 
 	public List selectAllComment(String articleNO)throws DataAccessException;
 	public void insertCommnet(CommentVO commentVO)throws DataAccessException;
+	public int updateViewCnt(String articleNO)throws DataAccessException;
+
 }

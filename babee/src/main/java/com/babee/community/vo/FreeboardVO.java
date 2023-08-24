@@ -16,7 +16,15 @@ public class FreeboardVO {
 	private String free_img;
 	private String free_img_id;
 	
+	private int commentCnt;
 	
+	
+	public int getCommentCnt() {
+		return commentCnt;
+	}
+	public void setCommentCnt(int commentCnt) {
+		this.commentCnt = commentCnt;
+	}
 	public int getArticleNO() {
 		return articleNO;
 	}
