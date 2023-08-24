@@ -26,4 +26,8 @@ public interface CommunityDAO {
 	public void insertCommnet(CommentVO commentVO)throws DataAccessException;
 	public int updateViewCnt(String articleNO)throws DataAccessException;
 
+	
+	public void deleteFreeboard(Map freeboardMap) throws DataAccessException;
+	public void deleteFreeboardImage(Map freeboardMap) throws DataAccessException;
+	
 }

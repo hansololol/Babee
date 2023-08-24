@@ -18,7 +18,7 @@ public interface CommunityController {
 	public ModelAndView freeboardDetail(@RequestParam("articleNO") String articleNO,HttpServletRequest request, HttpServletResponse response) throws Exception;
 	//public ModelAndView modDiary(@ModelAttribute("diaryVO") DiaryVO diary, MultipartHttpServletRequest multipartRequest, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
-	//댓글 작성중
 	public ModelAndView addComment(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView removeFreeboard(HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	
 }

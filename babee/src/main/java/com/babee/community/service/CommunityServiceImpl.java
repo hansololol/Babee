@@ -59,7 +59,12 @@ public class CommunityServiceImpl implements CommunityService  {
 		communityDAO.insertCommnet(comentVO);
 	}
 	
-
+	@Override
+	public void delFreeboard(Map freeboardMap) throws Exception {
+		communityDAO.deleteFreeboard(freeboardMap);
+		communityDAO.deleteFreeboardImage(freeboardMap);
+		
+	}
 	/*
 	 * @Override public void modDiary(Map diaryMap) throws DataAccessException {
 	 * diaryDAO.updateDiary(diaryMap); diaryDAO.updateDiaryImage(diaryMap); }
