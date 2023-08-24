@@ -131,7 +131,7 @@ function readURL(input){
          background-color: orange;
       }
    </style>
- <!--   <script>
+ <!--   
    function addComment() {
 	    var commentText = document.getElementById('commentText').value;
 	    if (commentText.trim() === '') {
@@ -171,36 +171,47 @@ function readURL(input){
 	}
 
       
-      
-      
-      function deleteComment(element) {
-         element.parentNode.remove();
-      }
-
-      function deletePost() {
-         var confirmDelete = confirm("정말로 이 게시글을 삭제하시겠습니까?");
-         if (confirmDelete) {
-            // 게시글 삭제 로직을 여기에 구현합니다
-            alert("게시글이 삭제되었습니다.");
-            // 서버로 게시글 삭제 요청을 보내는 등의 처리를 추가할 수 있습니다
-         }
-      }
-   </script> -->
+      -->
+      <script>
+      function fn_remove_diary(articleNO, free_img_id){
+          var formObj = document.createElement("form");
+          var d_goods = document.createElement("input");
+                d_goods.name = "articleNO";
+                d_goods.value = articleNO;
+                formObj.appendChild(d_goods);
+          var d_img = document.createElement("input");
+                d_img.name = "free_img_id";
+                d_img.value = free_img_id;
+                formObj.appendChild(d_img);
+          document.body.appendChild(formObj);
+                formObj.method = "post";
+                formObj.action = "${contextPath}/community/removeFreeboard.do";
+                formObj.submit();
+       }
+   </script> 
+   
+   
 </head>
 <body>
    <div class="custom-style">
       <div class="post-container">
          <h1>자유게시판</h1>
          <!-- 게시글 삭제 버튼 -->
-         <button class="delete-button" type="button" onclick="deletePost()" style="width:120px; height:45px; margin-top:-50px;">삭제</button>
-		 <p>${freeboard.free_title}</p>
+         <c:choose>
+         	<c:when test="${isLogOn == true }">
+         		<c:if test="${memberInfo.member_id == freeboard.member_id }">
+       			<input type="button" value="삭제" style="float:right;" onClick="fn_remove_diary('${freeboard.articleNO}', '${freeboard.free_img_id}')">
+				</c:if>
+			</c:when>
+         </c:choose>
+        <p>${freeboard.free_title}</p>
          <hr>
          <div class="meta-info">
             <p>작성자: ${freeboard.member_id} </p>
             <p>작성일: ${freeboard.free_writeDate }</p>
          </div>
          <div class="main-image">
-           <img src="${contextPath}/thumbnails.do?goods_id=${freeboard.member_id}&fileName=${freeboard.free_img}&fileType=freeboard" width="400px" id="preview">
+           <img src="${contextPath}/thumbnails.do?goods_id=${freeboard.member_id}&fileName=${freeboard.free_img}&fileType=freeboard&articleNO=${freeboard.articleNO}" width="400px" id="preview">
            
             </div>
          <div class="content">

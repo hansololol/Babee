@@ -85,6 +85,7 @@ public class CommunityControllerImpl extends BaseController implements Community
 		ModelAndView mav = new ModelAndView();
 		HttpSession session=request.getSession();
 		memberVO = (MemberVO) session.getAttribute("memberInfo");
+		String member_id = memberVO.getMember_id();
 
 		Map<String, Object> freeboardMap = new HashMap<String, Object>();
 		Enumeration enu = multipartRequest.getParameterNames();
@@ -101,10 +102,15 @@ public class CommunityControllerImpl extends BaseController implements Community
 		
 		  try {
 			  communityService.addFreeboard(freeboardMap); 
+			  int articleNO = freeboard.getArticleNO();
+			  
 		  if(imageFileName !=null && imageFileName.size() !=0) { 
 			  File srcFile = new File(CURR_IMAGE_REPO_PATH_FREEBOARD + "\\" + "temp" + "\\" + imageFileName.get(0)); 
-			  File destDir = new File(CURR_IMAGE_REPO_PATH_FREEBOARD+ "\\" + memberVO.getMember_id());
+			  File destDir = new File(CURR_IMAGE_REPO_PATH_FREEBOARD+ "\\" + member_id + "\\" + articleNO );
 		  FileUtils.moveFileToDirectory(srcFile, destDir, true); 
+		  
+	
+		  
 		  mav.setViewName("redirect:/community/freeboardList.do");
 		  }
 		  }catch (Exception e) {
@@ -162,7 +168,37 @@ public class CommunityControllerImpl extends BaseController implements Community
 		return mav;
 
 	}
-	  
+	
+	
+	@Override
+	@RequestMapping(value = "/removeFreeboard.do", method = RequestMethod.POST)
+	public ModelAndView removeFreeboard(HttpServletRequest request, HttpServletResponse response)  throws Exception {
+		String articleNO = request.getParameter("articleNO");
+		String free_img_id = request.getParameter("free_img_id");
+		HttpSession session = request.getSession();
+		memberVO = (MemberVO) session.getAttribute("memberInfo");
+		String member_id = memberVO.getMember_id();
+		Map freeboardMap = new HashMap<>();
+		freeboardMap.put("member_id", member_id);
+		freeboardMap.put("articleNO", articleNO);
+		freeboardMap.put("free_img_id", free_img_id);
+		communityService.delFreeboard(freeboardMap);
+		
+		
+		if(articleNO!=null) {
+			File delFolder = new File(CURR_IMAGE_REPO_PATH_FREEBOARD+ "\\" + member_id + "\\" +articleNO );
+			File[] deleteFolderList = delFolder.listFiles();
+			
+			for (int j = 0; j < deleteFolderList.length; j++  ) {
+				System.out.println(deleteFolderList[j]);
+				deleteFolderList[j].delete();
+			}
+			delFolder.delete();
+		}
+		
+		ModelAndView mav = new ModelAndView("redirect:/community/freeboardList.do");
+		return mav;
+	}
 	  
 	/*
 	 * @Override

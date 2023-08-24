@@ -17,6 +17,7 @@ public interface CommunityService {
 
 	public List selectComment(String articleNO) throws Exception;
 	public void addComment(CommentVO commentVO)throws Exception;
+	public void delFreeboard(Map freeboardMap) throws Exception;
 	
 	
 }

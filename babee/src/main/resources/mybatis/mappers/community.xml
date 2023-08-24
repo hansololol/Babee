@@ -112,6 +112,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     set free_view_count = free_view_count +1
     where articleNO = #{articleNO}
 	</update>
+	
+	<delete id="deleteFreeboard" parameterType="java.util.Map">
+	    <![CDATA[
+	      delete from t_shopping_freeboard
+	      where member_id=#{member_id} and articleNO=#{articleNO}
+    	]]>
+	</delete>
+	
+	<delete id="deleteFreeboardImage" parameterType="java.util.Map">
+	    <![CDATA[
+	      delete from t_shopping_image
+	      where image_id=#{free_img_id}
+    	]]>
+	</delete>
    
    <!-- <update id="updateDiary" parameterType="java.util.Map">
  		<![CDATA[
