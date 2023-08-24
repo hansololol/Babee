@@ -78,7 +78,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    </resultMap>
    
    <insert id="insertNewGoods" parameterType="java.util.Map">
-   <selectKey resultType="int" keyProperty="goods_id" order="AFTER">
+   <selectKey resultType="int" keyProperty="goods_id" order="BEFORE">
        SELECT ifnull(max(goods_id)+1, 1) from t_shopping_goods;
    </selectKey>
      
