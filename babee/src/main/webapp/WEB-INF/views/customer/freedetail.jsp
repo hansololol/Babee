@@ -1,9 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
+	isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<c:set var="contextPath" value="${pageContext.request.contextPath}"    />
+
 <html>
 <head>
-   <meta charset="UTF-8">
-   <title>게시글 상세 페이지</title>
+<meta charset="UTF-8">
+<title>자유게시판 상세창</title>
+
+<script>
+function readURL(input){
+	if(input.files && input.files[0]){
+		var reader = new FileReader();
+		reader.onload = function(e){
+			$('#preview').attr('src', e.target.result);
+		}
+		reader.readAsDataURL(input.files[0]);
+	}
+}
+</script>
+   
    <style>
       /* 전체 스타일은 여기에 기존 스타일 코드를 놔두고, 원하는 영역에 클래스 스타일을 추가합니다 */
       .custom-style {
@@ -114,27 +131,48 @@
          background-color: orange;
       }
    </style>
-   <script>
-      function addComment() {
-         var commentText = document.getElementById('commentText').value;
-         if (commentText.trim() === '') {
-            alert('댓글 내용을 입력하세요.');
-            return;
-         }
+ <!--   <script>
+   function addComment() {
+	    var commentText = document.getElementById('commentText').value;
+	    if (commentText.trim() === '') {
+	        alert('댓글 내용을 입력하세요.');
+	        return;
+	    }
 
-         var currentDate = new Date();
-         var formattedDate = currentDate.toLocaleString();
+	    var currentDate = new Date();
+	    var formattedDate = currentDate.toLocaleString();
 
-         var commentContainer = document.createElement('div');
-         commentContainer.className = 'comment';
-         commentContainer.innerHTML = '<div class="comment-info">작성자: 사용자 아이디 | 작성일: ' + formattedDate + '</div><p>' + commentText + '</p><span class="comment-delete" onclick="deleteComment(this)">❌</span>';
+	    var commentContainer = document.createElement('div');
+	    commentContainer.className = 'comment';
+	    commentContainer.innerHTML = '<div class="comment-info">작성자: 사용자 아이디 | 작성일: ' + formattedDate + '</div><p>' + commentText + '</p><span class="comment-delete" onclick="deleteComment(this)">❌</span>';
 
-         var commentList = document.getElementById('commentList');
-         commentList.appendChild(commentContainer);
+	    var commentList = document.getElementById('commentList');
+	    commentList.appendChild(commentContainer);
 
-         document.getElementById('commentText').value = '';
-      }
+	    document.getElementById('commentText').value = '';
 
+	    // Ajax를 사용하여 댓글을 서버로 전송
+	    var xhr = new XMLHttpRequest();
+	    xhr.open('POST', '/addCommnet.do', true); // 수정된 엔드포인트
+	    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+	    xhr.onreadystatechange = function () {
+	        if (xhr.readyState === 4) {
+	            if (xhr.status === 200) {
+	                // 서버에서 응답을 받았을 때 수행할 동작
+	                console.log('댓글이 성공적으로 전송되었습니다.');
+	            } else {
+	                // 에러 처리
+	                console.log('댓글 전송에 실패했습니다.');
+	            }
+	        }
+	    };
+	    var data = JSON.stringify({ content: commentText, date: formattedDate });
+	    xhr.send(data);
+	}
+
+      
+      
+      
       function deleteComment(element) {
          element.parentNode.remove();
       }
@@ -147,7 +185,7 @@
             // 서버로 게시글 삭제 요청을 보내는 등의 처리를 추가할 수 있습니다
          }
       }
-   </script>
+   </script> -->
 </head>
 <body>
    <div class="custom-style">
@@ -155,28 +193,49 @@
          <h1>자유게시판</h1>
          <!-- 게시글 삭제 버튼 -->
          <button class="delete-button" type="button" onclick="deletePost()" style="width:120px; height:45px; margin-top:-50px;">삭제</button>
-
+		 <p>${freeboard.free_title}</p>
          <hr>
          <div class="meta-info">
-            <p>작성자: 게시글 작성자</p>
-            <p>작성일: 게시글 작성일</p>
+            <p>작성자: ${freeboard.member_id} </p>
+            <p>작성일: ${freeboard.free_writeDate }</p>
          </div>
          <div class="main-image">
-            <img src="image/Babee_Logo.png">
-         </div>
+           <img src="${contextPath}/thumbnails.do?goods_id=${freeboard.member_id}&fileName=${freeboard.free_img}&fileType=freeboard" width="400px" id="preview">
+           
+            </div>
          <div class="content">
-            <p>게시글 내용이 여기에 들어갑니다.</p>
+            <p>${freeboard.free_title }</p>
          </div>
          <hr>
          <div class="comment-container" id="commentList">
             <!-- 여러 댓글들 추가될 공간 -->
          </div>
+         
+          <form id="comment" method="post" action="${contextPath}/community/addCommnet.do" novalidate="novalidate" >
          <div class="comment-form">
             <p style="text-align:left;">댓글 작성</p>
-            <textarea id="commentText" rows="4" cols="50"></textarea>
+            <textarea id="commentText" name="free_comment" rows="4" cols="50"></textarea>
 
-            <button type="button" onclick="addComment()" style="float: right;  height: 120px;">댓글 작성</button>
+        <!--     <button type="button" onclick="addComment()" style="float: right;  height: 120px;">댓글 작성</button>
+         -->   
+            <input type="submit" value="작성"/>
+            <table>
+            	<tr>
+            		<td width="100px"> 작성자 </td>
+            		<td width="600px"> 댓글 </td>
+            		<td width="150px"> 작성일 </td>
+            		
+             <c:forEach var="comment" items="${commentList}">
+            	<tr>
+            		<td> ${comment.member_id} </td>
+             		<td> ${comment.free_comment} </td>
+             		<td> ${comment.free_commentDate}  </td>
+ 				</tr>
+ 				
+             </c:forEach>
+             </table>
          </div>
+         </form>
       </div>
    </div>
 </body>

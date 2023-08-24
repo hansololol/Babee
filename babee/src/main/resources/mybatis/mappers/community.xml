@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.babee.community.dao.CommunityDAO">
+	<!-- 리절트 맵 정의 -->
+	<resultMap id="freeboardResult" type="FreeboardVO">
+		<result property="articleNO" column="articleNO" />
+		<result property="free_title" column="free_title" />
+		<result property="member_id" column="member_id" />
+		<result property="free_writeDate" column="free_writeDate" />
+		<result property="free_content" column="free_content" />
+		<result property="free_view_count" column="free_view_count" />
+		<result property="free_img" column="free_img" />
+		<result property="free_img_id" column="free_img_id" />
+	</resultMap>
+		
+	<resultMap id="commentResult" type="CommentVO">
+		<result property="free_commentNO" column="free_commentNO" />
+		<result property="member_id" column="member_id" />
+		<result property="free_comment" column="free_comment" />
+		<result property="seller_id" column="seller_id" />
+		<result property="free_commentDate" column="free_commentDate" />
+		<result property="articleNO" column="articleNO" />
+	</resultMap>
+	
+	<select id="selectALLFreeboardList" resultMap="freeboardResult" parameterType="String">
+		<![CDATA[
+		 SELECT * 
+		 FROM t_shopping_freeboard 
+		 order by free_writeDate desc
+		]]>
+	 </select>
+	
+	<insert id="insertNewFreeboard"  parameterType="java.util.Map">
+  		<![CDATA[
+    	insert into t_shopping_freeboard(articleNO,
+				 					 member_id,
+                                     free_title,
+                                     free_img,
+                                     free_content,
+                                     free_writeDate,
+                                     free_img_id,
+                                     free_view_count
+                                     )
+							 values(#{articleNO},
+									#{member_id},
+									#{free_title},
+                                   	#{free_img}, 
+                                    #{free_content},
+                                    now(),
+                                    #{free_img_id},
+                                    #{free_view_count}
+                                    )
+                                                               
+  		 ]]>      
+  	</insert>
+  	
+  	<insert id="insertFreeboardImage" parameterType="java.util.Map">
+	  <![CDATA[
+     insert into t_shopping_image
+        (image_id,fileName, fileType, reg_id)
+      values(
+           #{free_img_id},
+          #{free_img},
+            'freeboard',
+            #{member_id}
+            )
+     ]]>
+
+	</insert>
+  	
+  	
+	
+	<select id="selectFreeboardDetail" resultMap="freeboardResult"   parameterType="String">
+       <![CDATA[
+        select * from t_shopping_freeboard
+        where articleNO=#{articleNO};
+       ]]>
+   </select>
+   
+   <select id="selectAllComment" resultMap="commentResult"   parameterType="String">
+       <![CDATA[
+  		select * from t_shopping_freeboard_comment
+        where articleNO=#{articleNO};
+       ]]>
+   </select>
+   
+   <insert id="insertCommnet" parameterType="CommentVO">
+	  <![CDATA[
+     insert into t_shopping_freeboard_comment
+        (member_id,free_comment, free_commentDate, articleNO)
+      values(
+           #{member_id},
+           #{free_comment},
+            now(),
+            #{articleNO}
+            )
+     ]]>
+
+	</insert>
+   
+   <!-- <update id="updateDiary" parameterType="java.util.Map">
+ 		<![CDATA[
+ 			update t_shopping_dir
+ 			set dir_title=#{dir_title}, 
+ 				dir_main_img=#{dir_main_img},
+ 				baby_condition=#{baby_condition}, 
+ 				dir_content=#{dir_content},
+ 				dir_main_img_id=#{dir_main_img_id}
+ 			]]>
+ 			<if test="imageFileName!='' and imageFileName!=null">
+ 				<![CDATA[ ,imageFileName=#{imageFileName} ]]>
+ 			</if>
+ 		<![CDATA[
+ 			where dir_no=#{dir_no}
+ 		 ]]>
+ 	</update>
+ 	
+ 	<update id="updateDiaryImage" parameterType="java.util.Map">
+	  <![CDATA[
+     	update t_shopping_image
+     	set 
+        	image_id=#{dir_main_img_id},
+        	fileName=#{dir_main_img} 
+        	
+        where reg_id=#{member_id}          
+     ]]>
+	</update> -->
+  
+  
+</mapper>
