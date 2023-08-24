@@ -103,6 +103,7 @@ input[type="submit"]:hover, input[type="reset"]:hover {
    <table class="tb" align="center">
       
       <tr>
+
          <td width="200"> <p align="center"  style=" margin-top: 30px;">작성자</p></td>
          <td width="250"> <input type="text" style="margin-left:10px; margin-top: 30px;" value="${memberInfo.member_name}" disabled></td>
                         <input type="hidden" name="member_id" value="${memberInfo.member_id}" ></td>

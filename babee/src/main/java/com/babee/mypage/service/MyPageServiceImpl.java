@@ -62,6 +62,7 @@ public class MyPageServiceImpl  implements MyPageService{
 		return myPageDAO.selectWishGoodsList(goods_id);
 	}
 	
+	@Override
 	public void removeWishList(int articleNO) throws Exception{
 		myPageDAO.deleteWishList(articleNO);
 	}

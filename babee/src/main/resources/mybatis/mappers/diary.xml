@@ -23,6 +23,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 </select>
 	
 	<insert id="insertNewDiary"  parameterType="java.util.Map">
+	<selectKey resultType="int" keyProperty="dir_no" order="BEFORE">
+       SELECT ifnull(max(dir_no)+1, 1) from t_shopping_dir;
+   </selectKey>
   		<![CDATA[
     	insert into t_shopping_dir(dir_no,
 				 					 member_id,
@@ -41,8 +44,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                                     #{dir_content},
                                     now(),
                                     #{dir_main_img_id}
-                                    )
-                                                               
+                                    )                                          
   		 ]]>      
   	</insert>
   	
@@ -87,13 +89,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<update id="updateDiaryImage" parameterType="java.util.Map">
 	  <![CDATA[
      	update t_shopping_image
-     	set 
-        	image_id=#{dir_main_img_id},
-        	fileName=#{dir_main_img} 
+     	set fileName=#{dir_main_img}
         	
-        where reg_id=#{member_id}          
+        where image_id=#{dir_main_img_id}  
      ]]>
 	</update>
+	<delete id="deleteDiary" parameterType="java.util.Map">
+	    <![CDATA[
+	      delete from t_shopping_dir
+	      where member_id=#{member_id} and dir_no=#{dir_no}
+    	]]>
+	</delete>
+	
+	<delete id="deleteDiaryImage" parameterType="java.util.Map">
+	    <![CDATA[
+	      delete from t_shopping_image
+	      where image_id=#{dir_main_img_id}
+    	]]>
+	</delete>
+	
   
   
 </mapper>

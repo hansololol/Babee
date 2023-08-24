@@ -177,7 +177,7 @@ input[type="reset"]:hover {
             <li style="text-align: left;"> <input type="checkbox" id="check" hidden> </li>
             
             <a href="${contextPath}/diary/diaryDetail.do?dir_no=${diary.dir_no}">
-                <li><img src="${contextPath}/thumbnails.do?goods_id=${diary.member_id}&fileName=${diary.dir_main_img}&fileType=diary" width="100px"> </li>
+                <li><img src="${contextPath}/thumbnails.do?goods_id=${diary.member_id}&fileName=${diary.dir_main_img}&fileType=diary&dir_no=${diary.dir_no}" width="100px"> </li>
                 <li style="font-weight: bold;">${diary.dir_title}</li>
                 <div class="ellipsis">
                     <li>${diary.dir_content}</li></div>

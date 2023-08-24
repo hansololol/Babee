@@ -18,6 +18,7 @@ public interface DiaryDAO {
 	public DiaryVO selectDiaryDetail(String dir_no) throws DataAccessException;
 	public void updateDiary(Map diaryMap) throws DataAccessException;
 	public void updateDiaryImage(Map diaryMap) throws DataAccessException;
-	
+	public void deleteDiary(Map diaryMap) throws DataAccessException;
+	public void deleteDiaryImage(Map diaryMap) throws DataAccessException;
 	
 }

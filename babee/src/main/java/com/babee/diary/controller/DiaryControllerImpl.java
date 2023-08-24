@@ -1,6 +1,7 @@
 package com.babee.diary.controller;
 
 import java.io.File;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -14,9 +15,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -82,7 +80,7 @@ public class DiaryControllerImpl extends BaseController implements DiaryControll
 		ModelAndView mav = new ModelAndView();
 		HttpSession session=request.getSession();
 		memberVO = (MemberVO) session.getAttribute("memberInfo");
-
+		String member_id = memberVO.getMember_id();
 		Map<String, Object> diaryMap = new HashMap<String, Object>();
 		Enumeration enu = multipartRequest.getParameterNames();
 		while(enu.hasMoreElements()) {
@@ -96,11 +94,13 @@ public class DiaryControllerImpl extends BaseController implements DiaryControll
 		String dir_main_img_id = String.valueOf(img_id);
 		diaryMap.put("dir_main_img_id", dir_main_img_id);
 		
+		
 		  try {
-			  diaryService.addDiary(diaryMap); 
+			  diaryService.addDiary(diaryMap);
+			  int dir_no = (int) diaryMap.get("dir_no");
 		  if(imageFileName !=null && imageFileName.size() !=0) { 
 			  File srcFile = new File(CURR_IMAGE_REPO_PATH_DIARY + "\\" + "temp" + "\\" + imageFileName.get(0)); 
-			  File destDir = new File(CURR_IMAGE_REPO_PATH_DIARY+ "\\" + memberVO.getMember_id());
+			  File destDir = new File(CURR_IMAGE_REPO_PATH_DIARY+ "\\" + member_id + "\\" + dir_no);
 		  FileUtils.moveFileToDirectory(srcFile, destDir, true); 
 		  mav.setViewName("redirect:/diary/diaryList.do");
 		  }
@@ -134,7 +134,7 @@ public class DiaryControllerImpl extends BaseController implements DiaryControll
 		ModelAndView mav = new ModelAndView();
 		HttpSession session=request.getSession();
 		memberVO = (MemberVO) session.getAttribute("memberInfo");
-		System.out.println("modDiary 들어왔나");
+		String member_id = memberVO.getMember_id();
 		Map<String, Object> diaryMap = new HashMap<String, Object>();
 		Enumeration enu = multipartRequest.getParameterNames();
 		while(enu.hasMoreElements()) {
@@ -144,25 +144,55 @@ public class DiaryControllerImpl extends BaseController implements DiaryControll
 		}
 		List imageFileName = upload(multipartRequest);
 		diaryMap.put("dir_main_img", imageFileName.get(0));
-		int img_id = (int) Math.floor(Math.random()*1000000);
-		String dir_main_img_id = String.valueOf(img_id);
-		diaryMap.put("dir_main_img_id", dir_main_img_id);
+		
 		
 		  try {
-			  diaryService.modDiary(diaryMap); 
+			  diaryService.modDiary(diaryMap);
+			  int dir_no = diary.getDir_no();
+			  
 		  if(imageFileName !=null && imageFileName.size() !=0) { 
 			  File srcFile = new File(CURR_IMAGE_REPO_PATH_DIARY + "\\" + "temp" + "\\" + imageFileName.get(0)); 
-			  File destDir = new File(CURR_IMAGE_REPO_PATH_DIARY+ "\\" + memberVO.getMember_id());
+			  File destDir = new File(CURR_IMAGE_REPO_PATH_DIARY+ "\\" + member_id + "\\" + dir_no);
 		  FileUtils.moveFileToDirectory(srcFile, destDir, true); 
 
 		String dir_main_img = (String) diaryMap.get("originalFileName");
-				File oldFile = new File(CURR_IMAGE_REPO_PATH_DIARY+ "\\" + memberVO.getMember_id() + "\\" + dir_main_img );
+				File oldFile = new File(CURR_IMAGE_REPO_PATH_DIARY+ "\\" + member_id + "\\" +dir_no + "\\" + dir_main_img );
 				oldFile.delete();
-		  mav.setViewName("redirect:/diary/diaryDetail.do?dir_no="+ diaryVO.getDir_no());
+		  mav.setViewName("redirect:/diary/diaryDetail.do?dir_no="+ dir_no);
 		  }
 		  }catch (Exception e) {
 			  e.printStackTrace();
 	    	}
+		return mav;
+	}
+	
+	@Override
+	@RequestMapping(value = "/removeDiary.do", method = RequestMethod.POST)
+	public ModelAndView removeDiary(HttpServletRequest request, HttpServletResponse response)  throws Exception {
+		String dir_no = request.getParameter("dir_no");
+		String dir_main_img_id = request.getParameter("dir_main_img_id");
+		HttpSession session = request.getSession();
+		memberVO = (MemberVO) session.getAttribute("memberInfo");
+		String member_id = memberVO.getMember_id();
+		Map diaryMap = new HashMap<>();
+		diaryMap.put("member_id", member_id);
+		diaryMap.put("dir_no", dir_no);
+		diaryMap.put("dir_main_img_id", dir_main_img_id);
+		diaryService.delDiary(diaryMap);
+		
+		
+		if(dir_no!=null) {
+			File delFolder = new File(CURR_IMAGE_REPO_PATH_DIARY+ "\\" + member_id + "\\" +dir_no );
+			File[] deleteFolderList = delFolder.listFiles();
+			
+			for (int j = 0; j < deleteFolderList.length; j++  ) {
+				System.out.println(deleteFolderList[j]);
+				deleteFolderList[j].delete();
+			}
+			delFolder.delete();
+		}
+		
+		ModelAndView mav = new ModelAndView("redirect:/diary/diaryList.do");
 		return mav;
 	}
 	

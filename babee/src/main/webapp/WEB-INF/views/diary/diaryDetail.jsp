@@ -35,6 +35,22 @@
 	obj.submit();
    }
 
+   function fn_remove_diary(dir_no, dir_main_img_id){
+      var formObj = document.createElement("form");
+      var d_goods = document.createElement("input");
+            d_goods.name = "dir_no";
+            d_goods.value = dir_no;
+            formObj.appendChild(d_goods);
+      var d_img = document.createElement("input");
+            d_img.name = "dir_main_img_id";
+            d_img.value = dir_main_img_id;
+            formObj.appendChild(d_img);
+      document.body.appendChild(formObj);
+            formObj.method = "post";
+            formObj.action = "${contextPath}/diary/removeDiary.do";
+            formObj.submit();
+   }
+
    function readURL(input){
 	if(input.files && input.files[0]){
 		var reader = new FileReader();
@@ -109,7 +125,7 @@ display:none;
    
    <table class="diaryDetail_tb">
       <tr height="80px">
-         <input type="hidden" name="dir_no" value="${diary.dir_no}">
+         <input type="hidden" id="d_no" name="dir_no" value="${diary.dir_no}">
          <td class="diaryDetail_list">작성자</td>
          <td><input type="text" value="${memberInfo.member_name}" name="member_id" id="d_id" disabled></td>
       <tr height="80px">
@@ -120,7 +136,7 @@ display:none;
          <td class="diaryDetail_list">표지</td>
             <input type="hidden" name="originalFileName" value="${diary.dir_main_img}"/>
          <td> 
-            <img src="${contextPath}/thumbnails.do?goods_id=${diary.member_id}&fileName=${diary.dir_main_img}&fileType=diary" width="150px" id="preview">
+            <img src="${contextPath}/thumbnails.do?goods_id=${diary.member_id}&fileName=${diary.dir_main_img}&fileType=diary&dir_no=${diary.dir_no}" width="150px" id="preview">
             <input type="file" name="dir_main_img1" id="d_imageFileName" disabled onchange="readURL(this);"/>
          </td>
       </tr>
@@ -131,6 +147,7 @@ display:none;
       <tr height="300px">
          <td class="diaryDetail_list">기록</td>
          <td><input type="text" value="${diary.dir_content}" name="dir_content" id="d_content" disabled></td>
+         <input type="hidden" name="dir_main_img_id" value="${diary.dir_main_img_id}">
       </tr>
    </table>
    
@@ -139,7 +156,7 @@ display:none;
    <div class="btnList" id="btnList">
       <input type="button" value="목록 보기" onClick="backToList()" >
       <input type="button" value="수정" onClick="fn_enable(this.form)">
-      <input type="button" value="삭제">
+      <input type="button" value="삭제" onClick="fn_remove_diary('${diary.dir_no}', '${diary.dir_main_img_id}')">
    </div>
 
    <div class="btnList_modify" id="btnList_modify">
