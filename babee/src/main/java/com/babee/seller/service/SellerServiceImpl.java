@@ -34,9 +34,9 @@ public class SellerServiceImpl implements SellerService{
 	}
 
 	@Override
-	public void removeGoodsImage2(int image_id) throws Exception {
-		System.out.println("상품 삭제 시 image_id 확인: " + image_id);
-		sellerDAO.deleteGoodsImage(image_id);
+	public void removeGoodsImage2(int goods_image_name1_id) throws Exception {
+		System.out.println("상품 삭제 시 image_id 확인: " + goods_image_name1_id);
+		sellerDAO.deleteGoodsImage2(goods_image_name1_id);
 	}
 
 	@Override

@@ -14,5 +14,5 @@ public interface SellerService {
 
 	public void removeGoodsImage(int goods_id) throws Exception;
 
-	public void removeGoodsImage2(int image_id) throws Exception;
+	public void removeGoodsImage2(int goods_image_name1_id) throws Exception;
 }

@@ -145,7 +145,7 @@
                  <td>
                  
                      <a class="order_delivery_search" href="${contextPath}/seller/addNewGoodsForm.do"><b>수정하기</b></a><br>
-                     <a class="order_delivery_search" href="${contextPath}/seller/removeGoodsImage.do?goods_id=${goods.goods_id}&goods_image_name1=${goods.goods_image_name1}"><b>삭제</b></a><br>
+                     <a class="order_delivery_search" href="${contextPath}/seller/removeGoodsImage.do?goods_id=${goods.goods_id}&goods_image_name1=${goods.goods_image_name1}&goods_image_name1_id=${goods.goods_image_name1_id}"><b>삭제</b></a><br>
                  </td>
              </tr>
          </c:forEach>

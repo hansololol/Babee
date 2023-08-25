@@ -33,8 +33,16 @@ public class GoodsVO {
     private String goods_option3;
     private String goods_option4;
     private String goods_option5;
+    private String fileType;
+    
     
 	
+	public String getFileType() {
+		return fileType;
+	}
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
+	}
 	public int getGoods_id() {
 		return goods_id;
 	}

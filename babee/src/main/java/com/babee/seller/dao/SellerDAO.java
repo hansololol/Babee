@@ -19,6 +19,7 @@ import com.babee.seller.vo.SellerVO;
 		public String selectOverlappedID(String id) throws DataAccessException;
 		
 		public void deleteGoodsImage(int goods_id) throws DataAccessException;
-	    public void deleteGoodsImage2(int image_id) throws DataAccessException;
+		public void deleteGoodsImage2(int goods_image_name1_id) throws DataAccessException;
+		
 	    public List<GoodsVO> adminGoodsList(@Param("seller_id") String seller_id) throws DataAccessException;
 	}

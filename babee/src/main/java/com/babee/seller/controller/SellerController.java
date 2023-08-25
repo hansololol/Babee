@@ -19,6 +19,11 @@ public interface SellerController {
 	public ResponseEntity  addSeller(MultipartHttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 	public void removeGoodsImage(@RequestParam("goods_id") int goods_id, // @RequestParam("image_id") int image_id,
-			@RequestParam("goods_image_Name1") String imageFileName, HttpServletRequest request,
+			@RequestParam("goods_image_name1_id") int goods_image_name1_id,
+			HttpServletRequest request,
 			HttpServletResponse response) throws Exception;
+	
+	
+	
+	
 }

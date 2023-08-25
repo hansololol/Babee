@@ -31,6 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
        <result property="goods_option3" column="goods_option3" />
        <result property="goods_option4" column="goods_option4" />
        <result property="goods_option5" column="goods_option5" />
+       <result property="fileType" column="fileType" />
 </resultMap>      
 
    <resultMap id="imageResult" type="ImageFileVO">
@@ -128,13 +129,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 ]]>
 </insert>
 
-    <insert id="insertGoodsImageFile" parameterType="java.util.Map"   >
-     
-       <![CDATA[
-          insert into t_shopping_image (image_id, fileName, reg_id, detailFile)
-          values(#{goods_image_name1_id}, #{fileName}, #{reg_id}, #{detailFile})
-      ]]>
-   </insert>
+    <insert id="insertGoodsImageFile" parameterType="java.util.Map">
+    <![CDATA[
+        insert into t_shopping_image (image_id, fileName, reg_id, detailFile, fileType)
+        values(#{goods_image_name1_id}, #{fileName}, #{reg_id}, #{detailFile}, 'goods')
+	    ]]>
+	</insert>
    
    
    <select id="selectNewGoodsList" resultMap="goodsResult" parameterType="java.util.Map">
