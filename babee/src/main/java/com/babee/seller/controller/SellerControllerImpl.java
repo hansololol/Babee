@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.babee.common.base.BaseController;
+import com.babee.goods.vo.GoodsVO;
 import com.babee.seller.service.SellerService;
 import com.babee.seller.vo.SellerVO;
 
@@ -36,6 +39,7 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 	private SellerService sellerService;
 	@Autowired
 	private SellerVO sellerVO;
+	private static final String CURR_IMAGE_REPO_PATH = "C:\\shopping\\file_repo";
 	
 	
 	@Override
@@ -102,6 +106,57 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 		return resEntity;
 	}
 	
+	
+	@Override
+	   @RequestMapping(value = "/removeGoodsImage.do", method={RequestMethod.GET, RequestMethod.POST})
+	   public void removeGoodsImage(@RequestParam("goods_id") int goods_id,
+	                                @RequestParam("goods_image_name1") String imageFileName,
+	                                HttpServletRequest request, HttpServletResponse response) throws Exception {
+	       System.out.println("삭제 굿 아이디: " + goods_id);
+	       
+	       try {
+	          sellerService.removeGoodsImage(goods_id);
+	           // 폴더 삭제
+	           File srcFolder = new File(CURR_IMAGE_REPO_PATH + "\\" + goods_id);
+	           deleteDirectory(srcFolder);
+
+	           response.sendRedirect(request.getContextPath() + "/seller/listSellerGoods.do");
+	       } catch (Exception e) {
+	           e.printStackTrace();
+	       }
+	   }
+
+	   private void deleteDirectory(File dir) {
+	       File[] files = dir.listFiles();
+	       if (files != null) {
+	           for (File file : files) {
+	               if (file.isDirectory()) {
+	                   deleteDirectory(file);
+	               } else {
+	                   file.delete();
+	               }
+	           }
+	       }
+	       dir.delete();
+	   }
+	   
+	   @RequestMapping(value="/listSellerGoods.do", method={RequestMethod.POST,RequestMethod.GET})
+	   public ModelAndView goodsList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	       ModelAndView mav = new ModelAndView("/seller/listSellerGoods");
+
+	       // 사용자의 로그인 정보를 어떻게 가져올지에 따라 sellerId 변수를 설정
+	       HttpSession session = request.getSession();
+	      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+	      String seller_id = sellerVO.getSeller_id();
+	      System.out.println("셀러아이디 사업자: "+ seller_id);
+	       List<GoodsVO> sellerGoodsList = sellerService.adminGoodsList(seller_id);
+	       
+	       mav.addObject("sellerGoodsList", sellerGoodsList);
+	       System.out.println("사업자 상품리스트"+ sellerGoodsList);
+
+	       
+	       return mav;
+	   }
 	
 	protected List upload(MultipartHttpServletRequest multipartRequest) throws Exception{
 		List imageFileName = new ArrayList();

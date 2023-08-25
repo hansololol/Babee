@@ -24,7 +24,7 @@
 
 
 .order_delivery_list { 
-	width: 66%;
+   width: 66%;
     margin: auto;
    }
 
@@ -115,43 +115,83 @@
       </table>
       
       <div class="clear">
-   </div>
-   </form>   
+   </div>  
    
    <br>
-   <a class="order_delivery_search" href="${contextPath}/seller/addNewGoodsForm.do?page=sellerPage" style="width: 125px;
+   <a class="order_delivery_search" href="${contextPath}/seller/addNewGoodsForm.do" style="width: 125px;
    float: right;
    font-size: 18px;
    margin-bottom: 10px;"><b>상품 등록하기</b></a>
-<table class="order_delivery"  width="100%">
-         <tr >
-            <td colspan="2" width="300px" style="padding-left:15px;">상품정보</td>
-            <td>배송비</td>
-            <td>상품 관리</td>
-            <td >&nbsp;&nbsp;&nbsp;</td>
-            
-         </tr>
-        <c:forEach var="i" begin="0" end="3"> 
+      <table class="order_delivery" width="100%">
          <tr>
-        
-            <td><img src="/image/lego.jpg" width="100px"/></td>
-            <td> 
-               <ul class="goods">
-                  <li style="text-align:left;"> 레고장난감 [주문번호] </li>
-                  <li style="text-align:left;"> 가격: 25,000원 </li>
-               </ul>
-            </td>
-            <td> 2,500원 </td>
-            
-            <td> 
-            <a class="order_delivery_search" href="${contextPath}/seller/addNewGoodsForm.do?page=sellerPage"><b>수정하기</b></a><br>
-             <a class="order_delivery_search?page=sellerPage" href=""><b>삭제</b></a><br>
-
-            </tr>
-           </c:forEach> 
-           
+             <td colspan="2" width="300px" style="padding-left: 15px;">상품정보</td>
+             <td>배송비</td>
+             <td>상품 관리</td>
+             <td>&nbsp;&nbsp;&nbsp;</td>
+         </tr>
+         <c:forEach items="${sellerGoodsList}" var="goods">
+             <tr>
+                 <td>
+                 <a href="${contextPath}/goods/goodsDetail.do?goods_id=${goods.goods_id}&fileName=${goods.goods_image_name1_id}">
+                 <img src="${contextPath}/thumbnails.do?goods_id=${goods.goods_id}&fileName=${goods.goods_image_name1}" style="width:100px;"> </a></td>
+                 
+                 <td>
+                     <ul class="goods">
+                         <li style="text-align: left;"> ${goods.goods_title} </li>
+                         <li style="text-align: left;"> 가격: ${goods.goods_price}원 </li>
+                     </ul>
+                 </td>
+                 <td> 2,500원 </td>
+                 <td>
+                 
+                     <a class="order_delivery_search" href="${contextPath}/seller/addNewGoodsForm.do"><b>수정하기</b></a><br>
+                     <a class="order_delivery_search" href="${contextPath}/seller/removeGoodsImage.do?goods_id=${goods.goods_id}&goods_image_name1=${goods.goods_image_name1}"><b>삭제</b></a><br>
+                 </td>
+             </tr>
+         </c:forEach>
       </table>
+   </form>
       </div>      
+      
+      
+      <!-- 페이징  -->
+      <div class="paging-container">
+        <c:if test="${totArticles !=null}">
+           <c:choose>
+              <c:when test="${totArticles > 100 }"> 
+                 <c:forEach var="page" begin="1" end="10" step="1">
+                    <c:if test="${section >1 && page==1 }" >
+                       <a class="paging-button"  href="${contextPath}/mypage/myReviewList.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp; pre </a>
+                    </c:if>
+                       <a class="paging-button"  href="${contextPath}/mypage/myReviewList.do?section=${section-1}&pageNum=${(section-1)*10 +page }"> </a>
+                    <c:if test="${page ==10 }">
+                    <a class="paging-button"  href="${contextPath}/mypage/myReviewList.do?section=${section-1}&pageNum=${section*10 +1 }">&nbsp; next </a>
+                    </c:if>
+                 </c:forEach>
+              </c:when>
+              
+              <c:when test="${totArticles ==100 }">
+                 <c:forEach var="page" begin="1" end="10" step="1">
+                 <a class="paging-button"  href="#"> ${page }</a>
+                 </c:forEach>
+              </c:when>
+              
+              <c:when test="${totArticles <100 }">
+                 <c:forEach var="page" begin="1" end="${totArticles/10 +1 }" step="1">
+                    <c:choose>
+                       <c:when test="${page==pageNum }">
+                       <a class="paging-button" href="${contextPath}/mypage/myReviewList.do?section=${section}&pageNum=${page}">${page }</a>
+                       </c:when>
+                    <c:otherwise>
+                       <a class="paging-button"  href="${contextPath}/mypage/myReviewList.do?section=${section}&pageNum=${page}">${page }</a>
+                    </c:otherwise>
+                    </c:choose>
+                 </c:forEach>
+              </c:when>
+           </c:choose>
+        </c:if>
+                 
+     </div>
   
 </body>
 </html>

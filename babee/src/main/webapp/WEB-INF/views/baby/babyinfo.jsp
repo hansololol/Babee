@@ -115,7 +115,7 @@
         <span></span>
     </div>
     <div class="square" onclick="openPopup('../labor.jsp')">
-        <img src="/image/hoss.png" alt="hospiter" width="50px" height="50px">
+        <img src="/image/baby.png" alt="hospiter" width="50px" height="50px">
         <span>출산징후</span>
     </div>
     <div class="square">
@@ -125,25 +125,25 @@
         <span></span>
     </div>
     <div class="square" onclick="openPopup('../proadvice.jsp')">
-        <img src="/image/hoss.png" alt="hospiter" width="50px" height="50px">
+        <img src="/image/consult.png" alt="hospiter" width="50px" height="50px">
         <span>전문가 상담</span>
     </div>
     <div class="square">
         <span></span>
     </div>
     <div class="square" onclick="openPopup('../babymap.jsp')">
-        <img src="/image/hoss.png" alt="hospiter" width="50px" height="50px">
+        <img src="/image/school.png" alt="hospiter" width="50px" height="50px">
         <span>어린이집 <br>유치원</span>
     </div>
     <div class="square" onclick="openPopup('../injection.jsp')">
-        <img src="/image/hoss.png" alt="hospiter" width="50px" height="50px">
+        <img src="/image/inoculation.png" alt="hospiter" width="50px" height="50px">
         <span>접종정보</span>
     </div>
     <div class="square">
         <span></span>
     </div>
     <div class="square" onclick="openPopup('../kidmap.jsp')">
-        <img src="/image/hoss.png" alt="hospiter" width="50px" height="50px">
+        <img src="/image/play.png" alt="hospiter" width="50px" height="50px">
         <span>키즈카페</span>
     </div>
     <div class="square">
