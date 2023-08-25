@@ -49,6 +49,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 </select>
 	
 	<insert id="insertNewFreeboard"  parameterType="java.util.Map">
+		<selectKey resultType="int" keyProperty="articleNO" order="BEFORE">
+			SELECT ifnull(max(articleNO)+1, 1) from t_shopping_freeboard;
+		</selectKey>
+  		
   		<![CDATA[
     	insert into t_shopping_freeboard(articleNO,
 				 					 member_id,

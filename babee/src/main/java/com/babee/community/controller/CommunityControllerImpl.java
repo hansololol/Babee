@@ -103,10 +103,13 @@ public class CommunityControllerImpl extends BaseController implements Community
 		String free_img_id = String.valueOf(img_id);
 		freeboardMap.put("free_img_id", free_img_id);
 		
+		
 		  try {
 			  communityService.addFreeboard(freeboardMap); 
-			  int articleNO = freeboard.getArticleNO();
+			 // int articleNO = freeboard.getArticleNO();
 			  
+			  int articleNO = (int) freeboardMap.get("articleNO");
+			  System.out.println("아티클넘: " + articleNO);
 		  if(imageFileName !=null && imageFileName.size() !=0) { 
 			  File srcFile = new File(CURR_IMAGE_REPO_PATH_FREEBOARD + "\\" + "temp" + "\\" + imageFileName.get(0)); 
 			  File destDir = new File(CURR_IMAGE_REPO_PATH_FREEBOARD+ "\\" + member_id + "\\" + articleNO );
