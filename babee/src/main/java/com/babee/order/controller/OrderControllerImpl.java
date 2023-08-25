@@ -87,6 +87,7 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		int order_goods_qty = 1;
 		Map goods = goodsService.goodsDetail("20230825");
 		goodsVO =(GoodsVO)goods.get("goodsVO");
+		orderVO.setGoods_id("20230825");
 		List ordergoods = new ArrayList();
 		orderVO.setGoods_title(goods_title);
 		orderVO.setOrder_goods_qty(order_goods_qty);
@@ -120,7 +121,7 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		int total_goods_price = Integer.valueOf(receiverMap.get("total_goods_price"));
 		int goods_delivery_price = Integer.parseInt(receiverMap.get("goods_delivery_price"));
 		int final_total_price = total_goods_price + goods_delivery_price;
-	
+		GoodsVO goodsVO = (GoodsVO)session.getAttribute("goods");
 		for(int i=0; i<myOrderList.size();i++){
 			//추가
 			OrderVO orderVO = new OrderVO();
@@ -143,7 +144,6 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		
 		orderService.addNewOrder(myOrderList);
 		 ModelAndView mav = new ModelAndView("/goods/orderResult");
-		 GoodsVO goodsVO = (GoodsVO)session.getAttribute("goods");
 		 mav.addObject("total_goods_price", total_goods_price);
 		 mav.addObject("goods", goodsVO);
 		 mav.addObject("myOrderList", myOrderList);
