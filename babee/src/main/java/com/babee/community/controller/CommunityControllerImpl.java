@@ -27,6 +27,7 @@ import com.babee.common.base.BaseController;
 import com.babee.community.service.CommunityService;
 import com.babee.community.vo.CommentVO;
 import com.babee.community.vo.FreeboardVO;
+import com.babee.community.vo.InfoVO;
 import com.babee.community.vo.QnaVO;
 import com.babee.member.vo.MemberVO;
 
@@ -37,6 +38,7 @@ import com.babee.member.vo.MemberVO;
 @RequestMapping(value="/community")
 public class CommunityControllerImpl extends BaseController implements CommunityController{
 	private static String CURR_IMAGE_REPO_PATH_FREEBOARD = "c:/shopping/community/freeboard";
+	private static String CURR_IMAGE_REPO_PATH_INFO = "c:/shopping/community/info";
 	@Autowired
 	private CommunityService communityService;
 	@Autowired
@@ -298,6 +300,51 @@ public class CommunityControllerImpl extends BaseController implements Community
 		return mav;
 	}
 	
+	
+	
+	
+	@Override
+	@RequestMapping(value="/addInfo.do", method = RequestMethod.POST)
+	public ModelAndView addInfo(@ModelAttribute("infoVO") InfoVO info, MultipartHttpServletRequest multipartRequest, HttpServletRequest request, HttpServletResponse response)  throws Exception{
+		multipartRequest.setCharacterEncoding("utf-8");
+		ModelAndView mav = new ModelAndView();
+		HttpSession session=request.getSession();
+		memberVO = (MemberVO) session.getAttribute("memberInfo");
+		String member_id = memberVO.getMember_id();
+
+		Map<String, Object> InfoMap = new HashMap<String, Object>();
+		Enumeration enu = multipartRequest.getParameterNames();
+		while(enu.hasMoreElements()) {
+			String name=(String)enu.nextElement();
+			String value = multipartRequest.getParameter(name);
+			InfoMap.put(name, value);		
+		}
+		List imageFileName = upload(multipartRequest);
+		InfoMap.put("info_img", imageFileName.get(0));
+		int info_img_id_ = (int) Math.floor(Math.random()*1000000);
+		String info_img_id = String.valueOf(info_img_id_);
+		InfoMap.put("info_img_id", info_img_id);
+		
+		
+		  try {
+			  communityService.addInfo(InfoMap);   
+			  int articleNO = (int) InfoMap.get("articleNO");
+			  System.out.println("아티클넘: " + articleNO);
+		  if(imageFileName !=null && imageFileName.size() !=0) { 
+			  File srcFile = new File(CURR_IMAGE_REPO_PATH_INFO + "\\" + "temp" + "\\" + imageFileName.get(0)); 
+			  File destDir = new File(CURR_IMAGE_REPO_PATH_INFO+ "\\" + member_id + "\\" + articleNO );
+		  FileUtils.moveFileToDirectory(srcFile, destDir, true); 
+		  
+	
+		  
+		  mav.setViewName("redirect:/community/infoList.do");
+		  }
+		  }catch (Exception e) {
+			  e.printStackTrace();
+	    	}
+		 
+		return mav;
+	}
 	
 	
 	

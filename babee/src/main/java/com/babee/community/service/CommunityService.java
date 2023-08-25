@@ -22,4 +22,6 @@ public interface CommunityService {
 	
 	public void addQan(QnaVO qnaVO) throws Exception;
 	public List<QnaVO> selectMyQnaList(String member_id) throws Exception;
+	
+	public void addInfo(Map infoMap) throws DataAccessException;
 }

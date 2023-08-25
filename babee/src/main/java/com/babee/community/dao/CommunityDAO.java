@@ -34,4 +34,7 @@ public interface CommunityDAO {
 	public void insertNewQna (QnaVO qnaVO)throws DataAccessException;
 	public List selectMyQnaList(String member_id)throws DataAccessException;
 	
+	public void insertNewInfo(Map infoMap) throws DataAccessException;
+	public void insertInfoImage(Map infoMap) throws DataAccessException;
+	
 }

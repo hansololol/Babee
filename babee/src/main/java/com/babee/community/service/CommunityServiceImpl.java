@@ -82,4 +82,11 @@ public class CommunityServiceImpl implements CommunityService  {
 	 * @Override public void modDiary(Map diaryMap) throws DataAccessException {
 	 * diaryDAO.updateDiary(diaryMap); diaryDAO.updateDiaryImage(diaryMap); }
 	 */ 
+	
+	@Override
+	public void addInfo(Map infoMap) throws DataAccessException {
+		communityDAO.insertNewInfo(infoMap);
+		communityDAO.insertInfoImage(infoMap);
+		
+	}
 }

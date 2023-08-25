@@ -35,6 +35,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="qna_answer" column="qna_answer" />
 	</resultMap>
 	
+	<resultMap id="infoResult" type="InfoVO">
+		<result property="articleNO" column="articleNO" />
+		<result property="info_title" column="info_title" />
+		<result property="info_img" column="info_img" />
+		<result property="info_content" column="info_content" />
+		<result property="member_id" column="member_id" />
+		<result property="info_img_id" column="info_img_id" />
+	</resultMap>
+	
+	
+	
+	
 	<select id="selectALLFreeboardList" resultMap="freeboardResult" parameterType="String">
 		<![CDATA[
 		SELECT a.*, COALESCE(b.comment_count, 0) as commentCnt
@@ -202,4 +214,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update> -->
   
   
+  <insert id="insertNewInfo"  parameterType="java.util.Map">
+		<selectKey resultType="int" keyProperty="articleNO" order="BEFORE">
+			SELECT ifnull(max(articleNO)+1, 1) from t_shopping_infoboard;
+		</selectKey>
+  		
+  		<![CDATA[
+    	insert into t_shopping_infoboard(articleNO,
+				 					 member_id,
+                                     info_title,
+                                     info_img,
+                                     info_content,
+                                     info_img_id
+                                     
+                                     )
+							 values(#{articleNO},
+									#{member_id},
+									#{info_title},
+                                   	#{info_img}, 
+                                    #{info_content},
+                                    #{info_img_id}
+                                    
+                                    )
+                                                               
+  		 ]]>      
+  	</insert>
+  	
+  	<insert id="insertInfoImage" parameterType="java.util.Map">
+	  <![CDATA[
+     insert into t_shopping_image
+        (image_id,fileName, fileType, reg_id)
+      values(
+           #{free_img_id},
+          #{free_img},
+            'freeboard',
+            #{member_id}
+            )
+     ]]>
+
+	</insert>
 </mapper>

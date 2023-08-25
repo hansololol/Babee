@@ -19,6 +19,7 @@ public class FileDownloadController {
 	private static String CURR_IMAGE_REPO_PATH_REVIEW = "C:/shopping/review";
 	private static String CURR_IMAGE_REPO_PATH_DIARY = "C:/shopping/diary";
 	private static String CURR_IMAGE_REPO_PATH_FREEBOARD = "C:/shopping/community/freeboard";
+	private static String CURR_IMAGE_REPO_PATH_INFO = "C:/shopping/community/info";
 
 	
 	@RequestMapping("/download.do")
@@ -62,6 +63,10 @@ public class FileDownloadController {
 			case "freeboard" :
 						filePath = CURR_IMAGE_REPO_PATH_FREEBOARD+"/"+goods_id+"/"+ articleNO + "/" +fileName;
 						break;
+			case "info" :
+				filePath = CURR_IMAGE_REPO_PATH_INFO+"/"+goods_id+"/"+ articleNO + "/" +fileName;
+				break;
+
 		}
 		}
 		

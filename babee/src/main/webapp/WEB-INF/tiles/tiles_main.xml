@@ -239,7 +239,7 @@
 <put-attribute name="body" value="/WEB-INF/views/admin00/member/adminfreedetail.jsp"/>
 </definition>
 
-     <definition name="/member/admininfolist" extends="baseLayout_user">
+     <definition name="/community/admininfolist" extends="baseLayout_user">
          <put-attribute name="title" value="관리자 공지사항리스트" />
          <put-attribute name="body" value="/WEB-INF/views/admin00/member/admininfolist.jsp" />
        </definition>
