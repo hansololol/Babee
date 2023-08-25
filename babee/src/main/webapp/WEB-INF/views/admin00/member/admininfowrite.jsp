@@ -111,7 +111,7 @@
 </head>
 <body>
 <div class="custom-style">
-   <form class="form-container" method="post" action="${contextPath}/main.do" enctype="multipart/form-data">
+   <form class="form-container" method="post" action="${contextPath}/community/addinfo.do" enctype="multipart/form-data">
       <h1 style="text-align: center;">공지사항</h1>
       <h3 style="text-align: center;">작성페이지</h3>
       <hr>
@@ -120,20 +120,20 @@
          <table>
             <tr>
                <th>작성자</th>
-               <td><input type="text" name="author"></td>
+               <td><input type="text" name="member_id" value="${memberInfo.member_id}" disabled></td>
             </tr>
             
             <tr>
                <th>제목</th>
-               <td><input type="text" name="title"></td>
+               <td><input type="text" name="info_title"></td>
             </tr>
             
             
             <tr>
-               <th>문의내용</th>
+               <th>공지내용</th>
                <td>
                   <div style="padding: 10px 0;">
-                     <textarea name="inquiryContent"></textarea>
+                     <textarea name="info_content"></textarea>
                   </div>
                </td>
             </tr>
@@ -141,7 +141,7 @@
             <tr>
                <th>이미지 업로드</th>
                <td>
-                  <input type="file" name="imageUpload">
+                  <input type="file" name="info_img">
                </td>
             </tr>
             <tr>

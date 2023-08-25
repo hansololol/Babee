@@ -31,7 +31,7 @@
 			<a href="${contextPath}/member/listSellerGoodsAdmin.do?page=adminPage" class="list-group-item list-group-item-action">상품 관리</a>
 			<a href="" class="list-group-item list-group-item-action active" aria-current="true">
 				커뮤니티 관리</a>
-			<a href="${contextPath}/member/admininfolist.do?page=adminPage" class="list-group-item list-group-item-action">공지사항 관리</a>
+			<a href="${contextPath}/community/admininfolist.do?page=adminPage" class="list-group-item list-group-item-action">공지사항 관리</a>
 			<a href="${contextPath}/member/adminfreelist.do?page=adminPage" class="list-group-item list-group-item-action">자유게시판 관리</a>
 			<a href="${contextPath}/member/adminAnswer.do?page=adminPage" class="list-group-item list-group-item-action">문의 내역 관리</a>
 		</div>

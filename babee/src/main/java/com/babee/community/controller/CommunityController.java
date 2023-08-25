@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.babee.community.vo.CommentVO;
 import com.babee.community.vo.FreeboardVO;
+import com.babee.community.vo.InfoVO;
 
 
 public interface CommunityController {
@@ -21,6 +21,8 @@ public interface CommunityController {
 	public ModelAndView addComment(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView removeFreeboard(HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	public ModelAndView addqna(HttpServletRequest request, HttpServletResponse response) throws Exception;
-	ModelAndView myqnaList(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView myqnaList(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
+	
+	public ModelAndView addInfo(@ModelAttribute("infoVO") InfoVO info, MultipartHttpServletRequest multipartRequest, HttpServletRequest request, HttpServletResponse response)  throws Exception;
 }
