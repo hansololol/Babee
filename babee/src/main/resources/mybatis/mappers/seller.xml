@@ -132,8 +132,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    </delete>
    
    <delete id="deleteGoodsImage2" parameterType="int">
-      DELETE FROM t_shopping_image 
-      WHERE image_id = #{image_id}
+      DELETE FROM t_shopping_image
+	  WHERE image_id = #{goods_image_name1_id};
    </delete><!-- 여기해야함!!!!! -->
    
    

@@ -110,12 +110,14 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 	@Override
 	   @RequestMapping(value = "/removeGoodsImage.do", method={RequestMethod.GET, RequestMethod.POST})
 	   public void removeGoodsImage(@RequestParam("goods_id") int goods_id,
-	                                @RequestParam("goods_image_name1") String imageFileName,
+			   						@RequestParam("goods_image_name1_id") int goods_image_name1_id,
 	                                HttpServletRequest request, HttpServletResponse response) throws Exception {
 	       System.out.println("삭제 굿 아이디: " + goods_id);
 	       
 	       try {
 	          sellerService.removeGoodsImage(goods_id);
+	          sellerService.removeGoodsImage2(goods_image_name1_id);
+	          
 	           // 폴더 삭제
 	           File srcFolder = new File(CURR_IMAGE_REPO_PATH + "\\" + goods_id);
 	           deleteDirectory(srcFolder);
