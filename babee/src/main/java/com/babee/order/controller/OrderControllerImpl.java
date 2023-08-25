@@ -175,7 +175,7 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 	        int total_goods_price = 0;
 	        int total_discounted_price = 0;
 	        
-	        
+	        int discounted_price=0;
 	        for (int i = 0; i < goods_ids.length; i++) {
 
 	            String goods_id = goods_ids[i];
@@ -193,11 +193,10 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 
 	            int order_goods_qty1 = Integer.valueOf(order_qty);
 	            int _goods_price = Integer.valueOf(goodsVO.getGoods_price());
-	            int discounted_price = (_goods_price / 10) ;
+	            discounted_price = (_goods_price / 10) * order_goods_qty1;
 	            int _total_goods_price = _goods_price * order_goods_qty1;
 	           
 	            System.out.println("할인금액: " + discounted_price);
-	            mav.addObject("discounted_price", discounted_price);
 	            
 	            
 	            total_goods_price += _total_goods_price;
@@ -218,8 +217,9 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 	            ordergoods.add(orderVO); // OrderVO 객체 리스트에 추가
 	            
 	        }
-	       
-
+	      
+	        total_discounted_price = (discounted_price*(goods_ids.length));
+	        mav.addObject("discounted_price", total_discounted_price);
 	        session.setAttribute("orderInfo", ordergoods);
 	       
 	        
