@@ -146,7 +146,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
 
       function itemChange2() {
         // Baby Care Items
-        var skinCare = ["스트레치마크크림", "바디오일"];
+        var skinCare = ["스트레치마크크림", "바디오일", "클렌징오일"];
         var maternityClothes = ["원피스", "드레스", "바지"];
         var postpartumSupplies = ["보호대", "거실용품"];
         var oralCareProducts = ["칫솔", "치약", "구강청정제"];
@@ -155,7 +155,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
           "목욕의자",
           "비누/샴푸",
           "타월",
-          "목욕 장난감",
+          "목욕장난감",
         ];
         var hygieneProducts = ["화장지", "물티슈", "귀저기", "손소독제"];
         var laundryProducts = ["세탁세제", "세탁볼", "옷걸이", "섬유유연제"];

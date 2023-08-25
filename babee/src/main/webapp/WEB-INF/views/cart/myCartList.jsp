@@ -260,7 +260,7 @@ ul li {
                               <input type="number" value="${cartVO.cart_goods_qty}" id="order_goods_qty" class="order_goods_qty" name="order_goods_qty" style="width: 100px; text-align: center;"></span> 개</td>
                                 
                   <td>  <select style="width: 100px; text-align: center" id="_goods_option" name="goods_option" >
-                  <a href="javascript:delete_cart_goods(${cartVO.cart_id})" style="font-size: 3px;"><b><span>삭제</span></b></a>
+                 
                         <option value="${cartVO.goods_option1}">${cartVO.goods_option1}</option>
                         <option value="${cartVO.goods_option2}">${cartVO.goods_option2}</option>
                         <option value="${cartVO.goods_option3}">${cartVO.goods_option3}</option>
@@ -268,6 +268,8 @@ ul li {
                         <option value="${cartVO.goods_option5}">${cartVO.goods_option5}</option>
                      </select>
                   </td>
+                  
+                  <td>  <a href="javascript:delete_cart_goods(${cartVO.cart_id})" style="font-size: 3px;"><b><span>삭제</span></b></a> </td>
                   
                </tr>
             </c:forEach>

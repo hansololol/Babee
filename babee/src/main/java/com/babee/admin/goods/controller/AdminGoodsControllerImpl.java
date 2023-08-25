@@ -120,7 +120,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
            int randomNumber = random.nextInt(900000) + 100000;
            // goods_image_name1_id를 생성하여 newGoodsMap에 추가
            String goodsImageName1Id = String.valueOf(randomNumber);
-           newGoodsMap.put("goods_image_name_id1", goodsImageName1Id);
+           newGoodsMap.put("goods_image_name1_id", goodsImageName1Id);
            
            // goodsVO에도 goods_image_name1_id 저장
            goodsVO.setGoods_image_name1_id(goodsImageName1Id);
@@ -142,7 +142,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
            int randomNumber = random.nextInt(900000) + 100000;
            // goods_image_name1_id를 생성하여 newGoodsMap에 추가
            String goodsImageName2Id = String.valueOf(randomNumber);
-           newGoodsMap.put("goods_image_name_id2", goodsImageName2Id);
+           newGoodsMap.put("goods_image_name2_id", goodsImageName2Id);
            // goodsVO에도 goods_image_name1_id 저장
            goodsVO.setGoods_image_name1_id(goodsImageName2Id);
            newGoodsMap.put("detailFile", fileName);
@@ -218,62 +218,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
        resEntity = new ResponseEntity<>(message, responseHeaders, HttpStatus.OK);
        return resEntity;
    }
-   
-   @Override
-   @RequestMapping(value="/addNewGoodsImage.do" ,method={RequestMethod.POST})
-   public void addNewGoodsImage(MultipartHttpServletRequest multipartRequest, HttpServletRequest request, HttpServletResponse response)
-         throws Exception {
-      System.out.println("addNewGoodsImage");
-      multipartRequest.setCharacterEncoding("utf-8");
-      response.setContentType("text/html; charset=utf-8");
-      String imageFileName=null;
       
-      Map goodsMap = new HashMap();
-      Enumeration enu=multipartRequest.getParameterNames();
-      while(enu.hasMoreElements()){
-         String name=(String)enu.nextElement();
-         String value=multipartRequest.getParameter(name);
-         goodsMap.put(name,value);
-      }
-      
-      HttpSession session = multipartRequest.getSession();
-      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
-      String reg_id = sellerVO.getSeller_id();
-      
-      
-      List<ImageFileVO> imageFileList=null;
-      int goods_id=0;
-      try {
-         imageFileList =upload(multipartRequest);
-         if(imageFileList!= null && imageFileList.size()!=0) {
-            for(ImageFileVO imageFileVO : imageFileList) {
-               goods_id = Integer.parseInt((String)goodsMap.get("goods_id"));
-               imageFileVO.setGoods_id(goods_id);
-               imageFileVO.setReg_id(reg_id);
-            }
-            System.out.println("이미지셀러아이디" + reg_id);
-            // adminGoodsService.addNewGoodsImage(imageFileList);
-            for(ImageFileVO  imageFileVO:imageFileList) {
-               
-               imageFileName = imageFileVO.getFileName();
-               System.out.println("파일네임"+imageFileName);
-               File srcFile = new File(CURR_IMAGE_REPO_PATH+"\\"+"temp"+"\\"+imageFileName);
-               File destDir = new File(CURR_IMAGE_REPO_PATH+"\\"+ 2);
-               FileUtils.moveFileToDirectory(srcFile, destDir,true);
-            }
-         }
-      }catch(Exception e) {
-         if(imageFileList!=null && imageFileList.size()!=0) {
-            for(ImageFileVO  imageFileVO:imageFileList) {
-               imageFileName = imageFileVO.getFileName();
-               File srcFile = new File(CURR_IMAGE_REPO_PATH+"\\"+"temp"+"\\"+imageFileName);
-               srcFile.delete();
-            }
-         }
-         e.printStackTrace();
-      }
-   }
-   
    @RequestMapping(value="/modifyGoodsForm.do" ,method={RequestMethod.GET,RequestMethod.POST})
    public ModelAndView modifyGoodsForm(@RequestParam("goods_id") int goods_id,
                                      HttpServletRequest request, HttpServletResponse response)  throws Exception {

@@ -22,6 +22,6 @@ public interface AdminGoodsController {
             @RequestParam("image_id") int image_id,
             @RequestParam("imageFileName") String imageFileName,
             HttpServletRequest request, HttpServletResponse response)  throws Exception;
-   public void  addNewGoodsImage(MultipartHttpServletRequest multipartRequest, HttpServletRequest request, HttpServletResponse response)  throws Exception;
+   
    public void modifyGoodsImageInfo(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)  throws Exception;
 }
