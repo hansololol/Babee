@@ -153,6 +153,8 @@ input[type="reset"]:hover {
          <a href="${contextPath}/diary/diaryForm.do"><input type="button" value="다이어리 작성"></a>&nbsp;&nbsp;&nbsp;
         
          <button type="button" class="tooltip-button" id ="orderButton" onclick="fn:order()">다이어리 주문</button>
+        <br>
+         <p style="display:none" id="introdu">다이어리 이미지 클릭 시 선택 가능합니다</p>
              
    </div>
    
@@ -162,6 +164,7 @@ input[type="reset"]:hover {
         if(orderButton.disabled==false){
         orderButton.disabled=true;
         orderButton.style.backgroundColor="#ffcccc";
+        $("#introdu").css("display","block");
         }
         }
 
@@ -176,41 +179,37 @@ input[type="reset"]:hover {
             <li style="text-align: left;"> </li>
             
             <script>
-        
+                var array = new Array();
                 function findDir(index){
         
                     if(orderButton.disabled == true){
-                        var coun = 0;
-                         coun++;
                 $("#dirhref"+index).removeAttr('href');
-                $("#dirList"+index).on("click", function(){
-                 $("#dirList"+index).css("border", "5px solid #ffcccc").css('border-radius', '25px');
-                });
+                $("#dirList"+index).on("click").css("border", "5px solid #ffcccc").css('border-radius', '25px');
+                    
                     }
-                    
                 $("#selecdir"+index).each(function(i, obj) {
-                    console.log(obj.name);
-                    
+                    array.push(obj.name);
                 });
 
-                if(count>10){
-                    function order_dir_goods(index) {
-                var dir_id = index;
-                var formObj = document.createElement("form");
-                var i_dir= document.createElement("input");
-                i_dir.name = "dir_id";
-                i_dir.value = dir_id;
+                if(array.length>10){
+               
+                 $.ajax({
+		            type:'post',
+	            	url: '${contextPath}/order/orderDir.do',
+                    data : {array : array},
+                      
+                    success: function(result){
 
-                formObj.appendChild(i_dir);
-                document.body.appendChild(formObj);
-                formObj.method = "post";
-                formObj.action = "${contextPath}/cart/removeCartGoods.do";
-                formObj.submit();
-            }
-        }
-
-            
-                }
+                        if(confirm("선택이 완료되었습니다. 주문창으로 이동하시겠습니까?")){
+                        location.replace("${contextPath}/goods/orderGoodsForm.do");
+                    }else{
+                        alert("주문에 실패하였습니다. 다시 선택해주세요.");
+                        location.reload;
+                    }
+                        }
+                    });
+                        }
+                                }
                 
             
             </script>
@@ -219,7 +218,7 @@ input[type="reset"]:hover {
                 <li style="font-weight: bold;">${diary.dir_title}</li>
                 <div class="ellipsis">
                     <li>${diary.dir_content}</li></div>
-                   <input type="hidden" id="selecdir${diary.dir_no}" name="selectdir${diary.dir_no}" value="${diary.dir_no}">
+                   <input type="hidden" id="selecdir${diary.dir_no}" name="${diary.dir_no}" value="${diary.dir_no}">
                 <li style="text-align: right; font-size: 12px;">${diary.dir_writeDate}</li>
             </a>
          </ul>
