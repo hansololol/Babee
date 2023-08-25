@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
-<title>고객센터</title>
+<title>공지사항</title>
 <style>
    
     #search {
@@ -113,31 +113,109 @@
 </div>
 </div>
 
-    
-    <c:forEach var="i" begin="0" end="5">
-    <div style="text-align: center; ">
-        <div style="display: flex; justify-content: center; align-items: center;">
-            <img src="/image/glass.png" alt="FAQ" style="width: 20px; height: 20px; margin-right: 10px; margin-top: 15px; margin-left: -350px;">
-            <p style="margin-left: 25px;">
-                <a href="다른페이지_주소">[질문종류1][질문제목]</a>
+
+<script>
+    function toggleAnswer(numberId) {
+      var answer = document.getElementById("faqAnswer"+numberId);
+      if (answer.style.display == "none") {
+        answer.style.display = "block";
+        
+      } else {
+        answer.style.display = "none";
+      }
+    }
+
+
+    function myList(number) {
+      var answer1 = document.getElementById("jajuList1");   
+      var answer2 = document.getElementById("jajuList2");   
+        if(number==1){
+                answer1.style.display="block";
+                answer2.style.display="none" ;
+         }else{
+                answer2.style.display="block";
+                answer1.style.display="none";
+            }
+
+        }
+      
+
+        function loginQuestion(){
+
+        var isLogOn = '${isLogOn}';
+        if(isLogOn=='true'){
+         location.replace("${contextPath}/community/questionForm.do");
+          
+        }else{
+            alert("로그인 이후 이용 가능한 서비스입니다.");
+            location.replace("${contextPath}/member/loginForm.do")
+        }
+        }
+
+  </script>
+	
+    <div style="text-align: center; display: block;" id="jajuList1">
+    <div style="text-align: center;">
+     
+     <br>
+        <div style="display: flex; margin-left: 33%;">
+            <p style="margin-left: 25px;" >
+                <img src="/image/glass.png" alt="FAQ" style="width: 20px; height: 20px;">
+                <a href="#"  onclick="toggleAnswer(1)">🛍️ [babee] 공지사항 - 환영합니다!!! 🛍️</a>
             </p>
         </div>
+        <div id="faqAnswer1"
+        style="display: flex;text-align: left; margin-left: 33%;  display: none;">
+        
+        <p >안녕하세요 babee입니다!  <br>
+        소중한 고객 여러분 babbe에 오신 것을 환영합니다.  <br>
+        저희 babee에서는 다양한 상품과 혜택을 제공하고 있습니다.  <br>
+        회원가입 후 babee의 여러 서비스를 이용해 보시길 바랍니다.  <br> <br>
+        
+        항상 발전하는 babee가 되겠습니다.  <br>
+        감사합니다.
+        </p>
+     </div>
     </div>
     <hr width="50%" id="foreachhr">
-    </c:forEach>
-   
 
-    
-    <!-- 페이징 버튼 -->
-    <div class="paging-container">
-        <a class="paging-button" href="#">이전</a>
-        <a class="paging-button" href="#">1</a>
-        <a class="paging-button" href="#">2</a>
-        <a class="paging-button" href="#">3</a>
-        <a class="paging-button" href="#">4</a>
-        <a class="paging-button" href="#">5</a>
-        <a class="paging-button" href="#">다음</a>
+    <div style="text-align: center; ">
+        <div style="display: flex; margin-left: 33%;">
+            <p style="margin-left: 25px;" >
+                <img src="/image/glass.png" alt="FAQ" style="width: 20px; height: 20px;">
+                <a href="#"  onclick="toggleAnswer(2)">🛍️ [babee] 공지사항 - 2023년 8월 업데이트 🛍️</a>
+            </p>
+        </div>
+        <div id="faqAnswer2"
+        style="display: flex; text-align: left; margin-left: 33%; display: none;">
+        
+        <p>안녕하세요, babbe입니다!  <br>소중한 고객 여러분을 위해 새로운 소식과 업데이트를 안내해 드립니다. <br>
+        <br> <strong>신상품 입고 소식</strong>
+        <br> 이번 주에는 다양한 신상품이 입고되었습니다. 여름을 더욱 특별하게 <br>만들어줄 새로운 의류와 액세서리를 만나보세요.
+         편안한 착용감과  <br>세련된 디자인으로 여름 스타일을 완성해보세요!</p>
+     </div>
     </div>
-    <br><br><br><br><br>
+    <hr width="50%" id="foreachhr">
+    
+    <div style="text-align: center; ">
+        <div style="display: flex; margin-left: 33%;">
+            <p style="margin-left: 25px;" >
+                <img src="/image/glass.png" alt="FAQ" style="width: 20px; height: 20px;">
+                <a href="#"  onclick="toggleAnswer(3)">🛍️ [babee] 공지사항 - 2023년 7월 업데이트 🛍️</a>
+            </p>
+        </div>
+        <div id="faqAnswer3"
+        style="display: flex; text-align: left; margin-left: 33%; display: none;">
+        
+        <p>안녕하세요, babbe입니다!  <br>소중한 고객 여러분을 위해 새로운 소식과 업데이트를 안내해 드립니다. <br>
+        <br> <strong>신상품 입고 소식</strong>
+        <br> 이번 주에는 다양한 신상품이 입고되었습니다. 여름을 더욱 특별하게 <br>만들어줄 새로운 의류와 액세서리를 만나보세요.
+         편안한 착용감과  <br>세련된 디자인으로 여름 스타일을 완성해보세요!</p>
+     </div>
+    </div>
+
+    <br><br><br>
+    
+</div>
 </body>
 </html>

@@ -215,7 +215,7 @@ function readURL(input){
            
             </div>
          <div class="content">
-            <p>${freeboard.free_title }</p>
+            <p>${freeboard.free_content }</p>
          </div>
          <hr>
          
@@ -224,6 +224,7 @@ function readURL(input){
      	       		<ul>
             		<li> <strong>${comment.member_id}</strong> </li>
              		<li> ${comment.free_comment} </li>
+             		
              		<%-- <td> ${comment.free_commentDate}  </td> --%>
  					</ul>
  					<hr>

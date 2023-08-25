@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component("goodsVO")
 public class GoodsVO {
-	private String goods_id;
+	private int goods_id;
     private String goods_title;
     private int goods_price;
     private int goods_stock;
@@ -33,10 +33,12 @@ public class GoodsVO {
     private String goods_option3;
     private String goods_option4;
     private String goods_option5;
-	public String getGoods_id() {
+    
+	
+	public int getGoods_id() {
 		return goods_id;
 	}
-	public void setGoods_id(String goods_id) {
+	public void setGoods_id(int goods_id) {
 		this.goods_id = goods_id;
 	}
 	public String getGoods_title() {
