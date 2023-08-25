@@ -180,7 +180,7 @@ function search_order_history(fixedSearchPeriod){
          </tr>
         <c:forEach items="${myOrderList}" var="order" >
          <tr>
-            <td><img src="${contextPath}/thumbnails.do?goods_id=${order.goods_id}&fileName=${order.goods_image_name}" width="100px"/></td>
+            <td><a href="${contextPath}/goods/goodsDetail.do?goods_id=${order.goods_id}"><img src="${contextPath}/thumbnails.do?goods_id=${order.goods_id}&fileName=${order.goods_image_name}" width="100px"/></a></td>
             <td> 
                <ul class="goods">
                   <li style="text-align:left;"> ${order.goods_title} [<a href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}">${order.order_id}</a>] </li>

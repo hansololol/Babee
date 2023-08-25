@@ -16,7 +16,7 @@
 }
 
 /* '삭제' 버튼 스타일 */
-.cart_list td>a {
+#deleteButton1 > a {
    background-color: #ffcd29; /* 배경색 */
    color: black; /* 텍스트색 */
    padding: 8px 8px; /* 내부 여백 */
@@ -27,7 +27,7 @@
 }
 
 /* 버튼에 호버 효과 */
-.cart_list td>a:hover {
+#deleteButton1>a:hover {
    background-color: #cca300; /* 호버 시 배경색 변경 */
 }
 
@@ -44,11 +44,6 @@ ul li {
    border-top: 1px solid gray;
 }
 
-.buy > a {
-    background-position: 15px;
-    background-color: rgb(255, 255, 166);
-    color: rgb(0, 0, 0);
-}
 .cart_img {
    margin-right: 30px;
 }
@@ -253,7 +248,7 @@ ul li {
                <tr>
                   <td class="text_center"><input type="checkbox" class="product-checkbox"></td>
                         <input type="hidden" class="goodsId" value="${cartVO.goods_id}">
-                  <td style="text-align: left;"><img src="${contextPath}/thumbnails.do?goods_id=${cartVO.goods_id}&fileName=${cartVO.cart_image_name}" width="100px" class="cart_img"/></td>
+                  <td style="text-align: left;"><a href="${contextPath}/goods/goodsDetail.do?goods_id=${cartVO.goods_id}"><img src="${contextPath}/thumbnails.do?goods_id=${cartVO.goods_id}&fileName=${cartVO.cart_image_name}" width="100px" class="cart_img"/></a></td>
                   <td style="text-align: left;">${cartVO.goods_title}</td>
                   <td><span class="price">${cartVO.goods_price} 원</span></td>
                   <td><span class="quantity">
@@ -269,7 +264,7 @@ ul li {
                      </select>
                   </td>
                   
-                  <td>  <a href="javascript:delete_cart_goods(${cartVO.cart_id})" style="font-size: 3px;"><b><span>삭제</span></b></a> </td>
+                  <td id="deleteButton1">  <a href="javascript:delete_cart_goods(${cartVO.cart_id})" style="font-size: 3px;" ><b><span>삭제</span></b></a> </td>
                   
                </tr>
             </c:forEach>
