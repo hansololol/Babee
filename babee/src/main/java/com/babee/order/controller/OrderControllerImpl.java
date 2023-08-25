@@ -1,6 +1,7 @@
 package com.babee.order.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -8,15 +9,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.babee.common.base.BaseController;
+import com.babee.diary.service.DiaryService;
 import com.babee.goods.service.GoodsService;
 import com.babee.goods.vo.GoodsVO;
 import com.babee.member.vo.MemberVO;
@@ -32,6 +36,10 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 	private GoodsService goodsService;
 	@Autowired
 	private OrderVO orderVO;
+	@Autowired
+	private GoodsVO goodsVO;
+	@Autowired
+	private DiaryService diaryService;
 
 	
 	@RequestMapping(value="/orderEachGoods.do" , method=RequestMethod.POST)
@@ -60,32 +68,39 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		return mav;
 	}
 	
-	/*
-	 * @RequestMapping(value="/orderAllCartGoods.do" ,method = RequestMethod.POST)
-	 * public ModelAndView orderAllCartGoods( @RequestParam("cart_goods_qty")
-	 * String[] cart_goods_qty, HttpServletRequest request, HttpServletResponse
-	 * response) throws Exception{ String
-	 * viewName=(String)request.getAttribute("viewName"); ModelAndView mav = new
-	 * ModelAndView(viewName); HttpSession session=request.getSession(); Map
-	 * cartMap=(Map)session.getAttribute("cartMap"); List myOrderList=new
-	 * ArrayList<OrderVO>();
-	 * 
-	 * List<GoodsVO> myGoodsList=(List<GoodsVO>)cartMap.get("myGoodsList"); MemberVO
-	 * memberVO=(MemberVO)session.getAttribute("memberInfo");
-	 * 
-	 * for(int i=0; i<cart_goods_qty.length;i++){ String[]
-	 * cart_goods=cart_goods_qty[i].split(":"); for(int j = 0; j<
-	 * myGoodsList.size();j++) { GoodsVO goodsVO = myGoodsList.get(j); String
-	 * goods_id = goodsVO.getGoods_id();
-	 * if(goods_id==Integer.parseInt(cart_goods[0])) { OrderVO _orderVO=new
-	 * OrderVO(); String goods_title=goodsVO.getGoods_title();
-	 * 
-	 * _orderVO.setGoods_id(goods_id); _orderVO.setGoods_title(goods_title);
-	 * 
-	 * _orderVO.setOrder_goods_qty(Integer.parseInt(cart_goods[1]));
-	 * myOrderList.add(_orderVO); break; } } } session.setAttribute("myOrderList",
-	 * myOrderList); session.setAttribute("orderer", memberVO); return mav; }
-	 */
+	
+	@RequestMapping(value = "/orderDir.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String orderDir(@RequestParam(value="array[]") String[] array, HttpServletRequest request, HttpServletResponse response)throws Exception {
+		request.setCharacterEncoding("UTF-8");
+		String viewName = "${contextPath}/goods/orderGoodsForm.do";
+		List dirArr = new ArrayList<>(Arrays.asList(array));
+		String articleNO =(String) dirArr.get(0);
+		int dirSize = dirArr.size();
+		int  total_goods_price = dirSize*1000;
+		String goods_title="우리 아이 다이어리";
+		List dirDetailList = new ArrayList<>();
+		for(int i=0; i<dirSize; i++) {
+			Map dirDetail = diaryService.diaryDetail(articleNO);
+			dirDetailList.add(dirDetail);
+		}
+		int order_goods_qty = 1;
+		Map goods = goodsService.goodsDetail("20230825");
+		goodsVO =(GoodsVO)goods.get("goodsVO");
+		List ordergoods = new ArrayList();
+		orderVO.setGoods_title(goods_title);
+		orderVO.setOrder_goods_qty(order_goods_qty);
+		orderVO.setTotal_goods_price(total_goods_price);
+		int discounted_price = (int) (total_goods_price*0.1);
+		HttpSession session=request.getSession();
+		session=request.getSession();
+		orderVO.setGoods(goodsVO);
+		ordergoods.add(orderVO);
+		session.setAttribute("orderInfo", ordergoods);
+		session.setAttribute("goods", goodsVO);
+		return viewName;
+	}
+	
 	@RequestMapping(value="/payToOrderGoods.do" ,method = RequestMethod.POST)
 	public ModelAndView payToOrderGoods(@RequestParam Map<String, String> receiverMap,
 			                       HttpServletRequest request, HttpServletResponse response)  throws Exception{

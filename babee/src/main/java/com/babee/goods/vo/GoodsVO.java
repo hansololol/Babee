@@ -4,6 +4,9 @@ package com.babee.goods.vo;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import org.springframework.stereotype.Component;
+
+@Component("goodsVO")
 public class GoodsVO {
 	private String goods_id;
     private String goods_title;
