@@ -370,8 +370,8 @@ $(function (){
          <input type="radio" id="KKOcard" name="card_com_name" value="카카오뱅크"><label for="KKOcard"><img src="/image/12.카카오뱅크.png"></label>
 
       </div>
-      <div id="kakaopayBtn" style="display:none;"><img src="/image/카카오페이.PNG"></div>   
-      <div id="bankbookBtn" style="display:none;"><img src="/image/무통장입금.png"></div>
+      <div id="kakaopayBtn" style="display:none;"><img src="/image/카카오페이.PNG" name="card_com_name" value="카카오페이"></div>   
+      <div id="bankbookBtn" style="display:none;"><img src="/image/무통장입금.png" name="card_com_name" value="카카오뱅크 3333-02-9467466"></div>
    </div>
    
    <br>
