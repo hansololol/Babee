@@ -129,12 +129,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </insert>
 
     <insert id="insertGoodsImageFile" parameterType="java.util.Map"   >
-      <selectKey resultType="int" keyProperty="image_id" order="BEFORE">
-          select ifnull(max(image_id)+1, 1) from t_shopping_image
-       </selectKey>
+     
        <![CDATA[
           insert into t_shopping_image (image_id, fileName, reg_id, detailFile)
-          values(#{image_id}, #{fileName}, #{reg_id}, #{detailFile})
+          values(#{goods_image_name1_id}, #{fileName}, #{reg_id}, #{detailFile})
       ]]>
    </insert>
    
