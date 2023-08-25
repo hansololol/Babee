@@ -23,7 +23,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       }
 
       /* '삭제' 버튼 스타일 */
-      .wish_list td > a {
+      #deleteButton {
         background-color: #ffcd29; /* 배경색 */
         color: black; /* 텍스트색 */
         padding: 8px 8px; /* 내부 여백 */
@@ -34,7 +34,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       }
 
       /* 버튼에 호버 효과 */
-      .wish_list td > a:hover {
+      #deleteButton > a:hover {
         background-color: #cca300; /* 호버 시 배경색 변경 */
       }
       .goods_img {
@@ -78,15 +78,23 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           <tr>
             <td class="text_center">${wishNO.count}</td>
             <td>
-              <img
-                src="${contextPath}/thumbnails.do?goods_id=${wishVO.goods_id}&fileName=${wishVO.goods_image_name1}"
-                width="100px"
-                class="goods_img"
-              />${wishVO.goods_title}
+              <a
+                style="text-decoration: none; color: black"
+                href="${contextPath}/goods/goodsDetail.do?goods_id=${wishVO.goods_id}"
+              >
+                <img
+                  src="${contextPath}/thumbnails.do?goods_id=${wishVO.goods_id}&fileName=${wishVO.goods_image_name1}"
+                  width="100px"
+                  class="goods_img"
+                />
+
+                ${wishVO.goods_title}
+              </a>
             </td>
             <td>${wishVO.goods_price}</td>
             <td>
               <a
+                id="deleteButton"
                 href="javascript:delete_wishList(${wishVO.articleNO})"
                 style="font-size: 3px"
                 ><b><span>삭제</span></b></a
