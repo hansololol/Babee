@@ -131,18 +131,23 @@ function showCategory() {
    $(".category-list").css("display","none");
   }
 
-  function login(href){
+  
+
 
     var isLogOn = '${isLogOn}';
+    $(document).ready(function() {
     if(isLogOn){
-        document.getElementById("fit").href = "${contextPath}/goods/fitGoods.do";
-        document.getElementById("dir").href = "${contextPath}/diary/diaryList.do";
-        document.getElementById("mypage").href = "${contextPath}/member/myPageMain.do";
-        
-     
-    }else{
+    	$("#fit").prop("href","${contextPath}/goods/fitGoods.do");
+        $("#dir").prop("href","${contextPath}/diary/diaryList.do");
+    }
+    });
+
+    function login() {
+
+    if(! isLogOn){
         alert("로그인 이후 이용 가능한 서비스입니다.");
         location.replace("${contextPath}/member/loginForm.do")
+
     }
     }
   
