@@ -252,7 +252,7 @@ ul li {
                   <td style="text-align: left;">${cartVO.goods_title}</td>
                   <td><span class="price">${cartVO.goods_price} 원</span></td>
                   <td><span class="quantity">
-                              <input type="number" value="${cartVO.cart_goods_qty}" id="order_goods_qty" class="order_goods_qty" name="order_goods_qty" style="width: 100px; text-align: center;"></span> 개</td>
+                              <input type="number" value="${cartVO.cart_goods_qty}" id="order_goods_qty" min="1" class="order_goods_qty" name="order_goods_qty" style="width: 100px; text-align: center;"></span> 개</td>
                                 
                   <td>  <select style="width: 100px; text-align: center" id="_goods_option" name="goods_option" >
                  

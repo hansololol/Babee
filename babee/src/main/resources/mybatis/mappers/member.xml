@@ -40,9 +40,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="selectOverlappedID" parameterType="String" resultType="String">
-	   select if(count(*)=1, 'true', 'false')
-	   from t_shopping_member
-	   where member_id = #{id}
+   select if(count(*)=1, 'true', 'false')
+	   from (select seller_id from t_shopping_seller where seller_id = #{id} 
+       union all 
+       select member_id from t_shopping_member where member_id=#{id})as a;
 	</select>
 	
 	<update id="deleteMember" parameterType="String">

@@ -145,6 +145,29 @@ function execDaumPostcode() {
   }).open();
 }
 
+
+function checkMyId(obj) {
+    var seller_id = obj.seller_id.value;
+
+    $.ajax({
+      type: "POST",
+      async: false,
+      url: "${contextPath}/member/overlapped.do",
+      data: { id: seller_id },
+      dataType: "text",
+      success: function (data, textStatus) {
+        if (data == "false") {
+          alert("사용할 수 있는 ID입니다.");
+        } else {
+          alert("사용할 수 없는 ID입니다.");
+          obj.seller_id.value = null;
+        }
+      },
+      error: function (e) {
+        console.log("error : ", e);
+      },
+    });
+  }
 </script>
 </head>
 <body>
@@ -157,7 +180,7 @@ function execDaumPostcode() {
 
 	<div class="member_cont">
 
-		<form id="formjoin" method="post" action="${contextPath}/seller/addSeller.do" novalidate="novalidate" enctype="multipart/form-data">
+		<form id="formjoin" method="post"  action="${contextPath}/seller/addSeller.do" novalidate="novalidate" enctype="multipart/form-data">
 			
 			<div class="member_join_box">
 			<img src="/image/Babee_Logo.png"><br><br>
@@ -170,8 +193,8 @@ function execDaumPostcode() {
    
       <tr>
          <td width="200"><p align="center">사업자 아이디 *</td>
-         <td  width="300"><input type="text" name="seller_id" style="width: 189px; margin-right: 0;  display: inherit;">
-         <button type="button">중복확인</button></td>
+         <td  width="300"><input type="text" name="seller_id" id="id" style="width: 189px; margin-right: 0;  display: inherit;">
+         <button type="button"  onclick="javascript:checkMyId(this.form)">중복확인</button></td>
       </tr>
       
       <tr>
