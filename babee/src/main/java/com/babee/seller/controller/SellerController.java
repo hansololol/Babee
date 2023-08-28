@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.babee.seller.vo.SellerVO;
+import com.babee.goods.vo.GoodsVO;
 
 public interface SellerController {
 	public ModelAndView login(@RequestParam Map<String, String> loginMap,HttpServletRequest request, HttpServletResponse response) throws Exception;
@@ -22,8 +22,14 @@ public interface SellerController {
 			@RequestParam("goods_image_name1_id") int goods_image_name1_id,
 			HttpServletRequest request,
 			HttpServletResponse response) throws Exception;
-	
-	
-	
+	//업데이트
+	public ModelAndView modGoods(@RequestParam("goods_id") int goods_id, @RequestParam Map<String, Object> modGoodsMap,
+            MultipartHttpServletRequest multipartRequest,
+            HttpServletRequest request,
+            HttpServletResponse response) throws Exception;
+	//업데이트 전 값불러오기
+		public ModelAndView getGoodsInfo	(@RequestParam("goods_id") int goodsId,
+	            HttpServletRequest request,
+	            HttpServletResponse response) throws Exception;
 	
 }

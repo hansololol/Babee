@@ -22,4 +22,17 @@ import com.babee.seller.vo.SellerVO;
 		public void deleteGoodsImage2(int goods_image_name1_id) throws DataAccessException;
 		
 	    public List<GoodsVO> adminGoodsList(@Param("seller_id") String seller_id) throws DataAccessException;
+	    
+	    
+	 // 상품 정보 업데이트
+	    void updateGoods(Map<String, Object> modGoodsMap) throws Exception;
+
+	    // 상품 이미지 정보 업데이트
+	    void updateGoodsImage(Map<String, Object> modGoodsMap) throws Exception;
+		
+		//업데이트 전 값 불러오기
+		public Map<String, Object> getGoodsInfo(int goods_id) throws DataAccessException;
+		
+		// 오늘 등록된 상품 조회
+	    List<GoodsVO> getTodayGoods() throws DataAccessException;
 	}

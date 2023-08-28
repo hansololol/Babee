@@ -19,9 +19,9 @@ public class GoodsVO {
     private String age_range;
     private int goods_delivery_price;
     private String goods_image_name1;
-    private String goods_image_name1_id;
+    private int goods_image_name1_id;
     private String goods_image_name2;
-    private String goods_image_name2_id;
+    private int goods_image_name2_id;
     private Date goods_creation_date;
     private String relative_tag1;
     private String relative_tag2;
@@ -34,15 +34,6 @@ public class GoodsVO {
     private String goods_option4;
     private String goods_option5;
     private String fileType;
-    
-    
-	
-	public String getFileType() {
-		return fileType;
-	}
-	public void setFileType(String fileType) {
-		this.fileType = fileType;
-	}
 	public int getGoods_id() {
 		return goods_id;
 	}
@@ -109,10 +100,10 @@ public class GoodsVO {
 	public void setGoods_image_name1(String goods_image_name1) {
 		this.goods_image_name1 = goods_image_name1;
 	}
-	public String getGoods_image_name1_id() {
+	public int getGoods_image_name1_id() {
 		return goods_image_name1_id;
 	}
-	public void setGoods_image_name1_id(String goods_image_name1_id) {
+	public void setGoods_image_name1_id(int goods_image_name1_id) {
 		this.goods_image_name1_id = goods_image_name1_id;
 	}
 	public String getGoods_image_name2() {
@@ -121,10 +112,10 @@ public class GoodsVO {
 	public void setGoods_image_name2(String goods_image_name2) {
 		this.goods_image_name2 = goods_image_name2;
 	}
-	public String getGoods_image_name2_id() {
+	public int getGoods_image_name2_id() {
 		return goods_image_name2_id;
 	}
-	public void setGoods_image_name2_id(String goods_image_name2_id) {
+	public void setGoods_image_name2_id(int goods_image_name2_id) {
 		this.goods_image_name2_id = goods_image_name2_id;
 	}
 	public Date getGoods_creation_date() {
@@ -193,6 +184,16 @@ public class GoodsVO {
 	public void setGoods_option5(String goods_option5) {
 		this.goods_option5 = goods_option5;
 	}
+	public String getFileType() {
+		return fileType;
+	}
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
+	}
+    
+    
+	
+	
     
     
     

@@ -119,7 +119,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
            
            int randomNumber = random.nextInt(900000) + 100000;
            // goods_image_name1_id를 생성하여 newGoodsMap에 추가
-           String goodsImageName1Id = String.valueOf(randomNumber);
+           int goodsImageName1Id = randomNumber;
            newGoodsMap.put("goods_image_name1_id", goodsImageName1Id);
            
            // goodsVO에도 goods_image_name1_id 저장
@@ -141,7 +141,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
            
            int randomNumber = random.nextInt(900000) + 100000;
            // goods_image_name1_id를 생성하여 newGoodsMap에 추가
-           String goodsImageName2Id = String.valueOf(randomNumber);
+           int goodsImageName2Id = randomNumber;
            newGoodsMap.put("goods_image_name2_id", goodsImageName2Id);
            // goodsVO에도 goods_image_name1_id 저장
            goodsVO.setGoods_image_name1_id(goodsImageName2Id);

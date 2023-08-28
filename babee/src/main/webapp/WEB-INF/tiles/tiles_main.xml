@@ -320,6 +320,11 @@
          <put-attribute name="title" value="사업자 상품 등록" />
          <put-attribute name="body" value="/WEB-INF/views/seller/addNewGoodsForm.jsp" />
        </definition>
+       
+       <definition name="/seller/modGoodsForm" extends="baseLayout_user">
+         <put-attribute name="title" value="사업자 상품 수정" />
+         <put-attribute name="body" value="/WEB-INF/views/seller/modGoodsForm.jsp" />
+       </definition>
   
        <definition name="/seller/listSellerGoods" extends="baseLayout_user">
          <put-attribute name="title" value="사업자 상품 리스트" />
