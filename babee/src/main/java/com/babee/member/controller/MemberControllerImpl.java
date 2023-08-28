@@ -10,15 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.babee.common.base.BaseController;
 import com.babee.member.service.MemberService;
@@ -39,6 +39,18 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 	private MemberVO memberVO;
 	@Autowired
 	private SellerVO sellerVO;
+	@Autowired
+	public JavaMailSender javaMailSender;
+
+	@Async
+	public void sendMail(String email, String message) {
+		SimpleMailMessage simpleMessage = new SimpleMailMessage();
+		simpleMessage.setFrom("ekfkawnl9593@naver.com"); 
+		simpleMessage.setTo(email);
+		simpleMessage.setSubject("Babee 인증번호 전송해드립니다.");
+		simpleMessage.setText("인증번호: " +  message);
+		javaMailSender.send(simpleMessage);
+	}
 	
 	@Override
 	@RequestMapping(value="/login.do" ,method = RequestMethod.POST)
@@ -140,6 +152,30 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		resEntity =new ResponseEntity(result, HttpStatus.OK);
 		return resEntity;
 	}
+	
+	@Override
+	@RequestMapping(value="/findMyId.do" ,method = RequestMethod.POST)
+	public ModelAndView findMyId(@RequestParam Map<String, String> findMap,HttpServletRequest request, HttpServletResponse response) throws Exception{
+		ModelAndView mav = new ModelAndView("/member/findId");
+		memberVO = memberService.findMyId(findMap);
+		mav.addObject("findMember", memberVO);
+		return mav;
+	}
+	
+	@Override
+	@RequestMapping(value="/checkPw.do" ,method = RequestMethod.POST)
+	public ModelAndView checkPw(@RequestParam Map<String, String> findMap,HttpServletRequest request, HttpServletResponse response) throws Exception{
+		ModelAndView mav = new ModelAndView("/member/loginForm");
+		int pwd = (int) Math.floor(Math.random()*1000000);
+		String newPwd=String.valueOf(pwd);
+		findMap.put("member_pw", newPwd);
+		memberVO = memberService.findMyPw(findMap);
+		String email = memberVO.getMember_email();
+		sendMail(email, newPwd);
+		return mav;
+	}
+	
+	
 	
 	//異붽�以� 
 	@RequestMapping(value="/updateMember.do" , method= RequestMethod.POST)

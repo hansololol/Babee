@@ -21,4 +21,6 @@ public interface MemberController {
 	public ModelAndView memberDel(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	//회원수정 추가
 	public ModelAndView modMember(@ModelAttribute("member") MemberVO member,HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView findMyId(@RequestParam Map<String, String> findMap,HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView checkPw(@RequestParam Map<String, String> findMap,HttpServletRequest request, HttpServletResponse response) throws Exception;
 }	

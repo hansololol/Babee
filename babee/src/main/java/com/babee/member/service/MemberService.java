@@ -12,4 +12,6 @@ public interface MemberService {
 	public void delMember(String id) throws Exception;
 	//회원수정 추가
 	public void modMember(MemberVO memberVO) throws Exception;
+	public MemberVO findMyId(Map findMap) throws Exception;
+	public MemberVO findMyPw(Map findMap) throws Exception;
 }

@@ -40,6 +40,8 @@ dependencies {
 implementation 'net.coobird:thumbnailator:0.4.8'
 	// https://mvnrepository.com/artifact/net.sf.json-lib/json-lib
 implementation 'net.sf.json-lib:json-lib:2.4'
+// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-mail
+implementation 'org.springframework.boot:spring-boot-starter-mail:2.2.6.RELEASE'
 
 
 	

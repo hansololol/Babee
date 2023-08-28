@@ -46,6 +46,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
        select member_id from t_shopping_member where member_id=#{id})as a;
 	</select>
 	
+	<select id="findMyId" parameterType="java.util.Map" resultType="MemberVO">
+	 <![CDATA[
+   select * from t_shopping_member where member_name=#{member_name} and member_email =#{member_email}
+    ]]>
+	</select>
+	<select id="findMyPw" parameterType="java.util.Map" resultType="MemberVO">
+	 <![CDATA[
+   select * from t_shopping_member where member_id=#{member_id}
+    ]]>
+	</select>
+	<update id="updatePwd" parameterType="java.util.Map">
+	 <![CDATA[
+	update t_shopping_member set 
+	member_pw = #{member_pw}
+	where member_id=#{member_id}
+	 ]]>
+	</update>
+	
 	<update id="deleteMember" parameterType="String">
 	 <![CDATA[
 	  update t_shopping_member set 
