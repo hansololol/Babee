@@ -129,7 +129,7 @@
     <form name="frmSearch" action="${contextPath}/goods/searchGoods.do">
         <div style="display: flex; align-items: center; justify-content: center;">
             <input name="searchWord" class="main_input" type="text" onKeyUp="keywordSearch()" style="border: none; border-bottom: 1px solid #000; outline: none;  text-align: center; width:350px; margin-top:20px; font-size: 20px;" placeholder="검색어를 입력해주세요.">
-            <button type="submit" name="search" class="btn1" style="border: none; background: none;">
+            <button type="submit" class="btn1" style="border: none; background: none;">
                 <img src="/image/glass.png" alt="검색" style="width: 20px; height: 20px;">
             </button>
         </div>
