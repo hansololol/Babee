@@ -62,10 +62,12 @@ uri="http://java.sun.com/jsp/jstl/core"%>
       >
         <script>
           $("document").ready(function () {
-            var mymember = "${findMember}";
-            if (mymember != "") {
+            var mymember = "${nn}";
+            if (mymember === "y") {
               $("#findIdDIV").css("display", "none");
               $("#findIdLast").css("display", "block");
+            } else if (mymember === "n") {
+              alert("일치하는 회원 정보가 없습니다.");
             }
           });
         </script>
@@ -150,9 +152,12 @@ uri="http://java.sun.com/jsp/jstl/core"%>
             </button>
             <script>
               function findPw(obj) {
-                alert("등록하신 이메일로 비밀번호를 전송해 드렸습니다.");
+                obj.submit();
               }
-              obj.submit();
+              var message = "${message}";
+              if (message != "") {
+                alert(message);
+              }
             </script>
           </div>
         </form>
