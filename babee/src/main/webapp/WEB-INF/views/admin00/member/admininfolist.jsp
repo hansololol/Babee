@@ -1,7 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"
+    isELIgnored="false"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<% request.setCharacterEncoding("utf-8"); %>
+
+<c:set var="contextPath" value="${pageContext.request.contextPath}"	 />
+
+
 <meta charset="UTF-8">
 <title>고객센터 헤더</title>
 <style>
@@ -202,21 +209,18 @@
 		        <th style="width: 10%;">NO</th>
 		        <th style="width: 40%;">제목</th>
 		        <th style="width: 10%;">작성자</th>
-		        <th style="width: 10%;">작성일</th>
-		        <th style="width: 8%;">조회수</th>
 		        <th style="width: 5%;">삭제</th>
 		    </tr>
 		</thead>
         <tbody>
-		    <c:forEach var="faq" items="${faqList}">
+		    <c:forEach var="info" items="${infoboard}">
 		        <tr class="faq-content">
 		            
 		            <td><p><img src="/image/bell.png" width="30px" height="30px"/></p></td>
-		            <td><a href="/member/admininfodetail.do?page=adminPage" style="display: flex; align-items: center;"><span style="color: black;">[공지사항][${faq.id}]</span></a></td>
-		            <td><p style=" align-items: center;"><span style="color: black;">작성자 ${faq.author}</span></p></td>
-		            <td><p style="align-items: center;"><span style="color: black;">작성일 ${faq.creationDate}</span></p></td>
-		            <td><p style="align-items: center;"><span style="color: black;">조회수 ${faq.views}</span></p></td>
-		            <td><a href="/member/deleteFaq/${faq.articleNO}" style="color: red;" onclick="return confirm('삭제하시겠습니까?');"><span style="font-size: 20px;">&#128683;</span></a></td>
+		            <td><a href="${contextPath}/community/admininfoDetail.do?articleNO=${info.articleNO}" style="display: flex; align-items: center;">
+		            <span style="color: black;">[공지사항][${info.info_title}]</span></a></td>
+		            <td><p style=" align-items: center;"><span style="color: black;">${info.member_id}</span></p></td>
+			                 <td><a href="/member/deleteFaq/${info.articleNO}" style="color: red;" onclick="return confirm('삭제하시겠습니까?');"><span style="font-size: 20px;">&#128683;</span></a></td>
 		        </tr>
 		    </c:forEach>
 		</tbody>
@@ -224,17 +228,9 @@
     </table>
 </div>
 <div style="text-align: right; margin-top: -30px;">
-    <a href="/member/admininfowrite.do?page=adminPage" style="background-color: #ffffcc; padding: 5px 10px; border-radius: 5px; text-decoration: none; margin-right: 120px;">작성하기</a>
+    <a href="/community/admininfowrite.do?page=adminPage" style="background-color: #ffffcc; padding: 5px 10px; border-radius: 5px; text-decoration: none; margin-right: 120px;">작성하기</a>
 </div>
-<div class="paging-container">
-    <a class="paging-button" href="#">이전</a>
-    <a class="paging-button" href="#">1</a>
-    <a class="paging-button" href="#">2</a>
-    <a class="paging-button" href="#">3</a>
-    <a class="paging-button" href="#">4</a>
-    <a class="paging-button" href="#">5</a>
-    <a class="paging-button" href="#">다음</a>
-</div>
+
 
 </body>
 </html>

@@ -49,6 +49,10 @@ public class CommunityControllerImpl extends BaseController implements Community
 	private CommentVO commentVO;
 	@Autowired
 	private QnaVO qnaVO;
+	@Autowired
+	private InfoVO infoVO;
+	
+	
 	
 	@Override
 	@RequestMapping(value="/freeboardList.do" ,method = RequestMethod.GET)
@@ -306,11 +310,14 @@ public class CommunityControllerImpl extends BaseController implements Community
 	@Override
 	@RequestMapping(value="/addInfo.do", method = RequestMethod.POST)
 	public ModelAndView addInfo(@ModelAttribute("infoVO") InfoVO info, MultipartHttpServletRequest multipartRequest, HttpServletRequest request, HttpServletResponse response)  throws Exception{
+		System.out.println("/addInfo.do 실행");
 		multipartRequest.setCharacterEncoding("utf-8");
 		ModelAndView mav = new ModelAndView();
 		HttpSession session=request.getSession();
 		memberVO = (MemberVO) session.getAttribute("memberInfo");
 		String member_id = memberVO.getMember_id();
+		System.out.println("작성자 아이디: " + member_id );
+		
 
 		Map<String, Object> InfoMap = new HashMap<String, Object>();
 		Enumeration enu = multipartRequest.getParameterNames();
@@ -319,12 +326,13 @@ public class CommunityControllerImpl extends BaseController implements Community
 			String value = multipartRequest.getParameter(name);
 			InfoMap.put(name, value);		
 		}
-		List imageFileName = upload(multipartRequest);
+		List imageFileName = upload2(multipartRequest);
+		
 		InfoMap.put("info_img", imageFileName.get(0));
 		int info_img_id_ = (int) Math.floor(Math.random()*1000000);
 		String info_img_id = String.valueOf(info_img_id_);
 		InfoMap.put("info_img_id", info_img_id);
-		
+		InfoMap.put("member_id", member_id);
 		
 		  try {
 			  communityService.addInfo(InfoMap);   
@@ -333,16 +341,104 @@ public class CommunityControllerImpl extends BaseController implements Community
 		  if(imageFileName !=null && imageFileName.size() !=0) { 
 			  File srcFile = new File(CURR_IMAGE_REPO_PATH_INFO + "\\" + "temp" + "\\" + imageFileName.get(0)); 
 			  File destDir = new File(CURR_IMAGE_REPO_PATH_INFO+ "\\" + member_id + "\\" + articleNO );
-		  FileUtils.moveFileToDirectory(srcFile, destDir, true); 
+			  FileUtils.moveFileToDirectory(srcFile, destDir, true); 
 		  
 	
-		  
-		  mav.setViewName("redirect:/community/infoList.do");
+		
+		  mav.setViewName("redirect:/community/admininfolist.do");
 		  }
 		  }catch (Exception e) {
 			  e.printStackTrace();
 	    	}
+		
+		
+		return mav;
+	}
+	
+	
+	@Override
+	@RequestMapping(value="/admininfolist.do" ,method = RequestMethod.GET)
+	public ModelAndView infoboardList(HttpServletRequest request, HttpServletResponse response)  throws Exception {
+		System.out.println("admininfolist.do 실행");
+		String viewName=(String)request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+		HttpSession session=request.getSession();
+		String _section = request.getParameter("section"); 
+		String _pageNum = request.getParameter("pageNum"); 
+		int section =Integer.parseInt(((_section==null)? "1":_section)); 
+		int pageNum = Integer.parseInt(((_pageNum==null)? "1":_pageNum));
 		 
+		memberVO = (MemberVO) session.getAttribute("memberInfo");
+		List myInfoboard =communityService.selectInfoboard(memberVO.getMember_id());
+		System.out.println("myInfoboard: " + myInfoboard);
+		List infoboard = new ArrayList<>();
+		int ListSize = myInfoboard.size();
+		for(int i =(pageNum-1)*10; i <pageNum*10;i++) {
+			try {
+				infoVO = (InfoVO) myInfoboard.get(i);
+				infoboard.add(infoVO);
+			}catch(IndexOutOfBoundsException e) {
+				break;
+			}
+			}
+		 	mav.addObject("infoboard", infoboard);
+			mav.addObject("section", section);
+			mav.addObject("pageNum", pageNum);
+			mav.addObject("totArticles", ListSize);
+		return mav;
+	}
+	
+	@Override
+	@RequestMapping(value = "/admininfoDetail.do", method = { RequestMethod.POST, RequestMethod.GET} )
+	public ModelAndView admininfoDetail(@RequestParam("articleNO") String articleNO, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("/admininfoDetail.do 실행");
+		String viewName = (String) request.getAttribute("viewName");
+		HttpSession session = request.getSession();
+		memberVO = (MemberVO) session.getAttribute("memberInfo");
+		session.setAttribute("articleNO", articleNO);
+		
+		Map infoboardMap = communityService.admininfoDetail(articleNO);
+		ModelAndView mav = new ModelAndView(viewName);
+		InfoVO infoVO = (InfoVO) infoboardMap.get("infoVO");
+		System.out.println("ㅇㅇ"+infoVO.getInfo_content());
+		
+		mav.addObject("infoboard", infoVO);
+		
+		
+
+		return mav;
+
+	}
+	
+	@Override
+	@RequestMapping(value="/infoList.do" , method = { RequestMethod.POST, RequestMethod.GET} )
+	public ModelAndView infoList(HttpServletRequest request, HttpServletResponse response)  throws Exception {
+		System.out.println("infoList.do 실행");
+		String viewName=(String)request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+		HttpSession session=request.getSession();
+		String _section = request.getParameter("section"); 
+		String _pageNum = request.getParameter("pageNum"); 
+		int section =Integer.parseInt(((_section==null)? "1":_section)); 
+		int pageNum = Integer.parseInt(((_pageNum==null)? "1":_pageNum));
+		 
+		memberVO = (MemberVO) session.getAttribute("memberInfo");
+		List myInfoboard =communityService.selectAllinfo();
+		System.out.println("myInfoboard: " + myInfoboard);
+		List infoboard = new ArrayList<>();
+		int ListSize = myInfoboard.size();
+		for(int i =(pageNum-1)*10; i <pageNum*10;i++) {
+			try {
+				infoVO = (InfoVO) myInfoboard.get(i);
+				infoboard.add(infoVO);
+			}catch(IndexOutOfBoundsException e) {
+				break;
+			}
+			}
+		 	mav.addObject("infoboard", infoboard);
+			mav.addObject("section", section);
+			mav.addObject("pageNum", pageNum);
+			mav.addObject("totArticles", ListSize);
 		return mav;
 	}
 	
@@ -362,6 +458,26 @@ public class CommunityControllerImpl extends BaseController implements Community
 				if(!file.exists()) {
 				file.getParentFile().mkdirs();
 				mFile.transferTo(new File(CURR_IMAGE_REPO_PATH_FREEBOARD+ "\\" + "temp" + "\\" + imgfname));
+				}
+			}
+		}
+		return imageFileName;
+	}
+	
+	protected List upload2(MultipartHttpServletRequest multipartRequest) throws Exception{
+		List imageFileName = new ArrayList();
+		Iterator<String> fileNames = multipartRequest.getFileNames();
+		
+		while(fileNames.hasNext()) {
+			String fileName = fileNames.next();
+			MultipartFile mFile = multipartRequest.getFile(fileName);
+			String imgfname = mFile.getOriginalFilename();
+			imageFileName.add(imgfname);
+			File file = new File(CURR_IMAGE_REPO_PATH_INFO+ "\\" + "temp" + "\\" + fileName);
+			if(mFile.getSize()!=0) {
+				if(!file.exists()) {
+				file.getParentFile().mkdirs();
+				mFile.transferTo(new File(CURR_IMAGE_REPO_PATH_INFO+ "\\" + "temp" + "\\" + imgfname));
 				}
 			}
 		}

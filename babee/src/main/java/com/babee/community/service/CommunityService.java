@@ -7,6 +7,7 @@ import org.springframework.dao.DataAccessException;
 
 import com.babee.community.vo.CommentVO;
 import com.babee.community.vo.FreeboardVO;
+import com.babee.community.vo.InfoVO;
 import com.babee.community.vo.QnaVO;
 
 public interface CommunityService {
@@ -24,4 +25,7 @@ public interface CommunityService {
 	public List<QnaVO> selectMyQnaList(String member_id) throws Exception;
 	
 	public void addInfo(Map infoMap) throws DataAccessException;
+	public List<InfoVO> selectInfoboard(String member_id) throws Exception;
+	public Map admininfoDetail(String articleNO) throws Exception;
+	public List selectAllinfo()throws Exception;
 }

@@ -25,4 +25,9 @@ public interface CommunityController {
 	
 	
 	public ModelAndView addInfo(@ModelAttribute("infoVO") InfoVO info, MultipartHttpServletRequest multipartRequest, HttpServletRequest request, HttpServletResponse response)  throws Exception;
+	public ModelAndView infoboardList(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView admininfoDetail(@RequestParam("articleNO") String articleNO, HttpServletRequest request, HttpServletResponse response)throws Exception;
+	
+	
+	public ModelAndView infoList(HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

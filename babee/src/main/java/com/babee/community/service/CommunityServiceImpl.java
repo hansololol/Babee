@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.babee.community.dao.CommunityDAO;
 import com.babee.community.vo.CommentVO;
 import com.babee.community.vo.FreeboardVO;
+import com.babee.community.vo.InfoVO;
 import com.babee.community.vo.QnaVO;
 
 
@@ -88,5 +89,24 @@ public class CommunityServiceImpl implements CommunityService  {
 		communityDAO.insertNewInfo(infoMap);
 		communityDAO.insertInfoImage(infoMap);
 		
+	}
+	
+	@Override
+	public List<InfoVO> selectInfoboard(String member_id) throws Exception{
+		return communityDAO.selectALLInfoboardList(member_id);
+	}
+	
+	@Override
+	public Map admininfoDetail(String articleNO) throws Exception {
+		Map infodMap = new HashMap();
+		InfoVO infoVO = communityDAO.admininfoDetail(articleNO);
+		infodMap.put("infoVO", infoVO);
+		
+		return infodMap;
+	}
+	
+	@Override
+	public List selectAllinfo() throws Exception{
+		return communityDAO.selectAllinfo();
 	}
 }

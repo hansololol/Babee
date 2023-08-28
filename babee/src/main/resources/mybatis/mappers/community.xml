@@ -245,12 +245,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
      insert into t_shopping_image
         (image_id,fileName, fileType, reg_id)
       values(
-           #{free_img_id},
-          #{free_img},
-            'freeboard',
+           #{info_img_id},
+          #{info_img},
+            'info',
             #{member_id}
             )
      ]]>
-
 	</insert>
+	
+	<select id="selectALLInfoboardList" resultMap="infoResult" parameterType="String">
+		<![CDATA[
+		SELECT * 
+		FROM t_shopping_infoboard
+		WHERE member_id = #{member_id}
+		]]>
+	</select>
+	 
+	<select id="admininfoDetail" resultMap="infoResult"   parameterType="String">
+       <![CDATA[
+        select * from t_shopping_infoboard
+        where articleNO=#{articleNO}
+       ]]>
+    </select>
+    
+    <select id="selectAllinfo" resultMap="infoResult"   parameterType="String">
+       <![CDATA[
+        select * from t_shopping_infoboard
+       ]]>
+    </select>
 </mapper>

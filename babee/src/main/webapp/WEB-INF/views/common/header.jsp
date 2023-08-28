@@ -195,7 +195,7 @@ function showCategory() {
       
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="${contextPath}/member/babyinfo.do">육아정보</a></li>
-              <li><a class="dropdown-item" href="${contextPath}/goods/infoList.do">공지사항</a></li>
+              <li><a class="dropdown-item" href="${contextPath}/community/infoList.do">공지사항</a></li>
               <li><a class="dropdown-item" href="${contextPath}/community/freeboardList.do">자유게시판</a></li>
             </ul>
           </div>
