@@ -24,6 +24,17 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
+	public MemberVO findMyId(Map findMap) throws Exception{
+		return memberDAO.findMyId(findMap);
+	}
+	@Override
+	public MemberVO findMyPw(Map findMap) throws Exception{
+		MemberVO memberVO = memberDAO.findMyPw(findMap);
+		memberDAO.updatePwd(findMap);
+		return memberVO;
+	}
+	
+	@Override
 	public void addMember(MemberVO memberVO) throws Exception{
 		memberDAO.insertNewMember(memberVO);
 	}

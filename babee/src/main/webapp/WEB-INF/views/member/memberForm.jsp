@@ -202,12 +202,15 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                     <td>&nbsp;</td>
                   </tr>
                   <tr>
-                    <td width="150"><p align="right">아이디 *</p></td>
+                    <td width="150">
+                      <p align="right">아이디 *</p>
+                    </td>
                     <td width="300">
                       <input
                         type="text"
                         name="member_id"
                         style="width: 194px; margin-right: 0; display: inherit"
+                        required
                       />
                       <button
                         type="button"
@@ -220,17 +223,19 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 
                   <tr>
                     <td width="150"><p align="right">비밀번호 *</p></td>
-                    <td><input type="password" name="member_pw" /></td>
+                    <td>
+                      <input type="password" name="member_pw" required />
+                    </td>
                   </tr>
 
                   <tr>
                     <td width="150"><p align="right">이름 *</p></td>
-                    <td><input type="text" name="member_name" /></td>
+                    <td><input type="text" name="member_name" required /></td>
                   </tr>
 
                   <tr>
                     <td width="150"><p align="right">이메일 *</p></td>
-                    <td><input type="email" name="member_email" /></td>
+                    <td><input type="email" name="member_email" required /></td>
                   </tr>
 
                   <tr>
