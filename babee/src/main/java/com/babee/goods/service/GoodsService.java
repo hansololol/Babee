@@ -27,4 +27,5 @@ public interface GoodsService {
 	public List getAllcg(CategoryVO category) throws Exception;
 	public List getfitList(String baby_age) throws Exception;
 	public Map getsubcg(String sub_category) throws Exception;
+	public List selectSort(Map sortMap) throws Exception;
 }

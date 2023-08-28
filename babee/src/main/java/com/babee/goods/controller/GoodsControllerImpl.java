@@ -1,5 +1,6 @@
 package com.babee.goods.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -77,11 +78,38 @@ public class GoodsControllerImpl extends BaseController implements GoodsControll
 	
 	 @RequestMapping(value="/goodsList.do", method = RequestMethod.GET)
 	   public ModelAndView goodsList(HttpServletRequest request, HttpServletResponse response) throws Exception {      
+		 request.setCharacterEncoding("utf-8");
 	       ModelAndView mav = new ModelAndView("/goods/goodsList"); 
 	       List<GoodsVO> newGoodsList = goodsService.getAllGoods();
+	       String sort = request.getParameter("sort");
+	       Map sortMap = new HashMap();
+	       if(sort!=null) {
+	    	  switch(sort) {
+	    	  case "new" :
+	    		  sortMap.put("sort", "newArriv");
+	    		  newGoodsList=goodsService.selectSort(sortMap);
+	    	  	break;
+	    	  	
+	    	  case "popular":
+	    		  newGoodsList = goodsService.hotGoodsList();
+	    		  System.out.println("인기상풍 목록");
+	    		  break;
+	    		  
+	    	  case "low":
+	    		  sortMap.put("sort", "lowGoods");
+	    		  newGoodsList=goodsService.selectSort(sortMap);
+	    		  break;
+	    		  
+	    	  case "high":
+	    		  sortMap.put("sort", "highGoods");
+	    		  newGoodsList=goodsService.selectSort(sortMap);
+	    		  break;
+	    	  }
+	       }
+	      
 	       mav.addObject("newGoodsList", newGoodsList);
 	       return mav;
-	   }
+	 }
 	   //end
 	 @RequestMapping(value="/goodsCategoryList.do", method = RequestMethod.GET)
 	 public ModelAndView goodsCategoryList(@RequestParam(required = false) Map<String, String> category,HttpServletRequest request, HttpServletResponse response) throws Exception {     
