@@ -110,7 +110,7 @@
             <img src="/image/glass.png" alt="검색" style="width: 20px; height: 20px;">
         </button>
     </form>
-</div>
+	</div>
 </div>
 
 
@@ -153,69 +153,31 @@
         }
 
   </script>
-	
+	<c:forEach var = "infoboard" items="${infoboard}" varStatus="cnt">
     <div style="text-align: center; display: block;" id="jajuList1">
-    <div style="text-align: center;">
+    		<div style="text-align: center;">
      
      <br>
-        <div style="display: flex; margin-left: 33%;">
-            <p style="margin-left: 25px;" >
-                <img src="/image/glass.png" alt="FAQ" style="width: 20px; height: 20px;">
-                <a href="#"  onclick="toggleAnswer(1)">🛍️ [babee] 공지사항 - 환영합니다!!! 🛍️</a>
-            </p>
-        </div>
-        <div id="faqAnswer1"
-        style="display: flex;text-align: left; margin-left: 33%;  display: none;">
-        
-        <p >안녕하세요 babee입니다!  <br>
-        소중한 고객 여러분 babbe에 오신 것을 환영합니다.  <br>
-        저희 babee에서는 다양한 상품과 혜택을 제공하고 있습니다.  <br>
-        회원가입 후 babee의 여러 서비스를 이용해 보시길 바랍니다.  <br> <br>
-        
-        항상 발전하는 babee가 되겠습니다.  <br>
-        감사합니다.
-        </p>
-     </div>
-    </div>
-    <hr width="50%" id="foreachhr">
 
-    <div style="text-align: center; ">
-        <div style="display: flex; margin-left: 33%;">
-            <p style="margin-left: 25px;" >
-                <img src="/image/glass.png" alt="FAQ" style="width: 20px; height: 20px;">
-                <a href="#"  onclick="toggleAnswer(2)">🛍️ [babee] 공지사항 - 2023년 8월 업데이트 🛍️</a>
-            </p>
-        </div>
-        <div id="faqAnswer2"
-        style="display: flex; text-align: left; margin-left: 33%; display: none;">
-        
-        <p>안녕하세요, babbe입니다!  <br>소중한 고객 여러분을 위해 새로운 소식과 업데이트를 안내해 드립니다. <br>
-        <br> <strong>신상품 입고 소식</strong>
-        <br> 이번 주에는 다양한 신상품이 입고되었습니다. 여름을 더욱 특별하게 <br>만들어줄 새로운 의류와 액세서리를 만나보세요.
-         편안한 착용감과  <br>세련된 디자인으로 여름 스타일을 완성해보세요!</p>
+				<div style="display: flex; margin-left: 33%;">
+					<p style="margin-left: 25px;">
+						<img src="/image/glass.png" alt="FAQ" style="width: 20px; height: 20px;"> <a href="#"
+							onclick="toggleAnswer('${cnt.count}')">🛍️ [babee] ${infoboard.info_title } 🛍️</a>
+					</p>
+				</div>
+				<div id="faqAnswer${cnt.count}" width: "700px;"
+					style="display: flex; text-align: left; margin-left: 33%; display: none;">
+					<p style="width: 700px;">${infoboard.info_content}</p>
+				</div>
+
+
+			</div>
+    			<hr width="50%" id="foreachhr">
      </div>
-    </div>
-    <hr width="50%" id="foreachhr">
-    
-    <div style="text-align: center; ">
-        <div style="display: flex; margin-left: 33%;">
-            <p style="margin-left: 25px;" >
-                <img src="/image/glass.png" alt="FAQ" style="width: 20px; height: 20px;">
-                <a href="#"  onclick="toggleAnswer(3)">🛍️ [babee] 공지사항 - 2023년 7월 업데이트 🛍️</a>
-            </p>
-        </div>
-        <div id="faqAnswer3"
-        style="display: flex; text-align: left; margin-left: 33%; display: none;">
-        
-        <p>안녕하세요, babbe입니다!  <br>소중한 고객 여러분을 위해 새로운 소식과 업데이트를 안내해 드립니다. <br>
-        <br> <strong>신상품 입고 소식</strong>
-        <br> 이번 주에는 다양한 신상품이 입고되었습니다. 여름을 더욱 특별하게 <br>만들어줄 새로운 의류와 액세서리를 만나보세요.
-         편안한 착용감과  <br>세련된 디자인으로 여름 스타일을 완성해보세요!</p>
-     </div>
-    </div>
+     </c:forEach>
 
     <br><br><br>
     
-</div>
+
 </body>
 </html>

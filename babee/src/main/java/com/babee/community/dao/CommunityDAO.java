@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.babee.community.vo.CommentVO;
 import com.babee.community.vo.FreeboardVO;
+import com.babee.community.vo.InfoVO;
 import com.babee.community.vo.QnaVO;
 
 @Mapper
@@ -37,4 +38,11 @@ public interface CommunityDAO {
 	public void insertNewInfo(Map infoMap) throws DataAccessException;
 	public void insertInfoImage(Map infoMap) throws DataAccessException;
 	
+	
+	public List<InfoVO> selectALLInfoboardList(String member_id)throws DataAccessException;
+	public InfoVO admininfoDetail(String articleNO)throws DataAccessException;
+	public List selectAllinfo();
+	
+
 }
+

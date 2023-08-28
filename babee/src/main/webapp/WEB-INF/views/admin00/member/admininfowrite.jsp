@@ -1,9 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" isELIgnored="false"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
+<c:set var="contextPath" value="${pageContext.request.contextPath}"    />
+
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자 자주하는질문 작성창</title>
+<title>관리자 공지사항 작성창</title>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
    /* 전체 스타일은 여기에 기존 스타일 코드를 놔두고, 원하는 영역에 클래스 스타일을 추가합니다 */
@@ -96,22 +103,24 @@
       background-color: #ff7e00;
    }
 </style>
-<script>
-   $(document).ready(function() {
-      $('input[name="imageUpload"]').on('change', function(event) {
-         var file = event.target.files[0];
-         var reader = new FileReader();
-         reader.onload = function(e) {
-            $('.file-preview').html('<img src="' + e.target.result + '" alt="Preview">');
-         };
-         reader.readAsDataURL(file);
-      });
-   });
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+function readURL(input){
+    if(input.files && input.files[0]){
+       var reader = new FileReader();
+       reader.onload = function(e){
+          $('#preview').attr('src', e.target.result);
+       }
+       reader.readAsDataURL(input.files[0]);
+    }
+ }
 </script>
+
+
 </head>
 <body>
 <div class="custom-style">
-   <form class="form-container" method="post" action="${contextPath}/community/addinfo.do" enctype="multipart/form-data">
+   <form class="form-container" method="post" action="${contextPath}/community/addInfo.do" enctype="multipart/form-data">
       <h1 style="text-align: center;">공지사항</h1>
       <h3 style="text-align: center;">작성페이지</h3>
       <hr>
@@ -120,7 +129,7 @@
          <table>
             <tr>
                <th>작성자</th>
-               <td><input type="text" name="member_id" value="${memberInfo.member_id}" disabled></td>
+               <td><input type="text" name="member_id" value="${memberInfo.member_id}" disabled>
             </tr>
             
             <tr>
@@ -141,12 +150,12 @@
             <tr>
                <th>이미지 업로드</th>
                <td>
-                  <input type="file" name="info_img">
+                  <input type="file" name="file" onChange="readURL(this);"/>
                </td>
             </tr>
             <tr>
                <th>이미지 미리보기</th>
-               <td class="file-preview"></td>
+               <td> <img id="preview" src="#" width=200 height=200 /> </td>
             </tr>
          </table>
       </div>

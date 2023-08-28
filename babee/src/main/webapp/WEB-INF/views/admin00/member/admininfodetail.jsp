@@ -130,20 +130,21 @@
          <h1>공지사항</h1>
          <!-- 게시글 삭제 버튼 -->
          <button class="delete-button" type="button" onclick="deletePost()" style="width:120px; height:45px; margin-top:-50px;">게시글 삭제</button>
-
+	
+			<p>${infoboard.info_title}</p>
          <hr>
          <div class="meta-info">
-            <p>작성자: 게시글 작성자</p>
-            <p>작성일: 게시글 작성일</p>
+            <p>작성자: ${infoboard.member_id }</p>
          </div>
          <div class="main-image">
-            <img src="image/Babee_Logo.png">
+            <img src="${contextPath}/thumbnails.do?goods_id=${infoboard.member_id}&fileName=${infoboard.info_img}&fileType=info&articleNO=${infoboard.articleNO}" width="400px" id="preview">
+          
          </div>
          <div class="content">
-            <p>게시글 내용이 여기에 들어갑니다.</p>
+            <p>${infoboard.info_content }</p>
          </div>
          <hr>
-         <button type="button" onclick="window.location.href='/member/admininfolist.do?page=adminPage';" style="width:120px; height:45px; margin-top:-50px;">뒤로가기</button>
+         <button type="button" onclick="window.location.href='/community/admininfolist.do?page=adminPage';" style="width:120px; height:45px; margin-top:-50px;">뒤로가기</button>
          
       </div>
    </div>
