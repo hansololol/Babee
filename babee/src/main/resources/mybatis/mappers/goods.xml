@@ -96,7 +96,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    
       <select id="selectGoodsBySearchWord" resultMap="goodsResult" parameterType="String">
      <![CDATA[
-          SELECT g.*, d.fileName 
+          SELECT distinct g.*, d.fileName 
 		FROM t_shopping_goods g
 		LEFT JOIN t_shopping_image d ON g.goods_image_name1 = d.fileName
 		WHERE g.goods_title LIKE CONCAT('%', #{searchWord} ,'%')
