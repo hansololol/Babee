@@ -73,11 +73,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectAllCategoryGoods" resultType="goodsVO" parameterType="java.util.Map">
 
    		SELECT * FROM t_shopping_goods where main_category=#{main_category}
-		  <if test='middle_category != null'>
+   		<if test='middle_category != null'>
 		   and middle_category=#{middle_category}
 		  </if>
-		  <if test='sub_category != null'>
+		  <if test='sub_category != null and sort==null'>
 		   and sub_category=#{sub_category}
+		  </if>
+		  <if test='sub_category != null  and sort!=null' >
+		   and sub_category=#{sub_category} order by #{sort} desc;
 		  </if>
 </select>
    
@@ -151,12 +154,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    
    <select id="getAllcg" resultType="java.util.Map" parameterType="CategoryVO">
     <![CDATA[
-	    SELECT sub_category
+	    SELECT sub_category, middle_category
 		FROM t_shopping_category
 		WHERE main_category = #{main_category} 
 		 ]]>
-		<if test='middle_category != null'>
-		   and middle_category=#{middle_category}
+		<if test='middle_category != "" || middle_category != null'>
+		<![CDATA[
+		   and middle_category = #{middle_category}
+		    ]]>
 		 </if>
 		
 	 

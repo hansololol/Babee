@@ -94,29 +94,40 @@
     <div style= "padding:19px 21%;" >
         <nav style="--bs-breadcrumb-divider: '>'; font-size: 20px;" aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <c:if test="${category.main_category !=null}">
+                <c:if test="${category.main_category !=null and category.main_category !=''}">
                 <li class="breadcrumb-item" id="mainCategory">${category.main_category}</li>
                 </c:if>
-                <c:if test="${category.middle_category !=null}">
+                <c:if test="${category.middle_category !=null and category.middle_category !=''}">
                 <li class="breadcrumb-item" id="middleCategory"> ${category.middle_category}</li>
                 </c:if>
-                <c:if test="${category.sub_category !=null}">
+                <c:if test="${category.sub_category !=null  and category.sub_category !=''}">
                 <li class="breadcrumb-item active" id="subCategory" aria-current="page"> ${category.sub_category}</li>
                 </c:if>
             </ol>
         </nav>
 	    <div style="margin: 60px;">
 	        <c:forEach var="subcategory" items="${sub_category}">
-	            <button type="button" class="btn btn-outline-warning" onclick="location.href='${contextPath}/goods/goodsCategoryList.do?main_category=${category.main_category}&middle_category=${category.middle_category}&sub_category=${subcategory.sub_category}'">${subcategory.sub_category}</button>
+	            <button type="button" class="btn btn-outline-warning" onclick="location.href='${contextPath}/goods/goodsCategoryList.do?main_category=${category.main_category}&middle_category=${subcategory.middle_category}&sub_category=${subcategory.sub_category}'">${subcategory.sub_category}</button>
 	        </c:forEach>
 	    </div>
+        <c:if test="${sub_category==null}">
      <select class="form-select form-select-lg mb-3" aria-label="Large select example" name="sortSearch"  onchange="if(this.value) location.href=(this.value);">
-        <option selected>정렬 기준</option>
+        <option>정렬 기준</option>
         <option value="/goods/goodsList.do?sort=popular">인기순</option>
         <option value="/goods/goodsList.do?sort=new">최신순</option>
         <option value="/goods/goodsList.do?sort=low">낮은가격순</option>
         <option value="/goods/goodsList.do?sort=high">높은가격순</option>
       </select>
+    </c:if>
+    <c:if test="${sub_category!=null}">
+        <select class="form-select form-select-lg mb-3" aria-label="Large select example" name="sortSearch"  onchange="if(this.value) location.href=(this.value);">
+            <option>정렬 기준</option>
+            <option value="/goods/goodsCategoryList.do?main_category=${category.main_category}&middle_category=${category.middle_category}&sub_category=${category.sub_category}&sort=popular">인기순</option>
+            <option value="/goods/goodsCategoryList.do?main_category=${category.main_category}&middle_category=${category.middle_category}&sub_category=${category.sub_category}&sort=new">최신순</option>
+            <option value="/goods/goodsCategoryList.do?main_category=${category.main_category}&middle_category=${category.middle_category}&sub_category=${category.sub_category}&sort=low">낮은가격순</option>
+            <option value="/goods/goodsCategoryList.do?main_category=${category.main_category}&middle_category=${category.middle_category}&sub_category=${category.sub_category}&sort=high">높은가격순</option>
+          </select>
+    </c:if>
           <div>
           <c:forEach var="goods" items="${newGoodsList}">
       <div class="diary_list">

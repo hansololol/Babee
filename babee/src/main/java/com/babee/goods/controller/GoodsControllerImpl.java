@@ -1,5 +1,6 @@
 package com.babee.goods.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -114,18 +115,42 @@ public class GoodsControllerImpl extends BaseController implements GoodsControll
 	 @RequestMapping(value="/goodsCategoryList.do", method = RequestMethod.GET)
 	 public ModelAndView goodsCategoryList(@RequestParam(required = false) Map<String, String> category,HttpServletRequest request, HttpServletResponse response) throws Exception {     
 		 request.setCharacterEncoding("utf-8");
-		 ModelAndView mav = new ModelAndView("/goods/goodsList"); // 수정된 부분
-		 List<GoodsVO> newGoodsList = goodsService.getAllCategoryGoods(category);
+		 ModelAndView mav = new ModelAndView("/goods/goodsList");
+		 String sort = request.getParameter("sort");
+		 List<GoodsVO> newGoodsList = new ArrayList<>();
+		 newGoodsList =  goodsService.getAllCategoryGoods(category);
+	       if(sort!=null) {
+	    	  switch(sort) {
+	    	  case "new" :
+	    		  category.put("sort", "goods_creation_date desc");
+	    		  newGoodsList=goodsService.getAllCategoryGoods(category);
+	    	  	break;
+	    	  	
+	    	  case "popular":
+	    		  newGoodsList = goodsService.getAllCategoryGoods(category);
+	    		  System.out.println("인기상풍 목록");
+	    		  break;
+	    		  
+	    	  case "low":
+	    		  category.put("sort", "goods_price");
+	    		  newGoodsList= goodsService.getAllCategoryGoods(category);
+	    		  break;
+	    		  
+	    	  case "high":
+	    		  category.put("sort", "goods_price");
+	    		  newGoodsList= goodsService.getAllCategoryGoods(category);
+	    		  break;
+	    	  }
+	       }
 		 categoryVO.setMain_category(category.get("main_category"));
 		 String middle = category.get("middle_category");
-		 if(middle !=null) {
+		 if(middle != null || middle != "") {
 		 categoryVO.setMiddle_category(category.get("middle_category"));
 		 }
 		 List sub_category= goodsService.getAllcg(categoryVO);
 		 mav.addObject("newGoodsList", newGoodsList); 
 		 mav.addObject("category", category);
 		 mav.addObject("sub_category", sub_category);
-		 System.out.println(sub_category.get(0)+ "서브 카테고리 확인");
 		 return mav;
 	 }
 	 //end
@@ -178,6 +203,9 @@ public class GoodsControllerImpl extends BaseController implements GoodsControll
 		List<GoodsVO> goodsList = goodsService.getAllCategoryGoods(category);
 		System.out.println(goodsList.size() + "상품 사이즈 확인");
 		mav.addObject("goods", goodsList);
+		
+		
+		
 		return mav;
 		
 	}
