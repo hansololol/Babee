@@ -55,7 +55,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
    <select id="selectAllGoods" resultType="GoodsVO">
-    SELECT * FROM t_shopping_goods
+    SELECT * FROM t_shopping_goods 
   </select>
    <select id="selectAllGoodsQna" resultMap="goodsQnaResult" parameterType="String">
    <![CDATA[
@@ -104,15 +104,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       ]]>
    </select>  
     
-   
-   <select id="selectKeywordSearch" resultType="String" parameterType="String">
-       <![CDATA[
-        select goods_title from t_shopping_goods 
-        where         
-        goods_title like concat('%', #{keyword} ,'%')
-        order by goods_creDate desc
-      ]]>
-   </select>
 
    <insert id="insertGoodsQNA" parameterType="GoodsQNA">
    	   <![CDATA[
@@ -123,8 +114,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			#{goods_qna_content}, now(), #{goods_qna_middle_title})
    	    ]]>
    </insert>
-
-   
+	
+	<select id="selectSort" parameterType="java.util.Map"  resultType="GoodsVO">
+			<if test='sort == "highGoods"'>
+		    select * from t_shopping_goods order by goods_price desc;
+			 </if>
+		 	<if test='sort == "lowGoods"'>
+		    select * from t_shopping_goods order by goods_price asc;
+			 </if>
+		 	<if test='sort == "newArriv"'>
+		  select * from t_shopping_goods order by goods_creation_date desc;
+		 	</if>
+	</select>
+	
    
     <select id="hotGoodsList" resultType="GoodsVO">
 	 <![CDATA[

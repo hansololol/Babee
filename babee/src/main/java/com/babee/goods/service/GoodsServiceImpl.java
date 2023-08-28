@@ -92,6 +92,10 @@ public class GoodsServiceImpl implements GoodsService{
 		return goodsDAO.selectFitGodos(baby_age);
 	}
 	@Override
+	public List selectSort(Map sortMap) throws Exception{
+		return goodsDAO.selectSort(sortMap);
+	}
+	@Override
 	public Map<String, String> getsubcg(String sub_category) throws Exception{
 		return goodsDAO.getsubcg(sub_category);
 	}

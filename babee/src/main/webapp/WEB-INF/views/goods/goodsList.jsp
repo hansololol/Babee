@@ -28,6 +28,7 @@
             }
 
     }
+
 </script>
 
 <style>
@@ -86,6 +87,7 @@
 }
  
 </style>
+
 </head>
 <body>
     <c:if test="${newGoodsList !=null}">
@@ -108,16 +110,14 @@
 	            <button type="button" class="btn btn-outline-warning" onclick="location.href='${contextPath}/goods/goodsCategoryList.do?main_category=${category.main_category}&middle_category=${category.middle_category}&sub_category=${subcategory.sub_category}'">${subcategory.sub_category}</button>
 	        </c:forEach>
 	    </div>
-
-     <select class="form-select form-select-lg mb-3" aria-label="Large select example">
+     <select class="form-select form-select-lg mb-3" aria-label="Large select example" name="sortSearch"  onchange="if(this.value) location.href=(this.value);">
         <option selected>정렬 기준</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
+        <option value="/goods/goodsList.do?sort=popular">인기순</option>
+        <option value="/goods/goodsList.do?sort=new">최신순</option>
+        <option value="/goods/goodsList.do?sort=low">낮은가격순</option>
+        <option value="/goods/goodsList.do?sort=high">높은가격순</option>
       </select>
-      
           <div>
-
           <c:forEach var="goods" items="${newGoodsList}">
       <div class="diary_list">
          <ul>                                                                                                            
@@ -127,7 +127,7 @@
             <li>${goods.goods_price}원</li>
          </ul>
       </div>
-   </c:forEach>
+        </c:forEach>
         </div>
         </div>
         </c:if>
@@ -137,6 +137,6 @@
                 <img src="/image/glass.png" style="width: 60px;"> <br> <br>
             <p>검색된 상품이 없습니다.</p>
          </div>
-            </c:if>
+         </c:if>
 </body>
 </html>
