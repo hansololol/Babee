@@ -149,10 +149,8 @@ function add_wish(goods_id){
 	}
 	
 	function fn_order_each_goods() {
-	    var _isLogOn = document.getElementById("isLogOn");
-	    var isLogOn = _isLogOn.value;
-	    
-	    if (isLogOn !== "false" && isLogOn !== '') {
+	    var isLogOn = '${isLogOn}';
+	    if (isLogOn != "false" && isLogOn != '') {
 	    	var orderForm=document.orderForm;
 			orderForm.submit();
 	    } else {

@@ -308,13 +308,23 @@ $(function (){
       margin: 0 58px;">배송지 변경</button>
       <form  name="form_order" action="${contextPath}/order/payToOrderGoods.do" enctype="utf-8" method="post">
       <ul>
-         <li style="margin-top: 20px;"></li>         
+         <li style="margin-top: 20px;"></li>      
+         <c:if test="${memberInfo.member_id !=null}">   
      	 <li> 우편번호 : <input name="member_zipcode" type="text" size="10" value="${memberInfo.member_zipcode }"  id="member_zipcode" ><br>
  		 	  도로명 주소 <input name="member_roadAddr" type="text" size="45" value="${memberInfo.member_roadAddr }"  id="member_roadAddr" > <br>
  			  지번 주소 <input name="member_jibunAddr" type="text" size="45" value="${memberInfo.member_jibunAddr }" id="member_jibunAddr" > <br>
  			  나머지 주소<input name="member_namujiAddr" type="text" size="45" value="${memberInfo.member_namujiAddr }" id="member_namujiAddr" ></li>
  
          <li> 연락처 : ${memberInfo.member_hp1} - ${memberInfo.member_hp2} - ${memberInfo.member_hp3} </li>
+      </c:if>
+      <c:if test="${memberInfo.member_id ==null}">   
+         <li> 우편번호 : <input name="member_zipcode" type="text" size="10" value="${memberInfo.seller_zipcode }"  id="member_zipcode" ><br>
+            도로명 주소 <input name="member_roadAddr" type="text" size="45" value="${memberInfo.seller_roadAddr }"  id="member_roadAddr" > <br>
+           지번 주소 <input name="member_jibunAddr" type="text" size="45" value="${memberInfo.seller_jibunAddr }" id="member_jibunAddr" > <br>
+           나머지 주소<input name="member_namujiAddr" type="text" size="45" value="${memberInfo.seller_namujiAddr }" id="member_namujiAddr" ></li>
+
+        <li> 연락처 : ${memberInfo.seller_hp1} - ${memberInfo.seller_hp2} - ${memberInfo.seller_hp3} </li>   
+   </c:if>
          <br>
          <li><input type="text" size="45" placeholder="요청사항을 입력해주세요." name="deliveryMessage"></li>
       </ul>
