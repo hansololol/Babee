@@ -20,8 +20,8 @@ public interface CommunityDAO {
 	public void insertFreeboardImage(Map freeboardMap) throws DataAccessException;
 	public FreeboardVO selectFreeboardDetail(String articleNO) throws Exception;
 
-	//public void updateDiary(Map diaryMap) throws DataAccessException;
-	//public void updateDiaryImage(Map diaryMap) throws DataAccessException;
+	public void updateFreeboard(Map freeboardMap) throws DataAccessException;
+	public void updateFreeboardImage(Map freeboardMap) throws DataAccessException;
 	
 
 	public List selectAllComment(String articleNO)throws DataAccessException;
@@ -41,7 +41,13 @@ public interface CommunityDAO {
 	
 	public List<InfoVO> selectALLInfoboardList(String member_id)throws DataAccessException;
 	public InfoVO admininfoDetail(String articleNO)throws DataAccessException;
-	public List selectAllinfo();
+	public List selectAllinfo()throws DataAccessException;
+	
+	public void deleteInfoboardImage(String articleNO)throws DataAccessException;
+	public void deleteInfoboard(String articleNO)throws DataAccessException;
+	
+	public void updateInfo(Map<String, Object> infoMap)throws DataAccessException;
+	public void updateInfoImage(Map<String, Object> infoMap)throws DataAccessException;
 	
 
 }

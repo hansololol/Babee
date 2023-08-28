@@ -111,10 +111,10 @@
       
 
 
-      
-      
-      
-      
+<definition name="/community/modinfoForm" extends="baseLayout_user">
+<put-attribute name="title" value="공지사항 수정창"/>
+<put-attribute name="body" value="/WEB-INF/views/admin00/member/adminModInfo.jsp"/>
+</definition>
       
 <definition name="/community/infoList" extends="baseLayout">
 <put-attribute name="title" value="공지사항 리스트"/>

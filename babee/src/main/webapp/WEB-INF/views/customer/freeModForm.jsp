@@ -1,17 +1,32 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" isELIgnored="false"%>
-    
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-
 <c:set var="contextPath" value="${pageContext.request.contextPath}"    />
 
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자 공지사항 작성창</title>
 
+
+<title>관리자 자주하는질문 작성창</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+   function readURL(input){
+      if(input.files && input.files[0]){
+         var reader = new FileReader();
+         reader.onload = function(e){
+            $('#preview').attr('src', e.target.result);
+         }
+         reader.readAsDataURL(input.files[0]);
+      }
+   }
+   
+   var cnt=1;
+   function fn_addFile(){
+      $("#d_file").append("<br>"+"<input type='file' name='file"+cnt+"' />");
+      cnt++;
+   }
+   </script>
+
 <style>
    /* 전체 스타일은 여기에 기존 스타일 코드를 놔두고, 원하는 영역에 클래스 스타일을 추가합니다 */
    .custom-style {
@@ -103,25 +118,23 @@
       background-color: #ff7e00;
    }
 </style>
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script type="text/javascript">
-function readURL(input){
-    if(input.files && input.files[0]){
-       var reader = new FileReader();
-       reader.onload = function(e){
-          $('#preview').attr('src', e.target.result);
-       }
-       reader.readAsDataURL(input.files[0]);
-    }
- }
+<script>
+   $(document).ready(function() {
+      $('input[name="imageUpload"]').on('change', function(event) {
+         var file = event.target.files[0];
+         var reader = new FileReader();
+         reader.onload = function(e) {
+            $('.file-preview').html('<img src="' + e.target.result + '" alt="Preview">');
+         };
+         reader.readAsDataURL(file);
+      });
+   });
 </script>
-
-
 </head>
 <body>
 <div class="custom-style">
-   <form class="form-container" method="post" action="${contextPath}/community/addInfo.do" enctype="multipart/form-data">
-      <h1 style="text-align: center;">공지사항</h1>
+   <form class="form-container" method="post" action="${contextPath}/community/addFreeboard.do" enctype="multipart/form-data">
+      <h1 style="text-align: center;">자유게시판</h1>
       <h3 style="text-align: center;">작성페이지</h3>
       <hr>
       
@@ -129,20 +142,21 @@ function readURL(input){
          <table>
             <tr>
                <th>작성자</th>
-               <td><input type="text" name="member_id" value="${memberInfo.member_id}" disabled>
+               <td><input type="text" value="${memberInfo.member_name}" disabled>
+                <input type="hidden" name="member_id" value="${memberInfo.member_id}" ></td>
             </tr>
             
             <tr>
                <th>제목</th>
-               <td><input type="text" name="info_title" ></td>
+               <td><input type="text" name="free_title"></td>
             </tr>
             
             
             <tr>
-               <th>공지내용</th>
+               <th>내용</th>
                <td>
                   <div style="padding: 10px 0;">
-                     <textarea name="info_content"></textarea>
+                     <textarea name="free_content"></textarea>
                   </div>
                </td>
             </tr>
@@ -150,19 +164,19 @@ function readURL(input){
             <tr>
                <th>이미지 업로드</th>
                <td>
-                  <input type="file" name="file" onChange="readURL(this);"/>
+                  <input type="file" name="free_img1" onChange="readURL(this);">
                </td>
             </tr>
             <tr>
                <th>이미지 미리보기</th>
-               <td> <img id="preview" src="#" width=200 height=200 /> </td>
+               <td width="250" height="200"><img id="preview" src="#" width=200 height=200 /></td>
             </tr>
          </table>
       </div>
       <br>
       <div class="btn-container">
          <button type="submit">작성하기</button>
-         <a href="/member/admininfolist.do?page=adminPage">뒤로가기</a>
+         <a href="/main/main.do">메인페이지</a>
       </div>
    </form>
 </div>

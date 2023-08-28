@@ -217,10 +217,10 @@
 		        <tr class="faq-content">
 		            
 		            <td><p><img src="/image/bell.png" width="30px" height="30px"/></p></td>
-		            <td><a href="${contextPath}/community/admininfoDetail.do?articleNO=${info.articleNO}" style="display: flex; align-items: center;">
+		            <td><a href="${contextPath}/community/admininfoDetail.do?articleNO=${info.articleNO}&page=adminPage" style="display: flex; align-items: center;">
 		            <span style="color: black;">[공지사항][${info.info_title}]</span></a></td>
 		            <td><p style=" align-items: center;"><span style="color: black;">${info.member_id}</span></p></td>
-			                 <td><a href="/member/deleteFaq/${info.articleNO}" style="color: red;" onclick="return confirm('삭제하시겠습니까?');"><span style="font-size: 20px;">&#128683;</span></a></td>
+			        <td><a href="/community/deleteInfo.do?articleNO=${info.articleNO}" style="color: red;" onclick="return confirm('삭제하시겠습니까?');"><span style="font-size: 20px;">&#128683;</span></a></td>
 		        </tr>
 		    </c:forEach>
 		</tbody>
