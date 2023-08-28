@@ -88,7 +88,7 @@
 </style>
 </head>
 <body>
-
+    <c:if test="${newGoodsList !=null}">
     <div style= "padding:19px 21%;" >
         <nav style="--bs-breadcrumb-divider: '>'; font-size: 20px;" aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -109,15 +109,16 @@
 	        </c:forEach>
 	    </div>
 
-    <select class="form-select form-select-lg mb-3" aria-label="Large select example">
+     <select class="form-select form-select-lg mb-3" aria-label="Large select example">
         <option selected>정렬 기준</option>
         <option value="1">One</option>
         <option value="2">Two</option>
         <option value="3">Three</option>
       </select>
       
-   <div>
-   <c:forEach var="goods" items="${newGoodsList}">
+          <div>
+
+          <c:forEach var="goods" items="${newGoodsList}">
       <div class="diary_list">
          <ul>                                                                                                            
             <li style="text-align: left;"> <input type="checkbox" id="check" hidden> </li>
@@ -127,8 +128,15 @@
          </ul>
       </div>
    </c:forEach>
-</div>
-
-</div>
+        </div>
+        </div>
+        </c:if>
+        <c:if test="${newGoodsList==null}">
+            <div style="height: 800px;">
+                <br>
+                <img src="/image/glass.png" style="width: 60px;"> <br> <br>
+            <p>검색된 상품이 없습니다.</p>
+         </div>
+            </c:if>
 </body>
 </html>

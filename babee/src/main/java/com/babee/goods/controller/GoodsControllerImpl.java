@@ -106,17 +106,19 @@ public class GoodsControllerImpl extends BaseController implements GoodsControll
 	@RequestMapping(value="/searchGoods.do" ,method = RequestMethod.GET)
 	public ModelAndView searchGoods(@RequestParam("searchWord") String searchWord,HttpServletRequest request, HttpServletResponse response) throws Exception{
 		String viewName=(String)request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView("/goods/goodsList");
 		List goodsList=goodsService.searchGoods(searchWord);
+		if(goodsList.size()!=0) {
 		GoodsVO goodsVO =  (GoodsVO) goodsList.get(0);
 		String main_category = goodsVO.getMain_category();
 		String middle_category=goodsVO.getMiddle_category();
 		categoryVO.setMain_category(main_category);
 		categoryVO.setMiddle_category(middle_category);
-		ModelAndView mav = new ModelAndView("/goods/goodsList");
 		List sub_category= goodsService.getAllcg(categoryVO);
 		mav.addObject("sub_category", sub_category);
 		mav.addObject("category", categoryVO);
 		mav.addObject("newGoodsList", goodsList);
+		}
 		return mav;
 		
 	}
