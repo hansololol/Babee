@@ -79,10 +79,12 @@ public class CommunityServiceImpl implements CommunityService  {
 		return communityDAO.selectMyQnaList(member_id);
 	}
 	
-	/*
-	 * @Override public void modDiary(Map diaryMap) throws DataAccessException {
-	 * diaryDAO.updateDiary(diaryMap); diaryDAO.updateDiaryImage(diaryMap); }
-	 */ 
+	
+	  @Override public void modFreeboard(Map freeboardMap) throws DataAccessException {
+		  communityDAO.updateFreeboard(freeboardMap); 
+		  communityDAO.updateFreeboardImage(freeboardMap); 
+	  }
+	  
 	
 	@Override
 	public void addInfo(Map infoMap) throws DataAccessException {
@@ -108,5 +110,19 @@ public class CommunityServiceImpl implements CommunityService  {
 	@Override
 	public List selectAllinfo() throws Exception{
 		return communityDAO.selectAllinfo();
+	}
+	
+	@Override
+	public void delInfoboard(String articleNO) throws Exception {
+		communityDAO.deleteInfoboard(articleNO);
+		communityDAO.deleteInfoboardImage(articleNO);
+		
+	}
+	
+	@Override
+	public void modInfo(Map<String, Object> infoMap) throws Exception{
+		 communityDAO.updateInfo(infoMap); 
+		 //communityDAO.updateInfoImage(infoMap); 
+
 	}
 }

@@ -173,7 +173,41 @@ function readURL(input){
       
       -->
       <script>
-      function fn_remove_diary(articleNO, free_img_id){
+      function fn_remove_freeboard(articleNO, free_img_id){
+          var formObj = document.createElement("form");
+          var d_goods = document.createElement("input");
+                d_goods.name = "articleNO";
+                d_goods.value = articleNO;
+                formObj.appendChild(d_goods);
+          var d_img = document.createElement("input");
+                d_img.name = "free_img_id";
+                d_img.value = free_img_id;
+                formObj.appendChild(d_img);
+          document.body.appendChild(formObj);
+                formObj.method = "post";
+                formObj.action = "${contextPath}/community/removeFreeboard.do";
+                formObj.submit();
+       }
+   </script> 
+   
+    <script>
+      function fn_remove_freeboard(articleNO, free_img_id){
+          var formObj = document.createElement("form");
+          var d_goods = document.createElement("input");
+                d_goods.name = "articleNO";
+                d_goods.value = articleNO;
+                formObj.appendChild(d_goods);
+          var d_img = document.createElement("input");
+                d_img.name = "free_img_id";
+                d_img.value = free_img_id;
+                formObj.appendChild(d_img);
+          document.body.appendChild(formObj);
+                formObj.method = "post";
+                formObj.action = "${contextPath}/community/removeFreeboard.do";
+                formObj.submit();
+       }
+      
+      function fn_mod_freeboard(articleNO, free_img_id){
           var formObj = document.createElement("form");
           var d_goods = document.createElement("input");
                 d_goods.name = "articleNO";
@@ -200,7 +234,8 @@ function readURL(input){
          <c:choose>
          	<c:when test="${isLogOn == true }">
          		<c:if test="${memberInfo.member_id == freeboard.member_id }">
-       			<input type="button" value="삭제" style="float:right;" onClick="fn_remove_diary('${freeboard.articleNO}', '${freeboard.free_img_id}')">
+       			<input type="button" value="삭제" style="float:right;" onClick="fn_remove_freeboard('${freeboard.articleNO}', '${freeboard.free_img_id}')">
+       			<input type="button" value="수정" style="float:right;" onClick="fn_mod_freeboard('${freeboard.articleNO}', '${freeboard.free_img_id}')">
 				</c:if>
 			</c:when>
          </c:choose>

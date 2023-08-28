@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자 공지사항 작성창</title>
+<title>관리자 공지사항 수정창</title>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
@@ -120,7 +120,7 @@ function readURL(input){
 </head>
 <body>
 <div class="custom-style">
-   <form class="form-container" method="post" action="${contextPath}/community/addInfo.do" enctype="multipart/form-data">
+   <form class="form-container" method="post" action="${contextPath}/community/modInfo.do" enctype="multipart/form-data">
       <h1 style="text-align: center;">공지사항</h1>
       <h3 style="text-align: center;">작성페이지</h3>
       <hr>
@@ -134,7 +134,7 @@ function readURL(input){
             
             <tr>
                <th>제목</th>
-               <td><input type="text" name="info_title" ></td>
+               <td><input type="text" name="info_title" value="${infoboard.info_title}" ></td>
             </tr>
             
             
@@ -142,7 +142,7 @@ function readURL(input){
                <th>공지내용</th>
                <td>
                   <div style="padding: 10px 0;">
-                     <textarea name="info_content"></textarea>
+                     <textarea name="info_content" ">${infoboard.info_content}</textarea>
                   </div>
                </td>
             </tr>

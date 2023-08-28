@@ -185,13 +185,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 </select>
 	 
 	 
-   <!-- <update id="updateDiary" parameterType="java.util.Map">
+   <update id="updateFreeboard" parameterType="java.util.Map">
  		<![CDATA[
- 			update t_shopping_dir
- 			set dir_title=#{dir_title}, 
- 				dir_main_img=#{dir_main_img},
- 				baby_condition=#{baby_condition}, 
- 				dir_content=#{dir_content},
+ 			update t_shopping_freeboard
+ 			set free_title=#{free_title}, 
+ 				free_img=#{free_img},
+ 				free_content=#{free_content},
  				dir_main_img_id=#{dir_main_img_id}
  			]]>
  			<if test="imageFileName!='' and imageFileName!=null">
@@ -202,7 +201,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		 ]]>
  	</update>
  	
- 	<update id="updateDiaryImage" parameterType="java.util.Map">
+ 	<update id="updateFreeboardImage" parameterType="java.util.Map">
 	  <![CDATA[
      	update t_shopping_image
      	set 
@@ -211,7 +210,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         	
         where reg_id=#{member_id}          
      ]]>
-	</update> -->
+	</update>
   
   
   <insert id="insertNewInfo"  parameterType="java.util.Map">
@@ -273,4 +272,46 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select * from t_shopping_infoboard
        ]]>
     </select>
+    
+    <delete id="deleteInfoboard" parameterType="java.util.Map">
+	    <![CDATA[
+	      delete from t_shopping_infoboard
+	      where articleNO=#{articleNO}
+    	]]>
+	</delete>
+	
+	<delete id="deleteInfoboardImage" parameterType="java.util.Map">
+	    <![CDATA[
+	      delete from t_shopping_image
+	      where image_id=#{info_img_id}
+    	]]>
+	</delete>
+	
+	
+	<update id="updateInfo" parameterType="java.util.Map">
+ 		<![CDATA[
+ 			update t_shopping_infoboard
+ 			set info_title=#{info_title}, 
+ 				info_img=#{info_img},
+ 				info_content=#{info_content},
+ 				info_img_id=#{info_img_id}
+ 			]]>
+ 			<if test="imageFileName!='' and imageFileName!=null">
+ 				<![CDATA[ ,imageFileName=#{imageFileName} ]]>
+ 			</if>
+ 		<![CDATA[
+ 			where articleNO=#{articleNO}
+ 		 ]]>
+ 	</update>
+ 	
+ 	<update id="updateInfoImage" parameterType="java.util.Map">
+	  <![CDATA[
+     	update t_shopping_image
+     	set 
+        	image_id=#{info_img_id},
+        	fileName=#{info_img} 
+        	
+        where reg_id=#{member_id}          
+     ]]>
+	</update>
 </mapper>

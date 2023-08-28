@@ -167,6 +167,7 @@
 				</div>
 				<div id="faqAnswer${cnt.count}" width: "700px;"
 					style="display: flex; text-align: left; margin-left: 33%; display: none;">
+					  <img src="${contextPath}/thumbnails.do?goods_id=${infoboard.member_id}&fileName=${infoboard.info_img}&fileType=info&articleNO=${infoboard.articleNO}" width="400px" id="preview" style="widht:350px; height: 400px;">
 					<p style="width: 700px;">${infoboard.info_content}</p>
 				</div>
 
