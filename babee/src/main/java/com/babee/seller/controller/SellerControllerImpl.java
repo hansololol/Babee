@@ -18,6 +18,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.babee.common.base.BaseController;
 import com.babee.goods.vo.GoodsVO;
+import com.babee.goods.vo.ImageFileVO;
 import com.babee.seller.service.SellerService;
 import com.babee.seller.vo.SellerVO;
 
@@ -106,6 +108,132 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 		return resEntity;
 	}
 	
+	//업데이트
+	@Override
+	@RequestMapping(value="/modgoods.do", method={RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView modGoods(@RequestParam("goods_id") int goods_id, @RequestParam Map<String, Object> modGoodsMap,
+            MultipartHttpServletRequest multipartRequest,
+            HttpServletRequest request,
+            HttpServletResponse response) throws Exception {
+		multipartRequest.setCharacterEncoding("utf-8");
+		ModelAndView mav = new ModelAndView();
+		GoodsVO goodsVO = new GoodsVO();
+		//Map<String, Object> modGoodsMap = new HashMap<String, Object>();
+		HttpSession session = multipartRequest.getSession();
+		
+		SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+		String seller_id = sellerVO.getSeller_id();
+		modGoodsMap.put("seller_id", seller_id);
+		
+		Map<String, Object> goodsInfo = sellerService.getGoodsInfo(goods_id);
+	   
+		System.out.println("구우우우우웅ㅅ!: "+goods_id);
+		
+		
+		System.out.println("modGoodsMap의 모든 값:");
+		for (Map.Entry<String, Object> entry : goodsInfo.entrySet()) {
+		    //modGoodsMap.put(entry.getKey(), entry.getValue());
+		    System.out.println("modmodmodmodmo: " + entry.getKey() + ": " + entry.getValue());
+		}
+	    
+	    modGoodsMap.put("image_id", goodsInfo.get("goods_image_name1_id"));
+	    System.out.println("아라라라ㅏ라라ㅏ라라ㅏ랄");
+	    System.out.println(goodsInfo.get("goods_image_name1_id"));
+		// 이미지1 처리
+	       List<MultipartFile> image1FileList = multipartRequest.getFiles("goods_image_name1");
+	       for (MultipartFile file : image1FileList) {
+	           String fileName = file.getOriginalFilename();
+	           System.out.println("name1:" + fileName);
+	           goodsVO.setGoods_image_name1(fileName);
+	           // 이미지1 처리 로직
+	           ImageFileVO imageFileVO = new ImageFileVO();
+	           imageFileVO.setFileName(fileName);
+	           modGoodsMap.put("goods_image_name1", fileName);
+	           modGoodsMap.put("fileName", fileName);
+	       }
+	    // 이미지2 처리
+	       List<MultipartFile> image2FileList = multipartRequest.getFiles("goods_image_name2");
+	       for (MultipartFile file : image2FileList) {
+	           String fileName = file.getOriginalFilename();
+	           System.out.println("name2:" + fileName);
+	           goodsVO.setGoods_image_name2(fileName);
+	           // 이미지2 처리 로직
+	           ImageFileVO imageFileVO = new ImageFileVO();
+	           imageFileVO.setFileName(fileName);
+	           modGoodsMap.put("goods_image_name2", fileName);
+	           modGoodsMap.put("detailFile", fileName);
+	       }
+	       System.out.println("이미지 파일네임!!!!!!!");
+	       System.out.println(modGoodsMap.get("fileName"));
+	       System.out.println(modGoodsMap.get("detailFile"));
+	       
+		Enumeration enu = multipartRequest.getParameterNames();
+		while(enu.hasMoreElements()) {
+			String name=(String)enu.nextElement();
+			String value = multipartRequest.getParameter(name);
+			modGoodsMap.put(name, value);
+			System.out.println("enu출력1111 "+name+":"+ value);
+		}
+		
+		List<String> imageFileName = upload(multipartRequest);
+	    
+		  sellerService.updateGoods(modGoodsMap);
+		  sellerService.updateGoodsImage(modGoodsMap);
+		  System.out.println("컨트롤러 이미지파일네임!! "+ imageFileName);
+		
+		  try {
+			  
+			  if (imageFileName != null && !imageFileName.isEmpty()) {
+				    for (String fileName : imageFileName) {
+				        File srcFile = new File(CURR_IMAGE_REPO_PATH + "\\" + "temp" + "\\" + fileName);
+				        File destDir = new File(CURR_IMAGE_REPO_PATH + "\\" + goods_id);
+				        
+				        System.out.println("파아아아아알일 " + fileName);
+				        
+				        // 이미지 파일을 옮깁니다.
+				        FileUtils.moveFileToDirectory(srcFile, destDir, true);
+				    }
+				    
+				    // 이미지 파일을 옮긴 후 기존 파일 삭제
+				    String goods_image_name1 = (String) goodsInfo.get("goods_image_name1");
+				    if (goods_image_name1 != null && !goods_image_name1.isEmpty()) {
+				        File oldFile1 = new File(CURR_IMAGE_REPO_PATH + "\\" + goods_id + "\\" + goods_image_name1);
+				        oldFile1.delete();
+				        System.out.println("기존 파일 1 삭제: " + oldFile1.getPath());
+				    }
+
+				    String goods_image_name2 = (String) goodsInfo.get("goods_image_name2");
+				    if (goods_image_name2 != null && !goods_image_name2.isEmpty()) {
+				        File oldFile2 = new File(CURR_IMAGE_REPO_PATH + "\\" + goods_id + "\\" + goods_image_name2);
+				        oldFile2.delete();
+				        System.out.println("기존 파일 2 삭제: " + oldFile2.getPath());
+				    }
+				}
+		  mav.setViewName("redirect:/seller/listSellerGoods.do?page=sellerPage");
+		  
+		  }catch (Exception e) {
+			  e.printStackTrace();
+	    	}
+		return mav;
+	}
+	
+	//업데이트 전 값 불러오기
+	   @Override
+	   @RequestMapping(value = "/modGoodsForm.do", method = RequestMethod.GET)
+	   public ModelAndView getGoodsInfo(@RequestParam("goods_id") int goods_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		    ModelAndView mav = new ModelAndView("/seller/modGoodsForm");
+		    
+		    Map<String, Object> goodsIdMap = new HashMap<String, Object>();
+		    goodsIdMap.put("goods_id", goods_id);
+		    
+		    Map<String, Object> goodsInfo = sellerService.getGoodsInfo(goods_id);
+		    
+		    mav.addObject("goodsInfo", goodsInfo);
+		    //mav.setViewName("/seller/goodsModifyForm");
+		    
+		    return mav;
+	   }
+	
 	
 	@Override
 	   @RequestMapping(value = "/removeGoodsImage.do", method={RequestMethod.GET, RequestMethod.POST})
@@ -155,8 +283,6 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 	       
 	       mav.addObject("sellerGoodsList", sellerGoodsList);
 	       System.out.println("사업자 상품리스트"+ sellerGoodsList);
-
-	       
 	       return mav;
 	   }
 	

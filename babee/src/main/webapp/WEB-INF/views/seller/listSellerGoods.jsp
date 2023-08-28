@@ -131,27 +131,30 @@
          </tr>
          <c:forEach items="${sellerGoodsList}" var="goods">
              <tr>
+            
                  <td>
                  <a href="${contextPath}/goods/goodsDetail.do?goods_id=${goods.goods_id}&fileName=${goods.goods_image_name1_id}">
                  <img src="${contextPath}/thumbnails.do?goods_id=${goods.goods_id}&fileName=${goods.goods_image_name1}" style="width:100px;"> </a></td>
                  
+                 <input type="hidden" name="goods_image_name2" value="${goods.goods_image_name2}">
+                 <input type="hidden" name="goods_image_name2_id" value="${goods.goods_image_name2_id}">
                  <td>
                      <ul class="goods">
                          <li style="text-align: left;"> ${goods.goods_title} </li>
                          <li style="text-align: left;"> 가격: ${goods.goods_price}원 </li>
                      </ul>
                  </td>
-                 <td> 2,500원 </td>
+                 <td> 3,000원 </td>
                  <td>
                  
-                     <a class="order_delivery_search" href="${contextPath}/seller/addNewGoodsForm.do"><b>수정하기</b></a><br>
+                     <a class="order_delivery_search" href="${contextPath}/seller/modGoodsForm.do?goods_id=${goods.goods_id}"><b>수정하기</b></a><br>
                      <a class="order_delivery_search" href="${contextPath}/seller/removeGoodsImage.do?goods_id=${goods.goods_id}&goods_image_name1=${goods.goods_image_name1}&goods_image_name1_id=${goods.goods_image_name1_id}"><b>삭제</b></a><br>
                  </td>
              </tr>
          </c:forEach>
       </table>
    </form>
-      </div>      
+      </div>
       
       
       <!-- 페이징  -->

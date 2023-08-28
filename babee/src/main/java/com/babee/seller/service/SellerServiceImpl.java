@@ -44,5 +44,26 @@ public class SellerServiceImpl implements SellerService{
 		return sellerDAO.adminGoodsList(seller_id);
 	}
 	
+	//업데이트
+	@Override
+    public void updateGoods(Map<String, Object> modGoodsMap) throws Exception {
+        sellerDAO.updateGoods(modGoodsMap);
+    }
+
+    @Override
+    public void updateGoodsImage(Map<String, Object> modGoodsMap) throws Exception {
+        sellerDAO.updateGoodsImage(modGoodsMap);
+    }
 	
+	//업데이트 전 값 불러오기
+	@Override
+	public Map<String, Object> getGoodsInfo(int goods_id) throws Exception {
+	    return sellerDAO.getGoodsInfo(goods_id);
+	}
+	
+	// 오늘 등록된 상품 조회
+	@Override
+    public List<GoodsVO> getTodayGoods() {
+        return sellerDAO.getTodayGoods();
+    }
 }

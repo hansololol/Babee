@@ -125,6 +125,49 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    ]]>      
   </insert>
   
+  <update id="updateGoods" parameterType="java.util.Map">
+ 		<![CDATA[
+ 			UPDATE t_shopping_goods
+			SET
+			    goods_title = #{goods_title},
+			    goods_price = #{goods_price},
+			    goods_stock = #{goods_stock},
+			    main_category = #{main_category},
+			    middle_category = #{middle_category},
+			    sub_category = #{sub_category},
+			    goods_image_name1 = #{goods_image_name1},
+			    goods_image_name2 = #{goods_image_name2},
+			    seller_id = #{seller_id},
+			    age_range = #{age_range},
+			    goods_option1 = #{goods_option1},
+			    goods_option2 = #{goods_option2},
+			    goods_option3 = #{goods_option3},
+			    goods_option4 = #{goods_option4},
+			    goods_option5 = #{goods_option5},
+			    relative_tag1 = #{relative_tag1}
+			WHERE
+			    goods_id = #{goods_id};
+ 		 ]]>
+ 	</update>
+ 	
+ 	<update id="updateGoodsImage" parameterType="java.util.Map">
+	  <![CDATA[
+     	update t_shopping_image
+     	set fileName=#{fileName}
+     	]]>
+ 			<if test="detailFile!='' and detailFile!=null">
+ 				<![CDATA[ ,detailFile=#{detailFile} ]]>
+ 			</if>
+      <![CDATA[	
+        where image_id=#{image_id}
+     ]]>
+	</update>
+  
+  <select id="getGoodsInfo" parameterType="int" resultType="java.util.Map">
+        SELECT goods_id, goods_title, goods_price, goods_stock, main_category, middle_category, sub_category, goods_image_name1, goods_image_name2, goods_image_name1_id, goods_image_name2_id, seller_id, age_range, goods_option1, goods_option2, goods_option3, goods_option4, goods_option5, relative_tag1
+		FROM t_shopping_goods
+		WHERE goods_id = #{goods_id}
+    </select>
   
   <delete id="deleteGoodsImage" parameterType="int">
        DELETE FROM t_shopping_goods
@@ -143,5 +186,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE seller_id = #{seller_id};
     </select>
     
+    <!-- 날짜 -->
+    <select id="getTodayGoods" resultType="GoodsVO">
+	    SELECT * FROM t_shopping_goods
+	    WHERE DATE(goods_creation_date) = CURDATE()
+	</select>
     
 </mapper>
