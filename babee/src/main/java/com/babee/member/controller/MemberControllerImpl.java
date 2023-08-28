@@ -158,20 +158,31 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 	public ModelAndView findMyId(@RequestParam Map<String, String> findMap,HttpServletRequest request, HttpServletResponse response) throws Exception{
 		ModelAndView mav = new ModelAndView("/member/findId");
 		memberVO = memberService.findMyId(findMap);
+		if(memberVO !=null ) {
 		mav.addObject("findMember", memberVO);
+		mav.addObject("nn", "y");
+		
+		}else {
+			mav.addObject("nn", "n");
+		}
 		return mav;
 	}
 	
 	@Override
 	@RequestMapping(value="/checkPw.do" ,method = RequestMethod.POST)
 	public ModelAndView checkPw(@RequestParam Map<String, String> findMap,HttpServletRequest request, HttpServletResponse response) throws Exception{
-		ModelAndView mav = new ModelAndView("/member/loginForm");
+		ModelAndView mav = new ModelAndView("/member/findId");
 		int pwd = (int) Math.floor(Math.random()*1000000);
 		String newPwd=String.valueOf(pwd);
 		findMap.put("member_pw", newPwd);
 		memberVO = memberService.findMyPw(findMap);
+		if(memberVO !=null) {
 		String email = memberVO.getMember_email();
 		sendMail(email, newPwd);
+		mav.addObject("message", "등록하신 이메일로 임시비밀번호가 발급되었습니다.");
+		}else {
+			mav.addObject("message", "등록된 회원 정보가 없습니다.");
+		}
 		return mav;
 	}
 	
