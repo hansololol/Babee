@@ -40,7 +40,7 @@
 <form>
 <div style="width:66%; margin:0 auto;">
 
-	<h3 style="display:inline-block; margin-bottom: 8px; margin-top: 10px;">${seller.seller_company}&nbsp; <h6 style="display:inline-block; margin-bottom: 8px;"> YYYY-MM-DD</h6> </h3> 
+	<h3 style="display:inline-block; margin-bottom: 8px; margin-top: 10px;">${seller.seller_company}&nbsp; <h6 style="display:inline-block; margin-bottom: 8px;">${seller.seller_joinDate}</h6> </h3> 
 	<button style="display:inline-block; margin-left:300px;">삭제</button>
 	<hr style="padding-top:0px">
 </div>
