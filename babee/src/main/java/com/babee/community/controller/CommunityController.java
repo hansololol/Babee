@@ -36,6 +36,10 @@ public interface CommunityController {
 	public ModelAndView modInfo(InfoVO info, MultipartHttpServletRequest multipartRequest, HttpServletRequest request,	HttpServletResponse response) throws Exception;
 	
 	public ModelAndView adminFreeboardList(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView adminqnaList(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	
+	
+	public ModelAndView addQna(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 	
 			

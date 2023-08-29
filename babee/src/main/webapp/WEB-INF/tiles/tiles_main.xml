@@ -211,8 +211,13 @@
   
 
 
-<definition name="/member/adminAnswer" extends="baseLayout_user">
-<put-attribute name="title" value="관리자 자주묻는질문 리스트 답변"/>
+<definition name="/community/adminAnswer" extends="baseLayout_user">
+<put-attribute name="title" value="관리자 답변"/>
+<put-attribute name="body" value="/WEB-INF/views/admin00/member/adminquestionAnswer.jsp"/>
+</definition>
+
+<definition name="/community/addQnaAnswer" extends="baseLayout_user">
+<put-attribute name="title" value="관리자 답변"/>
 <put-attribute name="body" value="/WEB-INF/views/admin00/member/adminquestionAnswer.jsp"/>
 </definition>
 

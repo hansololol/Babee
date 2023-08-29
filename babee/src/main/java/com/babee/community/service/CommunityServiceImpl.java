@@ -145,17 +145,21 @@ public class CommunityServiceImpl implements CommunityService  {
 			Map freeboardMap = new HashMap();
 		
 		FreeboardVO freeboardVO = communityDAO.selectFreeboardDetail(articleNO);
-
-		/*
-		 * int free_view_count = communityDAO.updateViewCnt(articleNO);
-		 * 
-		 * if(free_view_count != 0) { freeboardVO.setFree_view_count(free_view_count); }
-		 * else { freeboardVO.setFree_view_count(1); }
-		 */
 		
 		freeboardMap.put("freeboardVO", freeboardVO);
 		
 		return freeboardMap;				
+	}
+
+	@Override
+	public List selectAllQnaList() throws Exception {
+		return communityDAO.selectAllQnaList();
+	}
+
+	@Override
+	public void addQnaAnswer(QnaVO qnaVO) throws Exception {
+		communityDAO.updateQnaAnswer(qnaVO);
+		
 	}
 
 

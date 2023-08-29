@@ -280,6 +280,19 @@
    	 
     <div style="text-align: center;">
         <div style="display: flex; margin-left: 33%;">
+         <c:choose>
+            		<c:when test="${myfnq.qna_answer != null}">
+                	
+                   	완료
+                    
+                    </c:when>
+                    <c:when test="${myfnq.qna_answer == null}">
+                	
+                   	대기
+                    
+                    </c:when>
+                    </c:choose>
+                    
             <p style="margin-left: 25px;" >
                 <img src="/image/glass.png" alt="FAQ" style="width: 20px; height: 20px;">
                 <a href="#"  onclick="toggleAnswer('${7 + cnt.count}')">${myfnq.qna_title}</a>
@@ -287,6 +300,7 @@
         </div>
         <div id="faqAnswer${7 + cnt.count}" style="display: flex;text-align: left; margin-left: 33%;  display: none;">
         <p>	${myfnq.qna_content} </p>
+        <p>	답변 : ${myfnq.qna_answer} </p>
    		</div>
     </div>
     <hr width="50%" id="foreachhr">

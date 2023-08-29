@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.babee.common.base.BaseController;
+import com.babee.community.dao.CommunityDAO;
 import com.babee.community.service.CommunityService;
 import com.babee.community.vo.CommentVO;
 import com.babee.community.vo.FreeboardVO;
@@ -51,7 +52,8 @@ public class CommunityControllerImpl extends BaseController implements Community
 	private QnaVO qnaVO;
 	@Autowired
 	private InfoVO infoVO;
-	
+	@Autowired
+	private CommunityDAO communityDAO;
 	
 	
 	@Override
@@ -658,6 +660,64 @@ public class CommunityControllerImpl extends BaseController implements Community
 		return mav;
 	}
 	
+	@Override
+	@RequestMapping(value="/adminAnswer.do" ,method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView adminqnaList(HttpServletRequest request, HttpServletResponse response)  throws Exception {
+		System.out.println("adminAnswer.do 실행");
+		String viewName=(String)request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+		HttpSession session=request.getSession();
+		String _section = request.getParameter("section"); 
+		String _pageNum = request.getParameter("pageNum"); 
+		int section =Integer.parseInt(((_section==null)? "1":_section)); 
+		int pageNum = Integer.parseInt(((_pageNum==null)? "1":_pageNum));
+		
+		
+		memberVO = (MemberVO) session.getAttribute("memberInfo");
+		if (memberVO != null) {
+		String member_id = memberVO.getMember_id();
+		
+		List qnaList = new ArrayList<>();
+		qnaList = communityService.selectAllQnaList();
+		int ListSize = qnaList.size();
+		mav.addObject("qnaList", qnaList);
+		mav.addObject("section", section);
+		mav.addObject("pageNum", pageNum);
+		mav.addObject("totArticles", ListSize);
+		}
+		return mav;
+	}
+	
+	
+	@Override
+	@RequestMapping(value="/addQnaAnswer.do" ,method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView addQna(HttpServletRequest request, HttpServletResponse response)  throws Exception {
+		System.out.println("addQnaAnswer.do 실행");
+		String viewName=(String)request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+		HttpSession session=request.getSession();
+		String _section = request.getParameter("section"); 
+		String _pageNum = request.getParameter("pageNum"); 
+		int section =Integer.parseInt(((_section==null)? "1":_section)); 
+		int pageNum = Integer.parseInt(((_pageNum==null)? "1":_pageNum));
+		
+		
+		memberVO = (MemberVO) session.getAttribute("memberInfo");
+
+		String articleNO = request.getParameter("articleNO");
+		System.out.println("articleNO: " + articleNO);
+		String qna_answer = request.getParameter("qna_answer");
+		System.out.println("qna_answer: " + qna_answer);
+		QnaVO qnaVO = new QnaVO();
+		qnaVO = communityDAO.selectQna(articleNO);
+		qnaVO.setQna_answer(qna_answer);
+		communityService.addQnaAnswer(qnaVO);
+		
+		mav.setViewName("redirect:/community/adminAnswer.do");
+		
+		
+		return mav;
+	}
 	
 	
 	

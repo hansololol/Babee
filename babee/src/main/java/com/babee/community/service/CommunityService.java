@@ -35,6 +35,8 @@ public interface CommunityService {
 	public void adminDelFreeboard(String articleNO)throws Exception;
 	
 	public Map freeboardDetail2(String articleNO_)throws Exception;
+	public List selectAllQnaList()throws Exception;
+	public void addQnaAnswer(QnaVO qnaVO) throws Exception;
 
 
 
