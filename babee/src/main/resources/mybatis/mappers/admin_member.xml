@@ -180,6 +180,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
        ]]>
    </select>
    
+   <select id="sellerDetail" resultMap="sellerResult"   parameterType="String">
+       <![CDATA[
+        select * from t_shopping_seller
+        where seller_id=#{seller_id}
+       ]]>
+   </select>
+   
+   
    <select id="sellerManageWait" resultMap="sellerResult" parameterType="java.util.Map">
        <![CDATA[
              select * from  t_shopping_seller
@@ -188,5 +196,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
        ]]>
    </select>
    
+   	<select id="sellerWaitDetail" resultMap="sellerResult"   parameterType="String">
+       <![CDATA[
+        select * from t_shopping_seller
+        where seller_id=#{seller_id}
+       ]]>
+   </select>
+   
+   <update id="sellerRegister" parameterType="java.util.Map">
+	  <![CDATA[
+	  update t_shopping_seller
+     	set seller_status='승인', 
+        	seller_confirmDate = now()
+        where seller_id=#{seller_id}   
+     ]]>
+	</update>
 </mapper> 
 

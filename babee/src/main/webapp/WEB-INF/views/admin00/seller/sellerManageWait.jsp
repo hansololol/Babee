@@ -146,7 +146,7 @@
 		<tr style="height: 50px; border-bottom:1px solid gray;">
 			<td>${sellerNO.count}</td>
 			<td>${seller.seller_name} </a> </td>
-			<td><a href="${contextPath}/member/sellerWaitDetail.do?page=adminPage">${seller.seller_company} </a> </td>
+			<td><a href="${contextPath}/admin/member/sellerWaitDetail.do?page=adminPage&seller_id=${seller.seller_id}">${seller.seller_company} </a> </td>
 			<td>${seller.seller_status}</td>
 			<td>${seller.seller_joinDate}</td>
 		</tr>
@@ -164,13 +164,15 @@
     
     <!-- 페이징 버튼 -->
     <div class="paging-container">
-        <a class="paging-button" href="#">이전</a>
-        <a class="paging-button" href="#">1</a>
-        <a class="paging-button" href="#">2</a>
-        <a class="paging-button" href="#">3</a>
-        <a class="paging-button" href="#">4</a>
-        <a class="paging-button" href="#">5</a>
-        <a class="paging-button" href="#">다음</a>
+        <c:if test="${section>1}">
+            <a class="paging-button" href="${contextPath}/admin/member/sellerManageWait.do?section=${section-1}&pageNum=1">이전</a>
+        
+        </c:if>
+        <c:forEach var="i" begin="1" end="5">
+            <a class="paging-button" href="${contextPath}/admin/member/sellerManageWait.do?section=${section}&pageNum=${i}">${((section-1)*5) + i}</a>
+        
+        </c:forEach>
+        <a class="paging-button" href="${contextPath}/admin/member/sellerManageWait.do?section=${section+1}&pageNum=1">다음</a>
     </div>
     <br><br><br><br><br>
 </body>

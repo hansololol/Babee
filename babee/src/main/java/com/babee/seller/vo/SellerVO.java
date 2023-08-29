@@ -32,6 +32,7 @@ public class SellerVO {
 
 	private Date confirmDate;
 	private String seller_status;
+	private String seller_refuse;
 	
 	private String member_id;
 	private String member_pw;
@@ -150,6 +151,13 @@ public class SellerVO {
 	}
 	public void setSeller_status(String seller_status) {
 		this.seller_status = seller_status;
+	}
+	
+	public String getSeller_refuse() {
+		return seller_refuse;
+	}
+	public void setSeller_refuse(String seller_refuse) {
+		this.seller_refuse = seller_refuse;
 	}
 	public String getSeller_email() {
 		return seller_email;

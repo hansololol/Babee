@@ -18,7 +18,10 @@ public interface AdminMemberService {
 	
 	//사업자
 	public List<SellerVO> sellerManageList(Map sellerMap) throws Exception;
+	public Map sellerDetail(String seller_id) throws Exception;
 	public List<SellerVO> sellerManageWait(Map sellerMap) throws Exception;
+	public Map sellerWaitDetail(String seller_id) throws Exception;
+	public void sellerRegister(Map sellerMap) throws Exception;
 	
 }
  
