@@ -14,7 +14,7 @@
 .store_basic {
     left: 30px;
     top: 30px;
-    border-radius: 40px;
+    border-radius: 50px;
     border-collapse: collapse;
     width: 600px;
    

@@ -180,7 +180,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
        ]]>
    </select>
    
-   <select id="sellerManageWait" resultMap="sellerResult" parameterType="java.util.Map"  >
+   <select id="sellerManageWait" resultMap="sellerResult" parameterType="java.util.Map">
        <![CDATA[
              select * from  t_shopping_seller
              where seller_status='대기'

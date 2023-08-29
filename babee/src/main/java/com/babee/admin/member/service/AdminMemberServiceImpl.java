@@ -35,7 +35,7 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 		 adminMemberDAO.modifyMemberInfo(memberMap);
 	}
 	
-	//사업자 관리
+	//사업자
 	@Override
 	public List<SellerVO> sellerManageList(Map sellerMap) throws Exception{
 		return adminMemberDAO.sellerManageList(sellerMap);

@@ -14,11 +14,9 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
       margin: 0 auto;
     } 
 
-    .basic_tb,
-    .add_tb {
+    .basic_tb, .add_tb {
       width: 100%;
       border: 1px solid #444444;
-
       border-radius: 10px;
     }
 

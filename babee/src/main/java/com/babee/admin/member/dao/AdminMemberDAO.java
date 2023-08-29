@@ -19,7 +19,7 @@ public interface AdminMemberDAO {
 	public MemberVO memberDetail(String member_id) throws DataAccessException;
 	public void modifyMemberInfo(HashMap memberMap) throws DataAccessException;
 	
-	//사업자 관리
+	//사업자
 	public List sellerManageList(Map sellerMap) throws DataAccessException;
 	public List sellerManageWait(Map sellerMap) throws DataAccessException;
 } 

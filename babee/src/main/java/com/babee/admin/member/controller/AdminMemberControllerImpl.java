@@ -188,7 +188,6 @@ public class AdminMemberControllerImpl extends BaseController  implements AdminM
 	@Override
 	@RequestMapping(value="/sellerManageWait.do" , method= RequestMethod.GET)
 	public ModelAndView sellerManageWait(HttpServletRequest request, HttpServletResponse response)  throws Exception {
-		System.out.println("sellerManageWait.do 실행");
 		ModelAndView mav = new ModelAndView("/admin/member/sellerManageWait");
 		HttpSession session=request.getSession();
 		String _section = request.getParameter("section"); 

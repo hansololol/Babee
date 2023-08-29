@@ -16,7 +16,7 @@ public interface AdminMemberService {
 	public MemberVO memberDetail(String member_id) throws Exception;
 	public void  modifyMemberInfo(HashMap memberMap) throws Exception;
 	
-	//사업자 관리
+	//사업자
 	public List<SellerVO> sellerManageList(Map sellerMap) throws Exception;
 	public List<SellerVO> sellerManageWait(Map sellerMap) throws Exception;
 	

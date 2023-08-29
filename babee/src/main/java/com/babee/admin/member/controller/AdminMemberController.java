@@ -15,7 +15,7 @@ public interface AdminMemberController {
 	public ModelAndView deleteMember(HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	
 	
-	//사업자 관리
+	//사업자
 	public ModelAndView sellerManageList(HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	public ModelAndView sellerManageWait(HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	

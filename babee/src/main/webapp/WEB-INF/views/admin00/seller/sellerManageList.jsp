@@ -16,7 +16,7 @@
         justify-content: center;
         align-items: center;
         margin: 0 auto;
-        width: 65%;
+        width: 70%;
     }
     .search-container {
         display: flex;
