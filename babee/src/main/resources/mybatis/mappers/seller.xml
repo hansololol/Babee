@@ -94,8 +94,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 									seller_company,
 									seller_company_info,
 									seller_img1,
-									seller_confirmDate,
-									seller_status
+									seller_confirmDate
+									
                                      )
 							 values(#{seller_id},
 									#{seller_pw},
@@ -118,8 +118,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 									 #{seller_company},
 									 #{seller_company_info},
 									 #{seller_img1},
-									 #{seller_confirmDate},
-									 #{seller_status}
+									 #{seller_confirmDate}
+									
                                     )
                               
    ]]>      

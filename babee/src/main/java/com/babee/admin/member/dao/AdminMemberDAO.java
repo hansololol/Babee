@@ -3,6 +3,8 @@ package com.babee.admin.member.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.dao.DataAccessException;
@@ -16,4 +18,8 @@ public interface AdminMemberDAO {
 	public ArrayList<MemberVO> listMember(HashMap condMap) throws DataAccessException;
 	public MemberVO memberDetail(String member_id) throws DataAccessException;
 	public void modifyMemberInfo(HashMap memberMap) throws DataAccessException;
+	
+	//사업자 관리
+	public List sellerManageList(Map sellerMap) throws DataAccessException;
+	public List sellerManageWait(Map sellerMap) throws DataAccessException;
 }

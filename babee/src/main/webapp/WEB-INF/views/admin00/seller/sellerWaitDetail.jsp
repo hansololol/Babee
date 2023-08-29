@@ -24,14 +24,14 @@
 	border: 1px solid gray;
 }	
 
-.store_basic_1 {
+#store_basic_1 {
 	display: none;
 
 }
 </style>
 <script>
-function view(){
-	$(".store_basic_1").css("display", "block");
+function fn_refuse() {
+	document.getElementById("store_basic_1").style.display = "inline-block";	
 }
 
 </script>
@@ -157,17 +157,19 @@ function view(){
 	</div>
 
 	<div>
-	<button>승인</button>
-	<button onclick="fn:view()">반려</button>
+		<input type="submit" id="access" value="승인">
+		<input type="button" id="refuse" value="반려" onClick="fn_refuse()">
 	</div>
-	 
- 	 <table class="store_basic_1">
-		
-	 <tr>
-         <td width="200">사유</td>
-         <td><textarea style="width: 350px;height: 100px; margin:5px;"></textarea></td>
-      </tr>
- 	 </table>
+
+	<div id="store_basic_1">
+ 		<table >
+			<tr>
+        		<td width="200">사유</td>
+        		<td><textarea style="width: 350px;height: 100px; margin:5px;"></textarea></td>
+				<td><input type="submit" value="입력"></td>
+      		</tr>
+ 	 	</table>
+	</div>
 	 
 	
 

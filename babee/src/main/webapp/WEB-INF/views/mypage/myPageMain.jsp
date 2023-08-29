@@ -182,9 +182,15 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
             </td>
           </tr>
           <tr>
-            <td style="border-bottom: none">지번</td>
-            <td style="border-right: none; border-bottom: none">
+            <td>지번</td>
+            <td style="border-right: none">
               &nbsp;&nbsp; <strong>${memberInfo.seller_jibunAddr }</strong>
+            </td>
+          </tr>
+          <tr>
+            <td style="border-bottom: none">승인여부</td>
+            <td style="border-right: none; border-bottom: none">
+              &nbsp;&nbsp; <strong>${memberInfo.seller_status }</strong>
             </td>
           </tr>
         </table>

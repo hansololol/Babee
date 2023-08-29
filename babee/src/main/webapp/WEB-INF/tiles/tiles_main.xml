@@ -255,7 +255,7 @@
        </definition>
        
 <!--       관리자 - 사업자 관리 -->
-<definition name="/member/sellerManageList" extends="baseLayout_user">
+<definition name="/admin/member/sellerManageList" extends="baseLayout_user">
 <put-attribute name="title" value="사업자 관리 목롱창(관리자)"/>
 <put-attribute name="body" value="/WEB-INF/views/admin00/seller/sellerManageList.jsp"/>
 </definition>
@@ -267,7 +267,7 @@
 </definition>
 
 
-<definition name="/member/sellerManageWait" extends="baseLayout_user">
+<definition name="/admin/member/sellerManageWait" extends="baseLayout_user">
 <put-attribute name="title" value="사업자 관리 등룍요청목록창(관리자)"/>
 <put-attribute name="body" value="/WEB-INF/views/admin00/seller/sellerManageWait.jsp"/>
 </definition>
