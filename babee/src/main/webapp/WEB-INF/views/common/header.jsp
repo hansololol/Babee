@@ -213,7 +213,7 @@ function showCategory() {
                     <p><img src="/image/seller.png" width="50px">&nbsp; 사업자님 환영합니다</p>
                 </c:if>
                 <c:if test="${!(memberInfo.member_id=='admin'||memberInfo.seller_id!=null)}">
-                    <p><img src="/image/user.png" width="50px">&nbsp; 사용자님 환영합니다</p>
+                    <p><img src="/image/user.png" width="50px">&nbsp; ${memberInfo.member_name}님 환영합니다</p>
                 </c:if>
            
                 <div>

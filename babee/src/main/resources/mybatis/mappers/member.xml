@@ -87,7 +87,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                                      member_hp2,
                                      member_hp3,
                                      member_email,
-                                    
                                      member_zipcode,
                                      member_roadAddr,
                                      member_jibunAddr,

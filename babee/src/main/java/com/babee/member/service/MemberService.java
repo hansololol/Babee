@@ -14,4 +14,5 @@ public interface MemberService {
 	public void modMember(MemberVO memberVO) throws Exception;
 	public MemberVO findMyId(Map findMap) throws Exception;
 	public MemberVO findMyPw(Map findMap) throws Exception;
+	public MemberVO findMyPw_kakao(Map findMap) throws Exception;
 }
