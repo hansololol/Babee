@@ -121,19 +121,25 @@
 <put-attribute name="body" value="/WEB-INF/views/customer/infoList.jsp"/>
 </definition>
 
-<definition name="/community/freeboardList" extends="baseLayout">
-<put-attribute name="title" value="자유게시판 리스트"/>
-<put-attribute name="body" value="/WEB-INF/views/customer/freeList.jsp"/>
-</definition>
 
+<definition name="/community/freeboardList" extends="baseLayout">
+	<put-attribute name="title" value="자유게시판 목록(사용자)"/>
+	<put-attribute name="body" value="/WEB-INF/views/customer/freeList.jsp"/>
+</definition>
 
 <definition name="/community/freeForm" extends="baseLayout">
-<put-attribute name="title" value="자유게시판 작성폼"/>
-<put-attribute name="body" value="/WEB-INF/views/customer/freeForm.jsp"/>
+	<put-attribute name="title" value="자유게시판 작성창(사용자)"/>
+	<put-attribute name="body" value="/WEB-INF/views/customer/freeForm.jsp"/>
 </definition>
+
 <definition name="/community/freeboardDetail" extends="baseLayout">
-<put-attribute name="title" value="자유게시판 상세창"/>
-<put-attribute name="body" value="/WEB-INF/views/customer/freedetail.jsp"/>
+	<put-attribute name="title" value="자유게시판 상세창"/>
+	<put-attribute name="body" value="/WEB-INF/views/customer/freedetail.jsp"/>
+</definition>
+
+<definition name="/community/ModFreeboard" extends="baseLayout">
+	<put-attribute name="title" value="자유게시판 수정창"/>
+	<put-attribute name="body" value="/WEB-INF/views/customer/freeModForm.jsp"/>
 </definition>
 
       

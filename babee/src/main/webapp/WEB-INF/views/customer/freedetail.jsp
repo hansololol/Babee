@@ -172,7 +172,7 @@ function readURL(input){
 
       
       -->
-      <script>
+     <script>
       function fn_remove_freeboard(articleNO, free_img_id){
           var formObj = document.createElement("form");
           var d_goods = document.createElement("input");
@@ -188,6 +188,18 @@ function readURL(input){
                 formObj.action = "${contextPath}/community/removeFreeboard.do";
                 formObj.submit();
        }
+      
+      function fn_comment() {
+
+    	    if(! isLogOn){
+    	        alert("로그인 이후 이용 가능한 서비스입니다.");
+    	        location.replace("${contextPath}/member/loginForm.do")
+    	    } else {
+    	    	alert("댓글을 등록하시겠습니까?");
+    	    	location.href("${contextPath}/community/addCommnet.do")
+    	    }
+    	    }
+      
    </script> 
    
     <script>
@@ -219,7 +231,7 @@ function readURL(input){
                 formObj.appendChild(d_img);
           document.body.appendChild(formObj);
                 formObj.method = "post";
-                formObj.action = "${contextPath}/community/removeFreeboard.do";
+                formObj.action = "${contextPath}/community/modFreeboard.do";
                 formObj.submit();
        }
    </script> 
@@ -264,15 +276,14 @@ function readURL(input){
  					</ul>
  					<hr>
  				</c:forEach>
- 				
-      	<form id="comment" method="post" action="${contextPath}/community/addCommnet.do" novalidate="novalidate" >
+ 			
+ 			<form id="comment" method="post" action="${contextPath}/community/addCommnet.do" novalidate="novalidate" >
 					<div class="comment-form">
 						<p style="text-align: left; margin-bottom: 0px; margin-left: 20px;">댓글	작성</p>
-						<textarea id="commentText" name="free_comment" rows="4" cols="50" style="width: 95%; margin-left: 20px;"></textarea>
-
-						<input type="submit" value="작성" style="margin-left: 90%; padding: 5px 10px; background-color: #fef7dd; color: black; border: none; border-radius: 4px; cursor: pointer;" />
+						<textarea id="commentText" name="free_comment" rows="4" cols="50" style="width: 95%; margin-left: 20px;"></textarea>					<button type="button" onclick="fn_comment()" style="margin-left: 90%; padding: 5px 10px; background-color: #fef7dd; color: black; border: none; border-radius: 4px; cursor: pointer;" >등록</button>
 					</div>
-				</form>
+			</form>
+    
           </div>
       </div>
   

@@ -155,7 +155,14 @@ input[type="button"]:hover, button[type="button"]:hover {
 	</div>
 
      <br><br><br><br>
-    <a href="${contextPath}/community/freeForm.do"><input type="button" value="글쓰기" style="margin-left:700px;"></a>
+      <c:choose>
+         	<c:when test="${isLogOn == true }">
+         		
+       		 <a href="${contextPath}/community/freeForm.do"><input type="button" value="글쓰기" style="margin-left:700px;"></a>
+				
+			</c:when>
+         </c:choose>
+   
 	<br><br>
 </body>
 </html>
