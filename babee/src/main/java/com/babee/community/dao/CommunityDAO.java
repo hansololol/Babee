@@ -13,7 +13,7 @@ import com.babee.community.vo.InfoVO;
 import com.babee.community.vo.QnaVO;
 
 @Mapper
-@Repository("commnityDAO")
+@Repository("communityDAO")
 public interface CommunityDAO {
 	
 	public List selectALLFreeboardList(String member_id) throws DataAccessException;
@@ -35,6 +35,8 @@ public interface CommunityDAO {
 	
 	public void insertNewQna (QnaVO qnaVO)throws DataAccessException;
 	public List selectMyQnaList(String member_id)throws DataAccessException;
+	public QnaVO selectQna(String articleNO)throws DataAccessException;
+	
 	
 	public void insertNewInfo(Map infoMap) throws DataAccessException;
 	public void insertInfoImage(Map infoMap) throws DataAccessException;
@@ -52,6 +54,9 @@ public interface CommunityDAO {
 
 	public void adminDelFreeboardImage(String articleNO)throws DataAccessException;
 	public void adminDelFreeboard(String articleNO)throws DataAccessException;
+	
+	public List<QnaVO> selectAllQnaList () throws DataAccessException;
+	public void updateQnaAnswer(QnaVO qnaVO);
 
 }
 
