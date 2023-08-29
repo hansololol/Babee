@@ -46,3 +46,4 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 		return adminMemberDAO.sellerManageWait(sellerMap);
 	}
 }
+ 

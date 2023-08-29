@@ -15,7 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="seller_hp2" column="seller_hp2" />
 		<result property="seller_hp3" column="seller_hp3" />
 		<result property="seller_email" column="seller_email" />
-		
+		 
 		<result property="seller_zipcode" column="seller_zipcode" />
 		<result property="seller_roadAddr" column="seller_roadAddr" />
 		<result property="seller_jibunAddr" column="seller_jibunAddr" />

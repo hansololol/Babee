@@ -20,3 +20,4 @@ public interface AdminMemberController {
 	public ModelAndView sellerManageWait(HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	
 }
+ 

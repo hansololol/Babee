@@ -12,7 +12,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
     .text_center {
       text-align: center;
       margin: 0 auto;
-    }
+    } 
 
     .basic_tb,
     .add_tb {

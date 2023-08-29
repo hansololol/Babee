@@ -22,4 +22,4 @@ public interface AdminMemberDAO {
 	//사업자 관리
 	public List sellerManageList(Map sellerMap) throws DataAccessException;
 	public List sellerManageWait(Map sellerMap) throws DataAccessException;
-}
+} 

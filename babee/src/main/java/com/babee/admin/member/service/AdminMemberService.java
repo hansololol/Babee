@@ -21,3 +21,4 @@ public interface AdminMemberService {
 	public List<SellerVO> sellerManageWait(Map sellerMap) throws Exception;
 	
 }
+ 

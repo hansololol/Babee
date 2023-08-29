@@ -265,7 +265,7 @@
 <put-attribute name="title" value="사업자 관리 상세창(관리자)"/>
 <put-attribute name="body" value="/WEB-INF/views/admin00/seller/sellerDetail.jsp"/>
 </definition>
-
+ 
 
 <definition name="/admin/member/sellerManageWait" extends="baseLayout_user">
 <put-attribute name="title" value="사업자 관리 등룍요청목록창(관리자)"/>

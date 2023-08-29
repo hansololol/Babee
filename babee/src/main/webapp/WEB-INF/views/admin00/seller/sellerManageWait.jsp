@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
 <title>사업자 관리창(관리자)</title>
 <style>
-   
+    
     #search {
         background-color: #FEF7DD;
         padding: 20px;
@@ -17,7 +17,7 @@
         justify-content: center;
         align-items: center;
         margin: 0 auto;
-        width: 66%;
+        width: 65%;
     }
     .search-container {
         display: flex;

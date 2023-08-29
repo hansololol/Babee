@@ -18,7 +18,7 @@
     border-collapse: collapse;
     width: 600px;
    
-}
+} 
 
 .store_basic > td{
 	border: 1px solid gray;
