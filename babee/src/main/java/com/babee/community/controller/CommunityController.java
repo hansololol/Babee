@@ -34,7 +34,10 @@ public interface CommunityController {
 	public ModelAndView removeInfo(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView modinfoForm(@RequestParam("articleNO") String articleNO, HttpServletRequest request , HttpServletResponse response) throws Exception ;
 	public ModelAndView modInfo(InfoVO info, MultipartHttpServletRequest multipartRequest, HttpServletRequest request,	HttpServletResponse response) throws Exception;
+	
+	public ModelAndView adminFreeboardList(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
+	
 			
 
 }
