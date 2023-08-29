@@ -122,59 +122,59 @@ ul li {
    
 
    function fnOrderGoods() {
-	    var cartOrderArr = [];
+       var cartOrderArr = [];
 
-	    var selectedCheckboxes = $(".product-checkbox:checked");
-	    if (selectedCheckboxes.length === 0) {
-	        alert("선택된 상품이 없습니다.");
-	        return;
-	    }
+       var selectedCheckboxes = $(".product-checkbox:checked");
+       if (selectedCheckboxes.length === 0) {
+           alert("선택된 상품이 없습니다.");
+           return;
+       }
 
-	    selectedCheckboxes.each(function () {
-	        var row = $(this).closest("tr");
-	        var goodsId = row.find(".goodsId").val();
-	        var quantity = row.find("#order_goods_qty").val();
-	        var option = row.find("#_goods_option").val();
+       selectedCheckboxes.each(function () {
+           var row = $(this).closest("tr");
+           var goodsId = row.find(".goodsId").val();
+           var quantity = row.find("#order_goods_qty").val();
+           var option = row.find("#_goods_option").val();
 
-	        cartOrderArr.push({
-	            goodsId: goodsId,
-	            quantity: quantity,
-	            option: option
-	        });
-	    });
+           cartOrderArr.push({
+               goodsId: goodsId,
+               quantity: quantity,
+               option: option
+           });
+       });
 
-	    console.log("cartOrderArr", cartOrderArr);
+       console.log("cartOrderArr", cartOrderArr);
 
-	    var form = document.createElement("form");
-	    form.setAttribute("method", "post");
-	    form.setAttribute("action", "${contextPath}/order/cartOrder.do");
+       var form = document.createElement("form");
+       form.setAttribute("method", "post");
+       form.setAttribute("action", "${contextPath}/order/cartOrder.do");
 
-	    // cartOrderArr을 반복하며 입력 생성 및 추가
-	    for (var i = 0; i < cartOrderArr.length; i++) {
-	        var orderData = cartOrderArr[i];
+       // cartOrderArr을 반복하며 입력 생성 및 추가
+       for (var i = 0; i < cartOrderArr.length; i++) {
+           var orderData = cartOrderArr[i];
 
-	        var inputGoodsId = document.createElement("input");
-	        inputGoodsId.setAttribute("type", "hidden");
-	        inputGoodsId.setAttribute("name", "selected_goods_id");
-	        inputGoodsId.setAttribute("value", orderData.goodsId);
-	        form.appendChild(inputGoodsId);
+           var inputGoodsId = document.createElement("input");
+           inputGoodsId.setAttribute("type", "hidden");
+           inputGoodsId.setAttribute("name", "selected_goods_id");
+           inputGoodsId.setAttribute("value", orderData.goodsId);
+           form.appendChild(inputGoodsId);
 
-	        var inputQuantity = document.createElement("input");
-	        inputQuantity.setAttribute("type", "hidden");
-	        inputQuantity.setAttribute("name", "selected_quantity");
-	        inputQuantity.setAttribute("value", orderData.quantity);
-	        form.appendChild(inputQuantity);
+           var inputQuantity = document.createElement("input");
+           inputQuantity.setAttribute("type", "hidden");
+           inputQuantity.setAttribute("name", "selected_quantity");
+           inputQuantity.setAttribute("value", orderData.quantity);
+           form.appendChild(inputQuantity);
 
-	        var inputOption = document.createElement("input");
-	        inputOption.setAttribute("type", "hidden");
-	        inputOption.setAttribute("name", "selected_option");
-	        inputOption.setAttribute("value", orderData.option);
-	        form.appendChild(inputOption);
-	    }
+           var inputOption = document.createElement("input");
+           inputOption.setAttribute("type", "hidden");
+           inputOption.setAttribute("name", "selected_option");
+           inputOption.setAttribute("value", orderData.option);
+           form.appendChild(inputOption);
+       }
 
-	    document.body.appendChild(form);
-	    form.submit();
-	}
+       document.body.appendChild(form);
+       form.submit();
+   }
 
    function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
       var total_price,final_total_price,_goods_qty;

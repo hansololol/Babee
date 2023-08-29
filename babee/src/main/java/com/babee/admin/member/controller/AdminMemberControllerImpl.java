@@ -4,10 +4,12 @@ package com.babee.admin.member.controller;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,12 +21,17 @@ import org.springframework.web.servlet.ModelAndView;
 import com.babee.admin.member.service.AdminMemberService;
 import com.babee.common.base.BaseController;
 import com.babee.member.vo.MemberVO;
+import com.babee.seller.vo.SellerVO;
 
 @Controller("adminMemberController")
-@RequestMapping(value="/admin/member.do")
+@RequestMapping(value="/admin/member")
 public class AdminMemberControllerImpl extends BaseController  implements AdminMemberController{
 	@Autowired
 	private AdminMemberService adminMemberService;
+	@Autowired
+	private SellerVO sellerVO;
+	@Autowired
+	private MemberVO memberVO;
 	
 	@RequestMapping(value="/adminMemberMain.do" ,method={RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView adminGoodsMain(@RequestParam Map<String, String> dateMap,
@@ -148,5 +155,63 @@ public class AdminMemberControllerImpl extends BaseController  implements AdminM
 		return mav;
 		
 	}
+	@Override
+	@RequestMapping(value="/sellerManageList.do" , method= RequestMethod.GET)
+	public ModelAndView sellerManageList(HttpServletRequest request, HttpServletResponse response)  throws Exception {
+		System.out.println("sellerManageList.do 실행");
+		ModelAndView mav = new ModelAndView("/admin/member/sellerManageList");
+		HttpSession session=request.getSession();
+		String _section = request.getParameter("section"); 
+		String _pageNum = request.getParameter("pageNum"); 
+		int section =Integer.parseInt(((_section==null)? "1":_section)); 
+		int pageNum = Integer.parseInt(((_pageNum==null)? "1":_pageNum));
+		 
+		memberVO = (MemberVO) session.getAttribute("memberInfo");
+	
 		
+		Map sellerMap = new HashMap();
+		int start = ((section-1)*5+(pageNum-1))*10; 
+		sellerMap.put("start", start);
+		
+		List seller =adminMemberService.sellerManageList(sellerMap);
+		int ListSize = seller.size();
+		
+		mav.addObject("seller", seller);
+		mav.addObject("section", section);
+		mav.addObject("pageNum", pageNum);
+		mav.addObject("totArticles", ListSize);
+		
+		
+		return mav;
+	}
+	
+	@Override
+	@RequestMapping(value="/sellerManageWait.do" , method= RequestMethod.GET)
+	public ModelAndView sellerManageWait(HttpServletRequest request, HttpServletResponse response)  throws Exception {
+		ModelAndView mav = new ModelAndView("/admin/member/sellerManageWait");
+		HttpSession session=request.getSession();
+		String _section = request.getParameter("section"); 
+		String _pageNum = request.getParameter("pageNum"); 
+		int section =Integer.parseInt(((_section==null)? "1":_section)); 
+		int pageNum = Integer.parseInt(((_pageNum==null)? "1":_pageNum));
+		 
+		memberVO = (MemberVO) session.getAttribute("memberInfo");
+	
+		
+		Map sellerMap = new HashMap();
+		int start = ((section-1)*5+(pageNum-1))*10; 
+		sellerMap.put("start", start);
+		
+		List seller =adminMemberService.sellerManageWait(sellerMap);
+		int ListSize = seller.size();
+		
+		mav.addObject("seller", seller);
+		mav.addObject("section", section);
+		mav.addObject("pageNum", pageNum);
+		mav.addObject("totArticles", ListSize);
+		
+		
+		return mav;
+	}
+	
 }
