@@ -145,7 +145,7 @@
 			<td>${sellerNO.count}</td>
 			<td>${seller.seller_name} </a></td>
 			<td><a href="${contextPath}/admin/member/sellerDetail.do?page=adminPage&seller_id=${seller.seller_id}">${seller.seller_company} </a></td>
-			<td>${seller.seller_joinDate}</td>
+			<td>${seller.seller_confirmDate}</td>
             <input type="hidden" value="${seller.seller_status}">
 		</tr>
     </c:forEach>

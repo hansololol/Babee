@@ -85,7 +85,7 @@ function fn_seller_Refuse(seller_id, seller_status, refuse_reason){
 <form name="frmSellerWaitDetail" action="${contextPath}/admin/member/sellerRegister.do" method="post" enctype="multipart/form-data">
 <div style="width:66%; margin:0 auto;">
 
-	<h3 style="display:inline-block; margin-bottom: 8px; margin-top: 10px;">${seller.seller_company} &nbsp; <h6 style="display:inline-block; margin-bottom: 8px;"> YYYY-MM-DD</h6> </h3> 
+	<h3 style="display:inline-block; margin-bottom: 8px; margin-top: 10px;">${seller.seller_company} &nbsp; <h6 style="display:inline-block; margin-bottom: 8px;">${seller.seller_joinDate}</h6> </h3> 
 
 	<hr style="padding-top:0px">
 </div>
