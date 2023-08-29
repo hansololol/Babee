@@ -65,7 +65,9 @@ ul li {
 
       for (var i = 0; i < checkboxes.length; i++) {
          checkboxes[i].checked = selectAllCheckbox.checked;
+         
       }
+      
    }
 
    $(document).ready(function() {
@@ -76,7 +78,7 @@ ul li {
 
                                  var totalGoodsNum = 0;
                                  var totalGoodsPrice = 0;
-                                 
+                                 var totalDiscountedPrice = 0;                                 
 
                                  $(".product-checkbox:checked").each(
                                              function() {
@@ -88,14 +90,15 @@ ul li {
                                                 
                                                 totalGoodsNum++;
                                                 totalGoodsPrice += (priceElement * quantityElement); 
-                                                
+                                                totalDiscountedPrice += ((priceElement /10) * quantityElement); 
                                              });
 
-                                 var finalTotalPrice = totalGoodsPrice + 3000;
+                                 var finalTotalPrice = totalGoodsPrice - totalDiscountedPrice + 3000;
 
                                  // 선택된 상품 정보 업데이트
                                  $("#p_totalGoodsNum").text(totalGoodsNum + "개");
                                  $("#p_totalGoodsPrice").text(totalGoodsPrice + "원");
+                                 $("#p_totalDiscountedPrice").text(totalDiscountedPrice + "원");
                                  $("#p_final_totalPrice").text(finalTotalPrice + "원");
                               });
                });
@@ -281,7 +284,8 @@ ul li {
                   <tr align=center class="fixed">
                      <td class="fixed">총 상품수</td>
                      <td>총 상품금액</td>
-                     <td>총 배송비</td>
+                     <td>할인금액</td>
+                     <td>배송비</td>
                      <td>최종 결제금액</td>
                   </tr>
                   
@@ -295,6 +299,11 @@ ul li {
                            <fmt:formatNumber value="${totalGoodsPrice}" type="number" var="total_goods_price" />${total_goods_price}원
                         </p>
                         <input id="h_totalGoodsPrice" type="hidden" value="${totalGoodsPrice}" />
+                     </td>
+                     <td>
+                        <p id="p_totalDiscountedPrice">
+                           <fmt:formatNumber value="${totalDiscountedPrice}" type="number" var="totalDiscountedPrice" />${totalDiscountedPrice}원
+                        </p>
                      </td>
                      <td>
                         <p>3000 원</p>
