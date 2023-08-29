@@ -159,21 +159,24 @@
             <td >&nbsp;&nbsp;&nbsp;</td>
             
          </tr>
-        <c:forEach var="i" begin="0" end="3"> 
+        <c:forEach items="${allGoodsList}" var="all"> 
          <tr>
         
-            <td><img src="/image/lego.jpg" width="100px"/></td>
+            <td>
+				<a href="${contextPath}/goods/goodsDetail.do?goods_id=${all.goods_id}">
+	            <img src="${contextPath}/thumbnails.do?goods_id=${all.goods_id}&fileName=${all.goods_image_name1}" style="width:100px;"> </a>
             <td> 
                <ul class="goods">
-                  <li style="text-align:left;"> 레고장난감 [주문번호] </li>
-                  <li style="text-align:left;"> 가격: 25,000원 </li>
+                  <li style="text-align:left;"> ${all.goods_title} [${all.goods_id}] </li>
+                  <li style="text-align:left;"> 가격: ${all.goods_price}원 </li>
                </ul>
             </td>
-            <td> 2,500원 </td>
+            <td> 3,000원 </td>
             
             <td> 
             
-             <a class="order_delivery_search" href="${contextPath}/member/myOrderDetail.do"><b>삭제</b></a><br>
+
+             <a class="order_delivery_search" href="${contextPath}/admin/goods/removeGoodsImage.do?goods_id=${all.goods_id}&goods_image_name1=${all.goods_image_name1}&goods_image_name1_id=${all.goods_image_name1_id}"><b>삭제</b></a><br>
 
             </tr>
            </c:forEach> 

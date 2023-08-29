@@ -220,7 +220,7 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 	   }
 	
 	
-	@Override
+	   @Override
 	   @RequestMapping(value = "/removeGoodsImage.do", method={RequestMethod.GET, RequestMethod.POST})
 	   public void removeGoodsImage(@RequestParam("goods_id") int goods_id,
 			   						@RequestParam("goods_image_name1_id") int goods_image_name1_id,
@@ -270,6 +270,67 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 	     
 	       return mav;
 	   }
+	   
+	   //오늘등록 상품조회
+	   @Override
+	    @RequestMapping(value = "/getTodayGoods.do", method = { RequestMethod.GET, RequestMethod.POST })
+	    public ModelAndView getTodayGoods(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	        ModelAndView mav = new ModelAndView();
+	        
+	        List<GoodsVO> todayGoodsList = sellerService.getTodayGoods();
+	        
+	        mav.addObject("todayGoodsList", todayGoodsList);
+	        mav.setViewName("forward:/seller/listSellerGoods.do?page=sellerPage"); // 오늘 등록된 상품 목록을 보여줄 뷰 페이지 이름 지정
+	        
+	        return mav;
+	    }
+	   
+	// 사업자가 등록한 상품 주문 리스트 조회
+	    @Override
+	    @RequestMapping(value = "/listSellerOrder.do")
+	    public ModelAndView getSellerOrderList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	    	HttpSession session = request.getSession();
+		      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+		      String seller_id = sellerVO.getSeller_id();
+	        List<Map<String, Object>> sellerOrderList = sellerService.getSellerOrderList(seller_id);
+
+	        ModelAndView mav = new ModelAndView("/seller/listSellerOrder");
+	        mav.addObject("sellerOrderList", sellerOrderList);
+	        return mav;
+	    }
+	    
+	    //상품 상태 변경
+
+	    @Override
+	    @RequestMapping("/updateDeliveryStatus")
+	    public ModelAndView updateDeliveryStatus(@RequestParam("order_id") int order_id,
+	                                             @RequestParam("delivery_status") String delivery_status,
+	                                             HttpServletRequest request,
+	                                             HttpServletResponse response) throws Exception{
+	    	HttpSession session = request.getSession();
+		    SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+	    	
+	    	System.out.println("실행됨.,.");
+	    	
+	        ModelAndView mav = new ModelAndView();
+	        try {
+	        	 Map<String, Object> deliveryStatusMap = new HashMap<>();
+	             deliveryStatusMap.put("order_id", order_id);
+	             deliveryStatusMap.put("delivery_status", delivery_status);
+	            sellerService.updateDeliveryStatus(deliveryStatusMap);
+	            System.out.println("오더아이!!!디: "+order_id);
+		        System.out.println("상태!!!!!!!값: "+delivery_status);
+	            mav.addObject("message", "주문 상태가 업데이트되었습니다.");
+	        } catch (Exception e) {
+	            mav.addObject("message", "주문 상태 업데이트에 실패하였습니다.");
+	            e.printStackTrace();
+	        }
+	        
+	        mav.setViewName("redirect:/seller/listSellerOrder.do?page=sellerPage"); // 결과 페이지 이름
+	        
+	        return mav;
+	    }
+	   
 	
 	protected List upload(MultipartHttpServletRequest multipartRequest) throws Exception{
 		List imageFileName = new ArrayList();

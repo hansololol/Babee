@@ -78,16 +78,33 @@ public class AdminGoodsServiceImpl implements AdminGoodsService {
       adminGoodsDAO.updateOrderGoods(orderMap);
    }
    
-   @Override
+   /*@Override
    public void removeGoodsImage(int image_id) throws Exception{
       adminGoodsDAO.deleteGoodsImage(image_id);
-   }
+   }*/
    
    @Override
    public void addNewGoodsImage(Map newGoodsMap) throws Exception{
       adminGoodsDAO.insertGoodsImageFile(newGoodsMap);
    }
    
+ //관리자 상품조회
+ 	@Override
+ 	   public List<GoodsVO> allGoodsList() throws Exception {
+ 	       return adminGoodsDAO.allGoodsList();
+ 	   }
+ 	
+ 	//관리자 상품삭제
+ 	@Override
+ 	public void removeGoodsImage1(int goods_id) throws Exception {
+ 		System.out.println("상품 삭제 시 goods_id 확인 : " + goods_id);
+ 		adminGoodsDAO.adminGoodsDelete1(goods_id);
+ 	}
 
+ 	@Override
+ 	public void removeGoodsImage2(int goods_image_name1_id) throws Exception {
+ 		System.out.println("상품 삭제 시 image_id 확인: " + goods_image_name1_id);
+ 		adminGoodsDAO.adminGoodsDelete2(goods_image_name1_id);
+ 	}
    
 }

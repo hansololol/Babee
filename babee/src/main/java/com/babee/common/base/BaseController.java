@@ -60,13 +60,15 @@ public abstract class BaseController  {
 		
 		return fileList;
 	}
-	@RequestMapping(value="/*.do" ,method={RequestMethod.POST,RequestMethod.GET})
+	@RequestMapping(value="/*.do", method={RequestMethod.POST,RequestMethod.GET})
 	protected  ModelAndView viewForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName=(String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 		System.out.println("view name = " + viewName);
 		return mav;
 	}
+
+	
 	
 	private void deleteFile(String fileName) {
 		File file =new File(CURR_IMAGE_REPO_PATH+"\\"+fileName);

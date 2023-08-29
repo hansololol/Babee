@@ -296,7 +296,7 @@
 <put-attribute name="body" value="/WEB-INF/views/admin00/member/memberManageList.jsp"/>
 </definition>
 
-<definition name="/member/listSellerGoodsAdmin" extends="baseLayout_user">
+<definition name="/admin/goods/listSellerGoodsAdmin" extends="baseLayout_user">
 <put-attribute name="title" value="사업자 상품 관리창(관리자)"/>
 <put-attribute name="body" value="/WEB-INF/views/admin00/seller/listSellerGoodsAdmin.jsp"/>
 </definition>

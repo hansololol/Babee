@@ -60,6 +60,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       <result property="fileType" column="fileType" />
    </resultMap>
 	
+	<resultMap id="orderResult" type="OrderVO">
+	    <id property="order_id" column="order_id"/>
+	    <result property="member_id" column="member_id"/>
+	    <result property="goods_id" column="goods_id"/>
+	    <result property="goods_title" column="goods_title"/>
+	    <result property="goods_price" column="goods_price"/>
+	    <result property="total_goods_price" column="total_goods_price"/>
+	    <result property="order_goods_qty" column="order_goods_qty"/>
+	    <result property="recipient_name" column="recipient_name"/>
+	    <result property="recipient_hp" column="recipient_hp"/>
+	    <result property="recipient_tel" column="recipient_tel"/>
+	    <result property="deliveryAddr" column="deliveryAddr"/>
+	    <result property="deliveryMessage" column="deliveryMessage"/>
+	    <result property="trackingNum" column="trackingNum"/>
+	    <result property="payment_method" column="payment_method"/>
+	    <result property="card_com_name" column="card_com_name"/>
+	    <result property="payment_order_time" column="payment_order_time"/>
+	    <result property="delivery_status" column="delivery_status"/>
+	    <result property="final_total_price" column="final_total_price"/>
+	    <result property="goods_option" column="goods_option"/>
+	    <result property="goods_image_name" column="goods_image_name"/>
+	    <!-- GoodsVO 객체에 대한 매핑 -->
+	    <association property="goods" resultMap="GoodsResultMap"/>
+	</resultMap>
 
 	<select id="login" resultType="sellerVO"  parameterType="java.util.Map"  >
 	    <![CDATA[
@@ -124,8 +148,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                               
    ]]>      
   </insert>
-  
-  <update id="updateGoods" parameterType="java.util.Map">
+ 	
+ 	<update id="updateGoods" parameterType="java.util.Map">
  		<![CDATA[
  			UPDATE t_shopping_goods
 			SET
@@ -186,10 +210,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE seller_id = #{seller_id};
     </select>
     
+    <select id="getSellerOrderList" resultType="java.util.Map">
+	    <![CDATA[
+	      SELECT o.*, g.goods_title, g.goods_image_name1
+		  FROM t_shopping_order o
+		  JOIN t_shopping_goods g ON o.goods_id = g.goods_id
+		  WHERE g.seller_id = #{seller_id}
+	    ]]>
+	  </select>
+  
     <!-- 날짜 -->
     <select id="getTodayGoods" resultType="GoodsVO">
 	    SELECT * FROM t_shopping_goods
 	    WHERE DATE(goods_creation_date) = CURDATE()
 	</select>
+	
+	<!-- 사업자 주문상태변경 -->
+	<update id="updateDeliveryStatus" parameterType="java.util.Map">
+	    UPDATE t_shopping_order
+	    SET delivery_status = #{delivery_status}
+	    WHERE order_id = #{order_id}
+	</update>
     
 </mapper>

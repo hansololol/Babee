@@ -127,23 +127,35 @@
             <td>진행상태</td>
           
          </tr>
-        <c:forEach var="i" begin="0" end="3"> 
+        <c:forEach items="${sellerOrderList}" var="order">
          <tr>
         
-            <td><img src="/image/lego.jpg" width="100px"/></td>
+            <td>
+            <a href="${contextPath}/goods/goodsDetail.do?goods_id=${order.goods_id}">
+            <img src="${contextPath}/thumbnails.do?goods_id=${order.goods_id}&fileName=${order.goods_image_name1}" style="width:100px;"> </a>
+            </td>
             <td> 
                <ul class="goods">
-                  <li style="text-align:left;"> 레고장난감 [주문번호] </li>
-                  <li style="text-align:left;"> 가격: 25,000원 </li>
+                  <li style="text-align:left;"> ${order.goods_title} [<a href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}&page=sellerPage">${order.order_id}</a>] </li>
+                  <li style="text-align:left;"> 가격: ${order.final_total_price}원 </li>
                </ul>
             </td>
-            <td> 2,500원 </td>
-            <td> <select>
-               <option>배송중</option>
-               <option>배송완료</option>
-               <option>주문취소</option>
-               <option>배송준비중</option>
-            </td>
+            <td> 3,000원 </td>
+            
+            
+            <td>
+			    <form action="${contextPath}/seller/updateDeliveryStatus" method="post">
+				    <input type="hidden" name="order_id" value="${order.order_id}" />
+				    <select name="delivery_status">
+				        <option value="delivering" ${order.delivery_status eq 'delivering' ? 'selected' : ''}>배송중</option>
+				        <option value="finished_delivering" ${order.delivery_status eq 'finished_delivering' ? 'selected' : ''}>배송완료</option>
+				        <option value="cancel_order" ${order.delivery_status eq 'cancel_order' ? 'selected' : ''}>주문취소</option>
+				        <option value="delivery_prepared" ${order.delivery_status eq 'delivery_prepared' ? 'selected' : ''}>배송준비중</option>
+				        <option value="refund" ${order.delivery_status eq 'refund' ? 'selected' : ''}>교환/환불</option>
+				    </select>
+				    <input type="submit" value="등록" />
+				</form>
+			</td>
            
 
             </tr>

@@ -1,9 +1,11 @@
 package com.babee.seller.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.babee.goods.vo.GoodsVO;
@@ -66,4 +68,18 @@ public class SellerServiceImpl implements SellerService{
     public List<GoodsVO> getTodayGoods() {
         return sellerDAO.getTodayGoods();
     }
+	
+	
+	// 사업자가 등록한 상품 주문 리스트 조회
+	@Override
+    public List<Map<String, Object>> getSellerOrderList(String seller_id) throws DataAccessException {
+        return sellerDAO.getSellerOrderList(seller_id);
+    }
+	
+	//사업자 배송상태 변경
+	@Override
+	public void updateDeliveryStatus(Map<String, Object> deliveryStatusMap) throws Exception {
+	    sellerDAO.updateDeliveryStatus(deliveryStatusMap);
+	}
+	 
 }

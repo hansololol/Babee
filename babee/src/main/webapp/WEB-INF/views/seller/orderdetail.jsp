@@ -11,25 +11,6 @@ request.setCharacterEncoding("utf-8"); %>
   <head>
     <meta charset="UTF-8" />
     <title>주문 정보/배송조회</title>
-    <style>
-.orange-button {
-  background-color: orange;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 30px;
-}
-
-.orange-button:hover {
-  background-color: darkorange;
-}
-</style>
   </head>
   <body>
     <h2 style="text-align: center">주문 정보/배송조회</h2>
@@ -200,7 +181,6 @@ request.setCharacterEncoding("utf-8"); %>
           </th>
         </tr>
       </table>
-      <a href="javascript:history.back()" class="orange-button">이전 페이지</a>
     </div>
   </body>
 </html>
