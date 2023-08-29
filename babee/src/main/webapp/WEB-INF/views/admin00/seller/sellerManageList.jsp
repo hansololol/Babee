@@ -144,7 +144,7 @@
 		<tr style="height: 50px; border-bottom:1px solid gray;">
 			<td>${sellerNO.count}</td>
 			<td>${seller.seller_name} </a></td>
-			<td><a href="${contextPath}/member/sellerDetail.do?page=adminPage">${seller.seller_company} </a></td>
+			<td><a href="${contextPath}/admin/member/sellerDetail.do?page=adminPage&seller_id=${seller.seller_id}">${seller.seller_company} </a></td>
 			<td>${seller.seller_joinDate}</td>
             <input type="hidden" value="${seller.seller_status}">
 		</tr>

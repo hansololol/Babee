@@ -274,7 +274,7 @@
 </definition>
 
 
-<definition name="/member/sellerDetail" extends="baseLayout_user">
+<definition name="/admin/member/sellerDetail" extends="baseLayout_user">
 <put-attribute name="title" value="사업자 관리 상세창(관리자)"/>
 <put-attribute name="body" value="/WEB-INF/views/admin00/seller/sellerDetail.jsp"/>
 </definition>
@@ -286,7 +286,7 @@
 </definition>
 
 
-<definition name="/member/sellerWaitDetail" extends="baseLayout_user">
+<definition name="/admin/member/sellerWaitDetail" extends="baseLayout_user">
 <put-attribute name="title" value="사업자 관리 등룍요청상세창(관리자)"/>
 <put-attribute name="body" value="/WEB-INF/views/admin00/seller/sellerWaitDetail.jsp"/>
 </definition>

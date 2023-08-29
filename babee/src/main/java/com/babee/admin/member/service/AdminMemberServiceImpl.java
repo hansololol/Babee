@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.babee.admin.member.dao.AdminMemberDAO;
-import com.babee.community.vo.FreeboardVO;
 import com.babee.member.vo.MemberVO;
 import com.babee.seller.vo.SellerVO;
 
@@ -42,8 +42,31 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 	}
 	
 	@Override
+	public Map sellerDetail(String seller_id) throws Exception {
+		Map sellerMap = new HashMap();
+		SellerVO sellerVO = adminMemberDAO.sellerDetail(seller_id);
+		sellerMap.put("sellerVO", sellerVO);
+		
+		return sellerMap;
+	}
+	
+	@Override
 	public List<SellerVO> sellerManageWait(Map sellerMap) throws Exception{
 		return adminMemberDAO.sellerManageWait(sellerMap);
+	}
+	
+	@Override
+	public Map sellerWaitDetail(String seller_id) throws Exception {
+		Map sellerMap = new HashMap();
+		SellerVO sellerVO = adminMemberDAO.sellerWaitDetail(seller_id);
+		sellerMap.put("sellerVO", sellerVO);
+		
+		return sellerMap;
+	}
+	
+	@Override
+	public void sellerRegister(Map sellerMap) throws DataAccessException {
+		adminMemberDAO.sellerRegister(sellerMap);
 	}
 }
  

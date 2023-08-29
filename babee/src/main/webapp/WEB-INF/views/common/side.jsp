@@ -13,6 +13,7 @@
 .list-group-item.active {
     z-index: 1;
     color: var(--bs-list-group-active-color);
+	border-color: #ffc107;
     background-color: #ffc107;
 } 
 </style>

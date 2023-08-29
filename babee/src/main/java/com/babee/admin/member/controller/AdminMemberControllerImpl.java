@@ -1,8 +1,10 @@
 package com.babee.admin.member.controller;
 
 
+import java.io.File;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,16 +13,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.babee.admin.member.service.AdminMemberService;
 import com.babee.common.base.BaseController;
+import com.babee.diary.vo.DiaryVO;
+import com.babee.goods.vo.GoodsQNA;
+import com.babee.goods.vo.GoodsVO;
 import com.babee.member.vo.MemberVO;
+import com.babee.mypage.vo.ReviewVO;
 import com.babee.seller.vo.SellerVO;
 
 @Controller("adminMemberController")
@@ -158,7 +167,7 @@ public class AdminMemberControllerImpl extends BaseController  implements AdminM
 	@Override
 	@RequestMapping(value="/sellerManageList.do" , method= RequestMethod.GET)
 	public ModelAndView sellerManageList(HttpServletRequest request, HttpServletResponse response)  throws Exception {
-		System.out.println("sellerManageList.do 실행");
+		
 		ModelAndView mav = new ModelAndView("/admin/member/sellerManageList");
 		HttpSession session=request.getSession();
 		String _section = request.getParameter("section"); 
@@ -181,6 +190,19 @@ public class AdminMemberControllerImpl extends BaseController  implements AdminM
 		mav.addObject("pageNum", pageNum);
 		mav.addObject("totArticles", ListSize);
 		
+		
+		return mav;
+	}
+	
+	@Override
+	@RequestMapping(value="/sellerDetail.do" ,method = RequestMethod.GET)
+	public ModelAndView sellerDetail(@RequestParam("seller_id") String seller_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("sellerDetail.do 실행");
+		ModelAndView mav = new ModelAndView("/admin/member/sellerDetail");
+		Map sellerMap=adminMemberService.sellerDetail(seller_id);
+		
+		SellerVO sellerVO = (SellerVO)sellerMap.get("sellerVO");
+		mav.addObject("seller", sellerVO);
 		
 		return mav;
 	}
@@ -213,5 +235,38 @@ public class AdminMemberControllerImpl extends BaseController  implements AdminM
 		
 		return mav;
 	}
+	@Override
+	@RequestMapping(value="/sellerWaitDetail.do" ,method = RequestMethod.GET)
+	public ModelAndView sellerWaitDetail(@RequestParam("seller_id") String seller_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("sellerWaitDetail.do 실행");
+		ModelAndView mav = new ModelAndView("/admin/member/sellerWaitDetail");
+		Map sellerMap=adminMemberService.sellerWaitDetail(seller_id);
+		
+		SellerVO sellerVO = (SellerVO)sellerMap.get("sellerVO");
+		mav.addObject("seller", sellerVO);
+		
+		return mav;
+	}
 	
+	@Override
+	@RequestMapping(value="/sellerRegister.do", method = RequestMethod.POST)
+	public ModelAndView sellerRegister(HttpServletRequest request, HttpServletResponse response)  throws Exception{
+		System.out.println("sellerRegister.do 실행");
+		String seller_id = request.getParameter("seller_id");
+		String seller_status = request.getParameter("seller_status");
+		System.out.println(seller_id);
+		System.out.println(seller_status);
+		HttpSession session=request.getSession();
+		memberVO = (MemberVO) session.getAttribute("memberInfo");
+		Map<String, Object> sellerMap = new HashMap<String, Object>();
+		sellerMap.put("seller_id", seller_id);
+		sellerMap.put("seller_status", seller_status);
+		adminMemberService.sellerRegister(sellerMap);
+		System.out.println(sellerMap);
+		
+
+		ModelAndView mav = new ModelAndView("redirect:/admin/member/sellerManageWait.do");
+		  
+		return mav;
+	}
 }
