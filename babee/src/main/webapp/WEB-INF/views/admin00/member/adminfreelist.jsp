@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"    />
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>고객센터 헤더</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+<title>자유게시판 목록(관리자)</title>
 <style>
     body {
         margin: 0;
@@ -87,14 +90,7 @@
             background-color: #ccc;
         }
         
-        
-        
-        
-        
-        
-        
-        
-        
+       
         .menu-container {
         text-align: center;
         margin-top: 50px;
@@ -181,7 +177,7 @@
 </head>
 <body>
 <div id="search">
-    <h2 style="margin: 0;">자유게시판</h2>
+    <h2 style="margin: 0;">자유게시판 관리</h2>
     <div class="search-container">
         <form action="검색결과를_처리할_페이지_주소" method="GET">
             <input name="searchWord" class="search-input" type="text" placeholder="검색어를 입력해주세요.">
@@ -196,44 +192,74 @@
     <!-- <hr width="80%" style= "margin-left: 190px; margin-top: 60px;"> -->
 
 <div class="table-container">
-    <table class="faq-table" >
+    <table class="faq-table" style="width:900px;" >
         <thead style="border-top: 2px solid gray; ">
 		    <tr>
 		        <th style="width: 10%;">NO</th>
-		        <th style="width: 40%;">제목</th>
+		        <th style="width: 30%;">제목</th>
 		        <th style="width: 10%;">작성자</th>
-		        <th style="width: 10%;">작성일</th>
+		        <th style="width: 15%;">작성일</th>
 		        <th style="width: 8%;">조회수</th>
 		        <th style="width: 5%;">삭제</th>
 		    </tr>
 		</thead>
         <tbody>
-		    <c:forEach var="faq" items="${faqList}">
+		    <c:forEach var="free" items="${freeboard}">
 		        <tr class="faq-content">
-		            <td><p style="align-items: center;"><span style="color: black;">no${faq.articleNO}</span></p></td>
-		            <td><a href="/member/adminfreedetail.do?page=adminPage" style="display: flex; align-items: center;"><span style="color: black;">[질문종류][${faq.id}]</span></a></td>
-		            <td><p style=" align-items: center;"><span style="color: black;">작성자 ${faq.author}</span></p></td>
-		            <td><p style="align-items: center;"><span style="color: black;">작성일 ${faq.creationDate}</span></p></td>
-		            <td><p style="align-items: center;"><span style="color: black;">조회수 ${faq.views}</span></p></td>
-		            <td><a href="/member/delete/${faq.articleNO}?page=adminPage" style="color: red;" onclick="return confirm('삭제하시겠습니까?');"><span style="font-size: 20px;">&#128683;</span></a></td>
+		            <td>
+		            	<img src="${contextPath}/image/set.png" width="20px"/>
+		            </td>
+		            <td><a href="/community/freeboardDetail.do?articleNO=${free.articleNO} " style="display: flex; align-items: center;"><span style="color: black;">${free.free_title}</span></a></td>
+		            <td><p style=" align-items: center;"><span style="color: black;">${free.member_id}</span></p></td>
+		            <td><p style="align-items: center;"><span style="color: black;">${free.free_writeDate}</span></p></td>
+		            <td><p style="align-items: center;"><span style="color: black;">${free.free_view_count}</span></p></td>
+		            <td><a href="/member/delete/${free.articleNO}?page=adminPage" style="color: red;" onclick="return confirm('삭제하시겠습니까?');"><span style="font-size: 20px;">&#128683;</span></a></td>
 		        </tr>
 		    </c:forEach>
 		</tbody>
         
     </table>
 </div>
-<div style="text-align: right; margin-top: -30px;">
-    <a href="/member/adminfreewrite.do?page=adminPage" style="background-color: #ffffcc; padding: 5px 10px; border-radius: 5px; text-decoration: none; margin-right: 120px;">작성하기</a>
-</div>
+
 <div class="paging-container">
-    <a class="paging-button" href="#">이전</a>
-    <a class="paging-button" href="#">1</a>
-    <a class="paging-button" href="#">2</a>
-    <a class="paging-button" href="#">3</a>
-    <a class="paging-button" href="#">4</a>
-    <a class="paging-button" href="#">5</a>
-    <a class="paging-button" href="#">다음</a>
+   <c:if test="${totArticles !=null}">
+      <c:choose>
+         <c:when test="${totArticles > 100 }"> 
+            <c:forEach var="page" begin="1" end="10" step="1">
+               <c:if test="${section >1 && page==1 }" >
+                  <a class="paging-button"  href="${contextPath}/community/adminfreelist.do?section=${section-1}&pageNum=${(section-1)*10 +1 }&page=adminPage">&nbsp; pre </a>
+               </c:if>
+                  <a class="paging-button"  href="${contextPath}/community/adminfreelist.do?section=${section-1}&pageNum=${(section-1)*10 +page }&page=adminPage"> </a>
+               <c:if test="${page ==10 }">
+               <a class="paging-button"  href="${contextPath}/community/adminfreelist.do?section=${section-1}&pageNum=${section*10 +1 }&page=adminPage">&nbsp; next </a>
+               </c:if>
+            </c:forEach>
+         </c:when>
+         
+         <c:when test="${totArticles ==100 }">
+            <c:forEach var="page" begin="1" end="10" step="1">
+            <a class="paging-button"  href="#"> ${page }</a>
+            </c:forEach>
+         </c:when>
+         
+         <c:when test="${totArticles <100 }">
+            <c:forEach var="page" begin="1" end="${totArticles/10 +1 }" step="1">
+               <c:choose>
+                  <c:when test="${page==pageNum }">
+                  <a class="paging-button" href="${contextPath}/community/adminfreelist.do?section=${section}&pageNum=${page}&page=adminPage">${page }</a>
+                  </c:when>
+               <c:otherwise>
+                  <a class="paging-button"  href="${contextPath}/community/adminfreelist.do?section=${section}&pageNum=${page}&page=adminPage">${page }</a>
+               </c:otherwise>
+               </c:choose>
+            </c:forEach>
+         </c:when>
+      </c:choose>
+   </c:if>
+            
 </div>
+
+
 
 </body>
 </html>

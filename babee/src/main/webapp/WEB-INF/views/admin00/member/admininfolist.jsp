@@ -188,7 +188,7 @@
 </head>
 <body>
 <div id="search">
-    <h2 style="margin: 0;">공지사항</h2>
+    <h2 style="margin: 0;">공지사항 관리</h2>
     <div class="search-container">
         <form action="검색결과를_처리할_페이지_주소" method="GET">
             <input name="searchWord" class="search-input" type="text" placeholder="검색어를 입력해주세요.">
@@ -203,7 +203,7 @@
     <!-- <hr width="80%" style= "margin-left: 190px; margin-top: 60px;"> -->
 
 <div class="table-container">
-    <table class="faq-table" >
+    <table class="faq-table" style="width: 900px;" >
         <thead style="border-top: 2px solid gray; ">
 		    <tr>
 		        <th style="width: 10%;">NO</th>
@@ -220,7 +220,7 @@
 		            <td><a href="${contextPath}/community/admininfoDetail.do?articleNO=${info.articleNO}&page=adminPage" style="display: flex; align-items: center;">
 		            <span style="color: black;">[공지사항][${info.info_title}]</span></a></td>
 		            <td><p style=" align-items: center;"><span style="color: black;">${info.member_id}</span></p></td>
-			        <td><a href="/community/deleteInfo.do?articleNO=${info.articleNO}" style="color: red;" onclick="return confirm('삭제하시겠습니까?');"><span style="font-size: 20px;">&#128683;</span></a></td>
+			        <td><a href="${contextPath}/community/deleteInfo.do?page=adminPage&articleNO=${info.articleNO}" style="color: red;" onclick="return confirm('삭제하시겠습니까?');"><span style="font-size: 20px;">&#128683;</span></a></td>
 		        </tr>
 		    </c:forEach>
 		</tbody>
@@ -228,7 +228,45 @@
     </table>
 </div>
 <div style="text-align: right; margin-top: -30px;">
-    <a href="/community/admininfowrite.do?page=adminPage" style="background-color: #ffffcc; padding: 5px 10px; border-radius: 5px; text-decoration: none; margin-right: 120px;">작성하기</a>
+    <a href="/community/admininfowrite.do?page=adminPage" style="background-color: #ffffcc; padding: 5px 10px; border-radius: 5px; text-decoration: none; margin-right: 210px;">작성하기</a>
+</div>
+
+      <div class="paging-container">
+   <c:if test="${totArticles !=null}">
+      <c:choose>
+         <c:when test="${totArticles > 100 }"> 
+            <c:forEach var="page" begin="1" end="10" step="1">
+               <c:if test="${section >1 && page==1 }" >
+                  <a class="paging-button"  href="${contextPath}/community/admininfolist.do?section=${section-1}&pageNum=${(section-1)*10 +1  }&page=adminPage">&nbsp; pre </a>
+               </c:if>
+                  <a class="paging-button"  href="${contextPath}/community/admininfolist.do?section=${section-1}&pageNum=${(section-1)*10 +page }&page=adminPage"> </a>
+               <c:if test="${page ==10 }">
+               <a class="paging-button"  href="${contextPath}/community/admininfolist.do?section=${section-1}&pageNum=${section*10 +1 }&page=adminPage">&nbsp; next </a>
+               </c:if>
+            </c:forEach>
+         </c:when>
+         
+         <c:when test="${totArticles ==100 }">
+            <c:forEach var="page" begin="1" end="10" step="1">
+            <a class="paging-button"  href="#"> ${page }</a>
+            </c:forEach>
+         </c:when>
+         
+         <c:when test="${totArticles <100 }">
+            <c:forEach var="page" begin="1" end="${totArticles/10 +1 }" step="1">
+               <c:choose>
+                  <c:when test="${page==pageNum }">
+                  <a class="paging-button" href="${contextPath}/community/admininfolist.do?section=${section}&pageNum=${page}&page=adminPage">${page }</a>
+                  </c:when>
+               <c:otherwise>
+                  <a class="paging-button"  href="${contextPath}/community/admininfolist.do?section=${section}&pageNum=${page}&page=adminPage">${page }</a>
+               </c:otherwise>
+               </c:choose>
+            </c:forEach>
+         </c:when>
+      </c:choose>
+   </c:if>
+            
 </div>
 
 

@@ -42,10 +42,16 @@ public class CommunityServiceImpl implements CommunityService  {
 	public Map freeboardDetail(String articleNO) throws Exception {
 		Map freeboardMap = new HashMap();
 		
+		FreeboardVO freeboardVO = communityDAO.selectFreeboardDetail(articleNO);
+
 		int free_view_count =  communityDAO.updateViewCnt(articleNO);
 		
-		FreeboardVO freeboardVO = communityDAO.selectFreeboardDetail(articleNO);
+		if(free_view_count != 0) {
 		freeboardVO.setFree_view_count(free_view_count);
+		} else {
+			freeboardVO.setFree_view_count(1);
+		}
+		
 		freeboardMap.put("freeboardVO", freeboardVO);
 		
 		return freeboardMap;
@@ -80,10 +86,11 @@ public class CommunityServiceImpl implements CommunityService  {
 	}
 	
 	
-	  @Override public void modFreeboard(Map freeboardMap) throws DataAccessException {
-		  communityDAO.updateFreeboard(freeboardMap); 
-		  communityDAO.updateFreeboardImage(freeboardMap); 
-	  }
+	@Override
+	public void modFreeboard(Map freeboardMap) throws DataAccessException {
+		communityDAO.updateFreeboard(freeboardMap);
+		communityDAO.updateFreeboardImage(freeboardMap);
+	}
 	  
 	
 	@Override
@@ -122,7 +129,36 @@ public class CommunityServiceImpl implements CommunityService  {
 	@Override
 	public void modInfo(Map<String, Object> infoMap) throws Exception{
 		 communityDAO.updateInfo(infoMap); 
-		 //communityDAO.updateInfoImage(infoMap); 
+		 communityDAO.updateInfoImage(infoMap); 
 
 	}
+
+	@Override
+	public void adminDelFreeboard(String articleNO) {
+		communityDAO.adminDelFreeboard(articleNO);
+		communityDAO.adminDelFreeboardImage(articleNO);
+	}
+
+	@Override
+	public Map freeboardDetail2(String articleNO) throws Exception {
+		
+			Map freeboardMap = new HashMap();
+		
+		FreeboardVO freeboardVO = communityDAO.selectFreeboardDetail(articleNO);
+
+		/*
+		 * int free_view_count = communityDAO.updateViewCnt(articleNO);
+		 * 
+		 * if(free_view_count != 0) { freeboardVO.setFree_view_count(free_view_count); }
+		 * else { freeboardVO.setFree_view_count(1); }
+		 */
+		
+		freeboardMap.put("freeboardVO", freeboardVO);
+		
+		return freeboardMap;				
+	}
+
+
+
+	
 }

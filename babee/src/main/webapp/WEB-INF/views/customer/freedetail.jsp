@@ -231,7 +231,8 @@ function readURL(input){
                 formObj.appendChild(d_img);
           document.body.appendChild(formObj);
                 formObj.method = "post";
-                formObj.action = "${contextPath}/community/modFreeboard.do";
+                formObj.enctype = "multipart/form-data";
+                formObj.action = "${contextPath}/community/modFreeboardForm.do";
                 formObj.submit();
        }
    </script> 
@@ -245,10 +246,15 @@ function readURL(input){
          <!-- 게시글 삭제 버튼 -->
          <c:choose>
          	<c:when test="${isLogOn == true }">
-         		<c:if test="${memberInfo.member_id == freeboard.member_id }">
+         		<c:if test="${memberInfo.member_id == freeboard.member_id  || memberInfo.member_id == 'admin' }">
        			<input type="button" value="삭제" style="float:right;" onClick="fn_remove_freeboard('${freeboard.articleNO}', '${freeboard.free_img_id}')">
-       			<input type="button" value="수정" style="float:right;" onClick="fn_mod_freeboard('${freeboard.articleNO}', '${freeboard.free_img_id}')">
-				</c:if>
+  			</c:if>
+			</c:when>
+			
+			<c:when test="${isLogOn == true }">
+			<c:if test="${memberInfo.member_id == freeboard.member_id}">
+			     			<input type="button" value="수정" style="float:right;" onClick="fn_mod_freeboard('${freeboard.articleNO}', '${freeboard.free_img_id}')">
+			</c:if>
 			</c:when>
          </c:choose>
         <p>${freeboard.free_title}</p>
@@ -280,7 +286,8 @@ function readURL(input){
  			<form id="comment" method="post" action="${contextPath}/community/addCommnet.do" novalidate="novalidate" >
 					<div class="comment-form">
 						<p style="text-align: left; margin-bottom: 0px; margin-left: 20px;">댓글	작성</p>
-						<textarea id="commentText" name="free_comment" rows="4" cols="50" style="width: 95%; margin-left: 20px;"></textarea>					<button type="button" onclick="fn_comment()" style="margin-left: 90%; padding: 5px 10px; background-color: #fef7dd; color: black; border: none; border-radius: 4px; cursor: pointer;" >등록</button>
+						<textarea id="commentText" name="free_comment" rows="4" cols="50" style="width: 95%; margin-left: 20px;"></textarea>					
+						<button type="submit" onclick="fn_comment()" style="margin-left: 90%; padding: 5px 10px; background-color: #fef7dd; color: black; border: none; border-radius: 4px; cursor: pointer;" >등록</button>
 					</div>
 			</form>
     

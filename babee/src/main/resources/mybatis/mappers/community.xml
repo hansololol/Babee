@@ -102,6 +102,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	</insert>
   	
+  	<select id="selectFreeboardWriter" resultMap="freeboardResult" parameterType="String">
+       <![CDATA[
+        select member_id from t_shopping_freeboard
+        where articleNO=#{articleNO};
+       ]]>
+   </select>
   	
 	
 	<select id="selectFreeboardDetail" resultMap="freeboardResult"   parameterType="String">
@@ -314,4 +320,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where reg_id=#{member_id}          
      ]]>
 	</update>
+	
+	<select id="selectAllfreeboard" resultMap="freeboardResult"   parameterType="String">
+       <![CDATA[
+        select * from t_shopping_freeboard
+       ]]>
+    </select>
+    
+	<delete id="adminDelFreeboard" parameterType="java.util.Map">
+		<![CDATA[
+	      delete from t_shopping_freeboard
+	      where articleNO=#{articleNO}
+    	]]>
+	</delete>
+	
+	<delete id="adminDelFreeboardImage" parameterType="java.util.Map">
+	    <![CDATA[
+	      delete from t_shopping_image
+	      where image_id=#{free_img_id}
+    	]]>
+	</delete>
 </mapper>

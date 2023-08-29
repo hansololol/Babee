@@ -15,6 +15,7 @@ import com.babee.community.vo.QnaVO;
 @Mapper
 @Repository("commnityDAO")
 public interface CommunityDAO {
+	
 	public List selectALLFreeboardList(String member_id) throws DataAccessException;
 	public void insertNewFreeboard(Map freeboardMap) throws DataAccessException;
 	public void insertFreeboardImage(Map freeboardMap) throws DataAccessException;
@@ -48,7 +49,9 @@ public interface CommunityDAO {
 	
 	public void updateInfo(Map<String, Object> infoMap)throws DataAccessException;
 	public void updateInfoImage(Map<String, Object> infoMap)throws DataAccessException;
-	
+
+	public void adminDelFreeboardImage(String articleNO)throws DataAccessException;
+	public void adminDelFreeboard(String articleNO)throws DataAccessException;
 
 }
 

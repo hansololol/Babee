@@ -219,6 +219,29 @@ public class CommunityControllerImpl extends BaseController implements Community
 		communityService.delFreeboard(freeboardMap);
 		
 		
+			System.out.println("아이디:" + member_id);
+			if(member_id.equals("admin")) {
+				String articleNO_ = request.getParameter("articleNO");
+				System.out.println("알티클넘: " + articleNO_);
+				Map freeDetail = communityService.freeboardDetail2(articleNO_);	
+				FreeboardVO freeboardVO = (FreeboardVO) freeDetail.get("freeboardVO");
+				String member_id_ = (String) freeboardVO.getMember_id();
+				System.out.println("작성자 아이디: " + freeDetail.get(member_id));
+				communityService.adminDelFreeboard(articleNO);
+				
+				if(articleNO!=null) {
+					File delFolder = new File(CURR_IMAGE_REPO_PATH_FREEBOARD+ "\\" + member_id_ + "\\" +articleNO );
+					File[] deleteFolderList = delFolder.listFiles();
+				
+					for (int j = 0; j < deleteFolderList.length; j++  ) {
+						System.out.println(deleteFolderList[j]);
+						deleteFolderList[j].delete();
+					}
+					delFolder.delete();
+				}
+			} else {
+			
+		
 		if(articleNO!=null) {
 			File delFolder = new File(CURR_IMAGE_REPO_PATH_FREEBOARD+ "\\" + member_id + "\\" +articleNO );
 			File[] deleteFolderList = delFolder.listFiles();
@@ -229,6 +252,9 @@ public class CommunityControllerImpl extends BaseController implements Community
 			}
 			delFolder.delete();
 		}
+			}
+		
+		
 		
 		ModelAndView mav = new ModelAndView("redirect:/community/freeboardList.do");
 		return mav;
@@ -378,7 +404,7 @@ public class CommunityControllerImpl extends BaseController implements Community
 		  
 	
 		
-		  mav.setViewName("redirect:/community/admininfolist.do");
+		  mav.setViewName("redirect:/community/admininfolist.do?page=adminPage");
 		  }
 		  }catch (Exception e) {
 			  e.printStackTrace();
@@ -421,6 +447,7 @@ public class CommunityControllerImpl extends BaseController implements Community
 		return mav;
 	}
 	
+	
 	@Override
 	@RequestMapping(value = "/admininfoDetail.do", method = { RequestMethod.POST, RequestMethod.GET} )
 	public ModelAndView admininfoDetail(@RequestParam("articleNO") String articleNO, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -433,8 +460,6 @@ public class CommunityControllerImpl extends BaseController implements Community
 		Map infoboardMap = communityService.admininfoDetail(articleNO);
 		ModelAndView mav = new ModelAndView(viewName);
 		InfoVO infoVO = (InfoVO) infoboardMap.get("infoVO");
-		System.out.println("ㅇㅇ"+infoVO.getInfo_content());
-		
 		mav.addObject("infoboard", infoVO);
 		
 		
@@ -497,7 +522,10 @@ public class CommunityControllerImpl extends BaseController implements Community
 			delFolder.delete();
 		}
 		
-		ModelAndView mav = new ModelAndView("redirect:/community/admininfolist.do");
+		
+		ModelAndView mav = new ModelAndView();
+
+		mav.setViewName("redirect:/community/admininfolist.do?page=adminPage");
 		return mav;
 	}
 	
@@ -575,7 +603,7 @@ public class CommunityControllerImpl extends BaseController implements Community
 	
 	
 	@Override
-	@RequestMapping(value = "/modFreeboard.do", method =  { RequestMethod.POST, RequestMethod.GET} )
+	@RequestMapping(value = "/modFreeboardForm.do", method =  { RequestMethod.POST, RequestMethod.GET} )
 	public ModelAndView modfreeboardForm(@RequestParam("articleNO") String articleNO, HttpServletRequest request , HttpServletResponse response) throws Exception {
 		System.out.println("/modFreeboard.do실행");
 		HttpSession session = request.getSession();
@@ -583,13 +611,50 @@ public class CommunityControllerImpl extends BaseController implements Community
 		memberVO = (MemberVO) session.getAttribute("memberInfo");
 		String viewName=(String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
+		System.out.println("mav: " + mav);
 		
 		Map freeboardMap = communityService.freeboardDetail(articleNO);
 		FreeboardVO freeboardVO = (FreeboardVO) freeboardMap.get("freeboardVO");
-		System.out.println("공지사항 내용: "+freeboardVO.getFree_content());
+		System.out.println("자유게시판 내용: "+freeboardVO.getFree_content());
 		
 		mav.addObject("freeboard", freeboardVO);
 		session.setAttribute("freeboardVO", freeboardVO);
+		
+		
+		return mav;
+	}
+	
+	
+	@Override
+	@RequestMapping(value="/adminfreelist.do" ,method = RequestMethod.GET)
+	public ModelAndView adminFreeboardList(HttpServletRequest request, HttpServletResponse response)  throws Exception {
+		System.out.println("adminfreelist.do 실행");
+		String viewName=(String)request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+		HttpSession session=request.getSession();
+		String _section = request.getParameter("section"); 
+		String _pageNum = request.getParameter("pageNum"); 
+		int section =Integer.parseInt(((_section==null)? "1":_section)); 
+		int pageNum = Integer.parseInt(((_pageNum==null)? "1":_pageNum));
+		 
+		memberVO = (MemberVO) session.getAttribute("memberInfo");
+		String member_id = memberVO.getMember_id();
+		List freeboard =communityService.selectFreeboard(member_id);
+		System.out.println("freeboard: " + freeboard);
+		List freeboard_ = new ArrayList<>();
+		int ListSize = freeboard_.size();
+		for(int i =(pageNum-1)*10; i <pageNum*10;i++) {
+			try {
+				infoVO = (InfoVO) freeboard_.get(i);
+				freeboard_.add(infoVO);
+			}catch(IndexOutOfBoundsException e) {
+				break;
+			}
+			}
+		 	mav.addObject("freeboard", freeboard);
+			mav.addObject("section", section);
+			mav.addObject("pageNum", pageNum);
+			mav.addObject("totArticles", ListSize);
 		return mav;
 	}
 	

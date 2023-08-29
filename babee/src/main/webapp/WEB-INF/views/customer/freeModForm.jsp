@@ -148,7 +148,7 @@
             
             <tr>
                <th>제목</th>
-               <td><input type="text" name="free_title"></td>
+               <td><input type="text" name="free_title" value="${freeboard.free_title}"></td>
             </tr>
             
             
@@ -156,7 +156,7 @@
                <th>내용</th>
                <td>
                   <div style="padding: 10px 0;">
-                     <textarea name="free_content"></textarea>
+                     <textarea name="free_content"  > ${freeboard.free_content}</textarea>
                   </div>
                </td>
             </tr>
@@ -175,7 +175,7 @@
       </div>
       <br>
       <div class="btn-container">
-         <button type="submit">작성하기</button>
+         <button type="submit">수정하기</button>
          <a href="/main/main.do">메인페이지</a>
       </div>
    </form>

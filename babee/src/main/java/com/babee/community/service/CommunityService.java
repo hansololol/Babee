@@ -16,6 +16,7 @@ public interface CommunityService {
 	public Map freeboardDetail(String articleNO) throws Exception;
 	public void modFreeboard(Map freeboardMap) throws DataAccessException;
 	
+	
 
 	public List selectComment(String articleNO) throws Exception;
 	public void addComment(CommentVO commentVO)throws Exception;
@@ -30,4 +31,11 @@ public interface CommunityService {
 	public List selectAllinfo()throws Exception;
 	public void delInfoboard(String articleNO)throws Exception;
 	public void modInfo(Map<String, Object> infoMap) throws Exception;
+	
+	public void adminDelFreeboard(String articleNO)throws Exception;
+	
+	public Map freeboardDetail2(String articleNO_)throws Exception;
+
+
+
 }
