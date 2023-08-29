@@ -146,40 +146,35 @@ uri="http://java.sun.com/jsp/jstl/core"%>
             src="http://code.jquery.com/jquery-1.11.3.min.js"
           ></script>
 
-          <a
-            href="#"
-            class="btn_naver_login js_btn_naver_login"
-            data-naver-url="https://socialmember.godo.co.kr/NaverLogin/naver_api.php?mode=login&amp;response_type=code&amp;client_id=k0VcGSUFEXqRJqP80ryh&amp;redirect_uri=https%3A%2F%2Fmall.suomi.co.kr%2F&amp;state=e1628eb01a5c7d245df9ebe8ccb06a7c"
-          >
-            <div
-              class="member_sns_login"
-              id="naver_id_login"
-              style="display: none"
-            >
+
+    <div class="member_sns_login"
+             >
+              <div  id="naver_id_login" style="display: none;">
+        	 </div>
               <script type="text/javascript">
                 var naver_id_login = new naver_id_login(
                   "g9MhutSOy0o5MqWSol0E",
                   "http://localhost:8080/member/naver"
                 );
                 var state = naver_id_login.getUniqState();
-                naver_id_login.setDomain("YOUR_SERVICE_URL");
+                naver_id_login.setDomain("https://nid.naver.com/oauth2.0/token");
                 naver_id_login.setState(state);
                 naver_id_login.setPopup();
                 naver_id_login.init_naver_id_login();
 
                 $(document).on("click", "#naverLogin", function () {
                   var btnNaverLogin =
-                    document.getElementById("naverIdLogin").firstChild;
+                    document.getElementById("naver_id_login").firstChild;
                   btnNaverLogin.click();
                 });
               </script>
-            </div>
-            <div id="naverIdLogin">
+           
+            
               <img
                 src="https://cdn-pro-web-219-28.cdn-nhncommerce.com/malltr2083_godomall_com/data/skin/front/moment/img/etc/pc_naver.png"
-                alt="네이버 아이디 로그인"
-              /></div
-          ></a>
+                alt="네이버 아이디 로그인" id="naverLogin" style="cursor: pointer;"
+              />
+             </div>
 
           <div>
             <script
