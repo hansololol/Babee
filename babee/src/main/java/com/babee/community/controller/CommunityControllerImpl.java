@@ -237,7 +237,7 @@ public class CommunityControllerImpl extends BaseController implements Community
 	
 	  @Override
 	  @RequestMapping(value="/modFreeboard.do", method = RequestMethod.POST) 
-	  public ModelAndView modDiary(@ModelAttribute("freeboardVO") FreeboardVO freeboard, MultipartHttpServletRequest multipartRequest, HttpServletRequest request,
+	  public ModelAndView modFreeboard(@ModelAttribute("freeboardVO") FreeboardVO freeboard, MultipartHttpServletRequest multipartRequest, HttpServletRequest request,
 	  HttpServletResponse response) throws Exception {
 	  multipartRequest.setCharacterEncoding("utf-8"); 
 	  ModelAndView mav = new ModelAndView(); 
@@ -323,6 +323,7 @@ public class CommunityControllerImpl extends BaseController implements Community
 		
 		
 		memberVO = (MemberVO) session.getAttribute("memberInfo");
+		if (memberVO != null) {
 		String member_id = memberVO.getMember_id();
 		
 		List qnaList = new ArrayList<>();
@@ -332,7 +333,7 @@ public class CommunityControllerImpl extends BaseController implements Community
 		mav.addObject("section", section);
 		mav.addObject("pageNum", pageNum);
 		mav.addObject("totArticles", ListSize);
-		
+		}
 		return mav;
 	}
 	
@@ -503,7 +504,7 @@ public class CommunityControllerImpl extends BaseController implements Community
 	@Override
 	@RequestMapping(value = "/modinfoForm.do", method =  { RequestMethod.POST, RequestMethod.GET} )
 	public ModelAndView modinfoForm(@RequestParam("articleNO") String articleNO, HttpServletRequest request , HttpServletResponse response) throws Exception {
-		System.out.println("mod실행");
+		System.out.println("/modinfoForm.do실행");
 		HttpSession session = request.getSession();
 		
 		memberVO = (MemberVO) session.getAttribute("memberInfo");
@@ -572,6 +573,25 @@ public class CommunityControllerImpl extends BaseController implements Community
 		return mav;
 	}
 	
+	
+	@Override
+	@RequestMapping(value = "/modFreeboard.do", method =  { RequestMethod.POST, RequestMethod.GET} )
+	public ModelAndView modfreeboardForm(@RequestParam("articleNO") String articleNO, HttpServletRequest request , HttpServletResponse response) throws Exception {
+		System.out.println("/modFreeboard.do실행");
+		HttpSession session = request.getSession();
+		
+		memberVO = (MemberVO) session.getAttribute("memberInfo");
+		String viewName=(String)request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+		
+		Map freeboardMap = communityService.freeboardDetail(articleNO);
+		FreeboardVO freeboardVO = (FreeboardVO) freeboardMap.get("freeboardVO");
+		System.out.println("공지사항 내용: "+freeboardVO.getFree_content());
+		
+		mav.addObject("freeboard", freeboardVO);
+		session.setAttribute("freeboardVO", freeboardVO);
+		return mav;
+	}
 	
 	
 	

@@ -16,7 +16,8 @@ public interface CommunityController {
 	public ModelAndView freeboardList(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView addFreeboard(@ModelAttribute("freeboardVO") FreeboardVO freeboard, MultipartHttpServletRequest multipartRequest, HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	public ModelAndView freeboardDetail(@RequestParam("articleNO") String articleNO,HttpServletRequest request, HttpServletResponse response) throws Exception;
-	public ModelAndView modDiary(@ModelAttribute("freeboardVO") FreeboardVO freeboard, MultipartHttpServletRequest multipartRequest, HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView modfreeboardForm(@RequestParam("articleNO") String articleNO, HttpServletRequest request, HttpServletResponse response)throws Exception;
+	public ModelAndView modFreeboard(@ModelAttribute("freeboardVO") FreeboardVO freeboard, MultipartHttpServletRequest multipartRequest, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 	public ModelAndView addComment(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView removeFreeboard(HttpServletRequest request, HttpServletResponse response)  throws Exception;
@@ -33,6 +34,7 @@ public interface CommunityController {
 	public ModelAndView removeInfo(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView modinfoForm(@RequestParam("articleNO") String articleNO, HttpServletRequest request , HttpServletResponse response) throws Exception ;
 	public ModelAndView modInfo(InfoVO info, MultipartHttpServletRequest multipartRequest, HttpServletRequest request,	HttpServletResponse response) throws Exception;
+
 			
 
 }
