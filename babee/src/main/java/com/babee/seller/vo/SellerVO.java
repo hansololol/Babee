@@ -36,6 +36,7 @@ public class SellerVO {
 	
 	private String member_id;
 	private String member_pw;
+	private String baby_age;
 	public String getSeller_id() {
 		return seller_id;
 	}
@@ -194,6 +195,12 @@ public class SellerVO {
 	}
 	public void setSeller_namujiAddr(String seller_namujiAddr) {
 		this.seller_namujiAddr = seller_namujiAddr;
+	}
+	public String getBaby_age() {
+		return baby_age;
+	}
+	public void setBaby_age(String baby_age) {
+		this.baby_age = baby_age;
 	}
 	
 	
