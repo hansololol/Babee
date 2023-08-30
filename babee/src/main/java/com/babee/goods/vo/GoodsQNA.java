@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component("goodsQNA")
 public class GoodsQNA {
+	private int articleNO;
 	private String goods_id;
 	private String member_id;
 	private String goods_qna_title;
@@ -17,6 +18,15 @@ public class GoodsQNA {
 	public String getGoods_id() {
 		return goods_id;
 	}
+	
+	public int getArticleNO() {
+		return articleNO;
+	}
+
+	public void setArticleNO(int articleNO) {
+		this.articleNO = articleNO;
+	}
+
 	public void setGoods_id(String goods_id) {
 		this.goods_id = goods_id;
 	}

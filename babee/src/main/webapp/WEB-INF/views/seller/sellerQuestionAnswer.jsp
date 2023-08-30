@@ -1,4 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -102,6 +105,7 @@
 </style>
 </head>
 <body>
+
 <div id="search">
     <h2 style="margin: 0;">상품 문의</h2>
     <div class="search-container">
@@ -113,10 +117,10 @@
         </form>
     </div>
 </div>
-
+<form action="${contextPath}/seller/addGoodsQnaAnswer.do" method="post">
 <div class="menu-container">
     
-    
+
     <hr width="66%" style= "margin-left: 170px">
 </div>
 
@@ -130,33 +134,41 @@
             </tr>
         </thead>
         <tbody>
-            <c:forEach var="faq" items="${faqList}">
+            <c:forEach items="${goodsQnaList}" var="goodsQna">
                 <tr class="faq-content">
-                    <td>no${faq.articleNO}</td>
+                    <td>${goodsQna.articleNO}</td>
                     <td>
-                        <a href="#" style="color: black; display: flex; align-items: center;" onclick="toggleAnswer('${faq.id}')">
-                            [질문종류][${faq.id}]
-                        </a>
+                        <a href="#" style="color: black; display: flex; align-items: center; text-decoration: none;" onmouseover="this.style.textDecoration='underline';" onmouseout="this.style.textDecoration='none';" onclick="toggleAnswer('${goodsQna.articleNO}')">
+						    [${goodsQna.goods_qna_middle_title}][${goodsQna.goods_qna_title}]
+						</a>
                     </td>
-                    <td>date${faq.joinDate}</td>
+                    <td>${goodsQna.goods_qna_writeDate}</td>
                 </tr>
-                <tr class="faq-answer" id="faqAnswer${faq.id}" style="display: none;">
-                    <td colspan="3">
-                        <p>${faq.questionContent}</p>
-                        <textarea class="answer-textarea" id="answerTextarea${faq.id}" placeholder="답변을 작성해주세요."></textarea>
-                        <div style="text-align: center; margin-top: -10px;">
-                            <form action="답변_처리_페이지_주소" method="post">
-                                <input type="hidden" name="answerId" value="${faq.id}">
-                                <button type="submit" class="answer-button">답변 제출</button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
+          
+                <tr class="faq-answer" id="faqAnswer${goodsQna.articleNO}" style="display: none;">
+				    <td colspan="3">
+				        <p>${goodsQna.goods_qna_content}</p>
+				        <c:choose>
+				            <c:when test="${not empty goodsQna.goods_qna_answer}">
+				                <p>[답변] ${goodsQna.goods_qna_answer}</p>
+				            </c:when>
+				            <c:otherwise>
+				                <textarea class="answer-textarea" id="answerTextarea${goodsQna.seller_id}" name="goods_qna_answer" placeholder="답변을 작성해주세요."></textarea>
+				                <div style="text-align: center; margin-top: -10px;">
+				                    <input type="hidden" name="seller_id" value="${goodsQna.seller_id}">
+				                    <input type="hidden" name="articleNO" value="${goodsQna.articleNO}">
+				                    <button type="submit" class="answer-button">답변 제출</button>
+				                </div>
+				            </c:otherwise>
+				        </c:choose>
+				    </td>
+				</tr>
+               
             </c:forEach>
         </tbody>
     </table>
 </div>
-
+</form> 
 <div class="paging-container">
     <a class="paging-button" href="#">이전</a>
     <a class="paging-button" href="#">1</a>
@@ -170,7 +182,7 @@
 <script>
     function toggleAnswer(answerId) {
         var answer = document.getElementById("faqAnswer" + answerId);
-        if (answer.style.display === 'none') {
+        if (answer.style.display !== 'table-row') {
             answer.style.display = 'table-row';
         } else {
             answer.style.display = 'none';

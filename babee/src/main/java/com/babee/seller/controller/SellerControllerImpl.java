@@ -14,11 +14,15 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +31,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.babee.common.base.BaseController;
+import com.babee.goods.vo.GoodsQNA;
 import com.babee.goods.vo.GoodsVO;
 import com.babee.goods.vo.ImageFileVO;
 import com.babee.seller.service.SellerService;
@@ -255,6 +260,7 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 	       dir.delete();
 	   }
 	   
+	   //사업자 등록상품리스트
 	   @RequestMapping(value="/listSellerGoods.do", method={RequestMethod.POST,RequestMethod.GET})
 	   public ModelAndView goodsList(HttpServletRequest request, HttpServletResponse response) throws Exception {
 	       ModelAndView mav = new ModelAndView("/seller/listSellerGoods");
@@ -272,15 +278,18 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 	   }
 	   
 	   //오늘등록 상품조회
-	   @Override
 	    @RequestMapping(value = "/getTodayGoods.do", method = { RequestMethod.GET, RequestMethod.POST })
 	    public ModelAndView getTodayGoods(HttpServletRequest request, HttpServletResponse response) throws Exception {
 	        ModelAndView mav = new ModelAndView();
+	        HttpSession session = request.getSession();
+		      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+		      String seller_id = sellerVO.getSeller_id();
+
+		      
+		      List<GoodsVO> sellerGoodsList = sellerService.getTodayGoods(seller_id);
 	        
-	        List<GoodsVO> todayGoodsList = sellerService.getTodayGoods();
-	        
-	        mav.addObject("todayGoodsList", todayGoodsList);
-	        mav.setViewName("forward:/seller/listSellerGoods.do?page=sellerPage"); // 오늘 등록된 상품 목록을 보여줄 뷰 페이지 이름 지정
+	        mav.addObject("sellerGoodsList", sellerGoodsList);
+	        mav.setViewName("/seller/listSellerGoods"); // 오늘 등록된 상품 목록을 보여줄 뷰 페이지 이름 지정
 	        
 	        return mav;
 	    }
@@ -328,6 +337,57 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 	        
 	        mav.setViewName("redirect:/seller/listSellerOrder.do?page=sellerPage"); // 결과 페이지 이름
 	        
+	        return mav;
+	    }
+	    
+	    
+	    
+	    //사업자 qna리스트
+	    @Override
+	    @RequestMapping("/sellerQuestionAnswer.do")
+	    public ModelAndView selectAllGoodsQna(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	        ModelAndView mav = new ModelAndView("/seller/sellerQuestionAnswer");
+	        HttpSession session = request.getSession();
+	        SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+	        String seller_id = sellerVO.getSeller_id();
+	        System.out.println(seller_id);
+	        Map<String, Object> goodsQnaMap = new HashMap<>();
+	        goodsQnaMap.put("seller_id", seller_id);
+
+	        // 서비스에서 데이터 가져와서 goodsQnaMap에 넣기
+	        List<GoodsQNA> goodsQnaList = sellerService.selectAllGoodsQna(goodsQnaMap);
+
+	        for (GoodsQNA goodsQna : goodsQnaList) {
+	            System.out.println("Question: " + goodsQna.getArticleNO());
+	            System.out.println("Answer: " + goodsQna.getGoods_qna_content());
+	            // 기타 필요한 정보들도 출력
+	        }
+
+	        mav.addObject("goodsQnaList", goodsQnaList); // 모델에 데이터 추가
+	        return mav;
+	    }
+	    
+	    
+	    //사업자 qna답변
+	    @RequestMapping("/addGoodsQnaAnswer.do")
+	    public ModelAndView addGoodsQnaAnswer(@RequestParam Map<String, Object> goodsQnaAnswerMap,
+	                                          HttpServletRequest request) throws Exception {
+	        ModelAndView mav = new ModelAndView();
+	        request.setCharacterEncoding("utf-8");
+
+	        HttpSession session = request.getSession();
+	        String seller_id = ((SellerVO) session.getAttribute("memberInfo")).getSeller_id();
+	        String goods_qna_answer = request.getParameter("goods_qna_answer");
+	        String articleNOString = request.getParameter("articleNO");
+	        int articleNO = Integer.parseInt(articleNOString);
+
+	        goodsQnaAnswerMap.put("goods_qna_answer", goods_qna_answer);
+	        goodsQnaAnswerMap.put("seller_id", seller_id);
+	        goodsQnaAnswerMap.put("articleNO", articleNO);
+	        System.out.println(goodsQnaAnswerMap.get("goods_qna_answer"));
+	        System.out.println(goodsQnaAnswerMap.get("articleNO"));
+	        sellerService.addGoodsQnaAnswer(goodsQnaAnswerMap);
+	        mav.setViewName("redirect:/seller/sellerQuestionAnswer.do?page=sellerPage");// 답변 처리 후 리다이렉트할 페이지 주소 설정
 	        return mav;
 	    }
 	   

@@ -84,6 +84,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    <!-- GoodsVO 객체에 대한 매핑 -->
 	    <association property="goods" resultMap="GoodsResultMap"/>
 	</resultMap>
+	
+	<resultMap id="goodsQnaResult" type="GoodsQNA">
+	  <result property="articleNO" column="articleNO" />
+      <result property="goods_id" column="goods_id" />
+      <result property="member_id" column="member_id" />
+      <result property="goods_qna_title" column="goods_qna_title" />
+      <result property="goods_qna_content" column="goods_qna_content" />
+      <result property="goods_qna_writeDate" column="goods_qna_writeDate" />
+      <result property="goods_qna_answer" column="goods_qna_answer" />
+      <result property="seller_id" column="seller_id" />
+   </resultMap>
 
 	<select id="login" resultType="sellerVO"  parameterType="java.util.Map"  >
 	    <![CDATA[
@@ -220,9 +231,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  </select>
   
     <!-- 날짜 -->
-    <select id="getTodayGoods" resultType="GoodsVO">
-	    SELECT * FROM t_shopping_goods
-	    WHERE DATE(goods_creation_date) = CURDATE()
+    <select id="getTodayGoods" parameterType="String" resultMap="goodsResult">
+	    SELECT *
+        FROM t_shopping_goods
+        WHERE DATE(goods_creation_date) = CURDATE()
+        AND seller_id = #{seller_id}
 	</select>
 	
 	<!-- 사업자 주문상태변경 -->
@@ -232,4 +245,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    WHERE order_id = #{order_id}
 	</update>
     
+    <!-- 사업자 상품qna 리스트 -->
+    
+    <select id="selectAllGoodsQna" resultType="GoodsQNA"  parameterType="java.util.Map">
+	    SELECT gsq.*
+        FROM T_SHOPPING_GOODSQNA gsq
+        JOIN T_SHOPPING_GOODS gs ON gsq.goods_id = gs.goods_id
+        WHERE gs.seller_id = #{seller_id}
+	</select>
+    <!-- 사업자 상품qna 답변-->
+    <update id="GoodsQnaAnswer" parameterType="java.util.Map">
+	  UPDATE t_shopping_goodsqna
+	  SET goods_qna_answer = #{goods_qna_answer}, seller_id = #{seller_id}
+	  WHERE articleNO = #{articleNO}
+	  
+	</update>
 </mapper>
