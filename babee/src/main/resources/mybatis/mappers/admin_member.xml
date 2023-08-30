@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.babee.admin.member.dao.AdminMemberDAO">
-<resultMap id="memberResult" type="MemberVO">
+	<resultMap id="memberResult" type="MemberVO">
 		<result property="member_id" column="member_id" />
 		<result property="member_pw" column="member_pw" />
 		<result property="member_name" column="member_name" />
@@ -34,6 +34,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="joinDate" column="joinDate" />
 		<result property="del_yn" column="del_yn" />
 	</resultMap>
+	
+	<resultMap id="sellerResult" type="SellerVO">
+		<result property="seller_id" column="seller_id" />
+		<result property="seller_pw" column="seller_pw" />
+		<result property="seller_name" column="seller_name" />
+		
+		<result property="seller_tel1" column="seller_tel1" />
+		<result property="seller_tel2" column="seller_tel2" />
+		<result property="seller_tel3" column="seller_tel3" />
+		
+		<result property="seller_hp1" column="seller_hp1" />
+		<result property="seller_hp2" column="seller_hp2" />
+		<result property="seller_hp3" column="seller_hp3" />
+		<result property="seller_email" column="seller_email" />
+		
+		<result property="seller_roadAddr" column="seller_roadAddr" />
+		<result property="seller_jibunAddr" column="seller_jibunAddr" />
+		<result property="seller_namujiAddr" column="seller_namujiAddr" />
+		<result property="seller_zipcode" column="seller_zipcode" />
+		<result property="seller_joinDate" column="seller_joinDate" />
+		
+		<result property="seller_bank_num" column="seller_bank_num" />
+		<result property="seller_bank_name" column="seller_bank_name" />
+		<result property="seller_bank_com" column="seller_bank_com" />
+		
+		<result property="seller_company" column="seller_company" />
+		<result property="seller_company_info" column="seller_company_info" />
+		<result property="seller_img1" column="seller_img1" />
+		
+		<result property="confirmDate" column="confirmDate" />
+		<result property="seller_status" column="seller_status" />
+		
+		<result property="member_id" column="member_id" />
+		<result property="member_pw" column="member_pw" />
+	</resultMap>
+	
+	
 <select id="listMember" resultMap="memberResult" parameterType="java.util.HashMap"  >
 		  select * from (
 			    select rowNum as recNum,t.*
@@ -132,6 +169,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			   </set>
 		where 
 		member_id=#{member_id}
-	</update>	
-</mapper>
+	</update>
+	
+   <select id="sellerManageList" resultMap="sellerResult" parameterType="java.util.Map"  >
+       <![CDATA[
+             select * from  t_shopping_seller 
+             where seller_status='승인'
+             limit #{start},10
+             
+       ]]>
+   </select>
+   
+   <select id="sellerDetail" resultMap="sellerResult"   parameterType="String">
+       <![CDATA[
+        select * from t_shopping_seller
+        where seller_id=#{seller_id}
+       ]]>
+   </select>
+   
+   
+   <select id="sellerManageWait" resultMap="sellerResult" parameterType="java.util.Map">
+       <![CDATA[
+             select * from  t_shopping_seller
+             where seller_status='대기'
+             limit #{start},10
+       ]]>
+   </select>
+   
+   	<select id="sellerWaitDetail" resultMap="sellerResult"   parameterType="String">
+       <![CDATA[
+        select * from t_shopping_seller
+        where seller_id=#{seller_id}
+       ]]>
+   </select>
+   
+   <update id="sellerRegister" parameterType="java.util.Map">
+	  <![CDATA[
+	  update t_shopping_seller
+     	set seller_status='승인', 
+        	seller_confirmDate = now()
+        where seller_id=#{seller_id}   
+     ]]>
+	</update>
+</mapper> 
 

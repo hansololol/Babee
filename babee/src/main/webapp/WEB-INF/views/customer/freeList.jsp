@@ -132,7 +132,7 @@ input[type="button"]:hover, button[type="button"]:hover {
 	<div id="freeboardList" style="padding-top: 30px;">
 		<table style="margin: auto;">
 			<tr>
-				<td width="50px" style="border-bottom:1px solid gray"> 번호 </td>
+				<td width="50px" style="border-bottom:1px solid gray"> NO </td>
 				<td width="500px" style="border-bottom:1px solid gray"> 제목 </td>
 				<td width="100px" style="border-bottom:1px solid gray"> 조회수 </td>
 				<td width="150px" style="border-bottom:1px solid gray"> 작성자 </td>
@@ -141,7 +141,8 @@ input[type="button"]:hover, button[type="button"]:hover {
 			
 			<c:forEach var="freeboard" items="${freeboard}" varStatus ="free">
 			<tr> 
-				<td style="padding-bottom:5px; padding-top:5px; height: 45px; border-bottom:1px solid gray"> ${free.count } </td>
+				<td style="padding-bottom:5px; padding-top:5px; height: 45px; border-bottom:1px solid gray">
+					<img src="${contextPath}/image/freeboard.png" width="30px"/> </td>
 				<td style="padding-bottom:5px; padding-top:5px; height: 45px; border-bottom:1px solid gray"> 
 					<a href="${contextPath}/community/freeboardDetail.do?articleNO=${freeboard.articleNO}"> ${freeboard.free_title } [ ${freeboard.commentCnt } ]</a></td>
 				<td style="padding-bottom:5px; padding-top:5px; height: 45px; border-bottom:1px solid gray"> ${freeboard.free_view_count} </td>
@@ -153,9 +154,56 @@ input[type="button"]:hover, button[type="button"]:hover {
 	
 	
 	</div>
+	     <br><br>
+      <c:choose>
+         	<c:when test="${isLogOn == true }">
+         		
+       		 <a href="${contextPath}/community/freeForm.do"><input type="button" value="글쓰기" style="margin-left:700px;"></a>
+				
+			</c:when>
+         </c:choose>
+	
+	 <div class="paging-container">
+   <c:if test="${totArticles !=null}">
+      <c:choose>
+         <c:when test="${totArticles > 100 }"> 
+            <c:forEach var="page" begin="1" end="10" step="1">
+               <c:if test="${section >1 && page==1 }" >
+                  <a class="paging-button"  href="${contextPath}/community/freeboardList.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp; pre </a>
+               </c:if>
+                  <a class="paging-button"  href="${contextPath}/community/freeboardList.do?section=${section-1}&pageNum=${(section-1)*10 +page }"> </a>
+               <c:if test="${page ==10 }">
+               <a class="paging-button"  href="${contextPath}/community/freeboardList.do?section=${section-1}&pageNum=${section*10 +1 }">&nbsp; next </a>
+               </c:if>
+            </c:forEach>
+         </c:when>
+         
+         <c:when test="${totArticles ==100 }">
+            <c:forEach var="page" begin="1" end="10" step="1">
+            <a class="paging-button"  href="#"> ${page }</a>
+            </c:forEach>
+         </c:when>
+         
+         <c:when test="${totArticles <100 }">
+            <c:forEach var="page" begin="1" end="${totArticles/10 +1 }" step="1">
+               <c:choose>
+                  <c:when test="${page==pageNum }">
+                  <a class="paging-button" href="${contextPath}/community/freeboardList.do?section=${section}&pageNum=${page}">${page }</a>
+                  </c:when>
+               <c:otherwise>
+                  <a class="paging-button"  href="${contextPath}/community/freeboardList.do?section=${section}&pageNum=${page}">${page }</a>
+               </c:otherwise>
+               </c:choose>
+            </c:forEach>
+         </c:when>
+      </c:choose>
+   </c:if>
+            
+</div>
+	
 
-     <br><br><br><br>
-    <a href="${contextPath}/community/freeForm.do"><input type="button" value="글쓰기" style="margin-left:700px;"></a>
+
+   
 	<br><br>
 </body>
 </html>

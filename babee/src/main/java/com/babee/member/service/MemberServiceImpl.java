@@ -33,9 +33,16 @@ public class MemberServiceImpl implements MemberService {
 		memberDAO.updatePwd(findMap);
 		return memberVO;
 	}
+	@Override
+	public MemberVO findMyPw_kakao(Map findMap) throws Exception{
+		MemberVO memberVO = memberDAO.findMyPw(findMap);
+		
+		return memberVO;
+	}
 	
 	@Override
 	public void addMember(MemberVO memberVO) throws Exception{
+		System.out.println("여기까지 오는지 확인 service");
 		memberDAO.insertNewMember(memberVO);
 	}
 	

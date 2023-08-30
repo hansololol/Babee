@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
 <title>사업자 관리창(관리자)</title>
 <style>
-   
+    
     #search {
         background-color: #FEF7DD;
         padding: 20px;
@@ -17,7 +17,7 @@
         justify-content: center;
         align-items: center;
         margin: 0 auto;
-        width: 66%;
+        width: 70%;
     }
     .search-container {
         display: flex;
@@ -119,10 +119,10 @@
 <div class="menu-container">
         <div class="menu-options">
             <div class="menu-option" id="total">
-                <a href="${contextPath}/member/sellerManageList.do?page=adminPage" style="color: black;">사업자 목록</a>
+                <a href="${contextPath}/admin/member/sellerManageList.do?page=adminPage" style="color: black;">사업자 목록</a>
             </div>
             <div class="menu-option" id="wait">
-                <a href="${contextPath}/member/sellerManageWait.do?page=adminPage" style="color: black; margin-right: 380px; background-color:orange; border-radius: 5px; padding:10px;">사업자 등록 요청</a>
+                <a href="${contextPath}/admin/member/sellerManageWait.do?page=adminPage" style="color: black; margin-right: 380px; background-color:orange; border-radius: 5px; padding:10px;">사업자 등록 요청</a>
             </div>
 
         </div>
@@ -135,20 +135,20 @@
     <table style="text-align:center; margin:0 auto; ">
     	<tr style="border-bottom:1px solid gray; ">
 			<td width="80px;"><b>NO</b></td>
-			<td width="200px;"><b>사업자 번호</b></td>
-			<td width="200px;"><b>사업체 명</b></td>
-			<td width="150px;"><b>등록 상태</b></td>
-			<td width="180px;"><b>사업체 등록 요청날짜</b></td>
+			<td width="200px;"><b>사업자 명</b></td>
+			<td width="200px;"><b>상호 명</b></td>
+			<td width="150px;"><b>승인 여부</b></td>
+			<td width="180px;"><b>승인 요청날짜</b></td>
 		</tr>
 		
 			
-    <c:forEach var="i" begin="0" end="5">
+    <c:forEach var="seller" items="${seller}" varStatus="sellerNO">
 		<tr style="height: 50px; border-bottom:1px solid gray;">
-			<td> { 1 } </td>
-			<td>   <a href="${contextPath}/member/sellerWaitDetail.do?page=adminPage"> { 123-00-1234567 } </a> </td>
-			<td>  <a href="${contextPath}/member/sellerWaitDetail.do?page=adminPage">{ 별나라 베이비샵 } </a> </td>
-			<td> { 반려 } </td>
-			<td> { 2023-08-12 } </td>
+			<td>${sellerNO.count}</td>
+			<td>${seller.seller_name} </a> </td>
+			<td><a href="${contextPath}/admin/member/sellerWaitDetail.do?page=adminPage&seller_id=${seller.seller_id}">${seller.seller_company} </a> </td>
+			<td>${seller.seller_status}</td>
+			<td>${seller.seller_joinDate}</td>
 		</tr>
     </c:forEach>
    
@@ -164,13 +164,15 @@
     
     <!-- 페이징 버튼 -->
     <div class="paging-container">
-        <a class="paging-button" href="#">이전</a>
-        <a class="paging-button" href="#">1</a>
-        <a class="paging-button" href="#">2</a>
-        <a class="paging-button" href="#">3</a>
-        <a class="paging-button" href="#">4</a>
-        <a class="paging-button" href="#">5</a>
-        <a class="paging-button" href="#">다음</a>
+        <c:if test="${section>1}">
+            <a class="paging-button" href="${contextPath}/admin/member/sellerManageWait.do?section=${section-1}&pageNum=1">이전</a>
+        
+        </c:if>
+        <c:forEach var="i" begin="1" end="5">
+            <a class="paging-button" href="${contextPath}/admin/member/sellerManageWait.do?section=${section}&pageNum=${i}">${((section-1)*5) + i}</a>
+        
+        </c:forEach>
+        <a class="paging-button" href="${contextPath}/admin/member/sellerManageWait.do?section=${section+1}&pageNum=1">다음</a>
     </div>
     <br><br><br><br><br>
 </body>

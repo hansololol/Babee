@@ -13,15 +13,16 @@ import com.babee.community.vo.InfoVO;
 import com.babee.community.vo.QnaVO;
 
 @Mapper
-@Repository("commnityDAO")
+@Repository("communityDAO")
 public interface CommunityDAO {
+	
 	public List selectALLFreeboardList(String member_id) throws DataAccessException;
 	public void insertNewFreeboard(Map freeboardMap) throws DataAccessException;
 	public void insertFreeboardImage(Map freeboardMap) throws DataAccessException;
 	public FreeboardVO selectFreeboardDetail(String articleNO) throws Exception;
 
-	//public void updateDiary(Map diaryMap) throws DataAccessException;
-	//public void updateDiaryImage(Map diaryMap) throws DataAccessException;
+	public void updateFreeboard(Map freeboardMap) throws DataAccessException;
+	public void updateFreeboardImage(Map freeboardMap) throws DataAccessException;
 	
 
 	public List selectAllComment(String articleNO)throws DataAccessException;
@@ -34,6 +35,8 @@ public interface CommunityDAO {
 	
 	public void insertNewQna (QnaVO qnaVO)throws DataAccessException;
 	public List selectMyQnaList(String member_id)throws DataAccessException;
+	public QnaVO selectQna(String articleNO)throws DataAccessException;
+	
 	
 	public void insertNewInfo(Map infoMap) throws DataAccessException;
 	public void insertInfoImage(Map infoMap) throws DataAccessException;
@@ -41,8 +44,19 @@ public interface CommunityDAO {
 	
 	public List<InfoVO> selectALLInfoboardList(String member_id)throws DataAccessException;
 	public InfoVO admininfoDetail(String articleNO)throws DataAccessException;
-	public List selectAllinfo();
+	public List selectAllinfo()throws DataAccessException;
 	
+	public void deleteInfoboardImage(String articleNO)throws DataAccessException;
+	public void deleteInfoboard(String articleNO)throws DataAccessException;
+	
+	public void updateInfo(Map<String, Object> infoMap)throws DataAccessException;
+	public void updateInfoImage(Map<String, Object> infoMap)throws DataAccessException;
+
+	public void adminDelFreeboardImage(String articleNO)throws DataAccessException;
+	public void adminDelFreeboard(String articleNO)throws DataAccessException;
+	
+	public List<QnaVO> selectAllQnaList () throws DataAccessException;
+	public void updateQnaAnswer(QnaVO qnaVO);
 
 }
 

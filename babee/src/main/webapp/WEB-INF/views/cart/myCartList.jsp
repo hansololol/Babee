@@ -65,7 +65,9 @@ ul li {
 
       for (var i = 0; i < checkboxes.length; i++) {
          checkboxes[i].checked = selectAllCheckbox.checked;
+         
       }
+      
    }
 
    $(document).ready(function() {
@@ -76,7 +78,7 @@ ul li {
 
                                  var totalGoodsNum = 0;
                                  var totalGoodsPrice = 0;
-                                 
+                                 var totalDiscountedPrice = 0;                                 
 
                                  $(".product-checkbox:checked").each(
                                              function() {
@@ -88,14 +90,15 @@ ul li {
                                                 
                                                 totalGoodsNum++;
                                                 totalGoodsPrice += (priceElement * quantityElement); 
-                                                
+                                                totalDiscountedPrice += ((priceElement /10) * quantityElement); 
                                              });
 
-                                 var finalTotalPrice = totalGoodsPrice + 3000;
+                                 var finalTotalPrice = totalGoodsPrice - totalDiscountedPrice + 3000;
 
                                  // 선택된 상품 정보 업데이트
                                  $("#p_totalGoodsNum").text(totalGoodsNum + "개");
                                  $("#p_totalGoodsPrice").text(totalGoodsPrice + "원");
+                                 $("#p_totalDiscountedPrice").text(totalDiscountedPrice + "원");
                                  $("#p_final_totalPrice").text(finalTotalPrice + "원");
                               });
                });
@@ -119,59 +122,59 @@ ul li {
    
 
    function fnOrderGoods() {
-	    var cartOrderArr = [];
+       var cartOrderArr = [];
 
-	    var selectedCheckboxes = $(".product-checkbox:checked");
-	    if (selectedCheckboxes.length === 0) {
-	        alert("선택된 상품이 없습니다.");
-	        return;
-	    }
+       var selectedCheckboxes = $(".product-checkbox:checked");
+       if (selectedCheckboxes.length === 0) {
+           alert("선택된 상품이 없습니다.");
+           return;
+       }
 
-	    selectedCheckboxes.each(function () {
-	        var row = $(this).closest("tr");
-	        var goodsId = row.find(".goodsId").val();
-	        var quantity = row.find("#order_goods_qty").val();
-	        var option = row.find("#_goods_option").val();
+       selectedCheckboxes.each(function () {
+           var row = $(this).closest("tr");
+           var goodsId = row.find(".goodsId").val();
+           var quantity = row.find("#order_goods_qty").val();
+           var option = row.find("#_goods_option").val();
 
-	        cartOrderArr.push({
-	            goodsId: goodsId,
-	            quantity: quantity,
-	            option: option
-	        });
-	    });
+           cartOrderArr.push({
+               goodsId: goodsId,
+               quantity: quantity,
+               option: option
+           });
+       });
 
-	    console.log("cartOrderArr", cartOrderArr);
+       console.log("cartOrderArr", cartOrderArr);
 
-	    var form = document.createElement("form");
-	    form.setAttribute("method", "post");
-	    form.setAttribute("action", "${contextPath}/order/cartOrder.do");
+       var form = document.createElement("form");
+       form.setAttribute("method", "post");
+       form.setAttribute("action", "${contextPath}/order/cartOrder.do");
 
-	    // cartOrderArr을 반복하며 입력 생성 및 추가
-	    for (var i = 0; i < cartOrderArr.length; i++) {
-	        var orderData = cartOrderArr[i];
+       // cartOrderArr을 반복하며 입력 생성 및 추가
+       for (var i = 0; i < cartOrderArr.length; i++) {
+           var orderData = cartOrderArr[i];
 
-	        var inputGoodsId = document.createElement("input");
-	        inputGoodsId.setAttribute("type", "hidden");
-	        inputGoodsId.setAttribute("name", "selected_goods_id");
-	        inputGoodsId.setAttribute("value", orderData.goodsId);
-	        form.appendChild(inputGoodsId);
+           var inputGoodsId = document.createElement("input");
+           inputGoodsId.setAttribute("type", "hidden");
+           inputGoodsId.setAttribute("name", "selected_goods_id");
+           inputGoodsId.setAttribute("value", orderData.goodsId);
+           form.appendChild(inputGoodsId);
 
-	        var inputQuantity = document.createElement("input");
-	        inputQuantity.setAttribute("type", "hidden");
-	        inputQuantity.setAttribute("name", "selected_quantity");
-	        inputQuantity.setAttribute("value", orderData.quantity);
-	        form.appendChild(inputQuantity);
+           var inputQuantity = document.createElement("input");
+           inputQuantity.setAttribute("type", "hidden");
+           inputQuantity.setAttribute("name", "selected_quantity");
+           inputQuantity.setAttribute("value", orderData.quantity);
+           form.appendChild(inputQuantity);
 
-	        var inputOption = document.createElement("input");
-	        inputOption.setAttribute("type", "hidden");
-	        inputOption.setAttribute("name", "selected_option");
-	        inputOption.setAttribute("value", orderData.option);
-	        form.appendChild(inputOption);
-	    }
+           var inputOption = document.createElement("input");
+           inputOption.setAttribute("type", "hidden");
+           inputOption.setAttribute("name", "selected_option");
+           inputOption.setAttribute("value", orderData.option);
+           form.appendChild(inputOption);
+       }
 
-	    document.body.appendChild(form);
-	    form.submit();
-	}
+       document.body.appendChild(form);
+       form.submit();
+   }
 
    function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
       var total_price,final_total_price,_goods_qty;
@@ -281,7 +284,8 @@ ul li {
                   <tr align=center class="fixed">
                      <td class="fixed">총 상품수</td>
                      <td>총 상품금액</td>
-                     <td>총 배송비</td>
+                     <td>할인금액</td>
+                     <td>배송비</td>
                      <td>최종 결제금액</td>
                   </tr>
                   
@@ -295,6 +299,11 @@ ul li {
                            <fmt:formatNumber value="${totalGoodsPrice}" type="number" var="total_goods_price" />${total_goods_price}원
                         </p>
                         <input id="h_totalGoodsPrice" type="hidden" value="${totalGoodsPrice}" />
+                     </td>
+                     <td>
+                        <p id="p_totalDiscountedPrice">
+                           <fmt:formatNumber value="${totalDiscountedPrice}" type="number" var="totalDiscountedPrice" />${totalDiscountedPrice}원
+                        </p>
                      </td>
                      <td>
                         <p>3000 원</p>

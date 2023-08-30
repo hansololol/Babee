@@ -172,8 +172,8 @@ function readURL(input){
 
       
       -->
-      <script>
-      function fn_remove_diary(articleNO, free_img_id){
+     <script>
+      function fn_remove_freeboard(articleNO, free_img_id){
           var formObj = document.createElement("form");
           var d_goods = document.createElement("input");
                 d_goods.name = "articleNO";
@@ -188,6 +188,53 @@ function readURL(input){
                 formObj.action = "${contextPath}/community/removeFreeboard.do";
                 formObj.submit();
        }
+      
+      function fn_comment() {
+
+    	    if(! isLogOn){
+    	        alert("로그인 이후 이용 가능한 서비스입니다.");
+    	        location.replace("${contextPath}/member/loginForm.do")
+    	    } else {
+    	    	alert("댓글을 등록하시겠습니까?");
+    	    	location.href("${contextPath}/community/addCommnet.do")
+    	    }
+    	    }
+      
+   </script> 
+   
+    <script>
+      function fn_remove_freeboard(articleNO, free_img_id){
+          var formObj = document.createElement("form");
+          var d_goods = document.createElement("input");
+                d_goods.name = "articleNO";
+                d_goods.value = articleNO;
+                formObj.appendChild(d_goods);
+          var d_img = document.createElement("input");
+                d_img.name = "free_img_id";
+                d_img.value = free_img_id;
+                formObj.appendChild(d_img);
+          document.body.appendChild(formObj);
+                formObj.method = "post";
+                formObj.action = "${contextPath}/community/removeFreeboard.do";
+                formObj.submit();
+       }
+      
+      function fn_mod_freeboard(articleNO, free_img_id){
+          var formObj = document.createElement("form");
+          var d_goods = document.createElement("input");
+                d_goods.name = "articleNO";
+                d_goods.value = articleNO;
+                formObj.appendChild(d_goods);
+          var d_img = document.createElement("input");
+                d_img.name = "free_img_id";
+                d_img.value = free_img_id;
+                formObj.appendChild(d_img);
+          document.body.appendChild(formObj);
+                formObj.method = "post";
+                formObj.enctype = "multipart/form-data";
+                formObj.action = "${contextPath}/community/modFreeboardForm.do";
+                formObj.submit();
+       }
    </script> 
    
    
@@ -199,9 +246,15 @@ function readURL(input){
          <!-- 게시글 삭제 버튼 -->
          <c:choose>
          	<c:when test="${isLogOn == true }">
-         		<c:if test="${memberInfo.member_id == freeboard.member_id }">
-       			<input type="button" value="삭제" style="float:right;" onClick="fn_remove_diary('${freeboard.articleNO}', '${freeboard.free_img_id}')">
-				</c:if>
+         		<c:if test="${memberInfo.member_id == freeboard.member_id  || memberInfo.member_id == 'admin' }">
+       			<input type="button" value="삭제" style="float:right;" onClick="fn_remove_freeboard('${freeboard.articleNO}', '${freeboard.free_img_id}')">
+  			</c:if>
+			</c:when>
+			
+			<c:when test="${isLogOn == true }">
+			<c:if test="${memberInfo.member_id == freeboard.member_id}">
+			     			<input type="button" value="수정" style="float:right;" onClick="fn_mod_freeboard('${freeboard.articleNO}', '${freeboard.free_img_id}')">
+			</c:if>
 			</c:when>
          </c:choose>
         <p>${freeboard.free_title}</p>
@@ -229,15 +282,15 @@ function readURL(input){
  					</ul>
  					<hr>
  				</c:forEach>
- 				
-      	<form id="comment" method="post" action="${contextPath}/community/addCommnet.do" novalidate="novalidate" >
+ 			
+ 			<form id="comment" method="post" action="${contextPath}/community/addCommnet.do" novalidate="novalidate" >
 					<div class="comment-form">
 						<p style="text-align: left; margin-bottom: 0px; margin-left: 20px;">댓글	작성</p>
-						<textarea id="commentText" name="free_comment" rows="4" cols="50" style="width: 95%; margin-left: 20px;"></textarea>
-
-						<input type="submit" value="작성" style="margin-left: 90%; padding: 5px 10px; background-color: #fef7dd; color: black; border: none; border-radius: 4px; cursor: pointer;" />
+						<textarea id="commentText" name="free_comment" rows="4" cols="50" style="width: 95%; margin-left: 20px;"></textarea>					
+						<button type="submit" onclick="fn_comment()" style="margin-left: 90%; padding: 5px 10px; background-color: #fef7dd; color: black; border: none; border-radius: 4px; cursor: pointer;" >등록</button>
 					</div>
-				</form>
+			</form>
+    
           </div>
       </div>
   

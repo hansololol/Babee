@@ -42,10 +42,16 @@ public class CommunityServiceImpl implements CommunityService  {
 	public Map freeboardDetail(String articleNO) throws Exception {
 		Map freeboardMap = new HashMap();
 		
+		FreeboardVO freeboardVO = communityDAO.selectFreeboardDetail(articleNO);
+
 		int free_view_count =  communityDAO.updateViewCnt(articleNO);
 		
-		FreeboardVO freeboardVO = communityDAO.selectFreeboardDetail(articleNO);
+		if(free_view_count != 0) {
 		freeboardVO.setFree_view_count(free_view_count);
+		} else {
+			freeboardVO.setFree_view_count(1);
+		}
+		
 		freeboardMap.put("freeboardVO", freeboardVO);
 		
 		return freeboardMap;
@@ -79,10 +85,13 @@ public class CommunityServiceImpl implements CommunityService  {
 		return communityDAO.selectMyQnaList(member_id);
 	}
 	
-	/*
-	 * @Override public void modDiary(Map diaryMap) throws DataAccessException {
-	 * diaryDAO.updateDiary(diaryMap); diaryDAO.updateDiaryImage(diaryMap); }
-	 */ 
+	
+	@Override
+	public void modFreeboard(Map freeboardMap) throws DataAccessException {
+		communityDAO.updateFreeboard(freeboardMap);
+		communityDAO.updateFreeboardImage(freeboardMap);
+	}
+	  
 	
 	@Override
 	public void addInfo(Map infoMap) throws DataAccessException {
@@ -109,4 +118,51 @@ public class CommunityServiceImpl implements CommunityService  {
 	public List selectAllinfo() throws Exception{
 		return communityDAO.selectAllinfo();
 	}
+	
+	@Override
+	public void delInfoboard(String articleNO) throws Exception {
+		communityDAO.deleteInfoboard(articleNO);
+		communityDAO.deleteInfoboardImage(articleNO);
+		
+	}
+	
+	@Override
+	public void modInfo(Map<String, Object> infoMap) throws Exception{
+		 communityDAO.updateInfo(infoMap); 
+		 communityDAO.updateInfoImage(infoMap); 
+
+	}
+
+	@Override
+	public void adminDelFreeboard(String articleNO) {
+		communityDAO.adminDelFreeboard(articleNO);
+		communityDAO.adminDelFreeboardImage(articleNO);
+	}
+
+	@Override
+	public Map freeboardDetail2(String articleNO) throws Exception {
+		
+			Map freeboardMap = new HashMap();
+		
+		FreeboardVO freeboardVO = communityDAO.selectFreeboardDetail(articleNO);
+		
+		freeboardMap.put("freeboardVO", freeboardVO);
+		
+		return freeboardMap;				
+	}
+
+	@Override
+	public List selectAllQnaList() throws Exception {
+		return communityDAO.selectAllQnaList();
+	}
+
+	@Override
+	public void addQnaAnswer(QnaVO qnaVO) throws Exception {
+		communityDAO.updateQnaAnswer(qnaVO);
+		
+	}
+
+
+
+	
 }

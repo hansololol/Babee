@@ -1,9 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"    />
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>고객센터 헤더</title>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+<title>고객센터</title>
 <style>
     body {
         margin: 0;
@@ -149,7 +154,7 @@
         padding: 5px 10px;
         border: none;
         border-radius: 5px;
-        background-color: #f0f0f0;
+        background-color: #FEF7DD;
         color: #333;
         cursor: pointer;
         
@@ -187,45 +192,58 @@
     </div>
 </div>
 
-<div class="menu-container">
-    <div class="menu-options">
-        <div class="menu-option" id="faq">
-            <a href="/member/adminAnswer.do?page=adminPage" style="color: black;" class="menu-option-selected">자주묻는질문</a>
-        </div>
-        
-        <div class="menu-option" id="history">
-            <a href="/member/adminlist.do?page=adminPage" style="color: black; " >문의내역</a>
-        </div>
-        
-    </div>
-    
-    <hr width="66%" style= "margin-left: 170px">
-    <a href="/member/adminwrite.do?page=adminPage" style=" margin-left: 600px; background-color: #ffffcc; padding: 5px 10px; border-radius: 5px; text-decoration: none;">작성하기</a>
-</div>
 
 <div class="table-container">
-    <table class="faq-table">
+    <table class="faq-table" style="width:840px">
         <thead>
             <tr>
-                <th style="width: 10%;">NO</th>
-                <th style="width: 50%;">질문종류</th>
+                <th style="width: 10%;">답변상태</th>
+                <th style="width: 50%;">문의</th>
                 <th style="width: 20%;">작성일</th>
             </tr>
         </thead>
         <tbody>
-            <c:forEach var="faq" items="${faqList}">
+            <c:forEach var="faq" items="${qnaList}" varStatus="cnt">
                 <tr class="faq-content">
-                    <td>no${faq.articleNO}</td>
                     <td>
-                        <a href="#" style="color: black; display: flex; align-items: center;" onclick="toggleAnswer('${faq.id}')">
-                            [질문종류][${faq.id}]
+                    
+                    <c:choose>
+            		<c:when test="${faq.qna_answer != null}">
+                	
+                   	완료
+                    
+                    </c:when>
+                    <c:when test="${faq.qna_answer == null}">
+                	
+                   	대기
+                    
+                    </c:when>
+                    </c:choose>
+                    </td>
+                    
+                    <td>
+                        <a href="#" style="color: black; display: flex; align-items: center;" onclick="toggleAnswer('${cnt.count}')">
+                            ${faq.qna_title}
                         </a>
                     </td>
-                    <td>date${faq.joinDate}</td>
+                    <td>${faq.qna_writeDate}</td>
                 </tr>
-                <tr class="faq-answer" id="faqAnswer${faq.id}" style="display: none;">
+                <tr class="faq-answer" id="faqAnswer${cnt.count}" style="display: none;">
                     <td colspan="3">
-                        <p>${faq.questionContent}</p>
+                    	<div style="background:#e6e6e6; padding:5px;">
+                        <p>${faq.qna_content}</p>
+   						</div>
+   						<p>${faq.qna_answer}</p>
+                        <div style="text-align: center; margin-top: -10px;">
+                         
+                  		<form action="${contextPath}/community/addQnaAnswer.do?page=adminPage" method="post">
+                                      <input type="hidden" name="articleNO" value="${faq.articleNO}">
+                                <textarea class="answer-textarea" id="answerTextarea${faq.member_id}" name="qna_answer" placeholder="답변을 작성해주세요."></textarea>
+                       
+                                <br>
+                                <button type="submit" class="answer-button">답변 등록</button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
             </c:forEach>
@@ -233,15 +251,7 @@
     </table>
 </div>
 
-<div class="paging-container">
-    <a class="paging-button" href="#">이전</a>
-    <a class="paging-button" href="#">1</a>
-    <a class="paging-button" href="#">2</a>
-    <a class="paging-button" href="#">3</a>
-    <a class="paging-button" href="#">4</a>
-    <a class="paging-button" href="#">5</a>
-    <a class="paging-button" href="#">다음</a>
-</div>
+
 
 <script>
     function toggleAnswer(answerId) {

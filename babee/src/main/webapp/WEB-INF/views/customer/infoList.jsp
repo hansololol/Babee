@@ -167,6 +167,7 @@
 				</div>
 				<div id="faqAnswer${cnt.count}" width: "700px;"
 					style="display: flex; text-align: left; margin-left: 33%; display: none;">
+					  <img src="${contextPath}/thumbnails.do?goods_id=${infoboard.member_id}&fileName=${infoboard.info_img}&fileType=info&articleNO=${infoboard.articleNO}" width="400px" id="preview" style="widht:350px; height: 400px;">
 					<p style="width: 700px;">${infoboard.info_content}</p>
 				</div>
 
@@ -176,8 +177,46 @@
      </div>
      </c:forEach>
 
-    <br><br><br>
+    <br>
     
+          <div class="paging-container">
+   <c:if test="${totArticles !=null}">
+      <c:choose>
+         <c:when test="${totArticles > 100 }"> 
+            <c:forEach var="page" begin="1" end="10" step="1">
+               <c:if test="${section >1 && page==1 }" >
+                  <a class="paging-button"  href="${contextPath}/community/infoList.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp; pre </a>
+               </c:if>
+                  <a class="paging-button"  href="${contextPath}/community/infoList.do?section=${section-1}&pageNum=${(section-1)*10 +page }"> </a>
+               <c:if test="${page ==10 }">
+               <a class="paging-button"  href="${contextPath}/community/infoList.do?section=${section-1}&pageNum=${section*10 +1 }">&nbsp; next </a>
+               </c:if>
+            </c:forEach>
+         </c:when>
+         
+         <c:when test="${totArticles ==100 }">
+            <c:forEach var="page" begin="1" end="10" step="1">
+            <a class="paging-button"  href="#"> ${page }</a>
+            </c:forEach>
+         </c:when>
+         
+         <c:when test="${totArticles <100 }">
+            <c:forEach var="page" begin="1" end="${totArticles/10 +1 }" step="1">
+               <c:choose>
+                  <c:when test="${page==pageNum }">
+                  <a class="paging-button" href="${contextPath}/community/infoList.do?section=${section}&pageNum=${page}">${page }</a>
+                  </c:when>
+               <c:otherwise>
+                  <a class="paging-button"  href="${contextPath}/community/infoList.do?section=${section}&pageNum=${page}">${page }</a>
+               </c:otherwise>
+               </c:choose>
+            </c:forEach>
+         </c:when>
+      </c:choose>
+   </c:if>
+            
+</div>
+    <br><br>
 
 </body>
 </html>

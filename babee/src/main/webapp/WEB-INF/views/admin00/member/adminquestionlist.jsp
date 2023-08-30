@@ -1,9 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"    />
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>고객센터 헤더</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+<title>고객센터</title>
 <style>
     body {
         margin: 0;
@@ -139,18 +145,6 @@
     </div>
 </div>
 
-<div class="menu-container">
-    <div class="menu-options">
-        <div class="menu-option" id="faq">
-            <a href="/member/adminAnswer.do?page=adminPage" style="color: black;" >자주묻는질문</a>
-        </div>
-        <div class="menu-option" id="history">
-            <a href="/member/adminlist.do?page=adminPage" style="color: black;" class="menu-option-selected">문의내역</a>
-        </div>
-    </div>
-    
-    <hr width="66%" style= "margin-left: 170px">
-</div>
 
 <div class="table-container">
     <table class="faq-table">
@@ -162,7 +156,8 @@
             </tr>
         </thead>
         <tbody>
-            <c:forEach var="faq" items="${faqList}">
+            <c:forEach var="faq" items="${qnaList}">
+                      
                 <tr class="faq-content">
                     <td>no${faq.articleNO}</td>
                     <td>
@@ -175,9 +170,10 @@
                 <tr class="faq-answer" id="faqAnswer${faq.id}" style="display: none;">
                     <td colspan="3">
                         <p>${faq.questionContent}</p>
+                        <form action="${contextPath}/community/addQna.do?page=adminPage" method="post">
                         <textarea class="answer-textarea" id="answerTextarea${faq.id}" placeholder="답변을 작성해주세요."></textarea>
+                  
                         <div style="text-align: center; margin-top: -10px;">
-                            <form action="답변_처리_페이지_주소" method="post">
                                 <input type="hidden" name="answerId" value="${faq.id}">
                                 <button type="submit" class="answer-button">답변 제출</button>
                             </form>
@@ -189,15 +185,6 @@
     </table>
 </div>
 
-<div class="paging-container">
-    <a class="paging-button" href="#">이전</a>
-    <a class="paging-button" href="#">1</a>
-    <a class="paging-button" href="#">2</a>
-    <a class="paging-button" href="#">3</a>
-    <a class="paging-button" href="#">4</a>
-    <a class="paging-button" href="#">5</a>
-    <a class="paging-button" href="#">다음</a>
-</div>
 
 <script>
     function toggleAnswer(answerId) {

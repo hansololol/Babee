@@ -15,7 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="seller_hp2" column="seller_hp2" />
 		<result property="seller_hp3" column="seller_hp3" />
 		<result property="seller_email" column="seller_email" />
-		
+		 
 		<result property="seller_zipcode" column="seller_zipcode" />
 		<result property="seller_roadAddr" column="seller_roadAddr" />
 		<result property="seller_jibunAddr" column="seller_jibunAddr" />
@@ -118,8 +118,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 									seller_company,
 									seller_company_info,
 									seller_img1,
-									seller_confirmDate,
-									seller_status
+									seller_confirmDate
+									
                                      )
 							 values(#{seller_id},
 									#{seller_pw},
@@ -142,8 +142,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 									 #{seller_company},
 									 #{seller_company_info},
 									 #{seller_img1},
-									 #{seller_confirmDate},
-									 #{seller_status}
+									 #{seller_confirmDate}
+									
                                     )
                               
    ]]>      
@@ -201,7 +201,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <delete id="deleteGoodsImage2" parameterType="int">
       DELETE FROM t_shopping_image
 	  WHERE image_id = #{goods_image_name1_id};
-   </delete><!-- 여기해야함!!!!! -->
+   </delete><!-- 여기해야함!!!! -->
    
    
    <select id="adminGoodsList" parameterType="String" resultMap="goodsResult">

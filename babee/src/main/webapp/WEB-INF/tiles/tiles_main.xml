@@ -111,29 +111,35 @@
       
 
 
-      
-      
-      
-      
+<definition name="/community/modinfoForm" extends="baseLayout_user">
+<put-attribute name="title" value="공지사항 수정창"/>
+<put-attribute name="body" value="/WEB-INF/views/admin00/member/adminModInfo.jsp"/>
+</definition>
       
 <definition name="/community/infoList" extends="baseLayout">
 <put-attribute name="title" value="공지사항 리스트"/>
 <put-attribute name="body" value="/WEB-INF/views/customer/infoList.jsp"/>
 </definition>
 
-<definition name="/community/freeboardList" extends="baseLayout">
-<put-attribute name="title" value="자유게시판 리스트"/>
-<put-attribute name="body" value="/WEB-INF/views/customer/freeList.jsp"/>
-</definition>
 
+<definition name="/community/freeboardList" extends="baseLayout">
+	<put-attribute name="title" value="자유게시판 목록(사용자)"/>
+	<put-attribute name="body" value="/WEB-INF/views/customer/freeList.jsp"/>
+</definition>
 
 <definition name="/community/freeForm" extends="baseLayout">
-<put-attribute name="title" value="자유게시판 작성폼"/>
-<put-attribute name="body" value="/WEB-INF/views/customer/freeForm.jsp"/>
+	<put-attribute name="title" value="자유게시판 작성창(사용자)"/>
+	<put-attribute name="body" value="/WEB-INF/views/customer/freeForm.jsp"/>
 </definition>
+
 <definition name="/community/freeboardDetail" extends="baseLayout">
-<put-attribute name="title" value="자유게시판 상세창"/>
-<put-attribute name="body" value="/WEB-INF/views/customer/freedetail.jsp"/>
+	<put-attribute name="title" value="자유게시판 상세창"/>
+	<put-attribute name="body" value="/WEB-INF/views/customer/freedetail.jsp"/>
+</definition>
+
+<definition name="/community/modFreeboardForm" extends="baseLayout">
+	<put-attribute name="title" value="자유게시판 수정창"/>
+	<put-attribute name="body" value="/WEB-INF/views/customer/freeModForm.jsp"/>
 </definition>
 
       
@@ -205,8 +211,13 @@
   
 
 
-<definition name="/member/adminAnswer" extends="baseLayout_user">
-<put-attribute name="title" value="관리자 자주묻는질문 리스트 답변"/>
+<definition name="/community/adminAnswer" extends="baseLayout_user">
+<put-attribute name="title" value="관리자 답변"/>
+<put-attribute name="body" value="/WEB-INF/views/admin00/member/adminquestionAnswer.jsp"/>
+</definition>
+
+<definition name="/community/addQnaAnswer" extends="baseLayout_user">
+<put-attribute name="title" value="관리자 답변"/>
 <put-attribute name="body" value="/WEB-INF/views/admin00/member/adminquestionAnswer.jsp"/>
 </definition>
 
@@ -223,7 +234,7 @@
 </definition>
 
 
-<definition name="/member/adminfreelist" extends="baseLayout_user">
+<definition name="/community/adminfreelist" extends="baseLayout_user">
 <put-attribute name="title" value="관리자 자유게시판 리스트"/>
 <put-attribute name="body" value="/WEB-INF/views/admin00/member/adminfreelist.jsp"/>
 </definition>
@@ -262,25 +273,25 @@
        
        
 <!--       관리자 - 사업자 관리 -->
-<definition name="/member/sellerManageList" extends="baseLayout_user">
-<put-attribute name="title" value="사업자 관리 목롱창(관리자)"/>
+<definition name="/admin/member/sellerManageList" extends="baseLayout_user">
+<put-attribute name="title" value="사업자 관리 리스트(관리자)"/>
 <put-attribute name="body" value="/WEB-INF/views/admin00/seller/sellerManageList.jsp"/>
 </definition>
 
 
-<definition name="/member/sellerDetail" extends="baseLayout_user">
+<definition name="/admin/member/sellerDetail" extends="baseLayout_user">
 <put-attribute name="title" value="사업자 관리 상세창(관리자)"/>
 <put-attribute name="body" value="/WEB-INF/views/admin00/seller/sellerDetail.jsp"/>
 </definition>
+ 
 
-
-<definition name="/member/sellerManageWait" extends="baseLayout_user">
+<definition name="/admin/member/sellerManageWait" extends="baseLayout_user">
 <put-attribute name="title" value="사업자 관리 등룍요청목록창(관리자)"/>
 <put-attribute name="body" value="/WEB-INF/views/admin00/seller/sellerManageWait.jsp"/>
 </definition>
 
 
-<definition name="/member/sellerWaitDetail" extends="baseLayout_user">
+<definition name="/admin/member/sellerWaitDetail" extends="baseLayout_user">
 <put-attribute name="title" value="사업자 관리 등룍요청상세창(관리자)"/>
 <put-attribute name="body" value="/WEB-INF/views/admin00/seller/sellerWaitDetail.jsp"/>
 </definition>

@@ -30,8 +30,9 @@ public class SellerVO {
 	private String seller_company_info;
 	private String seller_img1;
 
-	private Date confirmDate;
+	private Date seller_confirmDate;
 	private String seller_status;
+	private String seller_refuse;
 	
 	private String member_id;
 	private String member_pw;
@@ -139,17 +140,24 @@ public class SellerVO {
 		this.seller_img1 = seller_img1;
 	}
 
-	public Date getConfirmDate() {
-		return confirmDate;
+	public Date getSeller_confirmDate() {
+		return seller_confirmDate;
 	}
-	public void setConfirmDate(Date confirmDate) {
-		this.confirmDate = confirmDate;
+	public void setSeller_confirmDate(Date seller_confirmDate) {
+		this.seller_confirmDate = seller_confirmDate;
 	}
 	public String getSeller_status() {
 		return seller_status;
 	}
 	public void setSeller_status(String seller_status) {
 		this.seller_status = seller_status;
+	}
+	
+	public String getSeller_refuse() {
+		return seller_refuse;
+	}
+	public void setSeller_refuse(String seller_refuse) {
+		this.seller_refuse = seller_refuse;
 	}
 	public String getSeller_email() {
 		return seller_email;
