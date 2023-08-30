@@ -35,6 +35,7 @@ import com.babee.seller.vo.SellerVO;
 @Controller("adminMemberController")
 @RequestMapping(value="/admin/member")
 public class AdminMemberControllerImpl extends BaseController  implements AdminMemberController{
+	private static String ARTICLE_IMAGE_REPO = "c:/shopping/file_repo";
 	@Autowired
 	private AdminMemberService adminMemberService;
 	@Autowired
@@ -164,6 +165,8 @@ public class AdminMemberControllerImpl extends BaseController  implements AdminM
 		return mav;
 		
 	}
+	
+	//----------------------------사업자 관리----------------------------------------
 	@Override
 	@RequestMapping(value="/sellerManageList.do" , method= RequestMethod.GET)
 	public ModelAndView sellerManageList(HttpServletRequest request, HttpServletResponse response)  throws Exception {
@@ -299,14 +302,69 @@ public class AdminMemberControllerImpl extends BaseController  implements AdminM
 		sellerMap.put("seller_id", seller_id);
 		adminMemberService.removeSeller(sellerMap);
 		
+		if(seller_id!=null) {
+			File delFolder = new File(ARTICLE_IMAGE_REPO+ "\\" + seller_id);
+			File[] deleteFolderList = delFolder.listFiles();
+			
+			for (int j = 0; j < deleteFolderList.length; j++  ) {
+				System.out.println(deleteFolderList[j]);
+				deleteFolderList[j].delete();
+			}
+			delFolder.delete();
+		}
+		
 		PrintWriter out = response.getWriter();
-
 		out.println("<script>alert('삭제 완료되었습니다.');location.href='/admin/member/sellerManageList.do'</script>");
 		out.flush();
 		out.close();
 		
 	
 		return null;
+		
+	}
+	
+	//-------------------회원 관리--------------------------
+	@Override
+	@RequestMapping(value="/memberManageList.do" , method= RequestMethod.GET)
+	public ModelAndView memberManageList(HttpServletRequest request, HttpServletResponse response)  throws Exception {
+		System.out.println("memberManageList.do 실행");
+		ModelAndView mav = new ModelAndView("/admin/member/memberManageList");
+		HttpSession session=request.getSession();
+		String _section = request.getParameter("section"); 
+		String _pageNum = request.getParameter("pageNum"); 
+		int section =Integer.parseInt(((_section==null)? "1":_section)); 
+		int pageNum = Integer.parseInt(((_pageNum==null)? "1":_pageNum));
+		 
+		memberVO = (MemberVO) session.getAttribute("memberInfo");
+	
+		
+		Map memberMap = new HashMap();
+		int start = ((section-1)*5+(pageNum-1))*10; 
+		memberMap.put("start", start);
+		
+		List member =adminMemberService.memberManageList(memberMap);
+		int ListSize = member.size();
+		
+		mav.addObject("member", member);
+		mav.addObject("section", section);
+		mav.addObject("pageNum", pageNum);
+		mav.addObject("totArticles", ListSize);
+		
+		return mav;
+		
+	}
+	
+	@Override
+	@RequestMapping(value="/memberManageDetail.do" ,method = RequestMethod.GET)
+	public ModelAndView memberManageDetail(@RequestParam("member_id") String member_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("memberManageDetail.do 실행");
+		ModelAndView mav = new ModelAndView("/admin/member/memberManageDetail");
+		Map memberMap=adminMemberService.memberManageDetail(member_id);
+		
+		MemberVO memberVO = (MemberVO)memberMap.get("memberVO");
+		mav.addObject("member", memberVO);
+		
+		return mav;
 		
 	}
 	

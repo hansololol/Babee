@@ -172,6 +172,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		member_id=#{member_id}
 	</update>
 	
+	
+	<!-- 사업자 관리 -->
    <select id="sellerManageList" resultMap="sellerResult" parameterType="java.util.Map"  >
        <![CDATA[
              select * from  t_shopping_seller 
@@ -229,5 +231,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	      where seller_id=#{seller_id}
     	]]>
 	</delete>
+	
+	<!-- 회원 관리 -->
+	<select id="memberManageList" resultMap="memberResult" parameterType="java.util.Map"  >
+       <![CDATA[
+             select * from  t_shopping_member
+             limit #{start},10
+             
+       ]]>
+   </select>
+   
+   <select id="memberManageDetail" resultMap="memberResult"   parameterType="String">
+       <![CDATA[
+        select * from t_shopping_member
+        where member_id=#{member_id}
+       ]]>
+   </select>
 </mapper> 
 
