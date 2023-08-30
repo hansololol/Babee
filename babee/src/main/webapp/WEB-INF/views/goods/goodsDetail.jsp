@@ -19,8 +19,12 @@
 <script type="text/javascript">
 
 function add_cart(goods_id){
-   
-   var cart_goods_qty = document.getElementById("order_goods_qty").value;   // 상품 갯수
+	var goods_stock='${goodsVO.goods_stock}';
+		if(goods_stock != 0){
+   var cart_goods_qty = document.getElementById("order_goods_qty").value;  
+		 }else{
+			var cart_goods_qty = 0;  
+		 }
    var goods_option = document.getElementById("goods_option").value;      // 상품 옵션
    let data = {
          goods_id : goods_id,
@@ -82,18 +86,6 @@ function add_cart(goods_id){
       }
    }
    
-   function fn_order_each_goods() {
-       var _isLogOn = document.getElementById("isLogOn");
-       var isLogOn = _isLogOn.value;
-       
-       if (isLogOn !== "false" && isLogOn !== '') {
-          var orderForm=document.orderForm;
-         orderForm.submit();
-       } else {
-           alert("로그인 후 주문이 가능합니다.");
-           location.href = "${contextPath}/member/loginForm.do"; // 로그인 페이지 경로로 변경해야 합니다.
-       }
-   }
    
 function add_wish(goods_id){
    let data = {
@@ -158,13 +150,18 @@ function add_wish(goods_id){
 	
 	function fn_order_each_goods() {
 	    var isLogOn = '${isLogOn}';
-	    if (isLogOn != "false" && isLogOn != '') {
-	    	var orderForm=document.orderForm;
-			orderForm.submit();
-	    } else {
-	        alert("로그인 후 주문이 가능합니다.");
-	        location.href = "${contextPath}/member/loginForm.do"; // 로그인 페이지 경로로 변경해야 합니다.
-	    }
+		var goods_stock='${goodsVO.goods_stock}';
+		if(goods_stock != 0){
+			if (isLogOn != "false" && isLogOn != '') {
+				var orderForm=document.orderForm;
+				orderForm.submit();
+			} else {
+				alert("로그인 후 주문이 가능합니다.");
+				location.href = "${contextPath}/member/loginForm.do"; // 로그인 페이지 경로로 변경해야 합니다.
+			}
+		}else{
+			alert("상품의 재고가 없습니다.")
+		}
 	}
 	
 </script>
@@ -430,37 +427,39 @@ function add_wish(goods_id){
 				<tr>
 					<td class="fixed">수량</td>
 					<td class="fixed">
-
-			      <input type="number" min="1" value="1" style="width: 400px; text-align: center;" id="order_goods_qty" name="order_goods_qty">
-
+					<c:if test="${goodsVO.goods_stock ==0}">
+						<p style="color: red; font-size: 17px;">품절</p> </td>
+					</c:if>
+					<c:if test="${goodsVO.goods_stock !=0}">
+			      <input type="number" value="1" style="width: 400px; text-align: center;" id="order_goods_qty" name="order_goods_qty">
+				</td>
+				</c:if>
 				
-					 </td>
+					 
 				</tr>
 				<tr class="dot_line">
 					<td class="fixed">옵션</td>
 					<td class="fixed">
 
-						<select style="width: 400px;  text-align: center" id="goods_option" name="goods_option" >
+						<select style="width: 400px;  height: 50px; text-align: center" id="goods_option" name="goods_option" >
 
-							<option value="${goodsVO.goods_option1}">${goodsVO.goods_option1}</option>
-							<option value="${goodsVO.goods_option2}">${goodsVO.goods_option2}</option>
-							<option value="${goodsVO.goods_option3}">${goodsVO.goods_option3}</option>
-							<option value="${goodsVO.goods_option4}">${goodsVO.goods_option4}</option>
-							<option value="${goodsVO.goods_option5}">${goodsVO.goods_option5}</option>
-		
-
+							<option value="${goodsVO.goods_option1}"style="font-size: 18px;" >${goodsVO.goods_option1}</option>
+							<option value="${goodsVO.goods_option2}"style="font-size: 18px;" >${goodsVO.goods_option2}</option>
+							<option value="${goodsVO.goods_option3}"style="font-size: 18px;" >${goodsVO.goods_option3}</option>
+							<option value="${goodsVO.goods_option4}"style="font-size: 18px;" >${goodsVO.goods_option4}</option>
+							<option value="${goodsVO.goods_option5}"style="font-size: 18px;" >${goodsVO.goods_option5}</option>
 					   </select>
 						   </td>
 				</tr>
 				
 				<tr>
 					<td class="fixed">배송료</td>
-					<td class="fixed"><strong name="total_goods_price" value="${goodsVO.goods_delivery_price}">3000원</strong></td>
+					<td class="fixed"><strong name="total_goods_price" value="${goodsVO.goods_delivery_price}" style="font-size: 16px;" >3000원</strong></td>
 				</tr>
 				
 				<tr>
 					<td class="fixed">도착예정일</td>
-					<td class="fixed">지금 주문 시 내일 도착 예정</td>
+					<td class="fixed" style="font-size: 16px;" >지금 주문 시 내일 도착 예정</td>
 				</tr>
 				
 			</tbody>
