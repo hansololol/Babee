@@ -29,23 +29,23 @@ function fn_seller_Register(seller_id, seller_status){
             formObj.submit();
    }
 
-function fn_seller_Refuse(seller_id, seller_status, refuse_reason){
+function fn_seller_Refuse(seller_id, seller_status, seller_refuse){
 	var formObj = document.createElement("form");
     var s_seller = document.createElement("input");
 			s_seller.name = "seller_id";
             s_seller.value = seller_id;
             formObj.appendChild(s_seller);
     var s_status = document.createElement("input");
-	  		s_status.name = "반려";
+	  		s_status.name = "seller_status";
 	  		s_status.value = seller_status;
             formObj.appendChild(s_status);
 	var s_refuse = document.createElement("input");
-			s_refuse.name = "refuse_reason";
-			s_refuse.value = seller_refuse;
+			s_refuse.name = "seller_refuse"
+			s_refuse.value = document.getElementById("seller_refuse").value;
             formObj.appendChild(s_refuse);	
       document.body.appendChild(formObj);
             formObj.method = "post";
-            formObj.action = "${contextPath}/admin/member/sellerRegister.do";
+            formObj.action = "${contextPath}/admin/member/sellerRefuse.do";
             formObj.submit();
 }
 
@@ -188,6 +188,7 @@ function fn_seller_Refuse(seller_id, seller_status, refuse_reason){
 	<div class="tab-content" id="myTabContent" style="margin: 30px auto;">
 	  <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0"><img src="${contextPath}/thumbnails.do?goods_id=${seller.seller_id}&fileName=${seller.seller_img1}" width="400px;"></div>
 	  <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0"><img src="/image/ex01.jpg" width="600px;"></div>  
+	  <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0"><br><br><img src="/image/통장사본.jpg" width="400px;"></div>
 	</div>
 
 	<div style="margin: 30px auto;">
@@ -202,8 +203,8 @@ function fn_seller_Refuse(seller_id, seller_status, refuse_reason){
  		<table >
 			<tr>
         		<td width="200">사유</td>
-        		<td><textarea style="width: 350px;height: 100px; margin:5px;" value="refuse_reason"></textarea></td>
-				<td><input type="button" value="입력" onClick="fn_seller_Refuse(frmSellerWaitDetail)"></td>
+        		<td><textarea style="width: 350px;height: 100px; margin:5px;" id="seller_refuse" name="seller_refuse" value="${seller.seller_refuse}"></textarea></td>
+				<td><input type="button" value="입력" onClick="fn_seller_Refuse('${seller.seller_id}', '반려', '${seller.seller_refuse}')"></td>
       		</tr>
  	 	</table>
 	</div>

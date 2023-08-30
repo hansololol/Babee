@@ -250,7 +250,7 @@ public class AdminMemberControllerImpl extends BaseController  implements AdminM
 	
 	@Override
 	@RequestMapping(value="/sellerRegister.do", method = RequestMethod.POST)
-	public ModelAndView sellerRegister(HttpServletRequest request, HttpServletResponse response)  throws Exception{
+	public ModelAndView sellerRegister(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		System.out.println("sellerRegister.do 실행");
 		String seller_id = request.getParameter("seller_id");
 		String seller_status = request.getParameter("seller_status");
@@ -264,7 +264,30 @@ public class AdminMemberControllerImpl extends BaseController  implements AdminM
 		adminMemberService.sellerRegister(sellerMap);
 		System.out.println(sellerMap);
 		
-
+		ModelAndView mav = new ModelAndView("redirect:/admin/member/sellerManageWait.do");
+		  
+		return mav;
+	}
+	
+	@Override
+	@RequestMapping(value="/sellerRefuse.do", method = RequestMethod.POST)
+	public ModelAndView sellerRefuse(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		System.out.println("sellerRefuse.do 실행");
+		String seller_id = request.getParameter("seller_id");
+		String seller_status = request.getParameter("seller_status");
+		String seller_refuse = request.getParameter("seller_refuse");
+		System.out.println(seller_id);
+		System.out.println(seller_status);
+		System.out.println(seller_refuse);
+		HttpSession session=request.getSession();
+		memberVO = (MemberVO) session.getAttribute("memberInfo");
+		Map<String, Object> sellerMap = new HashMap<String, Object>();
+		sellerMap.put("seller_id", seller_id);
+		sellerMap.put("seller_status", seller_status);
+		sellerMap.put("seller_refuse", seller_refuse);
+		adminMemberService.sellerRefuse(sellerMap);
+		System.out.println(sellerMap);
+		
 		ModelAndView mav = new ModelAndView("redirect:/admin/member/sellerManageWait.do");
 		  
 		return mav;
