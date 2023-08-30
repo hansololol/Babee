@@ -189,14 +189,14 @@ function readURL(input){
                 formObj.submit();
        }
       
-      function fn_comment() {
+      function fn_comment(obj) {
 
     	    if(! isLogOn){
     	        alert("로그인 이후 이용 가능한 서비스입니다.");
     	        location.replace("${contextPath}/member/loginForm.do")
     	    } else {
     	    	alert("댓글을 등록하시겠습니까?");
-    	    	location.href("${contextPath}/community/addCommnet.do")
+    	    	obj.submit();
     	    }
     	    }
       
@@ -287,7 +287,7 @@ function readURL(input){
 					<div class="comment-form">
 						<p style="text-align: left; margin-bottom: 0px; margin-left: 20px;">댓글	작성</p>
 						<textarea id="commentText" name="free_comment" rows="4" cols="50" style="width: 95%; margin-left: 20px;"></textarea>					
-						<button type="submit" onclick="fn_comment()" style="margin-left: 90%; padding: 5px 10px; background-color: #fef7dd; color: black; border: none; border-radius: 4px; cursor: pointer;" >등록</button>
+						<button type="button" onclick="fn_comment(this.form)" style="margin-left: 90%; padding: 5px 10px; background-color: #fef7dd; color: black; border: none; border-radius: 4px; cursor: pointer;" >등록</button>
 					</div>
 			</form>
     
