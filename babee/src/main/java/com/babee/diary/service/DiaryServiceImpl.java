@@ -54,4 +54,9 @@ public class DiaryServiceImpl implements DiaryService  {
 		diaryDAO.deleteDiaryImage(diaryMap);
 		
 	}
+
+	@Override
+	public List<DiaryVO> allDiaryList() throws Exception {
+		return diaryDAO.allDiaryList();
+	}
 }

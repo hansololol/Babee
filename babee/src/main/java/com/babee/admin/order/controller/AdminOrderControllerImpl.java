@@ -1,11 +1,13 @@
 package com.babee.admin.order.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -19,6 +21,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.babee.admin.order.service.AdminOrderService;
 import com.babee.common.base.BaseController;
+import com.babee.diary.service.DiaryService;
+import com.babee.diary.vo.DiaryVO;
 import com.babee.order.vo.OrderVO;
 
 @Controller("adminOrderController")
@@ -26,6 +30,10 @@ import com.babee.order.vo.OrderVO;
 public class AdminOrderControllerImpl extends BaseController  implements AdminOrderController{
 	@Autowired
 	private AdminOrderService adminOrderService;
+	@Autowired
+	private DiaryService diaryService;
+	@Autowired
+	private DiaryVO diaryVO;
 	
 	@Override
 	@RequestMapping(value="/adminOrderMain.do" ,method={RequestMethod.GET, RequestMethod.POST})
@@ -104,5 +112,43 @@ public class AdminOrderControllerImpl extends BaseController  implements AdminOr
 		mav.addObject("orderMap", orderMap);
 		return mav;
 	}
+	
+	@Override
+	@RequestMapping(value="/diaryManageList.do" ,method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView diaryManageList(HttpServletRequest request, HttpServletResponse response)  throws Exception {
+		System.out.println("diaryManageList.do 실행");
+		String viewName=(String)request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+		HttpSession session=request.getSession();
+		String _section = request.getParameter("section"); 
+		String _pageNum = request.getParameter("pageNum"); 
+		int section =Integer.parseInt(((_section==null)? "1":_section)); 
+		int pageNum = Integer.parseInt(((_pageNum==null)? "1":_pageNum));
+		
+		
+		
+		List diaryManageList = new ArrayList<>();
+		List diaryManage = diaryService.allDiaryList();
+		int ListSize = diaryManage.size();
+		System.out.println("ListSize: " + ListSize);
+		for(int i =(pageNum-1)*10; i <pageNum*10; i++) {
+			try {
+				diaryVO = (DiaryVO) diaryManage.get(i);
+				diaryManageList.add(diaryVO);
+			}catch(IndexOutOfBoundsException e) {
+				break;
+			}
+			}
+		System.out.println("diaryManageList: " + diaryManageList);
+		mav.addObject("diaryManageList", diaryManageList);
+		mav.addObject("section", section);
+		mav.addObject("pageNum", pageNum);
+		mav.addObject("totArticles", ListSize);
+		mav.setViewName("/admin/order/diaryManageList");
+		
+		return mav;
+	}
+	
+	
 	
 }

@@ -297,8 +297,8 @@
 </definition>
 
 
-<definition name="/member/diaryManageList" extends="baseLayout_user">
-<put-attribute name="title" value="사업자 관리 다이어리목록창(관리자)"/>
+<definition name="/admin/order/diaryManageList" extends="baseLayout_user">
+<put-attribute name="title" value="다이어리 관리 목록창(관리자)"/>
 <put-attribute name="body" value="/WEB-INF/views/admin00/diary/diaryManageList.jsp"/>
 </definition>
 
