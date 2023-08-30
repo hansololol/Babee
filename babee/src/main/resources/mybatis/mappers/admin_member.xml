@@ -65,6 +65,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 		<result property="confirmDate" column="confirmDate" />
 		<result property="seller_status" column="seller_status" />
+		<result property="seller_refuse" column="seller_refuse" />
 		
 		<result property="member_id" column="member_id" />
 		<result property="member_pw" column="member_pw" />
@@ -191,7 +192,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <select id="sellerManageWait" resultMap="sellerResult" parameterType="java.util.Map">
        <![CDATA[
              select * from  t_shopping_seller
-             where seller_status='대기'
+             where seller_status='대기' or seller_status='반려'
+             order by seller_status, seller_joinDate
              limit #{start},10
        ]]>
    </select>
@@ -208,6 +210,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  update t_shopping_seller
      	set seller_status='승인', 
         	seller_confirmDate = now()
+        where seller_id=#{seller_id}   
+     ]]>
+	</update>
+	
+	<update id="sellerRefuse" parameterType="java.util.Map">
+	  <![CDATA[
+	  update t_shopping_seller
+     	set seller_status='반려', 
+        	seller_refuse = #{seller_refuse}
         where seller_id=#{seller_id}   
      ]]>
 	</update>

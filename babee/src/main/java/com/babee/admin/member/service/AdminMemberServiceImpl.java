@@ -68,5 +68,9 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 	public void sellerRegister(Map sellerMap) throws DataAccessException {
 		adminMemberDAO.sellerRegister(sellerMap);
 	}
+	@Override
+	public void sellerRefuse(Map sellerMap) throws DataAccessException {
+		adminMemberDAO.sellerRefuse(sellerMap);
+	}
 }
  

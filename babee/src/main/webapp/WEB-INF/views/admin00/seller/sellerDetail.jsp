@@ -139,11 +139,11 @@
 		</li>
 	</ul>
 	<div class="tab-content" id="myTabContent">
-	  <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0"><img src="${contextPath}/thumbnails.do?goods_id=${seller.seller_id}&fileName=${seller.seller_img1}" width="400px;"></div>
-	  <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0"><img src="/image/ex01.jpg" width="600px;">
-		</div>
+	  <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0"><br><br><img src="${contextPath}/thumbnails.do?goods_id=${seller.seller_id}&fileName=${seller.seller_img1}" width="400px;"></div>
+	  <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0"><br><br><img src="/image/ex01.jpg" width="600px;"></div>
+	  <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0"><br><br><img src="/image/통장사본.jpg" width="400px;"></div>
 	</div>
-	  <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0"><br><br><br><br><img src="/image/ex01.jpg" width="600px;"></div>
+	  
 	  
 	</div>
 

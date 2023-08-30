@@ -26,7 +26,6 @@ public interface AdminMemberController {
 	public ModelAndView sellerManageWait(HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	public ModelAndView sellerWaitDetail(@RequestParam("seller_id") String seller_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView sellerRegister(HttpServletRequest request, HttpServletResponse response)  throws Exception;
-	
-	//public ModelAndView sellerRefuse(HttpServletRequest request, HttpServletResponse response)  throws Exception;
+	public ModelAndView sellerRefuse(HttpServletRequest request, HttpServletResponse response)  throws Exception;
 }
  

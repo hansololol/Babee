@@ -22,6 +22,7 @@ public interface AdminMemberService {
 	public List<SellerVO> sellerManageWait(Map sellerMap) throws Exception;
 	public Map sellerWaitDetail(String seller_id) throws Exception;
 	public void sellerRegister(Map sellerMap) throws Exception;
+	public void sellerRefuse(Map sellerMap) throws Exception;
 	
 }
  
