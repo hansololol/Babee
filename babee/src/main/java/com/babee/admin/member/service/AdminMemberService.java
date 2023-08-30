@@ -23,6 +23,7 @@ public interface AdminMemberService {
 	public Map sellerWaitDetail(String seller_id) throws Exception;
 	public void sellerRegister(Map sellerMap) throws Exception;
 	public void sellerRefuse(Map sellerMap) throws Exception;
+	public void removeSeller(Map sellerMap) throws Exception;
 	
 }
  

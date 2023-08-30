@@ -27,4 +27,5 @@ public interface AdminMemberDAO {
 	public SellerVO sellerWaitDetail(String seller_id) throws DataAccessException;
 	public void sellerRegister(Map sellerMap) throws DataAccessException;
 	public void sellerRefuse(Map sellerMap) throws DataAccessException;
+	public void deleteSeller(Map sellerMap) throws DataAccessException;
 } 

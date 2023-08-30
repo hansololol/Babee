@@ -72,5 +72,9 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 	public void sellerRefuse(Map sellerMap) throws DataAccessException {
 		adminMemberDAO.sellerRefuse(sellerMap);
 	}
+	@Override
+	public void removeSeller(Map sellerMap) throws Exception {
+		adminMemberDAO.deleteSeller(sellerMap);
+	}
 }
  
