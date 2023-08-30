@@ -345,6 +345,16 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 			String member_id = sellerVO.getSeller_id();
 
 			myWishList = myPageService.selectWishList(member_id);
+			  for(int i=0; i<myWishList.size(); i++) { 
+				  wishVO = myWishList.get(i);
+				  int  goods_id = wishVO.getGoods_id(); String id= String.valueOf(goods_id); 
+				  Map  goods = goodsService.goodsDetail(id); 
+				  GoodsVO goodsCart = (GoodsVO) goods.get("goodsVO"); 
+				  wishVO.setGoods_title(goodsCart.getGoods_title());
+			  wishVO.setGoods_price(goodsCart.getGoods_price());
+			  wishVO.setGoods_image_name1(goodsCart.getGoods_image_name1()); 
+			  
+			  }
 
 		}
 
