@@ -26,6 +26,7 @@ import com.babee.goods.vo.GoodsVO;
 import com.babee.member.vo.MemberVO;
 import com.babee.order.service.OrderService;
 import com.babee.order.vo.OrderVO;
+import com.babee.seller.vo.SellerVO;
 
 @Controller("orderController")
 @RequestMapping(value="/order")
@@ -107,9 +108,15 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 			                       HttpServletRequest request, HttpServletResponse response)  throws Exception{
 
 		HttpSession session=request.getSession();
-		MemberVO memberVO=(MemberVO)session.getAttribute("memberInfo");
+		//MemberVO memberVO=(MemberVO)session.getAttribute("memberInfo");
+		
+		 ModelAndView mav = new ModelAndView("/goods/orderResult");
+		 
 		List<OrderVO> myOrderList=(List<OrderVO>)session.getAttribute("orderInfo");
 		
+		 Object memberInfo = session.getAttribute("memberInfo");
+		    if (memberInfo instanceof MemberVO) {
+		    	MemberVO memberVO = (MemberVO) memberInfo;
 		String member_id=memberVO.getMember_id();
 		String recipient_hp = memberVO.getMember_hp1()+"-"+memberVO.getMember_hp2()+"-"+memberVO.getMember_hp3();
 		String recipient_tel = memberVO.getMember_tel1()+"-"+memberVO.getMember_tel2()+"-"+memberVO.getMember_tel3();
@@ -143,13 +150,56 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		
 		
 		orderService.addNewOrder(myOrderList);
-		 ModelAndView mav = new ModelAndView("/goods/orderResult");
+		
 		 mav.addObject("total_goods_price", total_goods_price);
 		 mav.addObject("goods", goodsVO);
 		 mav.addObject("myOrderList", myOrderList);
 		session.removeAttribute("orderInfo");
 		session.removeAttribute("goods");
-		return mav;
+		
+		}  else if (memberInfo instanceof SellerVO) {
+			SellerVO sellerVO = (SellerVO) memberInfo;
+			String member_id=sellerVO.getSeller_id();
+			String recipient_hp = sellerVO.getSeller_hp1()+"-"+sellerVO.getSeller_hp2()+"-"+sellerVO.getSeller_hp3();
+			String recipient_tel = sellerVO.getSeller_tel1()+"-"+sellerVO.getSeller_tel2()+"-"+sellerVO.getSeller_tel3();
+			String deliveryAddr = receiverMap.get("member_zipcode") + receiverMap.get("member_roadAddr") + receiverMap.get("member_jibunAddr") + receiverMap.get("member_namujiAddr");
+			
+			System.out.println("myOrderList 확인: " + myOrderList);
+			int randomNO = (int)Math.floor(Math.random()*100000000);
+			String order_id = String.valueOf(randomNO);
+			int total_goods_price = Integer.valueOf(receiverMap.get("total_goods_price"));
+			int goods_delivery_price = Integer.parseInt(receiverMap.get("goods_delivery_price"));
+			int final_total_price = total_goods_price + goods_delivery_price;
+			GoodsVO goodsVO = (GoodsVO)session.getAttribute("goods");
+			for(int i=0; i<myOrderList.size();i++){
+				//추가
+				OrderVO orderVO = new OrderVO();
+				orderVO=(OrderVO)myOrderList.get(i);
+				orderVO.setOrder_id(order_id);	
+				orderVO.setMember_id(member_id);
+				orderVO.setRecipient_hp(recipient_hp);
+				orderVO.setRecipient_tel(recipient_tel);
+				orderVO.setDeliveryAddr(deliveryAddr);
+				orderVO.setDeliveryMessage(receiverMap.get("deliveryMessage"));
+				orderVO.setPayment_method(receiverMap.get("pay_method"));
+				orderVO.setCard_com_name(receiverMap.get("card_com_name"));
+				orderVO.setTotal_goods_price(total_goods_price);
+				orderVO.setOrder_goods_qty(Integer.valueOf(receiverMap.get("order_goods_qty")));
+				System.out.println("수량:" + orderVO.getOrder_goods_qty() );
+				orderVO.setFinal_total_price(final_total_price);
+				myOrderList.set(i, orderVO); 
+			}//end for
+			
+			
+			orderService.addNewOrder(myOrderList);
+			
+			 mav.addObject("total_goods_price", total_goods_price);
+			 mav.addObject("goods", goodsVO);
+			 mav.addObject("myOrderList", myOrderList);
+			session.removeAttribute("orderInfo");
+			session.removeAttribute("goods");
+		}
+		    return mav;
 	}
 	
 	
