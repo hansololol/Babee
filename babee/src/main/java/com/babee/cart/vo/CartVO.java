@@ -3,6 +3,8 @@ package com.babee.cart.vo;
 
 import org.springframework.stereotype.Component;
 
+import com.babee.goods.vo.GoodsVO;
+
 @Component("cartVO")
 public class CartVO {
 	private int cart_id;
@@ -10,6 +12,8 @@ public class CartVO {
 	private String member_id;
 	private int cart_goods_qty;
 	private String cart_image_name;
+	private GoodsVO goodsVO;
+	
 	public String getGoods_option1() {
 		return goods_option1;
 	}
@@ -148,6 +152,14 @@ public class CartVO {
 
 	public void setCart_image_name(String cart_image_name) {
 		this.cart_image_name = cart_image_name;
+	}
+
+	public GoodsVO getGoodsVO() {
+		return goodsVO;
+	}
+
+	public void setGoodsVO(GoodsVO goodsVO) {
+		this.goodsVO = goodsVO;
 	}
 	
 	

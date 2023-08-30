@@ -5,13 +5,13 @@
 }
 #goods_image {
 	float:left;
-	margin-left:30%;
+	margin-left:25%;
 }
 #goods_image figure {
 	padding: 0px 30px 0px 0px; width: auto; text-align: center;
 }
 #goods_image figure img {
-	border: 1px solid rgb(255, 255, 255); border-image: none; width: 200px; height: auto;
+	border: 1px solid rgb(255, 255, 255); border-image: none; width: 300px; height: 300px;
 	border-radius: 20%;
 }
 
