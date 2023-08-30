@@ -105,6 +105,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             colspan="2"
             style="border: 1px solid gray; padding: 10px"
           >
+          <c:if test="${memberInfo.member_id != null }">
             ${memberInfo.member_name}
             <input
               type="hidden"
@@ -112,6 +113,16 @@ uri="http://java.sun.com/jsp/jstl/core" %>
               value="${memberInfo.member_id}"
             />
           </td>
+        </c:if>
+        <c:if test="${memberInfo.seller_id != null }">
+            ${memberInfo.seller_name}
+            <input
+              type="hidden"
+              name="member_id"
+              value="${memberInfo.seller_id}"
+            />
+          </td>
+        </c:if>
         </tr>
 
         <tr>
