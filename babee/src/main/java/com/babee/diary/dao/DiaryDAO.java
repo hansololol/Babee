@@ -21,4 +21,7 @@ public interface DiaryDAO {
 	public void deleteDiary(Map diaryMap) throws DataAccessException;
 	public void deleteDiaryImage(Map diaryMap) throws DataAccessException;
 	
+	
+	public List allDiaryList() throws DataAccessException;
+
 }

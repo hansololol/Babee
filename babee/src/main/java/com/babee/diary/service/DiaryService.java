@@ -14,4 +14,6 @@ public interface DiaryService {
 	public void modDiary(Map diaryMap) throws DataAccessException;
 	public void delDiary(Map diaryMap) throws Exception;
 	
+	public List<DiaryVO> allDiaryList() throws Exception;
+	
 }
