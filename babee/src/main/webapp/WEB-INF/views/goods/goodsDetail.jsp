@@ -577,11 +577,12 @@ function add_wish(goods_id){
 		  </thead>
 		  <tbody>
 			<c:forEach var="qna" items="${qna}" varStatus="varSta">
+			
 			  <tr class="faq-content">
 				<td>${qna.member_id}</td>
 				<td>
 				  <a
-					href="#"
+					href="javascript:void(0)"
 					style="color: black; display: flex; align-items: center; text-decoration: none;"
 					onclick="toggleAnswer('${varSta.count}')"
 				  >
@@ -613,6 +614,7 @@ function add_wish(goods_id){
 				<td></td>
 			  <td colspan="3" style="text-align: left;">
 				  <p>${qna.goods_qna_content}</p>
+				  <p>[답변] ${qna.goods_qna_answer}</p>
 			  </td>
 			  
 			  </tr>

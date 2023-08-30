@@ -81,10 +81,10 @@
       
       <table align="center" style="margin-left: 0px;">
          <tr>
-            <td>
-               <a href="javascript:search_order_history('today')">
-                  <img   src="/image/btn_search_one_day.jpg">
-               </a>
+            <td> 
+               <a href="${contextPath}/seller/getTodayGoods.do?page=sellerPage&today=true">
+				    <img src="${contextPath}/image/btn_search_one_day.jpg">
+			   </a>
                <a href="javascript:search_order_history('one_week')">
                   <img   src="/image/btn_search_1_week.jpg">
                </a>

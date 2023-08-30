@@ -6,8 +6,11 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.babee.goods.vo.GoodsQNA;
 import com.babee.goods.vo.GoodsVO;
 import com.babee.seller.dao.SellerDAO;
 import com.babee.seller.vo.SellerVO;
@@ -65,8 +68,8 @@ public class SellerServiceImpl implements SellerService{
 	
 	// 오늘 등록된 상품 조회
 	@Override
-    public List<GoodsVO> getTodayGoods() {
-        return sellerDAO.getTodayGoods();
+    public List<GoodsVO> getTodayGoods(String seller_id) {
+        return sellerDAO.getTodayGoods(seller_id);
     }
 	
 	
@@ -81,5 +84,16 @@ public class SellerServiceImpl implements SellerService{
 	public void updateDeliveryStatus(Map<String, Object> deliveryStatusMap) throws Exception {
 	    sellerDAO.updateDeliveryStatus(deliveryStatusMap);
 	}
-	 
+	
+	//사업자 상품qna리스트
+	@Override
+    public List<GoodsQNA> selectAllGoodsQna(Map<String, Object> goodsQnaMap) {
+        return sellerDAO.selectAllGoodsQna(goodsQnaMap);
+    }
+	
+	//사업자 qna답변
+	@Override
+    public void addGoodsQnaAnswer(Map<String, Object> goodsQnaAnswerMap) throws Exception {
+        sellerDAO.GoodsQnaAnswer(goodsQnaAnswerMap);
+    }
 }
