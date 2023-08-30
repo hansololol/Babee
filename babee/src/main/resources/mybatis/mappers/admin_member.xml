@@ -222,5 +222,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where seller_id=#{seller_id}   
      ]]>
 	</update>
+	
+	<delete id="deleteSeller" parameterType="java.util.Map">
+	    <![CDATA[
+	      delete from t_shopping_seller
+	      where seller_id=#{seller_id}
+    	]]>
+	</delete>
 </mapper> 
 

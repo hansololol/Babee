@@ -272,13 +272,9 @@ public class AdminMemberControllerImpl extends BaseController  implements AdminM
 	@Override
 	@RequestMapping(value="/sellerRefuse.do", method = RequestMethod.POST)
 	public ModelAndView sellerRefuse(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		System.out.println("sellerRefuse.do 실행");
 		String seller_id = request.getParameter("seller_id");
 		String seller_status = request.getParameter("seller_status");
 		String seller_refuse = request.getParameter("seller_refuse");
-		System.out.println(seller_id);
-		System.out.println(seller_status);
-		System.out.println(seller_refuse);
 		HttpSession session=request.getSession();
 		memberVO = (MemberVO) session.getAttribute("memberInfo");
 		Map<String, Object> sellerMap = new HashMap<String, Object>();
@@ -286,10 +282,32 @@ public class AdminMemberControllerImpl extends BaseController  implements AdminM
 		sellerMap.put("seller_status", seller_status);
 		sellerMap.put("seller_refuse", seller_refuse);
 		adminMemberService.sellerRefuse(sellerMap);
-		System.out.println(sellerMap);
 		
 		ModelAndView mav = new ModelAndView("redirect:/admin/member/sellerManageWait.do");
 		  
 		return mav;
 	}
+	
+	@Override
+	@RequestMapping(value = "/removeSeller.do", method = RequestMethod.POST)
+	public ModelAndView removeSeller(HttpServletRequest request, HttpServletResponse response)  throws Exception {
+		response.setContentType("text/html; charset=UTF-8");
+		String seller_id = request.getParameter("seller_id");
+		HttpSession session = request.getSession();
+		memberVO = (MemberVO) session.getAttribute("memberInfo");
+		Map sellerMap = new HashMap<>();
+		sellerMap.put("seller_id", seller_id);
+		adminMemberService.removeSeller(sellerMap);
+		
+		PrintWriter out = response.getWriter();
+
+		out.println("<script>alert('삭제 완료되었습니다.');location.href='/admin/member/sellerManageList.do'</script>");
+		out.flush();
+		out.close();
+		
+	
+		return null;
+		
+	}
+	
 }
