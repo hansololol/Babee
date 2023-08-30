@@ -19,4 +19,7 @@ public interface AdminOrderController {
             HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	
 	
+	public ModelAndView diaryManageList(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	
+	
 }

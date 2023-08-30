@@ -27,7 +27,7 @@
 				관리자 님의 마이페이지 <br>user@naver.com
 			</a>
 			<a href="${contextPath}/admin/member/sellerManageList.do?page=adminPage" class="list-group-item list-group-item-action">사업자 관리</a>
-			<a href="${contextPath}/member/diaryManageList.do?page=adminPage" class="list-group-item list-group-item-action">다이어리 관리</a>
+			<a href="${contextPath}/admin/order/diaryManageList.do?page=adminPage" class="list-group-item list-group-item-action">다이어리 관리</a>
 			<a href="${contextPath}/member/memberManageList.do?page=adminPage" class="list-group-item list-group-item-action">회원 관리</a>
 			<a href="${contextPath}/admin/goods/listSellerGoodsAdmin.do?page=adminPage" class="list-group-item list-group-item-action">상품 관리</a>
 			<a href="" class="list-group-item list-group-item-action active" aria-current="true">

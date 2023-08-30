@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"    />
 <!DOCTYPE html>
 <html>
@@ -115,31 +117,24 @@
 </div>
 </div>
 <br>
-	<div style="width:50%; margin:0 auto;">
 
-	<h3 style="display:inline-block; margin-bottom: 8px;"> 다이어리 목록 </h3> 
-	<hr>
-    </div>
-    <br>
     
     <div style="text-align:center;"> 
-    <table style="text-align:center; margin:0 auto; ">
+    <table style="text-align:center; margin:0 auto; width:850px;">
     	<tr style="border-bottom:1px solid gray; ">
-			<td width="80px;"><b>NO</b></td>
-			<td width="90px;"><b>ID</b></td>
-			<td width="90px;"><b>회원명</b></td>
-			<td width="150px;"><b>다이어리 제목</b></td>
-			<td width="150px;"><b>작성일</b></td>
+			<td width="30px;"><b>NO</b></td>
+			<td width="180px;"><b>다이어리 제목</b></td>
+			<td width="90px;"><b>작성자</b></td>
+			<td width="110px;"><b>작성일</b></td>
 		</tr>
 		
 			
-    <c:forEach var="i" begin="0" end="5">
+   <c:forEach var="diaryList" items="${diaryManageList}" varStatus ="free">
 		<tr style="height: 50px; border-bottom:1px solid gray;">
-			<td> { 1 }</td>
-			<td>   { ID } </a></td>
-			<td>  { 회원이름 } </a></td>
-			<td> <a href="${contextPath}/member/storeDetail_admin.do">{ 다이어리 제목 } </td>
-			<td> { 작성일 } </td>
+			<td><img src="${contextPath}/image/set.png" width="20px"/></td>
+			<td> <a href="${contextPath}/diary/diaryDetail.do?dir_no=${diaryList.dir_no}" style="text-decoration-line : none; color:black; "> <strong>${diaryList.dir_title}</strong></td>
+			<td> ${diaryList.member_id} </a></td>
+			<td> ${diaryList.dir_writeDate} </td>
 		</tr>
     </c:forEach>
    
@@ -148,21 +143,45 @@
     </div>
     
     
-    
  
-   
-
-    
     <!-- 페이징 버튼 -->
-    <div class="paging-container">
-        <a class="paging-button" href="#">이전</a>
-        <a class="paging-button" href="#">1</a>
-        <a class="paging-button" href="#">2</a>
-        <a class="paging-button" href="#">3</a>
-        <a class="paging-button" href="#">4</a>
-        <a class="paging-button" href="#">5</a>
-        <a class="paging-button" href="#">다음</a>
-    </div>
+      <div class="paging-container">
+   <c:if test="${totArticles !=null}">
+      <c:choose>
+         <c:when test="${totArticles > 100 }"> 
+            <c:forEach var="page" begin="1" end="10" step="1">
+               <c:if test="${section >1 && page==1 }" >
+                  <a class="paging-button"  href="${contextPath}/admin/order/diaryManageList.do?section=${section-1}&pageNum=${(section-1)*10 +1  }&page=adminPage">&nbsp; pre </a>
+               </c:if>
+                  <a class="paging-button"  href="${contextPath}/admin/order/diaryManageList.do?section=${section-1}&pageNum=${(section-1)*10 +page }&page=adminPage"> </a>
+               <c:if test="${page ==10 }">
+               <a class="paging-button"  href="${contextPath}/admin/order/diaryManageList.do?section=${section-1}&pageNum=${section*10 +1 }&page=adminPage">&nbsp; next </a>
+               </c:if>
+            </c:forEach>
+         </c:when>
+         
+         <c:when test="${totArticles ==100 }">
+            <c:forEach var="page" begin="1" end="10" step="1">
+            <a class="paging-button"  href="#"> ${page }</a>
+            </c:forEach>
+         </c:when>
+         
+         <c:when test="${totArticles <100 }">
+            <c:forEach var="page" begin="1" end="${totArticles/10 +1 }" step="1">
+               <c:choose>
+                  <c:when test="${page==pageNum }">
+                  <a class="paging-button" href="${contextPath}/admin/order/diaryManageList.do?section=${section}&pageNum=${page}&page=adminPage">${page }</a>
+                  </c:when>
+               <c:otherwise>
+                  <a class="paging-button"  href="${contextPath}/admin/order/diaryManageList.do?section=${section}&pageNum=${page}&page=adminPage">${page }</a>
+               </c:otherwise>
+               </c:choose>
+            </c:forEach>
+         </c:when>
+      </c:choose>
+   </c:if>
+            
+</div>
     <br><br><br><br><br>
 </body>
 </html>

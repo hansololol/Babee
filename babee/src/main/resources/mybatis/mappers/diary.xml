@@ -21,6 +21,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 select * from t_shopping_dir where member_id=#{member_id} order by dir_writeDate desc
 		]]>
 	 </select>
+	 
+	 <select id="allDiaryList" resultMap="diaryResult" parameterType="String">
+		<![CDATA[
+		 SELECT * 
+		 FROM t_shopping_dir 
+		 ORDER BY dir_writeDate desc
+		]]>
+	 </select>
 	
 	<insert id="insertNewDiary"  parameterType="java.util.Map">
 	<selectKey resultType="int" keyProperty="dir_no" order="BEFORE">

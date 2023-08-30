@@ -65,6 +65,11 @@
 	location.href = "${contextPath}/diary/diaryList.do";
 
    }
+   
+   function adminbackToList(){
+		location.href = "${contextPath}/admin/order/diaryManageList.do";
+
+	   }
 
 </script>
 
@@ -141,7 +146,16 @@ margin: 30px auto;
       <tr style="height: 70px;">
          <input type="hidden" id="d_no" name="dir_no" value="${diary.dir_no}">
          <td width="200">작성자</td>
-         <td><input type="text" value="${memberInfo.member_name}" name="member_id" id="d_id" disabled></td>
+         <td>
+         	<c:choose>
+         		<c:when test="${memberInfo.member_id == diary.member_id }">
+        			<input type="text" value="${memberInfo.member_name}" name="member_id" id="d_id" disabled>
+         		</c:when>
+         		<c:when test="${memberInfo.member_id == 'admin' }">
+         			<input type="text" value="${diary.member_id}" name="member_id" id="d_id" disabled>
+        		</c:when>
+        	</c:choose> 
+         </td>
       <tr style="height: 70px;">
          <td width="200">제목</td>
          <td><input type="text" value="${diary.dir_title}" name="dir_title" id="d_title" disabled></td>
@@ -167,12 +181,21 @@ margin: 30px auto;
    </table>
    
   
+   <c:choose>
+         		<c:when test="${memberInfo.member_id == diary.member_id }">
+        			<div id="btnList">
+     					 <input type="button" value="수정" onClick="fn_enable(this.form)" id="btnModify">
+     					 <input type="button" value="삭제" onClick="fn_remove_diary('${diary.dir_no}', '${diary.dir_main_img_id}')">
+     					 <input type="button" value="목록 보기" onClick="backToList()" >
+   					</div>
+         		</c:when>
+         		<c:when test="${memberInfo.member_id == 'admin' }">
+         				<br>
+         			 <input type="button" value="목록 보기" onClick="adminbackToList()" >
+         			 	<br>
+        		</c:when>
+        	</c:choose> 
    
-   <div id="btnList">
-      <input type="button" value="수정" onClick="fn_enable(this.form)" id="btnModify">
-      <input type="button" value="삭제" onClick="fn_remove_diary('${diary.dir_no}', '${diary.dir_main_img_id}')">
-      <input type="button" value="목록 보기" onClick="backToList()" >
-   </div>
    
    <div id="btnList_modify" style="margin: 30px auto;">
       <input type="submit" value="수정반영하기" onClick="fn_modify_diary(frmDiaryDetail)" id="btnModify">
