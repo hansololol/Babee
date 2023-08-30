@@ -150,12 +150,14 @@ function showCategory() {
         alert("로그인 이후 이용 가능한 서비스입니다.");
         location.replace("${contextPath}/member/loginForm.do")
     }
+    if(isLogOn){
     if("${memberInfo.baby_age}" == "" ){
     	alert("아동 정보 입력 후 이용 가능합니다.")
         if(confirm("아동정보 입력 창으로 이동할까요?")){
             location.replace("${contextPath}/member/modpassword.do");
         }
         }
+    }
     }
   
 </script>
