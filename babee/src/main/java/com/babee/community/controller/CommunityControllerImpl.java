@@ -69,18 +69,25 @@ public class CommunityControllerImpl extends BaseController implements Community
 		int pageNum = Integer.parseInt(((_pageNum==null)? "1":_pageNum));
 		
 		
+		String searchWord =request.getParameter("searchWord");
 		
-		memberVO = (MemberVO) session.getAttribute("memberInfo");
-		if (memberVO != null) {
-		List myFreeboard =communityService.selectFreeboard(memberVO.getMember_id());
-		System.out.println("myFreeboard: " + myFreeboard);
+		
+		
+		List myFreeboard =communityService.selectFreeboard("zz");
 		List freeboard = new ArrayList<>();
 			int ListSize = myFreeboard.size();
 			for(int i =(pageNum-1)*10; i <pageNum*10;i++) {
 				try {
 					freeboardVO = (FreeboardVO) myFreeboard.get(i);
-					System.out.println("freeboardVO: " +freeboardVO.getFree_title());
+					if(searchWord !=null) {
+						System.out.println(searchWord);
+						if(freeboardVO.getFree_title().contains(searchWord)) {
+							freeboard.add(freeboardVO);	
+							 System.out.println("여기까지 ? 커뮤니티");
+									}
+						}else {
 					freeboard.add(freeboardVO);
+										}
 					}catch(IndexOutOfBoundsException e) {
 						break;
 					}
@@ -89,25 +96,7 @@ public class CommunityControllerImpl extends BaseController implements Community
 			mav.addObject("section", section);
 			mav.addObject("pageNum", pageNum);
 			mav.addObject("totArticles", ListSize); 
-			} else if (memberVO == null){
-				List myFreeboard =communityService.selectFreeboard("b");
-				System.out.println("myFreeboard: " + myFreeboard);
-				List freeboard = new ArrayList<>();
-					int ListSize = myFreeboard.size();
-					for(int i =(pageNum-1)*10; i <pageNum*10;i++) {
-						try {
-							freeboardVO = (FreeboardVO) myFreeboard.get(i);
-							System.out.println("freeboardVO: " +freeboardVO.getFree_title());
-							freeboard.add(freeboardVO);
-							}catch(IndexOutOfBoundsException e) {
-								break;
-							}
-						}
-				 	mav.addObject("freeboard", freeboard);
-					mav.addObject("section", section);
-					mav.addObject("pageNum", pageNum);
-					mav.addObject("totArticles", ListSize); 
-			}
+			
 		return mav;
 	}
 

@@ -278,7 +278,7 @@ function readURL(input){
             		<li> <strong>${comment.member_id}</strong> </li>
              		<li> ${comment.free_comment} </li>
              		
-             		<%-- <td> ${comment.free_commentDate}  </td> --%>
+             		
  					</ul>
  					<hr>
  				</c:forEach>
