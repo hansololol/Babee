@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -151,13 +153,14 @@
     </div>
 </div>
 <div class="button-container">
-  <button class="custom-button" type="button" onclick="location.href='your_contact_page_url_here';">메인페이지</button>
+  <button class="custom-button" type="button" onclick="location.href='/main/main.do';">메인페이지</button>
 </div>
 <!-- JavaScript 코드 추가 -->
 <script>
     function openPopup(url) {
         window.open(url, '_blank', 'width=900,height=600');
     }
+    
 </script>
 <br><br><br><br>
 </body>

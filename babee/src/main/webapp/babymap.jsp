@@ -52,7 +52,7 @@
         <div class="option">
             <div>
                 <form onsubmit="searchPlaces(); return false;">
-                    키워드 : <input type="text" value="대전 어린이집" id="keyword" size="15"> 
+                    키워드 : <input type="text" value="${memberInfo.member_jibunAddr}근처 어린이집" id="keyword" size="15"> 
                     <button type="submit">검색하기</button> 
                 </form>
             </div>
@@ -281,6 +281,51 @@ function removeAllChildNods(el) {
         el.removeChild (el.lastChild);
     }
 }
+//추가코드
+function addMarker(position, idx, markerImage) {
+    var marker = new kakao.maps.Marker({
+        position: position,
+        image: markerImage
+    });
+
+    marker.setMap(map);
+    markers.push(marker);
+
+    return marker;
+}
+function showStoredLocation() {
+    var geocoder = new kakao.maps.services.Geocoder();
+
+    // Convert stored address to coordinates
+    geocoder.addressSearch('${memberInfo.member_jibunAddr}', function(result, status) {
+        if (status === kakao.maps.services.Status.OK) {
+            var latitude = result[0].y;
+            var longitude = result[0].x;
+            var currentPosition = new kakao.maps.LatLng(latitude, longitude);
+            
+            // Create a marker for the stored location with a custom marker icon
+            var storedLocationMarker = new kakao.maps.Marker({
+                position: currentPosition,
+                image: new kakao.maps.MarkerImage(
+                    'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 파란색 원 형태의 눈에 띄는 마커 아이콘
+                    new kakao.maps.Size(40, 40), // 마커 아이콘의 크기 설정
+                    {
+                        offset: new kakao.maps.Point(20, 20) // 마커 아이콘의 중심을 설정
+                    }
+                )
+            });
+            
+            // Set the marker on the map
+            storedLocationMarker.setMap(map);
+            
+            // Zoom the map to the stored location
+            map.setCenter(currentPosition);
+        } else {
+            alert('주소를 변환할 수 없습니다.');
+        }
+    });
+}
 </script>
+<p style=text-align:center;><button onclick="showStoredLocation()">현위치 표시</button></p>
 </body>
 </html>
