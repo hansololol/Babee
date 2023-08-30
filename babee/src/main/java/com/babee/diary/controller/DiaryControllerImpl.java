@@ -28,6 +28,7 @@ import com.babee.common.base.BaseController;
 import com.babee.diary.service.DiaryService;
 import com.babee.diary.vo.DiaryVO;
 import com.babee.member.vo.MemberVO;
+import com.babee.seller.vo.SellerVO;
 
 
 
@@ -54,8 +55,13 @@ public class DiaryControllerImpl extends BaseController implements DiaryControll
 		  int section =Integer.parseInt(((_section==null)? "1":_section)); 
 		  int pageNum = Integer.parseInt(((_pageNum==null)? "1":_pageNum));
 		 
-		memberVO = (MemberVO) session.getAttribute("memberInfo");
-		List myDiary =diaryService.selectDiary(memberVO.getMember_id());
+		Object memberInfo =  session.getAttribute("memberInfo");
+		List myDiary = new ArrayList<>();
+		if(memberInfo instanceof MemberVO) {
+			myDiary =diaryService.selectDiary(((MemberVO) memberInfo).getMember_id());
+		}else if(memberInfo instanceof SellerVO){
+			myDiary =diaryService.selectDiary(((SellerVO) memberInfo).getSeller_id());
+		}
 		List diary = new ArrayList<>();
 		int ListSize = myDiary.size();
 		for(int i =(pageNum-1)*10; i <pageNum*10;i++) {
