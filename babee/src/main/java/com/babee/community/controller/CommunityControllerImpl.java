@@ -31,6 +31,7 @@ import com.babee.community.vo.FreeboardVO;
 import com.babee.community.vo.InfoVO;
 import com.babee.community.vo.QnaVO;
 import com.babee.member.vo.MemberVO;
+import com.babee.seller.vo.SellerVO;
 
 
 
@@ -80,10 +81,8 @@ public class CommunityControllerImpl extends BaseController implements Community
 				try {
 					freeboardVO = (FreeboardVO) myFreeboard.get(i);
 					if(searchWord !=null) {
-						System.out.println(searchWord);
 						if(freeboardVO.getFree_title().contains(searchWord)) {
 							freeboard.add(freeboardVO);	
-							 System.out.println("여기까지 ? 커뮤니티");
 									}
 						}else {
 					freeboard.add(freeboardVO);
@@ -304,8 +303,14 @@ public class CommunityControllerImpl extends BaseController implements Community
 	public ModelAndView addqna(HttpServletRequest request, HttpServletResponse response)  throws Exception {
 		ModelAndView mav = new ModelAndView();
 		HttpSession session=request.getSession();
-		memberVO = (MemberVO) session.getAttribute("memberInfo");
-		String member_id = memberVO.getMember_id();
+		Object member = session.getAttribute("memberInfo");
+		String member_id = null;
+		if(member instanceof MemberVO) {
+			 member_id = ((MemberVO) member).getMember_id();
+		}else if(member instanceof SellerVO) {
+			 member_id = ((SellerVO) member).getSeller_id();
+		}
+		
 		System.out.println("아이디: " + member_id);
 		String qna_title = request.getParameter("qna_title");
 		String qna_content = request.getParameter("qna_content"); 
@@ -339,10 +344,13 @@ public class CommunityControllerImpl extends BaseController implements Community
 		int pageNum = Integer.parseInt(((_pageNum==null)? "1":_pageNum));
 		
 		
-		memberVO = (MemberVO) session.getAttribute("memberInfo");
-		if (memberVO != null) {
-		String member_id = memberVO.getMember_id();
-		
+		 Object memberVO = session.getAttribute("memberInfo");
+		 String member_id=null;
+		if (memberVO instanceof MemberVO) {
+		member_id = ((MemberVO) memberVO).getMember_id();
+		}else if(memberVO instanceof SellerVO) {
+			member_id = ((SellerVO) memberVO).getSeller_id();	
+		}
 		List qnaList = new ArrayList<>();
 		qnaList = communityService.selectMyQnaList(member_id);
 		int ListSize = qnaList.size();
@@ -350,7 +358,7 @@ public class CommunityControllerImpl extends BaseController implements Community
 		mav.addObject("section", section);
 		mav.addObject("pageNum", pageNum);
 		mav.addObject("totArticles", ListSize);
-		}
+		
 		return mav;
 	}
 	
@@ -364,9 +372,14 @@ public class CommunityControllerImpl extends BaseController implements Community
 		multipartRequest.setCharacterEncoding("utf-8");
 		ModelAndView mav = new ModelAndView();
 		HttpSession session=request.getSession();
-		memberVO = (MemberVO) session.getAttribute("memberInfo");
-		String member_id = memberVO.getMember_id();
-		System.out.println("작성자 아이디: " + member_id );
+		Object member = session.getAttribute("memberInfo");
+		String member_id = null;
+		if(member instanceof MemberVO) {
+		 member_id = ((MemberVO) member).getMember_id();
+		}else if(member instanceof SellerVO){
+			member_id = ((SellerVO) member).getSeller_id();	
+		}
+		
 		
 
 		Map<String, Object> InfoMap = new HashMap<String, Object>();
@@ -465,15 +478,15 @@ public class CommunityControllerImpl extends BaseController implements Community
 		System.out.println("infoList.do 실행");
 		String viewName=(String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
-		HttpSession session=request.getSession();
+		
 		String _section = request.getParameter("section"); 
 		String _pageNum = request.getParameter("pageNum"); 
 		int section =Integer.parseInt(((_section==null)? "1":_section)); 
 		int pageNum = Integer.parseInt(((_pageNum==null)? "1":_pageNum));
 		 
-		memberVO = (MemberVO) session.getAttribute("memberInfo");
+	
 		List myInfoboard =communityService.selectAllinfo();
-		System.out.println("myInfoboard: " + myInfoboard);
+		
 		List infoboard = new ArrayList<>();
 		int ListSize = myInfoboard.size();
 		for(int i =(pageNum-1)*10; i <pageNum*10;i++) {
