@@ -89,8 +89,17 @@ public class CartControllerImpl extends BaseController implements CartController
 			
 			myCartList = cartService.myCartList(memberId);
 			
-			System.out.println("myCartList : " + myCartList);
 			
+			for(int i=0; i<myCartList.size(); i++) {
+				cartVO = myCartList.get(i);
+				int goods_id = cartVO.getGoods_id();
+				String id= String.valueOf(goods_id);
+				Map goods = goodsService.goodsDetail(id);
+				GoodsVO goodsCart = (GoodsVO) goods.get("goodsVO");
+				cartVO.setCart_image_name(goodsCart.getGoods_image_name1());
+				allGoodsList = cartService.selectGoodsList(goods_id);
+				allGoodsList.addAll(allGoodsList);
+			}
 			
 		}
 		
