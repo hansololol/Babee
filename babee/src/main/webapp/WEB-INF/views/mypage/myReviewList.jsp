@@ -4,6 +4,7 @@ pageEncoding="UTF-8" isELIgnored="false"%>
 <!DOCTYPE html>
 <html>
   <head>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <meta charset="UTF-8" />
     <title>고객센터 헤더</title>
     <style>
@@ -21,13 +22,13 @@ pageEncoding="UTF-8" isELIgnored="false"%>
         width: 70%;
       }
       .search-input {
-        width: 300px;
+        width: 200px;
         border: 1px solid #ffa500;
         text-align: center;
         padding: 5px;
         flex: 3;
         border-radius: 5px;
-        margin-left: 20px;
+        margin-left: 5px;
       }
       .search-button {
         border: none;
@@ -156,22 +157,35 @@ pageEncoding="UTF-8" isELIgnored="false"%>
   <body>
     <div id="search">
       <h2 style="margin: 0">나의 리뷰</h2>
+      <script>
+        function reviewSearch(){
+          var reviewTitle= $(".search-input").val();
+      
+       $.ajax({
+		            type:'get',
+	            	url: '${contextPath}/mypage/myReviewList.do',
+                    data : { reviewTitle :  reviewTitle},
+                      
+                    success: function(result){
+                        $('#container').html(result);
+                        }
+                    });
+        }
+    
+      </script>
       <div class="search-container">
-        <form action="검색결과를_처리할_페이지_주소" method="GET">
           <input
-            name="searchWord"
             class="search-input"
             type="text"
             placeholder="검색어를 입력해주세요."
           />
-          <button type="submit" name="search" class="search-button">
+          <button type="button" name="search" onclick="fn:reviewSearch()" class="search-button">
             <img
               src="/image/glass.png"
               alt="검색"
               style="width: 20px; height: 20px; margin-bottom: -5px"
             />
           </button>
-        </form>
       </div>
     </div>
 

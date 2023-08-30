@@ -208,8 +208,13 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 		multipartRequest.setCharacterEncoding("utf-8");
 		ModelAndView mav = new ModelAndView();
 		HttpSession session = request.getSession();
-		memberVO = (MemberVO) session.getAttribute("memberInfo");
-
+		Object member = session.getAttribute("memberInfo");
+		String member_id = null;
+		if(member instanceof MemberVO) {
+			member_id = ((MemberVO) member).getMember_id();
+		}else if(member instanceof SellerVO) {
+			member_id = ((SellerVO) member).getSeller_id();
+		}
 		Map<String, Object> reviewMap = new HashMap<String, Object>();
 		Enumeration enu = multipartRequest.getParameterNames();
 		while (enu.hasMoreElements()) {
@@ -229,7 +234,7 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 			myPageService.addReview(reviewMap);
 			if (imageFileName != null && imageFileName.size() != 0) {
 				File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + imageFileName.get(0));
-				File destDir = new File(ARTICLE_IMAGE_REPO + "\\" + memberVO.getMember_id());
+				File destDir = new File(ARTICLE_IMAGE_REPO + "\\" + member_id);
 				FileUtils.moveFileToDirectory(srcFile, destDir, true);
 				mav.setViewName("redirect:/mypage/myReviewList.do");
 			}
@@ -291,14 +296,26 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 		List myReview = myPageService.selectReview(member_id);
 		List review = new ArrayList<>();
 		int ListSize = myReview.size();
+		String kewWord = request.getParameter("reviewTitle");
 		for (int i = (pageNum - 1) * 10; i < pageNum * 10; i++) {
 			try {
 				reviewVO = (ReviewVO) myReview.get(i);
-				String goods_id = reviewVO.getGoods_id();
-				Map goods =goodsService.goodsDetail(goods_id);
-				GoodsVO goodsVO =(GoodsVO) goods.get("goodsVO");
-				reviewVO.setGoodsVO(goodsVO);
-				review.add(reviewVO);
+				if(kewWord != null ) {
+						String goods_id = reviewVO.getGoods_id();
+						Map goods =goodsService.goodsDetail(goods_id);
+						GoodsVO goodsVO =(GoodsVO) goods.get("goodsVO");
+						if(goodsVO.getGoods_title().contains(kewWord)) {
+						reviewVO.setGoodsVO(goodsVO);
+						review.add(reviewVO);
+					}
+				}else {
+					String goods_id = reviewVO.getGoods_id();
+					Map goods =goodsService.goodsDetail(goods_id);
+					GoodsVO goodsVO =(GoodsVO) goods.get("goodsVO");
+					reviewVO.setGoodsVO(goodsVO);
+					review.add(reviewVO);
+				}
+				
 			} catch (IndexOutOfBoundsException e) {
 				break;
 			}
