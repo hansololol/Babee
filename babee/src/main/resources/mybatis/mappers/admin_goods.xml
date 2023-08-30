@@ -318,7 +318,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
      where image_id=#{image_id}
    </delete>
    
-<update id="updateOrderGoods" parameterType="java.util.HashMap" >
+	<update id="updateOrderGoods" parameterType="java.util.HashMap" >
       update t_shopping_order
        <set> 
          <if test=" delivery_state!='' and delivery_state!=null">

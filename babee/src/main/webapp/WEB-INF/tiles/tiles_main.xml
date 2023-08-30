@@ -302,9 +302,14 @@
 <put-attribute name="body" value="/WEB-INF/views/admin00/diary/diaryManageList.jsp"/>
 </definition>
 
-<definition name="/member/memberManageList" extends="baseLayout_user">
-<put-attribute name="title" value="회원관리목록창(관리자)"/>
+<definition name="/admin/member/memberManageList" extends="baseLayout_user">
+<put-attribute name="title" value="회원관리 목록창(관리자)"/>
 <put-attribute name="body" value="/WEB-INF/views/admin00/member/memberManageList.jsp"/>
+</definition>
+
+<definition name="/admin/member/memberManageDetail" extends="baseLayout_user">
+<put-attribute name="title" value="회원관리 상세창(관리자)"/>
+<put-attribute name="body" value="/WEB-INF/views/admin00/member/memberManageDetail.jsp"/>
 </definition>
 
 <definition name="/admin/goods/listSellerGoodsAdmin" extends="baseLayout_user">
