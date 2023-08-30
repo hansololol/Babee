@@ -179,7 +179,7 @@ pageEncoding="UTF-8" isELIgnored="false"%>
       <table class="faq-table">
         <thead>
           <tr>
-            <th style="width: 12%">NO</th>
+            <th style="width: 12%">상품명</th>
             <th style="width: 50%">리뷰 내용</th>
             <th style="width: 20%">작성일</th>
             <th style="width: 8%">삭제</th>
@@ -206,7 +206,7 @@ pageEncoding="UTF-8" isELIgnored="false"%>
           </script>
           <c:forEach var="faq" items="${review}" varStatus="varSta">
             <tr class="faq-content">
-              <td>${varSta.count}</td>
+              <td>${faq.goodsVO.goods_title}</td>
               <td>
                 <a
                   href="#"

@@ -66,21 +66,6 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 		return mav;
 	}
 
-	/*@Override
-	@RequestMapping(value = "/myOrderDetail.do", method = RequestMethod.GET)
-	public ModelAndView myOrderDetail(@RequestParam("order_id") String order_id, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		String viewName = (String) request.getAttribute("viewName");
-		ModelAndView mav = new ModelAndView(viewName);
-		HttpSession session = request.getSession();
-		MemberVO orderer = (MemberVO) session.getAttribute("memberInfo");
-		SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
-		List<OrderVO> myOrderList = myPageService.findMyOrderInfo(order_id);
-		mav.addObject("myOrderList", myOrderList);
-		orderVO = myOrderList.get(0);
-		mav.addObject("myOrder", orderVO);
-		return mav;
-	}*/
 	
 	@Override
 	@RequestMapping(value = "/myOrderDetail.do", method = RequestMethod.GET)
@@ -116,9 +101,14 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 		HttpSession session = request.getSession();
-		memberVO = (MemberVO) session.getAttribute("memberInfo");
-		String member_id = memberVO.getMember_id();
-
+		Object member = session.getAttribute("memberInfo");
+		String member_id = null;
+		if(member instanceof MemberVO) {
+			member_id = ((MemberVO) member).getMember_id();
+		}else if(member instanceof SellerVO) {
+			member_id = ((SellerVO)member).getSeller_id();
+		}
+	
 		String _section = request.getParameter("section");
 		String _pageNum = request.getParameter("pageNum");
 		int section = Integer.parseInt(((_section == null) ? "1" : _section));
@@ -291,13 +281,23 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 		int section = Integer.parseInt(((_section == null) ? "1" : _section));
 		int pageNum = Integer.parseInt(((_pageNum == null) ? "1" : _pageNum));
 
-		memberVO = (MemberVO) session.getAttribute("memberInfo");
-		List myReview = myPageService.selectReview(memberVO.getMember_id());
+		Object member = session.getAttribute("memberInfo");
+		String member_id = null;
+		if(member instanceof MemberVO) {
+			member_id = ((MemberVO) member).getMember_id();
+		}else if(member instanceof SellerVO) {
+			member_id = ((SellerVO) member).getSeller_id();
+		}
+		List myReview = myPageService.selectReview(member_id);
 		List review = new ArrayList<>();
 		int ListSize = myReview.size();
 		for (int i = (pageNum - 1) * 10; i < pageNum * 10; i++) {
 			try {
 				reviewVO = (ReviewVO) myReview.get(i);
+				String goods_id = reviewVO.getGoods_id();
+				Map goods =goodsService.goodsDetail(goods_id);
+				GoodsVO goodsVO =(GoodsVO) goods.get("goodsVO");
+				reviewVO.setGoodsVO(goodsVO);
 				review.add(reviewVO);
 			} catch (IndexOutOfBoundsException e) {
 				break;

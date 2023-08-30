@@ -4,6 +4,8 @@ import java.sql.Date;
 
 import org.springframework.stereotype.Component;
 
+import com.babee.goods.vo.GoodsVO;
+
 @Component("reviewVO")
 public class ReviewVO {
 	private String member_id;
@@ -14,6 +16,7 @@ public class ReviewVO {
 	private String review_img;
 	private Date review_writeDate;
 	private String review_img_id;
+	private GoodsVO goodsVO;
 	
 	
 	public String getMember_id() {
@@ -63,5 +66,11 @@ public class ReviewVO {
 	}
 	public void setReview_img_id(String review_img_id) {
 		this.review_img_id = review_img_id;
+	}
+	public GoodsVO getGoodsVO() {
+		return goodsVO;
+	}
+	public void setGoodsVO(GoodsVO goodsVO) {
+		this.goodsVO = goodsVO;
 	}
 }
