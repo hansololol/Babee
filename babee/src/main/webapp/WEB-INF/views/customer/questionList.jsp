@@ -102,14 +102,9 @@
 <body>
     <br><br><br>
 <div id="search">
-    <h2 style=>고객센터</h2>
+ <p style="font-size: 32px;">&emsp; 고객센터</p>
     <div class="search-container">
-    <form action="검색결과를_처리할_페이지_주소" method="GET"><!-- form 엘리먼트 추가 -->
-        <input name="searchWord" class="search-input" type="text" placeholder="검색어를 입력해주세요.">
-        <button type="submit" name="search" class="search-button">
-            <img src="/image/glass.png" alt="검색" style="width: 20px; height: 20px;">
-        </button>
-    </form>
+  
 </div>
 </div>
 
@@ -271,7 +266,9 @@
      </div>
     </div>
     <hr width="50%" id="foreachhr">
+    <br><br><br><br>
 </div>
+
 
 
 <div style="text-align: center; display: none;" id="jajuList2">
@@ -308,6 +305,6 @@
 
 
     
-    <br><br><br><br><br>
+    <br><br><br><br><br> 
 </body>
 </html>

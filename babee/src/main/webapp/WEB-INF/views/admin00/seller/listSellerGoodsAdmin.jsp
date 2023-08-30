@@ -69,7 +69,37 @@
     }
 
 
+        a {
+            color: black;
+            text-decoration: none;
+        }
+        
+        .paging-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .paging-button {
+            display: inline-block;
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f0f0f0;
+            color: #333;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .paging-button:hover {
+            background-color: #ccc;
+        }
 
+        .menu-container >hr, #foreachhr {
+          margin:  1rem 25%;
+         color: inherit;
+        border: 0;
+           border-top: var(--bs-border-width) solid;
+         opacity: .25;
+}
 
 </style>
 <title>상품 관리창</title>
@@ -136,20 +166,7 @@
    
    <br>
 
-      <div class="search-container">
-          <form action="검색결과를_처리할_페이지_주소" method="GET" style="display: inherit;">
-            <select class="search-input">
-               <option selected>정렬 기준</option>
-               <option value="1">One</option>
-               <option value="2">Two</option>
-               <option value="3">Three</option>
-             </select>
-              <input name="searchWord" class="search-input" type="text" placeholder="검색어를 입력해주세요.">
-              <button type="submit" name="search" class="search-button">
-                  <img src="/image/glass.png" alt="검색" style="width: 20px; height: 20px; margin-bottom:-5px">
-              </button>
-          </form>
-      </div>
+     
       <br>
 <table class="order_delivery"  width="100%">
          <tr >
@@ -182,6 +199,43 @@
            </c:forEach> 
            
       </table>
+      	 <div class="paging-container">
+   <c:if test="${totArticles !=null}">
+      <c:choose>
+         <c:when test="${totArticles > 100 }"> 
+            <c:forEach var="page" begin="1" end="10" step="1">
+               <c:if test="${section >1 && page==1 }" >
+                  <a class="paging-button"  href="${contextPath}/admin/goods/listSellerGoodsAdmin.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp; pre </a>
+               </c:if>
+                  <a class="paging-button"  href="${contextPath}/admin/goods/listSellerGoodsAdmin.do?section=${section-1}&pageNum=${(section-1)*10 +page }"> </a>
+               <c:if test="${page ==10 }">
+               <a class="paging-button"  href="${contextPath}/admin/goods/listSellerGoodsAdmin.do?section=${section-1}&pageNum=${section*10 +1 }">&nbsp; next </a>
+               </c:if>
+            </c:forEach>
+         </c:when>
+         
+         <c:when test="${totArticles ==100 }">
+            <c:forEach var="page" begin="1" end="10" step="1">
+            <a class="paging-button"  href="#"> ${page }</a>
+            </c:forEach>
+         </c:when>
+         
+         <c:when test="${totArticles <100 }">
+            <c:forEach var="page" begin="1" end="${totArticles/10 +1 }" step="1">
+               <c:choose>
+                  <c:when test="${page==pageNum }">
+                  <a class="paging-button" href="${contextPath}/admin/goods/listSellerGoodsAdmin.do?section=${section}&pageNum=${page}">${page }</a>
+                  </c:when>
+               <c:otherwise>
+                  <a class="paging-button"  href="${contextPath}/admin/goods/listSellerGoodsAdmin.do?section=${section}&pageNum=${page}">${page }</a>
+               </c:otherwise>
+               </c:choose>
+            </c:forEach>
+         </c:when>
+      </c:choose>
+   </c:if>
+            
+</div>
       </div>      
   
 </body>

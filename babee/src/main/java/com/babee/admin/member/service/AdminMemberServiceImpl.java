@@ -35,7 +35,7 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 		 adminMemberDAO.modifyMemberInfo(memberMap);
 	}
 	
-	//사업자
+	//-----------------사업자 관리-----------------
 	@Override
 	public List<SellerVO> sellerManageList(Map sellerMap) throws Exception{
 		return adminMemberDAO.sellerManageList(sellerMap);
@@ -68,5 +68,29 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 	public void sellerRegister(Map sellerMap) throws DataAccessException {
 		adminMemberDAO.sellerRegister(sellerMap);
 	}
+	@Override
+	public void sellerRefuse(Map sellerMap) throws DataAccessException {
+		adminMemberDAO.sellerRefuse(sellerMap);
+	}
+	@Override
+	public void removeSeller(Map sellerMap) throws Exception {
+		adminMemberDAO.deleteSeller(sellerMap);
+	}
+	
+	//------------------회원 관리-----------------
+	@Override
+	public List<MemberVO> memberManageList(Map memberMap) throws Exception{
+		return adminMemberDAO.memberManageList(memberMap);
+	}
+	
+	@Override
+	public Map memberManageDetail(String member_id) throws Exception {
+		Map memberMap = new HashMap();
+		MemberVO memberVO = adminMemberDAO.memberManageDetail(member_id);
+		memberMap.put("memberVO", memberVO);
+		
+		return memberMap;
+	}
+	
 }
  

@@ -126,42 +126,44 @@
     <table style="text-align:center; margin:0 auto; ">
     	<tr style="border-bottom:1px solid gray; ">
 			<td width="80px;"><b>NO</b></td>
-			<td width="200px;"><b>ID</b></td>
-			<td width="200px;"><b>회원명</b></td>
+			<td width="150px;"><b>ID</b></td>
+			<td width="150px;"><b>회원명</b></td>
+            <td width="100px;"><b>활동상태</b></td>
 			<td width="150px;"><b>가입일</b></td>
 		</tr>
 		
 			
-    <c:forEach var="i" begin="0" end="5">
+    <c:forEach var="member" items="${member}" varStatus="memberNO">
 		<tr style="height: 50px; border-bottom:1px solid gray;">
-			<td> { 1 }</td>
-			<td>  <a href="${contextPath}/member/modMember.do?page=adminPage"> { ID } </a></td>
-			<td>  <a href="${contextPath}/member/modMember.do?page=adminPage">{ 회원명 } </a></td>
-			<td> { 2023-08-12 } </td>
+			<td>${memberNO.count}</td>
+			<td><a href="${contextPath}/admin/member/memberManageDetail.do?page=adminPage&member_id=${member.member_id}">${member.member_id}</a></td>
+			<td>${member.member_name}</td>
+            <td>${member.member_status}</td>
+			<td>${member.member_joinDate}</td>
 		</tr>
     </c:forEach>
-   
-    
     </table>
-    </div>
-    
-    
-    
- 
-   
 
-    
+
     <!-- 페이징 버튼 -->
-    <div class="paging-container">
-        <a class="paging-button" href="#">이전</a>
-        <a class="paging-button" href="#">1</a>
-        <a class="paging-button" href="#">2</a>
-        <a class="paging-button" href="#">3</a>
-        <a class="paging-button" href="#">4</a>
-        <a class="paging-button" href="#">5</a>
-        <a class="paging-button" href="#">다음</a>
-    </div>
     
+    
+    
+
+    <div class="paging-container">
+        <c:if test="${section>1}">
+            <a class="paging-button" href="${contextPath}/admin/member/memberManageList.do?section=${section-1}&pageNum=1">이전</a>
+        
+        </c:if>
+        <c:forEach var="i" begin="1" end="5">
+            <a class="paging-button" href="${contextPath}/admin/member/memberManageList.do?section=${section}&pageNum=${i}">${((section-1)*5) + i}</a>
+        
+        </c:forEach>
+        <a class="paging-button" href="${contextPath}/admin/member/memberManageList.do?section=${section+1}&pageNum=1">다음</a>
+    </div>
+
+
+    </div>
     </div>
     <br><br><br><br><br>
 </body>

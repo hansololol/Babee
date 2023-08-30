@@ -6,7 +6,9 @@
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <meta charset="UTF-8">
+
 <title>자유게시판 목록</title>
 <style>
    
@@ -121,12 +123,26 @@ input[type="button"]:hover, button[type="button"]:hover {
 <div id="search">
     <h2 style=>자유게시판</h2>
     <div class="search-container">
-    <form action="검색결과를_처리할_페이지_주소" method="GET"><!-- form 엘리먼트 추가 -->
-        <input name="searchWord" class="search-input" type="text" placeholder="검색어를 입력해주세요.">
-        <button type="submit" name="search" class="search-button">
+   
+        <input id="searchFreeWord" class="search-input" type="text" placeholder="검색어를 입력해주세요.">
+        <button type="button" onclick="fn:searchList()" class="search-button">
             <img src="/image/glass.png" alt="검색" style="width: 20px; height: 20px;">
         </button>
-    </form>
+   <script>
+        function searchList(){
+           var searchWord = $("#searchFreeWord").val();
+           $.ajax({
+		            type:'get',
+	            	url: '${contextPath}/community/freeboardList.do',
+                    data : {searchWord : searchWord},
+                      
+                    success: function(result){
+                        $('#container').html(result);
+                        }
+                    });
+           
+        }
+   </script>
 </div>
 </div>
 	<div id="freeboardList" style="padding-top: 30px;">

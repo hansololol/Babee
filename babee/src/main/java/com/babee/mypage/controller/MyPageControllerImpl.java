@@ -66,21 +66,6 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 		return mav;
 	}
 
-	/*@Override
-	@RequestMapping(value = "/myOrderDetail.do", method = RequestMethod.GET)
-	public ModelAndView myOrderDetail(@RequestParam("order_id") String order_id, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		String viewName = (String) request.getAttribute("viewName");
-		ModelAndView mav = new ModelAndView(viewName);
-		HttpSession session = request.getSession();
-		MemberVO orderer = (MemberVO) session.getAttribute("memberInfo");
-		SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
-		List<OrderVO> myOrderList = myPageService.findMyOrderInfo(order_id);
-		mav.addObject("myOrderList", myOrderList);
-		orderVO = myOrderList.get(0);
-		mav.addObject("myOrder", orderVO);
-		return mav;
-	}*/
 	
 	@Override
 	@RequestMapping(value = "/myOrderDetail.do", method = RequestMethod.GET)
@@ -116,9 +101,14 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 		HttpSession session = request.getSession();
-		memberVO = (MemberVO) session.getAttribute("memberInfo");
-		String member_id = memberVO.getMember_id();
-
+		Object member = session.getAttribute("memberInfo");
+		String member_id = null;
+		if(member instanceof MemberVO) {
+			member_id = ((MemberVO) member).getMember_id();
+		}else if(member instanceof SellerVO) {
+			member_id = ((SellerVO)member).getSeller_id();
+		}
+	
 		String _section = request.getParameter("section");
 		String _pageNum = request.getParameter("pageNum");
 		int section = Integer.parseInt(((_section == null) ? "1" : _section));
@@ -218,8 +208,13 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 		multipartRequest.setCharacterEncoding("utf-8");
 		ModelAndView mav = new ModelAndView();
 		HttpSession session = request.getSession();
-		memberVO = (MemberVO) session.getAttribute("memberInfo");
-
+		Object member = session.getAttribute("memberInfo");
+		String member_id = null;
+		if(member instanceof MemberVO) {
+			member_id = ((MemberVO) member).getMember_id();
+		}else if(member instanceof SellerVO) {
+			member_id = ((SellerVO) member).getSeller_id();
+		}
 		Map<String, Object> reviewMap = new HashMap<String, Object>();
 		Enumeration enu = multipartRequest.getParameterNames();
 		while (enu.hasMoreElements()) {
@@ -239,7 +234,7 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 			myPageService.addReview(reviewMap);
 			if (imageFileName != null && imageFileName.size() != 0) {
 				File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + imageFileName.get(0));
-				File destDir = new File(ARTICLE_IMAGE_REPO + "\\" + memberVO.getMember_id());
+				File destDir = new File(ARTICLE_IMAGE_REPO + "\\" + member_id);
 				FileUtils.moveFileToDirectory(srcFile, destDir, true);
 				mav.setViewName("redirect:/mypage/myReviewList.do");
 			}
@@ -291,14 +286,36 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 		int section = Integer.parseInt(((_section == null) ? "1" : _section));
 		int pageNum = Integer.parseInt(((_pageNum == null) ? "1" : _pageNum));
 
-		memberVO = (MemberVO) session.getAttribute("memberInfo");
-		List myReview = myPageService.selectReview(memberVO.getMember_id());
+		Object member = session.getAttribute("memberInfo");
+		String member_id = null;
+		if(member instanceof MemberVO) {
+			member_id = ((MemberVO) member).getMember_id();
+		}else if(member instanceof SellerVO) {
+			member_id = ((SellerVO) member).getSeller_id();
+		}
+		List myReview = myPageService.selectReview(member_id);
 		List review = new ArrayList<>();
 		int ListSize = myReview.size();
+		String kewWord = request.getParameter("reviewTitle");
 		for (int i = (pageNum - 1) * 10; i < pageNum * 10; i++) {
 			try {
 				reviewVO = (ReviewVO) myReview.get(i);
-				review.add(reviewVO);
+				if(kewWord != null ) {
+						String goods_id = reviewVO.getGoods_id();
+						Map goods =goodsService.goodsDetail(goods_id);
+						GoodsVO goodsVO =(GoodsVO) goods.get("goodsVO");
+						if(goodsVO.getGoods_title().contains(kewWord)) {
+						reviewVO.setGoodsVO(goodsVO);
+						review.add(reviewVO);
+					}
+				}else {
+					String goods_id = reviewVO.getGoods_id();
+					Map goods =goodsService.goodsDetail(goods_id);
+					GoodsVO goodsVO =(GoodsVO) goods.get("goodsVO");
+					reviewVO.setGoodsVO(goodsVO);
+					review.add(reviewVO);
+				}
+				
 			} catch (IndexOutOfBoundsException e) {
 				break;
 			}
@@ -345,6 +362,16 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 			String member_id = sellerVO.getSeller_id();
 
 			myWishList = myPageService.selectWishList(member_id);
+			  for(int i=0; i<myWishList.size(); i++) { 
+				  wishVO = myWishList.get(i);
+				  int  goods_id = wishVO.getGoods_id(); String id= String.valueOf(goods_id); 
+				  Map  goods = goodsService.goodsDetail(id); 
+				  GoodsVO goodsCart = (GoodsVO) goods.get("goodsVO"); 
+				  wishVO.setGoods_title(goodsCart.getGoods_title());
+			  wishVO.setGoods_price(goodsCart.getGoods_price());
+			  wishVO.setGoods_image_name1(goodsCart.getGoods_image_name1()); 
+			  
+			  }
 
 		}
 

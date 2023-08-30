@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
+pageEncoding="UTF-8" isELIgnored="false" %> <%@ taglib prefix="c"
+uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -99,8 +101,11 @@ pageEncoding="UTF-8"%>
   </head>
   <body>
     <div class="custom-style">
-      <form  class="form-container" method="post" action="${contextPath}/community/addqna.do" >
-      
+      <form
+        class="form-container"
+        method="post"
+        action="${contextPath}/community/addqna.do"
+      >
         <h1 style="text-align: center">고객센터</h1>
         <h3 style="text-align: center">문의하기</h3>
         <hr />
@@ -109,7 +114,12 @@ pageEncoding="UTF-8"%>
           <table>
             <tr>
               <th>작성자</th>
-              <td style="text-align: left">&nbsp; ${memberInfo.member_id}</td>
+              <c:if test="${memberInfo.member_id != null }">
+                <td style="text-align: left">&nbsp; ${memberInfo.member_id}</td>
+              </c:if>
+              <c:if test="${memberInfo.seller_id != null }">
+                <td style="text-align: left">&nbsp; ${memberInfo.seller_id}</td>
+              </c:if>
             </tr>
 
             <tr>

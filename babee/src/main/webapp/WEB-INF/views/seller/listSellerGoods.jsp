@@ -2,6 +2,7 @@
    pageEncoding="utf-8"
    isELIgnored="false"%>  
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 <!DOCTYPE html >
 <html>
@@ -118,7 +119,18 @@
    </div>  
    
    <br>
-   <a class="order_delivery_search" href="${contextPath}/seller/addNewGoodsForm.do" style="width: 125px;
+   <script>
+    $(document).ready(function() {
+         if("${memberInfo.seller_status}" =='승인'){
+            $(".order_delivery_search").prop("href","${contextPath}/seller/addNewGoodsForm.do");
+         }
+
+    });
+    function insertGoods(){
+                  alert("사업자 승인 이후 이용 가능합니다. \n사업자 승인은 평균 2~3일 소요됩니다. ")
+               }
+   </script>
+   <a class="order_delivery_search" href="javascript:insertGoods()" style="width: 125px;
    float: right;
    font-size: 18px;
    margin-bottom: 10px;"><b>상품 등록하기</b></a>

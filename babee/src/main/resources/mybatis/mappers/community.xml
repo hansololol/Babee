@@ -193,7 +193,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    <select id="selectAllQnaList" resultMap="qnaResult" parameterType="String">
 		<![CDATA[
 		SELECT * 
-		FROM t_shopping_qna
+		FROM t_shopping_qna order by qna_writeDate desc;
 		]]>
 	 </select>
 	 

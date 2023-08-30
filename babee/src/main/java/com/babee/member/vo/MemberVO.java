@@ -28,7 +28,7 @@ public class MemberVO {
 	private String member_jibunAddr;
 	private String member_namujiAddr;
 	private Date member_joinDate;
-	private String member_statue;
+	private String member_status;
 	private String baby_gender;
 	private String baby_age;
 	private String seller_id;
@@ -130,11 +130,11 @@ public class MemberVO {
 	public void setMember_joinDate(Date member_joinDate) {
 		this.member_joinDate = member_joinDate;
 	}
-	public String getMember_statue() {
-		return member_statue;
+	public String getMember_status() {
+		return member_status;
 	}
-	public void setMember_statue(String member_statue) {
-		this.member_statue = member_statue;
+	public void setMember_status(String member_status) {
+		this.member_status = member_status;
 	}
 	public String getBaby_gender() {
 		return baby_gender;

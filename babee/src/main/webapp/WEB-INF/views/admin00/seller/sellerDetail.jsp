@@ -25,7 +25,20 @@
 
 
 </style>
+<script>
+function fn_remove_seller(seller_id){
+      var formObj = document.createElement("form");
+      var s_seller = document.createElement("input");
+	 		s_seller.name = "seller_id";
+	  		s_seller.value = seller_id;
+            formObj.appendChild(s_seller);
+      document.body.appendChild(formObj);
+            formObj.method = "post";
+            formObj.action = "${contextPath}/admin/member/removeSeller.do";
+            formObj.submit();
+   }
 
+</script>
 </head>
 <body>
 
@@ -41,7 +54,7 @@
 <div style="width:66%; margin:0 auto;">
 
 	<h3 style="display:inline-block; margin-bottom: 8px; margin-top: 10px;">${seller.seller_company}&nbsp; <h6 style="display:inline-block; margin-bottom: 8px;">${seller.seller_joinDate}</h6> </h3> 
-	<button style="display:inline-block; margin-left:300px;">삭제</button>
+	<input type="button" value="삭제" style="display:inline-block; margin-left:300px;" onclick="fn_remove_seller('${seller.seller_id}')">
 	<hr style="padding-top:0px">
 </div>
 
@@ -49,7 +62,7 @@
 
 	<table class="store_basic"  style="margin:0 auto;">
 	 <tr>
-         <td width="200" style=""><h4 align="center"> <span style="color: #cc9900;">●</span>기본정보 </h4></td>
+         <td width="200"><h4 align="center"> <span style="color: #cc9900;">●</span>기본정보 </h4></td>
          <td> &nbsp;</td>
       </tr>
  	 </table>
@@ -139,11 +152,11 @@
 		</li>
 	</ul>
 	<div class="tab-content" id="myTabContent">
-	  <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0"><img src="${contextPath}/thumbnails.do?goods_id=${seller.seller_id}&fileName=${seller.seller_img1}" width="400px;"></div>
-	  <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0"><img src="/image/ex01.jpg" width="600px;">
-		</div>
+	  <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0"><br><br><img src="${contextPath}/thumbnails.do?goods_id=${seller.seller_id}&fileName=${seller.seller_img1}" width="400px;"></div>
+	  <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0"><br><br><img src="/image/ex01.jpg" width="600px;"></div>
+	  <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0"><br><br><img src="/image/통장사본.jpg" width="400px;"></div>
 	</div>
-	  <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0"><br><br><br><br><img src="/image/ex01.jpg" width="600px;"></div>
+	  
 	  
 	</div>
 

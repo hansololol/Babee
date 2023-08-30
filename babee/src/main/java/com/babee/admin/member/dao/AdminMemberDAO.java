@@ -20,10 +20,16 @@ public interface AdminMemberDAO {
 	public MemberVO memberDetail(String member_id) throws DataAccessException;
 	public void modifyMemberInfo(HashMap memberMap) throws DataAccessException;
 	
-	//사업자
+	//사업자 관리
 	public List sellerManageList(Map sellerMap) throws DataAccessException;
 	public SellerVO sellerDetail(String seller_id) throws DataAccessException;
 	public List sellerManageWait(Map sellerMap) throws DataAccessException;
 	public SellerVO sellerWaitDetail(String seller_id) throws DataAccessException;
 	public void sellerRegister(Map sellerMap) throws DataAccessException;
+	public void sellerRefuse(Map sellerMap) throws DataAccessException;
+	public void deleteSeller(Map sellerMap) throws DataAccessException;
+	
+	//회원 관리
+	public List memberManageList(Map memberMap) throws DataAccessException;
+	public MemberVO memberManageDetail(String member_id) throws DataAccessException;
 } 

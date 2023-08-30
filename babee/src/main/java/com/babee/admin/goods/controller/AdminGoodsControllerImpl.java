@@ -1,6 +1,7 @@
 package com.babee.admin.goods.controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.babee.admin.goods.dao.AdminGoodsDAO;
 import com.babee.admin.goods.service.AdminGoodsService;
 import com.babee.common.base.BaseController;
+import com.babee.community.vo.InfoVO;
 import com.babee.goods.vo.GoodsVO;
 import com.babee.goods.vo.ImageFileVO;
 import com.babee.member.vo.MemberVO;
@@ -39,6 +41,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
    @Autowired
    private AdminGoodsService adminGoodsService;
    private AdminGoodsDAO adminGoodsDAO;
+   private GoodsVO goodsVO;
    Random random = new Random();
    @RequestMapping(value="/adminGoodsMain.do" ,method={RequestMethod.POST,RequestMethod.GET})
    public ModelAndView adminGoodsMain(@RequestParam Map<String, String> dateMap,
@@ -312,11 +315,31 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
    public ModelAndView allGoodsList(HttpServletRequest request, HttpServletResponse response) throws Exception {
 	   ModelAndView mav = new ModelAndView();
 	   HttpSession session=request.getSession();
+	   
+	   String _section = request.getParameter("section"); 
+	   String _pageNum = request.getParameter("pageNum"); 
+	   int section =Integer.parseInt(((_section==null)? "1":_section)); 
+	   int pageNum = Integer.parseInt(((_pageNum==null)? "1":_pageNum));
+		
 	   MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
 	   try {
            List<GoodsVO> allGoodsList = adminGoodsService.allGoodsList();
-           mav.addObject("allGoodsList", allGoodsList);
-           mav.setViewName("/admin/goods/listSellerGoodsAdmin"); // 상품 리스트를 보여줄 뷰 페이지 지정
+           
+           List allGoodsList_ = new ArrayList<>();
+           int ListSize = allGoodsList.size();
+           for(int i =(pageNum-1)*10; i <pageNum*10;i++) {
+   			try {
+   				goodsVO = (GoodsVO) allGoodsList.get(i);
+   				allGoodsList_.add(goodsVO);
+   			}catch(IndexOutOfBoundsException e) {
+   				break;
+   			}
+   			}
+           	mav.addObject("allGoodsList", allGoodsList_);
+           	mav.addObject("section", section);
+			mav.addObject("pageNum", pageNum);
+			mav.addObject("totArticles", ListSize);
+            mav.setViewName("/admin/goods/listSellerGoodsAdmin"); // 상품 리스트를 보여줄 뷰 페이지 지정
        } catch (Exception e) {
            e.printStackTrace();
        }
