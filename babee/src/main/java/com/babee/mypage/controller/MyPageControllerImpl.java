@@ -66,7 +66,7 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 		return mav;
 	}
 
-	@Override
+	/*@Override
 	@RequestMapping(value = "/myOrderDetail.do", method = RequestMethod.GET)
 	public ModelAndView myOrderDetail(@RequestParam("order_id") String order_id, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -74,11 +74,40 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 		ModelAndView mav = new ModelAndView(viewName);
 		HttpSession session = request.getSession();
 		MemberVO orderer = (MemberVO) session.getAttribute("memberInfo");
+		SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
 		List<OrderVO> myOrderList = myPageService.findMyOrderInfo(order_id);
 		mav.addObject("myOrderList", myOrderList);
 		orderVO = myOrderList.get(0);
 		mav.addObject("myOrder", orderVO);
 		return mav;
+	}*/
+	
+	@Override
+	@RequestMapping(value = "/myOrderDetail.do", method = RequestMethod.GET)
+	public ModelAndView myOrderDetail(@RequestParam("order_id") String order_id, HttpServletRequest request,
+	        HttpServletResponse response) throws Exception {
+	    String viewName = (String) request.getAttribute("viewName");
+	    ModelAndView mav = new ModelAndView(viewName);
+	    HttpSession session = request.getSession();
+	    
+	    // 사용자의 역할에 따라서 적절한 캐스팅을 수행
+	    Object memberInfo = session.getAttribute("memberInfo");
+	    if (memberInfo instanceof MemberVO) {
+	        MemberVO orderer = (MemberVO) memberInfo;
+	        List<OrderVO> myOrderList = myPageService.findMyOrderInfo(order_id);
+	        mav.addObject("myOrderList", myOrderList);
+	        orderVO = myOrderList.get(0);
+	        mav.addObject("myOrder", orderVO);
+	    } else if (memberInfo instanceof SellerVO) {
+	        SellerVO sellerVO = (SellerVO) memberInfo;
+	        // 셀러에 관련된 로직 수행
+	        List<OrderVO> myOrderList = myPageService.findMyOrderInfo(order_id);
+	        mav.addObject("myOrderList", myOrderList);
+	        orderVO = myOrderList.get(0);
+	        mav.addObject("myOrder", orderVO);
+	    }
+	    
+	    return mav;
 	}
 
 	@Override

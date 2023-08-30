@@ -307,9 +307,64 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
    }
    
 
-   
+ //관리자 상품조회
+   @RequestMapping(value = "/listSellerGoodsAdmin.do")
+   public ModelAndView allGoodsList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	   ModelAndView mav = new ModelAndView();
+	   HttpSession session=request.getSession();
+	   MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
+	   try {
+           List<GoodsVO> allGoodsList = adminGoodsService.allGoodsList();
+           mav.addObject("allGoodsList", allGoodsList);
+           mav.setViewName("/admin/goods/listSellerGoodsAdmin"); // 상품 리스트를 보여줄 뷰 페이지 지정
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
 
+       return mav;
+   }
+   
+   
+   
+   //관리자 상품삭제
    @Override
+   @RequestMapping(value = "/removeGoodsImage.do", method={RequestMethod.GET, RequestMethod.POST})
+   public void removeGoodsImage(@RequestParam("goods_id") int goods_id,
+		   						@RequestParam("goods_image_name1_id") int goods_image_name1_id,
+                                HttpServletRequest request, HttpServletResponse response) throws Exception {
+  
+       
+       try {
+          adminGoodsService.removeGoodsImage1(goods_id);
+          adminGoodsService.removeGoodsImage2(goods_image_name1_id);
+          
+           // 폴더 삭제
+           File srcFolder = new File(CURR_IMAGE_REPO_PATH + "\\" + goods_id);
+           deleteDirectory(srcFolder);
+
+           response.sendRedirect(request.getContextPath() + "/admin/goods/listSellerGoodsAdmin.do");
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
+   }
+
+   private void deleteDirectory(File dir) {
+       File[] files = dir.listFiles();
+       if (files != null) {
+           for (File file : files) {
+               if (file.isDirectory()) {
+                   deleteDirectory(file);
+               } else {
+                   file.delete();
+               }
+           }
+       }
+       dir.delete();
+   }
+
+
+
+   /*@Override
    @RequestMapping(value="/removeGoodsImage.do" ,method={RequestMethod.POST})
    public void  removeGoodsImage(@RequestParam("goods_id") int goods_id,
                                @RequestParam("image_id") int image_id,
@@ -323,6 +378,6 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
       }catch(Exception e) {
          e.printStackTrace();
       }
-   }
+   }*/
 
 }

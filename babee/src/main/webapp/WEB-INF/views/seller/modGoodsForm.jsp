@@ -411,7 +411,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
         <br /><br /><br />
         <div>
     <label for="goods_image_name1">Image 1:</label>
-    <input type="file" name="goods_image_name1"/>
+    <input type="file" name="goods_image_name1" />
     <div class="file-preview1">
         <img src="${contextPath}/thumbnails.do?goods_id=${goodsInfo.goods_id}&fileName=${goodsInfo.goods_image_name1}" style="width: 200px; height: 200px;"> </a></td>
     </div>

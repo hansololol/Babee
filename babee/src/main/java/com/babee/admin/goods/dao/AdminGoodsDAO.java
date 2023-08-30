@@ -29,4 +29,10 @@ public interface AdminGoodsDAO {
    public List<OrderVO> selectOrderGoodsList(Map condMap) throws DataAccessException;
    public void updateOrderGoods(Map orderMap) throws DataAccessException;
    
+    //관리자 상품조회
+ 	public List<GoodsVO> allGoodsList() throws DataAccessException;
+ 	
+ 	//관리자 상품삭제
+ 	public void adminGoodsDelete1(int goods_id) throws DataAccessException;
+ 	public void adminGoodsDelete2(int goods_image_name1_id) throws DataAccessException;
 }

@@ -25,14 +25,20 @@ import com.babee.seller.vo.SellerVO;
 	    
 	    
 	 // 상품 정보 업데이트
-	    void updateGoods(Map<String, Object> modGoodsMap) throws Exception;
+	    public void updateGoods(Map<String, Object> modGoodsMap) throws Exception;
 
 	    // 상품 이미지 정보 업데이트
-	    void updateGoodsImage(Map<String, Object> modGoodsMap) throws Exception;
+	    public void updateGoodsImage(Map<String, Object> modGoodsMap) throws Exception;
 		
 		//업데이트 전 값 불러오기
 		public Map<String, Object> getGoodsInfo(int goods_id) throws DataAccessException;
 		
 		// 오늘 등록된 상품 조회
-	    List<GoodsVO> getTodayGoods() throws DataAccessException;
+	    public List<GoodsVO> getTodayGoods() throws DataAccessException;
+	    
+	    // 사업자가 등록한 상품 주문 리스트 조회
+	    public List<Map<String, Object>> getSellerOrderList(@Param("seller_id") String seller_id) throws DataAccessException;
+	    
+	    //사업자 배송상태 업데이트
+	    public void updateDeliveryStatus(Map<String, Object> deliveryStatusMap) throws DataAccessException;
 	}

@@ -16,8 +16,13 @@ public interface AdminGoodsService {
    public void modifyGoodsImage(List<ImageFileVO> imageFileList) throws Exception;
    public List<OrderVO> listOrderGoods(Map condMap) throws Exception;
    public void modifyOrderGoods(Map orderMap) throws Exception;
-   public void removeGoodsImage(int image_id) throws Exception;
+   //public void removeGoodsImage(int image_id) throws Exception;
    public void addNewGoodsImage(Map newGoodsMap) throws Exception;
    
-   
+    //관리자상품조회
+ 	public List<GoodsVO> allGoodsList() throws Exception;
+ 	
+ 	//관리자 상품삭제
+ 	public void removeGoodsImage1(int goods_id) throws Exception;
+ 	public void removeGoodsImage2(int goods_image_name1_id) throws Exception;
 }

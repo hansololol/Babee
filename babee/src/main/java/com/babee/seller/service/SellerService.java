@@ -28,5 +28,11 @@ public interface SellerService {
 	
 	// 오늘 등록된 상품 조회
     public List<GoodsVO> getTodayGoods() throws DataAccessException;
+    
+    // 사업자가 등록한 상품 주문 리스트 조회
+    public List<Map<String, Object>> getSellerOrderList(String seller_id) throws DataAccessException;
+    
+    //사업자 배송상태 변경
+    public void updateDeliveryStatus(Map<String, Object> deliveryStatusMap) throws Exception;
 }
 
