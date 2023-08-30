@@ -431,7 +431,7 @@ function add_wish(goods_id){
 					<td class="fixed">수량</td>
 					<td class="fixed">
 
-			      <input type="number" value="1" style="width: 400px; text-align: center;" id="order_goods_qty" name="order_goods_qty">
+			      <input type="number" min="1" value="1" style="width: 400px; text-align: center;" id="order_goods_qty" name="order_goods_qty">
 
 				
 					 </td>
