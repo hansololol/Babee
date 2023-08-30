@@ -102,6 +102,10 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		session.removeAttribute("isLogOn");
 		session.removeAttribute("memberInfo");
 		session.removeAttribute("userType");
+		String memberpw= (String) session.getAttribute("memberpw");
+		if(memberpw !=null) {
+			session.removeAttribute("memberpw");
+		}
 		mav.setViewName("redirect:/main/main.do");
 		return mav;
 	}
@@ -240,6 +244,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 			session.setAttribute("isLogOn", true);
 			session.setAttribute("userType", "M");
 			session.setAttribute("memberInfo",memberVO);
+			session.setAttribute("memberpw",memberVO.getMember_pw());
 			mav.setViewName("redirect:/main/main.do");
 			
 		}

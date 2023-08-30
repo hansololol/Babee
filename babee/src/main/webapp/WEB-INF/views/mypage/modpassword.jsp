@@ -47,6 +47,7 @@
           <input
             type="password"
             id="pwd"
+            value="${memberpw}"
             style="
               width: 30%;
               padding: 10px;
