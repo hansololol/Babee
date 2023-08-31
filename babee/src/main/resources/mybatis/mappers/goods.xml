@@ -151,9 +151,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	
   	    <select id="seasonGoodsList" resultType="GoodsVO">
 	 <![CDATA[
-		SELECT g.*, d.fileName 
+		SELECT g.*
 		FROM t_shopping_goods g
-		LEFT JOIN t_shopping_image d ON g.goods_image_name1 = d.fileName
 		WHERE g.goods_title LIKE CONCAT('%', "시즌" ,'%')
 		ORDER BY g.goods_creation_date DESC
 		Limit 6
