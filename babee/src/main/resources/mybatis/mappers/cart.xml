@@ -63,7 +63,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	 <select id="selectGoodsList" parameterType="int" resultType="GoodsVO">
 		<![CDATA[
-		 select goods_option1, goods_option2, goods_option3, goods_option4, goods_option5, goods_image_name1 
+		 select goods_option1, goods_option2, goods_option3, goods_option4, goods_option5, goods_image_name1, goods_stock
 		from t_shopping_goods
 		where goods_id=#{goods_id};
 		]]>

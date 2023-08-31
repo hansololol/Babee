@@ -55,21 +55,19 @@ ul li {
 
 <script type="text/javascript">
 
-   function deleteProduct(button) {
-      button.parentElement.remove();
-   }
 
-   function selectAll() {
-      var checkboxes = document.querySelectorAll('.product-checkbox');
-      var selectAllCheckbox = document.getElementById('select-all-checkbox');
+function selectAll() {
+    var checkboxes = document.querySelectorAll('.product-checkbox');
+    var selectAllCheckbox = document.getElementById('select-all-checkbox');
 
-      for (var i = 0; i < checkboxes.length; i++) {
-         checkboxes[i].checked = selectAllCheckbox.checked;
-         
-      }
-      
-   }
+    for (var i = 0; i < checkboxes.length; i++) {
+       if (!checkboxes[i].disabled) {
+          checkboxes[i].checked = selectAllCheckbox.checked;
+       }
+    }
 
+    updateTotalPrices();
+ }
    $(document).ready(function() {
                   // 클래스가 "product-checkbox"인 체크박스 변경 감지
                   $(".product-checkbox")
@@ -84,7 +82,8 @@ ul li {
                                              function() {
                                                 var parent = $(this).closest("tr");
                                                 var priceElement = parseInt(parent.find(".price").text());
-                                                var quantityElement = document.getElementById('order_goods_qty').value; 
+                                                var quantityElement = parseInt(parent.find(".order_goods_qty").val()); 
+                                            
                                                 
 
                                                 
@@ -96,16 +95,17 @@ ul li {
                                  var finalTotalPrice = totalGoodsPrice - totalDiscountedPrice + 3000;
 
                                  // 선택된 상품 정보 업데이트
-                                 $("#p_totalGoodsNum").text(totalGoodsNum + "개");
-                                 $("#p_totalGoodsPrice").text(totalGoodsPrice + "원");
-                                 $("#p_totalDiscountedPrice").text(totalDiscountedPrice + "원");
-                                 $("#p_final_totalPrice").text(finalTotalPrice + "원");
+                                 $("#p_totalGoodsNum").text(totalGoodsNum.toLocaleString() + "개");
+                                 $("#p_totalGoodsPrice").text(totalGoodsPrice.toLocaleString() + "원");
+                                 $("#p_totalDiscountedPrice").text(totalDiscountedPrice.toLocaleString() + "원");
+                                 $("#p_final_totalPrice").text(finalTotalPrice.toLocaleString() + "원");
+
                               });
                });
 
    
 
-   function delete_cart_goods(cart_id) {
+function delete_cart_goods(cart_id) {
       var cart_id = Number(cart_id);
       var formObj = document.createElement("form");
       var i_cart = document.createElement("input");
@@ -121,7 +121,7 @@ ul li {
 
    
 
-   function fnOrderGoods() {
+ function fnOrderGoods() {
        var cartOrderArr = [];
 
        var selectedCheckboxes = $(".product-checkbox:checked");
@@ -133,7 +133,7 @@ ul li {
        selectedCheckboxes.each(function () {
            var row = $(this).closest("tr");
            var goodsId = row.find(".goodsId").val();
-           var quantity = row.find("#order_goods_qty").val();
+           var quantity = row.find(".order_goods_qty").val();
            var option = row.find("#_goods_option").val();
 
            cartOrderArr.push({
@@ -176,43 +176,65 @@ ul li {
        form.submit();
    }
 
-   function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
-      var total_price,final_total_price,_goods_qty;
-      var cart_goods_qty=document.getElementById("cart_goods_qty");
-      
-      _order_goods_qty=cart_goods_qty.value; //장바구니에 담긴 개수 만큼 주문한다.
-      var formObj=document.createElement("form");
-      var i_goods_id = document.createElement("input"); 
-       var i_goods_title = document.createElement("input");
-       var i_goods_sales_price=document.createElement("input");
-       var i_fileName=document.createElement("input");
-       var i_order_goods_qty=document.createElement("input");
-       
-       i_goods_id.name="goods_id";
-       i_goods_title.name="goods_title";
-       i_goods_sales_price.name="goods_sales_price";
-       i_fileName.name="goods_fileName";
-       i_order_goods_qty.name="order_goods_qty";
-       
-       i_goods_id.value=goods_id;
-       i_order_goods_qty.value=_order_goods_qty;
-       i_goods_title.value=goods_title;
-       i_goods_sales_price.value=goods_sales_price;
-       i_fileName.value=fileName;
-       
-       formObj.appendChild(i_goods_id);
-       formObj.appendChild(i_goods_title);
-       formObj.appendChild(i_goods_sales_price);
-       formObj.appendChild(i_fileName);
-       formObj.appendChild(i_order_goods_qty);
 
-       document.body.appendChild(formObj); 
-       formObj.method="post";
-       formObj.action="${contextPath}/order/orderEachGoods.do";
-       formObj.submit();
-   }
+ function updateTotalPrices() {
+	   var totalGoodsNum = 0;
+	   var totalGoodsPrice = 0;
+	   var totalDiscountedPrice = 0;
 
-   
+	   $(".product-checkbox:checked").each(function () {
+	      var parent = $(this).closest("tr");
+	      var priceElement = parseInt(parent.find(".price").text());
+	      var quantityElement = parseInt(parent.find(".order_goods_qty").val());
+
+	      totalGoodsNum++;
+	      totalGoodsPrice += priceElement * quantityElement;
+	      totalDiscountedPrice += (priceElement / 10) * quantityElement;
+	   });
+
+	   var finalTotalPrice = totalGoodsPrice - totalDiscountedPrice + 3000;
+
+	   // 선택된 상품 정보 업데이트
+	   $("#p_totalGoodsNum").text(totalGoodsNum.toLocaleString() + "개");
+	   $("#p_totalGoodsPrice").text(totalGoodsPrice.toLocaleString() + "원");
+	   $("#p_totalDiscountedPrice").text(totalDiscountedPrice.toLocaleString() + "원");
+	   $("#p_final_totalPrice").text(finalTotalPrice.toLocaleString() + "원");
+
+	   // 여기에 ajax 호출 등의 추가 작업 가능
+	   $(document).ready(function() {
+           // 클래스가 "product-checkbox"인 체크박스 변경 감지
+           $(".product-checkbox")
+                 .change(
+                       function() {
+
+                          var totalGoodsNum = 0;
+                          var totalGoodsPrice = 0;
+                          var totalDiscountedPrice = 0;                      
+
+                          $(".product-checkbox:checked").each(
+                                      function() {
+                                         var parent = $(this).closest("tr");
+                                         var priceElement = parseInt(parent.find(".price").text());
+                                         var quantityElement = parseInt(parent.find(".order_goods_qty").val()); 
+                                         
+
+                                         
+                                         totalGoodsNum++;
+                                         totalGoodsPrice += (priceElement * quantityElement); 
+                                         totalDiscountedPrice += ((priceElement /10) * quantityElement); 
+                                      });
+
+                          var finalTotalPrice = totalGoodsPrice - totalDiscountedPrice + 3000;
+
+                          // 선택된 상품 정보 업데이트
+                          $("#p_totalGoodsNum").text(totalGoodsNum.toLocaleString() + "개");
+                          $("#p_totalGoodsPrice").text(totalGoodsPrice.toLocaleString() + "원");
+                          $("#p_totalDiscountedPrice").text(totalDiscountedPrice.toLocaleString() + "원");
+                          $("#p_final_totalPrice").text(finalTotalPrice.toLocaleString() + "원");
+
+                       });
+        });
+	}
 
 </script>
 
@@ -247,16 +269,35 @@ ul li {
                <td width="70px"></td>
             </tr>
 
-            <c:forEach var="cartVO" items="${myCartList}">
+            <c:forEach var="cartVO" items="${myCartList}" varStatus="loop">
                <tr>
-                  <td class="text_center"><input type="checkbox" class="product-checkbox"></td>
+                  <td class="text_center"> <input type="checkbox" class="product-checkbox" ${cartVO.goodsVO.goods_stock == 0 ? 'disabled' : ''}></td>
                         <input type="hidden" class="goodsId" value="${cartVO.goods_id}">
                   <td style="text-align: left;"><a href="${contextPath}/goods/goodsDetail.do?goods_id=${cartVO.goods_id}"><img src="${contextPath}/thumbnails.do?goods_id=${cartVO.goods_id}&fileName=${cartVO.cart_image_name}" width="100px" class="cart_img"/></a></td>
                   <td style="text-align: left;">${cartVO.goods_title}</td>
                   <td><span class="price">${cartVO.goods_price} 원</span></td>
                   <td><span class="quantity">
-                              <input type="number" value="${cartVO.cart_goods_qty}" id="order_goods_qty" min="1" class="order_goods_qty" name="order_goods_qty" style="width: 100px; text-align: center;"></span> 개</td>
-                                
+              
+					
+						
+						<c:choose>
+						<c:when test="${cartVO.goodsVO.goods_stock ==0}">
+							<input type="hidden" class="goods-stock" value="${cartVO.goodsVO.goods_stock}">
+
+							 품절
+							 
+						</c:when>
+						
+						<c:when test="${goodsVO.goods_stock !=0}">
+
+ 				        <input type="number" value="${cartVO.cart_goods_qty}" data-index="${loop.index}" class="order_goods_qty" name="order_goods_qty" style="width: 100px; text-align: center;" onchange="updateTotalPrices()" min="1" max="${cartVO.goodsVO.goods_stock }"> 
+ 				        </c:when>
+ 				        </c:choose>
+ 				        </span> 
+ 				        
+ 				        </td>   
+ 				            
+                  
                   <td>  <select style="width: 100px; text-align: center" id="_goods_option" name="goods_option" >
                  
                         <option value="${cartVO.goods_option1}">${cartVO.goods_option1}</option>
@@ -306,7 +347,7 @@ ul li {
                         </p>
                      </td>
                      <td>
-                        <p>3000 원</p>
+                        <p>3,000 원</p>
                      </td>
                      <td>
                         <p id="p_final_totalPrice">

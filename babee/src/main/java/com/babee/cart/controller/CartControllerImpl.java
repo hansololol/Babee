@@ -72,14 +72,12 @@ public class CartControllerImpl extends BaseController implements CartController
 				Map goods = goodsService.goodsDetail(id);
 				GoodsVO goodsCart = (GoodsVO) goods.get("goodsVO");
 				cartVO.setCart_image_name(goodsCart.getGoods_image_name1());
-				allGoodsList = cartService.selectGoodsList(goods_id);
-				allGoodsList.addAll(allGoodsList);
-				
+				cartVO.setGoodsVO(goodsCart);
 				
 			}
 			System.out.println("myCartList : " + myCartList);
 			
-			
+		
 			
 		}else if(userType.equals("S")) {
 			SellerVO sellerVO = (SellerVO)session.getAttribute("memberInfo");
@@ -97,15 +95,15 @@ public class CartControllerImpl extends BaseController implements CartController
 				Map goods = goodsService.goodsDetail(id);
 				GoodsVO goodsCart = (GoodsVO) goods.get("goodsVO");
 				cartVO.setCart_image_name(goodsCart.getGoods_image_name1());
-				allGoodsList = cartService.selectGoodsList(goods_id);
-				allGoodsList.addAll(allGoodsList);
+
+				
 			}
 			
 		}
 		
 		
 		mav.addObject("myCartList", myCartList);
-		mav.addObject("goodsList", allGoodsList);
+
 
 		
 		return mav;
