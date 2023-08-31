@@ -17,19 +17,20 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
     .basic_tb,
     .add_tb {
       width: 100%;
-      border: 1px solid #444444;
+      border-top: 1px solid #7e7e7e;
+      border-bottom: 1px solid #7e7e7e;
       border-radius: 10px;
     }
 
     .basic_tb td {
-      border-right: 1px solid #444444;
-      border-bottom: 1px solid #444444;
+      border-right: 1px solid #d4d4d4;
+      border-bottom: 1px solid #d4d4d4;
       padding: 10px;
     }
 
     .add_tb td {
-      border-right: 1px solid #444444;
-      border-bottom: 1px solid #444444;
+      border-right: 1px solid #d4d4d4;
+      border-bottom: 1px solid #d4d4d4;
       padding: 10px;
     }
   </style>
@@ -88,14 +89,14 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
           <tr>
             <td>도로명</td>
             <td style="border-right: none">
-              &nbsp;&nbsp; <strong>${memberInfo.member_roadAddr }</strong>
+              <strong>${memberInfo.member_roadAddr }</strong>
               <br />
             </td>
           </tr>
           <tr>
             <td style="border-bottom: none">지번</td>
             <td style="border-right: none; border-bottom: none">
-              &nbsp;&nbsp; <strong>${memberInfo.member_jibunAddr }</strong>
+              <strong>${memberInfo.member_jibunAddr }</strong>
             </td>
           </tr>
         </table>

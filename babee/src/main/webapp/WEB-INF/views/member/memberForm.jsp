@@ -441,14 +441,14 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                         <input
                           type="radio"
                           name="baby_age"
-                          value="0~12"
+                          value="0~12개월"
                           style="width: 20px; margin-right: 5px"
                         />
                         0~12개월
                         <input
                           type="radio"
                           name="baby_age"
-                          value="12~24"
+                          value="12~24개월"
                           style="width: 20px; margin-right: 5px"
                         />
                         12~24개월
@@ -463,14 +463,14 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                         <input
                           type="radio"
                           name="baby_age"
-                          value="24~36"
+                          value="24~36개월"
                           style="width: 20px; margin-right: 5px"
                         />
                         24~36개월
                         <input
                           type="radio"
                           name="baby_age"
-                          value="36~"
+                          value="36개월 이상"
                           style="width: 20px; margin-right: 5px"
                         />
                         36개월 이상
