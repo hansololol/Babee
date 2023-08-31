@@ -14,11 +14,11 @@ pageEncoding="UTF-8"%>
         padding: 20px;
       }
       h1 {
-        color: #333;
+        color: #89a8ff;
         text-align: center;
       }
       h2 {
-        color: blue;
+        color: #7293e7;
         margin-top: 20px;
       }
       p {
@@ -26,7 +26,7 @@ pageEncoding="UTF-8"%>
         line-height: 1.5;
       }
       .info-box {
-        background-color: #ffcccc;
+        background-color: #fffaff; /* 밝은 보라색 */
         border-radius: 10px;
         padding: 15px;
         margin-bottom: 20px;

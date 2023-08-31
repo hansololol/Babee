@@ -4,7 +4,7 @@ pageEncoding="utf-8"%>
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>키워드로 장소검색하고 목록으로 표출하기</title>
+    <title>어린이집 유치원 위치</title>
     <style>
       .map_wrap,
       .map_wrap * {
@@ -218,7 +218,7 @@ pageEncoding="utf-8"%>
 
       // 키워드로 장소를 검색합니다
       searchPlaces();
-
+      showStoredLocation();
       // 키워드 검색을 요청하는 함수입니다
       function searchPlaces() {
         var keyword = document.getElementById("keyword").value;
@@ -452,6 +452,7 @@ pageEncoding="utf-8"%>
                     offset: new kakao.maps.Point(20, 20), // 마커 아이콘의 중심을 설정
                   }
                 ),
+                zIndex: 10,
               });
 
               // Set the marker on the map
@@ -466,8 +467,5 @@ pageEncoding="utf-8"%>
         );
       }
     </script>
-    <p style="text-align: center">
-      <button onclick="showStoredLocation()">현위치 표시</button>
-    </p>
   </body>
 </html>

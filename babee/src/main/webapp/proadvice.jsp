@@ -18,18 +18,24 @@
             background-color: #ffffff;
             padding: 20px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
         }
         h1 {
             color: #333333;
+            text-align: center;
+            margin-bottom: 20px;
         }
         p {
             color: #666666;
             line-height: 1.6;
+            margin-bottom: 10px;
         }
         .contact-info {
-            margin-top: 20px;
             font-size: 14px;
             color: #999999;
+        }
+        .contact-info p {
+            margin: 0;
         }
     </style>
 </head>
