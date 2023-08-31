@@ -137,7 +137,7 @@
       <table class="order_delivery" width="100%">
          <tr>
              <td colspan="2" width="300px" style="padding-left: 15px;">상품정보</td>
-             <td>배송비</td>
+             <td>가격</td>
              <td>상품 관리</td>
              <td>&nbsp;&nbsp;&nbsp;</td>
          </tr>
@@ -153,10 +153,9 @@
                  <td>
                      <ul class="goods">
                          <li style="text-align: left;"> ${goods.goods_title} </li>
-                         <li style="text-align: left;"> 가격: ${goods.goods_price}원 </li>
                      </ul>
                  </td>
-                 <td> 3,000원 </td>
+                 <td>${goods.goods_price}원</td>
                  <td>
                  
                      <a class="modify_delivery_search" href="${contextPath}/seller/modGoodsForm.do?page=sellerPage&goods_id=${goods.goods_id}"><b>수정하기</b></a><br>
