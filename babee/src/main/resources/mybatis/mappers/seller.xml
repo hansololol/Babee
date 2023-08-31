@@ -211,21 +211,116 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <delete id="deleteGoodsImage2" parameterType="int">
       DELETE FROM t_shopping_image
 	  WHERE image_id = #{goods_image_name1_id};
-   </delete><!-- 여기해야함!!!! -->
+   </delete>
    
    
    <select id="adminGoodsList" parameterType="String" resultMap="goodsResult">
-        SELECT goods_id, goods_title, goods_price, goods_image_name1, goods_image_name1_id
+        SELECT goods_id, goods_title, goods_price, goods_image_name1, goods_image_name1_id, goods_creation_date
         FROM t_shopping_goods
         WHERE seller_id = #{seller_id};
     </select>
-    
+
+    <!-- 사업자 상품구매리스트 -->
     <select id="getSellerOrderList" resultType="java.util.Map">
 	    <![CDATA[
 	      SELECT o.*, g.goods_title, g.goods_image_name1
 		  FROM t_shopping_order o
 		  JOIN t_shopping_goods g ON o.goods_id = g.goods_id
 		  WHERE g.seller_id = #{seller_id}
+	    ]]>
+	  </select>
+	  <!-- 사업자 상품구매리스트(당일) -->
+	  <select id="getSellerOrderListTODAY" resultType="java.util.Map">
+	    <![CDATA[
+			SELECT o.*, g.goods_title, g.goods_image_name1
+			FROM t_shopping_order o
+			JOIN t_shopping_goods g ON o.goods_id = g.goods_id
+			WHERE g.seller_id = #{seller_id}
+			  AND DATE(o.payment_order_time) = CURDATE()
+	    ]]>
+	  </select>
+	  
+	  <!-- 사업자 상품구매리스트(1주일) -->
+	  <select id="getSellerOrderListONEWEEK" resultType="java.util.Map">
+	    <![CDATA[
+			SELECT o.*, g.goods_title, g.goods_image_name1
+			FROM t_shopping_order o
+			JOIN t_shopping_goods g ON o.goods_id = g.goods_id
+			WHERE g.seller_id = #{seller_id}
+			  AND DATE(o.payment_order_time) >= DATE_SUB(CURDATE(), INTERVAL 1 WEEK)
+			  AND DATE(o.payment_order_time) <= CURDATE()
+	    ]]>
+	  </select>
+	  
+	  <!-- 사업자 상품구매리스트(2주일) -->
+	  <select id="getSellerOrderListTWOWEEK" resultType="java.util.Map">
+	    <![CDATA[
+			SELECT o.*, g.goods_title, g.goods_image_name1
+			FROM t_shopping_order o
+			JOIN t_shopping_goods g ON o.goods_id = g.goods_id
+			WHERE g.seller_id = #{seller_id}
+			  AND DATE(o.payment_order_time) >= DATE_SUB(CURDATE(), INTERVAL 2 WEEK)
+			  AND DATE(o.payment_order_time) <= CURDATE()
+	    ]]>
+	  </select>
+	  
+	  <!-- 사업자 상품구매리스트(1달) -->
+	  <select id="getSellerOrderListONEMONTH" resultType="java.util.Map">
+	    <![CDATA[
+			SELECT o.*, g.goods_title, g.goods_image_name1
+			FROM t_shopping_order o
+			JOIN t_shopping_goods g ON o.goods_id = g.goods_id
+			WHERE g.seller_id = #{seller_id}
+			  AND DATE(o.payment_order_time) >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)
+			  AND DATE(o.payment_order_time) <= CURDATE()
+	    ]]>
+	  </select>
+	  
+	  <!-- 사업자 상품구매리스트(2달) -->
+	  <select id="getSellerOrderListTWOMONTH" resultType="java.util.Map">
+	    <![CDATA[
+			SELECT o.*, g.goods_title, g.goods_image_name1
+			FROM t_shopping_order o
+			JOIN t_shopping_goods g ON o.goods_id = g.goods_id
+			WHERE g.seller_id = #{seller_id}
+			  AND DATE(o.payment_order_time) >= DATE_SUB(CURDATE(), INTERVAL 2 MONTH)
+			  AND DATE(o.payment_order_time) <= CURDATE()
+	    ]]>
+	  </select>
+	  
+	  <!-- 사업자 상품구매리스트(3달) -->
+	  <select id="getSellerOrderListTHREEMONTH" resultType="java.util.Map">
+	    <![CDATA[
+			SELECT o.*, g.goods_title, g.goods_image_name1
+			FROM t_shopping_order o
+			JOIN t_shopping_goods g ON o.goods_id = g.goods_id
+			WHERE g.seller_id = #{seller_id}
+			  AND DATE(o.payment_order_time) >= DATE_SUB(CURDATE(), INTERVAL 3 MONTH)
+			  AND DATE(o.payment_order_time) <= CURDATE()
+	    ]]>
+	  </select>
+	  
+	  <!-- 사업자 상품구매리스트(4달) -->
+	  <select id="getSellerOrderListFOURMONTH" resultType="java.util.Map">
+	    <![CDATA[
+			SELECT o.*, g.goods_title, g.goods_image_name1
+			FROM t_shopping_order o
+			JOIN t_shopping_goods g ON o.goods_id = g.goods_id
+			WHERE g.seller_id = #{seller_id}
+			  AND DATE(o.payment_order_time) >= DATE_SUB(CURDATE(), INTERVAL 4 MONTH)
+			  AND DATE(o.payment_order_time) <= CURDATE()
+	    ]]>
+	  </select>
+	  
+	  <!-- 사업자 상품구매리스트(기간정하기) -->
+	  <select id="getSellerOrderListDATE" resultType="java.util.Map">
+	    <![CDATA[
+			SELECT o.*, g.goods_title, g.goods_image_name1
+			FROM t_shopping_order o
+			JOIN t_shopping_goods g ON o.goods_id = g.goods_id
+			WHERE g.seller_id = #{seller_id}
+			  AND DATE(o.payment_order_time) >= #{startDate}
+			  AND DATE(o.payment_order_time) <= #{endDate}
 	    ]]>
 	  </select>
   
@@ -235,6 +330,77 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         FROM t_shopping_goods
         WHERE DATE(goods_creation_date) = CURDATE()
         AND seller_id = #{seller_id}
+	</select>
+	<!-- 1주 -->
+	<select id="getOneWeekGoods" parameterType="String" resultMap="goodsResult">
+	  <![CDATA[
+    SELECT *
+    FROM t_shopping_goods
+    WHERE DATE(goods_creation_date) >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+      AND DATE(goods_creation_date) <= CURDATE()
+      AND seller_id = #{seller_id}
+    ]]>
+	</select>
+	<!-- 2주 -->
+	<select id="getTwoWeekGoods" parameterType="String" resultMap="goodsResult">
+	  <![CDATA[
+    SELECT *
+    FROM t_shopping_goods
+    WHERE DATE(goods_creation_date) >= DATE_SUB(CURDATE(), INTERVAL 14 DAY)
+      AND DATE(goods_creation_date) <= CURDATE()
+      AND seller_id = #{seller_id}
+    ]]>
+	</select>
+	<!-- 1개월 -->
+	<select id="getOneMonthGoods" parameterType="String" resultMap="goodsResult">
+	<![CDATA[
+    SELECT *
+    FROM t_shopping_goods
+    WHERE DATE(goods_creation_date) >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)
+      AND DATE(goods_creation_date) <= CURDATE()
+      AND seller_id = #{seller_id}
+    ]]>
+	</select>
+	<!-- 2개월 -->
+	<select id="getTwoMonthGoods" parameterType="String" resultMap="goodsResult">
+	<![CDATA[
+    SELECT *
+    FROM t_shopping_goods
+    WHERE DATE(goods_creation_date) >= DATE_SUB(CURDATE(), INTERVAL 2 MONTH)
+      AND DATE(goods_creation_date) <= CURDATE()
+      AND seller_id = #{seller_id}
+    ]]>
+	</select>
+	<!-- 3개월 -->
+	<select id="getThreeMonthGoods" parameterType="String" resultMap="goodsResult">
+	<![CDATA[
+    SELECT *
+    FROM t_shopping_goods
+    WHERE DATE(goods_creation_date) >= DATE_SUB(CURDATE(), INTERVAL 3 MONTH)
+      AND DATE(goods_creation_date) <= CURDATE()
+      AND seller_id = #{seller_id}
+    ]]>
+	</select>
+	<!-- 4개월 -->
+	<select id="getFourMonthGoods" parameterType="String" resultMap="goodsResult">
+	<![CDATA[
+    SELECT *
+    FROM t_shopping_goods
+    WHERE DATE(goods_creation_date) >= DATE_SUB(CURDATE(), INTERVAL 4 MONTH)
+      AND DATE(goods_creation_date) <= CURDATE()
+      AND seller_id = #{seller_id}
+    ]]>
+	</select>
+	
+	<!-- 기간 상품 검색 -->
+	<select id="getDateGoods" resultMap="goodsResult">
+	<![CDATA[
+	SELECT *
+    FROM t_shopping_goods
+    WHERE DATE(goods_creation_date) >= #{startDate}
+    AND DATE(goods_creation_date) <= #{endDate}
+    AND seller_id = #{seller_id}
+	]]>
 	</select>
 	
 	<!-- 사업자 주문상태변경 -->
