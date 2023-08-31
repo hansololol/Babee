@@ -34,7 +34,7 @@
 }
 
 
-.order_delivery_search {
+.order_delivery_search, .modify_delivery_search {
     background-color: #ffcd29; /* 배경색 */
     color: black; /* 텍스트색 */
     padding: 5px 5px; /* 내부 여백 */
@@ -122,7 +122,7 @@
    <script>
     $(document).ready(function() {
          if("${memberInfo.seller_status}" =='승인'){
-            $(".order_delivery_search").prop("href","${contextPath}/seller/addNewGoodsForm.do");
+            $(".order_delivery_search").prop("href","${contextPath}/seller/addNewGoodsForm.do?page=sellerPage");
          }
 
     });
@@ -159,8 +159,8 @@
                  <td> 3,000원 </td>
                  <td>
                  
-                     <a class="order_delivery_search" href="${contextPath}/seller/modGoodsForm.do?goods_id=${goods.goods_id}"><b>수정하기</b></a><br>
-                     <a class="order_delivery_search" href="${contextPath}/seller/removeGoodsImage.do?goods_id=${goods.goods_id}&goods_image_name1=${goods.goods_image_name1}&goods_image_name1_id=${goods.goods_image_name1_id}"><b>삭제</b></a><br>
+                     <a class="modify_delivery_search" href="${contextPath}/seller/modGoodsForm.do?page=sellerPage&goods_id=${goods.goods_id}"><b>수정하기</b></a><br>
+                     <a class="modify_delivery_search" href="${contextPath}/seller/removeGoodsImage.do?page=sellerPage&goods_id=${goods.goods_id}&goods_image_name1=${goods.goods_image_name1}&goods_image_name1_id=${goods.goods_image_name1_id}"><b>삭제</b></a><br>
                  </td>
              </tr>
          </c:forEach>

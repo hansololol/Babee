@@ -24,14 +24,14 @@
 	<c:when test="${isLogOn==true && param.page=='adminPage'}">
 		<div class="list-group">
 			<a href="${contextPath}/member/myPageMain.do?page=adminPage" class="list-group-item list-group-item-action active" aria-current="true">
-				관리자 님의 마이페이지 <br>user@naver.com
+				${memberInfo.member_name} 님의 마이페이지 <br>${memberInfo.member_email}
 			</a>
 			<a href="${contextPath}/admin/member/sellerManageList.do?page=adminPage" class="list-group-item list-group-item-action">사업자 관리</a>
 			<a href="${contextPath}/admin/order/diaryManageList.do?page=adminPage" class="list-group-item list-group-item-action">다이어리 관리</a>
 			<a href="${contextPath}/admin/member/memberManageList.do?page=adminPage" class="list-group-item list-group-item-action">회원 관리</a>
 			<a href="${contextPath}/admin/goods/listSellerGoodsAdmin.do?page=adminPage" class="list-group-item list-group-item-action">상품 관리</a>
-			<a href="" class="list-group-item list-group-item-action active" aria-current="true">
-				커뮤니티 관리</a>
+			<div class="list-group-item list-group-item-action active" aria-current="true">
+				커뮤니티 관리</div>
 			<a href="${contextPath}/community/admininfolist.do?page=adminPage" class="list-group-item list-group-item-action">공지사항 관리</a>
 			<a href="${contextPath}/community/adminfreelist.do?page=adminPage" class="list-group-item list-group-item-action">자유게시판 관리</a>
 			<a href="${contextPath}/community/adminAnswer.do?page=adminPage" class="list-group-item list-group-item-action">문의 내역 관리</a>
@@ -42,8 +42,8 @@
         <!-- 사업자 side 메뉴 -->
         <div class="list-group">
             <a href="${contextPath}/member/myPageMain.do?page=sellerPage" class="list-group-item list-group-item-action active" aria-current="true">
-                사업자 님의 마이페이지 <br>user@naver.com
-            </a>
+                ${memberInfo.seller_name} 님의 마이페이지 <br>${memberInfo.seller_email}
+
             <a href="${contextPath}/member/modpassword.do?page=sellerPage" class="list-group-item list-group-item-action">사업자 정보 수정</a>
             <a href="${contextPath}/seller/listSellerGoods.do?page=sellerPage" class="list-group-item list-group-item-action">상품 관리</a>
             <a href="${contextPath}/seller/listSellerOrder.do?page=sellerPage" class="list-group-item list-group-item-action">주문 관리</a>
@@ -55,7 +55,7 @@
 	<c:otherwise>
 		<div class="list-group">
 			<a href="${contextPath}/member/myPageMain.do" class="list-group-item list-group-item-action active" aria-current="true">
-				사용자 님의 마이페이지 <br>user@naver.com
+				${memberInfo.member_name} 님의 마이페이지 <br>${memberInfo.member_email}
 			</a>
 			<a href="${contextPath}/member/modpassword.do" class="list-group-item list-group-item-action">내정보 수정</a>
 			<a href="${contextPath}/mypage/listMyOrderHistory.do" class="list-group-item list-group-item-action">주문내역/배송조회</a>

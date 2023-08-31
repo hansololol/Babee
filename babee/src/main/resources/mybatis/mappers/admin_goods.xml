@@ -21,11 +21,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
        <result property="goods_image_name2_id" column="goods_image_name2_id" />
        <result property="age_range" column="age_range" />
        <result property="goods_creation_date" column="goods_creation_date" />
-       <result property="relative_tag1" column="relative_tag1" />
-       <result property="relative_tag2" column="relative_tag2" />
-       <result property="relative_tag3" column="relative_tag3" />
-       <result property="relative_tag4" column="relative_tag4" />
-       <result property="relative_tag5" column="relative_tag5" />
        <result property="goods_option1" column="goods_option1" />
        <result property="goods_option2" column="goods_option2" />
        <result property="goods_option3" column="goods_option3" />
@@ -146,8 +141,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         goods_option2,
         goods_option3,
         goods_option4,
-        goods_option5,
-        relative_tag1
+        goods_option5
     )
     VALUES (
        #{goods_id},
@@ -167,8 +161,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         #{goods_option2},
         #{goods_option3},
         #{goods_option4},
-        #{goods_option5},
-        #{relative_tag1}
+        #{goods_option5}
     )
 ]]>
 </insert>
