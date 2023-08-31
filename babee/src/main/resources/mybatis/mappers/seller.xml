@@ -178,8 +178,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			    goods_option2 = #{goods_option2},
 			    goods_option3 = #{goods_option3},
 			    goods_option4 = #{goods_option4},
-			    goods_option5 = #{goods_option5},
-			    relative_tag1 = #{relative_tag1}
+			    goods_option5 = #{goods_option5}
 			WHERE
 			    goods_id = #{goods_id};
  		 ]]>
@@ -199,7 +198,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
   
   <select id="getGoodsInfo" parameterType="int" resultType="java.util.Map">
-        SELECT goods_id, goods_title, goods_price, goods_stock, main_category, middle_category, sub_category, goods_image_name1, goods_image_name2, goods_image_name1_id, goods_image_name2_id, seller_id, age_range, goods_option1, goods_option2, goods_option3, goods_option4, goods_option5, relative_tag1
+        SELECT goods_id, goods_title, goods_price, goods_stock, main_category, middle_category, sub_category, goods_image_name1, goods_image_name2, goods_image_name1_id, goods_image_name2_id, seller_id, age_range, goods_option1, goods_option2, goods_option3, goods_option4, goods_option5
 		FROM t_shopping_goods
 		WHERE goods_id = #{goods_id}
     </select>
