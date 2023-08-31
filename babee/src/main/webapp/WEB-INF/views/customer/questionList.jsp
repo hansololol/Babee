@@ -280,7 +280,7 @@
          <c:choose>
             		<c:when test="${myfnq.qna_answer != null}">
                 	
-                   	완료
+                   	<span style="color: rgb(103, 185, 110);"><b>완료</b></span>
                     
                     </c:when>
                     <c:when test="${myfnq.qna_answer == null}">
@@ -296,8 +296,9 @@
             </p>
         </div>
         <div id="faqAnswer${7 + cnt.count}" style="display: flex;text-align: left; margin-left: 33%;  display: none;">
-        <p>	${myfnq.qna_content} </p>
-        <p>	답변 : ${myfnq.qna_answer} </p>
+        <p style="margin-left: 78px;" >	${myfnq.qna_content} </p>
+        <hr width="50%">
+        <p>	 <span style="color: rgb(103, 185, 110); margin:0 20px 0 60px">A</span> ${myfnq.qna_answer} </p>
    		</div>
     </div>
     <hr width="50%" id="foreachhr">
