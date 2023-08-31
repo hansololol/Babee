@@ -29,9 +29,7 @@
     margin: auto;
    }
 
-.goods li {
-   list-style-type: none;
-}
+
 
 
 .order_delivery_search, .modify_delivery_search {
@@ -150,11 +148,7 @@
                  
                  <input type="hidden" name="goods_image_name2" value="${goods.goods_image_name2}">
                  <input type="hidden" name="goods_image_name2_id" value="${goods.goods_image_name2_id}">
-                 <td>
-                     <ul class="goods">
-                         <li style="text-align: left;"> ${goods.goods_title} </li>
-                     </ul>
-                 </td>
+                 <td style="text-align:left;">${goods.goods_title}</td>
                  <td>${goods.goods_price}원</td>
                  <td>
                  

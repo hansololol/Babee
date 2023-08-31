@@ -148,7 +148,7 @@ request.setCharacterEncoding("utf-8"); %>
               border-bottom: 1px solid #ddd;
             "
           >
-            결제방법 &nbsp; &nbsp; &nbsp; ${myOrder.payment_method}
+            결제방법 &nbsp; &nbsp; &nbsp; ${myOrder.payment_method} - ${myOrder.card_com_name} 
           </th>
         </tr>
         <tr>

@@ -28,9 +28,7 @@
     margin: auto;
    }
 
-.goods li {
-   list-style-type: none;
-}
+
 
 
 .order_delivery_search {
@@ -134,11 +132,9 @@
             <a href="${contextPath}/goods/goodsDetail.do?goods_id=${order.goods_id}">
             <img src="${contextPath}/thumbnails.do?goods_id=${order.goods_id}&fileName=${order.goods_image_name1}" style="width:100px;"> </a>
             </td>
-            <td> 
-               <ul class="goods">
-                  <li style="text-align:left;"> ${order.goods_title} [<a href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}&page=sellerPage">${order.order_id}</a>] </li>
-               </ul>
-            </td>
+            <td style="text-align:left;"> 
+               [<a href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}&page=sellerPage">${order.order_id}</a>]
+                 ${order.goods_title}           </td>
             <td>${order.final_total_price} 원</td>
             
             
