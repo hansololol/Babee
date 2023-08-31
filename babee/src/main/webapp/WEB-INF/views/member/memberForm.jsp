@@ -7,6 +7,10 @@ uri="http://java.sun.com/jsp/jstl/core"%>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script
+      type="text/javascript"
+      src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.7/jquery.validate.min.js"
+    ></script>
     <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
     <script>
@@ -40,45 +44,31 @@ uri="http://java.sun.com/jsp/jstl/core"%>
             if (fullRoadAddr !== "") {
               fullRoadAddr += extraRoadAddr;
             }
-
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
             document.getElementById("member_zipcode").value = data.zonecode; //5자리 새우편번호 사용
             document.getElementById("member_roadAddr").value = fullRoadAddr;
             document.getElementById("member_jibunAddr").value =
               data.jibunAddress;
-
-            // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-            if (data.autoRoadAddress) {
-              //예상되는 도로명 주소에 조합형 주소를 추가한다.
-              var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-              document.getElementById("guide").innerHTML =
-                "(예상 도로명 주소 : " + expRoadAddr + ")";
-            } else if (data.autoJibunAddress) {
-              var expJibunAddr = data.autoJibunAddress;
-              document.getElementById("guide").innerHTML =
-                "(예상 지번 주소 : " + expJibunAddr + ")";
-            } else {
-              document.getElementById("guide").innerHTML = "";
-            }
-            autoClose: true;
           },
         }).open();
       }
-      function checkMyId(obj) {
-        var member_id = obj.member_id.value;
-
+      function checkMyId(val) {
+        console.log(val);
         $.ajax({
           type: "POST",
           async: false,
           url: "${contextPath}/member/overlapped.do",
-          data: { id: member_id },
+          data: { id: val },
           dataType: "text",
           success: function (data, textStatus) {
             if (data == "false") {
-              alert("사용할 수 있는 ID입니다.");
+              $("#id_check").html(
+                "<p style='color: green; text-align: left; margin-bottom: 0px;'>사용 가능한 아이디입니다</p>"
+              );
             } else {
-              alert("사용할 수 없는 ID입니다.");
-              obj.member_id.value = null;
+              $("#id_check").html(
+                "<p style='color: red; text-align: left; margin-bottom: 0px;'>사용할 수 없는 아이디입니다</p><input type='hidden' value='notuse' id='notuse'>"
+              );
             }
           },
           error: function (e) {
@@ -94,6 +84,74 @@ uri="http://java.sun.com/jsp/jstl/core"%>
         for (var i = 0; i < checkboxes.length; i++) {
           checkboxes[i].checked = allCheckbox.checked;
         }
+      }
+
+      function onKeyPressLengthCheck(_this, maxLen) {
+        var val = $("#" + _this.id).val();
+        console.log(val.length);
+        var keyCode = event.keyCode;
+        if (keyCode == 8 || keyCode == 46) {
+          return;
+        }
+        if (val.length < maxLen) {
+          $("#id_check").html(
+            "<p style='color: red; text-align: left; margin-bottom: 0px;'> 8자리 이상 아이디를 입력해주세요</p>"
+          );
+        }
+        if (val.length > maxLen) {
+          $("#id_check").html("");
+          checkMyId(val);
+        }
+      }
+
+      function submitButton(obj) {
+        if ($('input[name="member_id"]').val().length < 8) {
+          $('input[name="member_id"]').focus();
+          return false;
+        }
+        if ($("#notuse").val() == "notuse") {
+          $('input[name="member_id"]').focus();
+          return false;
+        }
+        if ($('input[name="member_pw"]').val().length == 0) {
+          $('input[name="member_pw"]').focus();
+          return false;
+        }
+        if ($('input[name="member_email"]').val().length == 0) {
+          $('input[name="member_email"]').focus();
+          return false;
+        }
+
+        /* 이름 유효성 검사 */
+        if ($('input[name="member_name"]').val().length == 0) {
+          $('input[name="member_name"]').focus();
+          return false;
+        }
+        if ($('input[type="checkbox"]').is(":checked") == false) {
+          alert("정보 수집에 동의해야 가입가능합니다.");
+          return false;
+        }
+
+        if (
+          isNaN($('input[name="member_hp1"]').val()) ||
+          isNaN($('input[name="member_hp2"]').val()) ||
+          isNaN($('input[name="member_hp3"]').val())
+        ) {
+          alert("전화번호는 숫자만 입력 가능합니다.");
+          $('input[name="member_hp1"]').focus();
+          return false;
+        }
+
+        if (
+          $('input[name="member_hp1"]').val().length == 0 ||
+          $('input[name="member_hp2"]').val().length == 0 ||
+          $('input[name="member_hp3"]').val().length == 0
+        ) {
+          $('input[name="member_hp1"]').focus();
+          return false;
+        }
+
+        obj.submit();
       }
     </script>
 
@@ -115,48 +173,6 @@ uri="http://java.sun.com/jsp/jstl/core"%>
         padding: 0 0 0 18px;
         border: 1px solid #d0d0d0;
         color: #979d9d;
-      }
-      .join_input_sec > button {
-        float: right;
-        width: 158px;
-        height: 80px;
-        margin: 0 20px 15px 0;
-        border: 1px solid #fef7dd;
-        background: #fef7dd;
-        color: #ffffff;
-        font-size: 15px;
-        font-weight: bold;
-        cursor: pointer;
-      }
-      .btn_member_join {
-        width: 110px;
-        height: 45px;
-        margin: 0;
-        color: #ffffff;
-        font-size: 14px;
-        border: 1px solid #666666;
-        background: #666666;
-        cursor: pointer;
-        font-weight: bold;
-      }
-      .btn_member_white {
-        width: 110px;
-        height: 45px;
-        color: #3e3d3c;
-        font-weight: bold;
-        font-size: 13px;
-        border: 1px solid #cccccc;
-        background: #fff;
-        cursor: pointer;
-      }
-
-      .btn_login_box {
-        margin: 20px 0 0 -35px;
-        padding: 10px 0 0 0;
-        border-top: 1px solid #dcdcdc;
-      }
-      .btn_login_box ul {
-        display: -webkit-inline-box;
       }
 
       .Personal_Data {
@@ -198,18 +214,27 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                       <input
                         type="text"
                         name="member_id"
-                        style="width: 194px; margin-right: 0; display: inherit"
-                        required
+                        id="member_id"
+                        oninput="onKeyPressLengthCheck(this, 8)"
                       />
-                      <button
-                        type="button"
-                        onclick="javascript:checkMyId(this.form)"
-                      >
-                        중복확인
-                      </button>
                     </td>
                   </tr>
-
+                  <tr>
+                    <td></td>
+                    <td style="font-size: 13px">
+                      <p
+                        id="id_check"
+                        style="
+                          color: red;
+                          text-align: left;
+                          margin-left: 24px;
+                          margin-bottom: 0px;
+                        "
+                      >
+                        8자리 이상 아이디를 입력해주세요
+                      </p>
+                    </td>
+                  </tr>
                   <tr>
                     <td width="150"><p align="right">비밀번호 *</p></td>
                     <td>
@@ -254,6 +279,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                       <input
                         type="text"
                         name="member_hp1"
+                        value="010"
                         style="width: 75px; display: inline-block"
                       />
                       <input
@@ -274,31 +300,38 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                   <tr>
                     <td width="150"><p align="right">주소</p></td>
                     <td>
-                      <a href="javascript:execDaumPostcode()">
-                        &nbsp;우편 검색</a
+                      <a
+                        href="javascript:execDaumPostcode()"
+                        style="
+                          text-decoration: none;
+                          color: black;
+                          float: right;
+                        "
+                        >우편번호검색</a
                       >
-                      <br />
                       <input
                         type="text"
                         placeholder="우편 번호"
+                        width="120px"
                         style="margin-bottom: 5px"
                         name="member_zipcode"
                         id="member_zipcode"
                       />
+
                       <input
                         type="text"
                         placeholder="도로명 주소"
                         name="member_roadAddr"
                         id="member_roadAddr"
                         style="margin-bottom: 5px"
-                      /><br />
+                      />
                       <input
                         type="text"
                         placeholder="지번 주소"
                         name="member_jibunAddr"
                         id="member_jibunAddr"
                         style="margin-bottom: 5px"
-                      /><br />
+                      />
                       <input
                         type="text"
                         placeholder="나머지 주소"
@@ -347,7 +380,13 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 
                   <tr>
                     <td width="150"><p align="right">생년월일</p></td>
-                    <td><input type="date" name="member_birth" /></td>
+                    <td>
+                      <input
+                        type="date"
+                        name="member_birth"
+                        value="2000-01-01"
+                      />
+                    </td>
                   </tr>
 
                   <tr>
@@ -402,14 +441,14 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                         <input
                           type="radio"
                           name="baby_age"
-                          value="0~12"
+                          value="0~12개월"
                           style="width: 20px; margin-right: 5px"
                         />
                         0~12개월
                         <input
                           type="radio"
                           name="baby_age"
-                          value="12~24"
+                          value="12~24개월"
                           style="width: 20px; margin-right: 5px"
                         />
                         12~24개월
@@ -424,14 +463,14 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                         <input
                           type="radio"
                           name="baby_age"
-                          value="24~36"
+                          value="24~36개월"
                           style="width: 20px; margin-right: 5px"
                         />
                         24~36개월
                         <input
                           type="radio"
                           name="baby_age"
-                          value="36~"
+                          value="36개월 이상"
                           style="width: 20px; margin-right: 5px"
                         />
                         36개월 이상
@@ -485,22 +524,23 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                   개인정보 수집 및 이용 동의 (필수)
                 </p>
               </div>
-              <button
-                type="submit"
+              <br />
+              <input
+                type="button"
                 class="member_join_order_btn"
                 style="
                   width: 300px;
                   height: 50px;
-                  background-color: #007bff;
-                  color: white;
+                  background-color: #fef7dd;
+                  color: black;
                   font-size: 16px;
                   font-weight: bold;
                   border: none;
                   border-radius: 8px;
                 "
-              >
-                회원가입
-              </button>
+                value="회원가입"
+                onclick="submitButton(this.form)"
+              />
             </div>
           </form>
         </div>

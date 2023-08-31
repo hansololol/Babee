@@ -172,8 +172,8 @@ function search_order_history(fixedSearchPeriod){
 
 <table class="order_delivery"  width="100%">
          <tr >
-            <td colspan="2" width="300px" style="padding-left:15px;">상품정보</td>
-            <td>배송비</td>
+            <td colspan="2" width="300px" style="padding-left:15px;">주문정보</td>
+            <td>결제금액</td>
             <td>진행상태</td>
             <td >&nbsp;&nbsp;&nbsp;</td>
             
@@ -183,13 +183,13 @@ function search_order_history(fixedSearchPeriod){
         <tr>
             <td><a href="${contextPath}/goods/goodsDetail.do?goods_id=${order.goods_id}"><img src="${contextPath}/thumbnails.do?goods_id=${order.goods_id}&fileName=${order.goods_image_name}" width="100px"/></a></td>
             <td> 
-                <ul class="goods">
-                    <li style="text-align:left;"> ${order.goods_title} [<a href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}">${order.order_id}</a>] </li>
-                    <li style="text-align:left;"> 가격: ${order.final_total_price} 원 </li>
-                    <li style="text-align:left;"> 주문일자: ${order.payment_order_time} </li>
-                </ul>
+
+               <ul class="goods">
+                  <li style="text-align:left;"> ${order.goods_title} [<a href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}">${order.order_id}</a>] </li>
+                  <li style="text-align:left;"> 주문일자: ${order.payment_order_time} </li>
+               </ul>
             </td>
-            <td> 3,000원 </td>
+            <td> ${order.final_total_price} 원</td>
             <c:choose>
                <c:when test="${order.delivery_status=='delivery_prepared'}">
                   <td> 배송준비중 </td>

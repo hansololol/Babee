@@ -23,11 +23,6 @@ public class GoodsVO {
     private String goods_image_name2;
     private int goods_image_name2_id;
     private Date goods_creation_date;
-    private String relative_tag1;
-    private String relative_tag2;
-    private String relative_tag3;
-    private String relative_tag4;
-    private String relative_tag5;
     private String goods_option1;
     private String goods_option2;
     private String goods_option3;
@@ -123,36 +118,6 @@ public class GoodsVO {
 	}
 	public void setGoods_creation_date(Date goods_creation_date) {
 		this.goods_creation_date = goods_creation_date;
-	}
-	public String getRelative_tag1() {
-		return relative_tag1;
-	}
-	public void setRelative_tag1(String relative_tag1) {
-		this.relative_tag1 = relative_tag1;
-	}
-	public String getRelative_tag2() {
-		return relative_tag2;
-	}
-	public void setRelative_tag2(String relative_tag2) {
-		this.relative_tag2 = relative_tag2;
-	}
-	public String getRelative_tag3() {
-		return relative_tag3;
-	}
-	public void setRelative_tag3(String relative_tag3) {
-		this.relative_tag3 = relative_tag3;
-	}
-	public String getRelative_tag4() {
-		return relative_tag4;
-	}
-	public void setRelative_tag4(String relative_tag4) {
-		this.relative_tag4 = relative_tag4;
-	}
-	public String getRelative_tag5() {
-		return relative_tag5;
-	}
-	public void setRelative_tag5(String relative_tag5) {
-		this.relative_tag5 = relative_tag5;
 	}
 	public String getGoods_option1() {
 		return goods_option1;

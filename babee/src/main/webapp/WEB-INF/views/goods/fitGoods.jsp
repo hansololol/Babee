@@ -64,7 +64,7 @@ button[type="button"] {
 <body>
      
     <div style="margin: 60px;">
-        <p size="20px"> 💖 ${memberInfo.baby_age} 개월 친구들이 가장 많이 구매했어요 💖</p>
+        <p size="20px"> 💖 ${memberInfo.baby_age} 친구들이 가장 많이 구매했어요 💖</p>
         <c:forEach var="fit" items="${fit}">
            
         <button type="button" class="btn btn-outline-warning" onclick="location.href='${contextPath}/goods/fitGoods.do?sub_category=${fit.sub_category}'"># ${fit.sub_category}</button>

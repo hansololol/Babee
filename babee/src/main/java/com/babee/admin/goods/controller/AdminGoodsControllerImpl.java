@@ -199,7 +199,7 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
            }
 
            message = "<script>";
-           message += " alert('성공!');";
+           message += " alert('상품이 등록되었습니다!');";
            message += " location.href='" + multipartRequest.getContextPath() + "/seller/listSellerGoods.do?page=sellerPage';";
            message += ("</script>");
        } catch (Exception e) {

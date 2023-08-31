@@ -33,11 +33,11 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       .form-container th,
       .form-container td {
         padding: 10px;
-        border: 1px solid gray; /* 추가된 스타일 */
+        border-top: 1px solid gray;
+        border-bottom: 1px solid gray;
       }
 
       .form-container th {
-        background-color: #ffffcc;
         width: 20%;
       }
 
@@ -140,7 +140,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         <br />
         <div class="btn-container">
           <button type="submit">작성하기</button>
-          <a href="/main/main.do">메인페이지</a>
+          <a href="/community/questionList.do">취소하기</a>
         </div>
       </form>
     </div>

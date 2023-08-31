@@ -12,23 +12,25 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
     .text_center {
       text-align: center;
       margin: 0 auto;
-    } 
+    }
 
-    .basic_tb, .add_tb {
+    .basic_tb,
+    .add_tb {
       width: 100%;
-      border: 1px solid #444444;
+      border-top: 1px solid #7e7e7e;
+      border-bottom: 1px solid #7e7e7e;
       border-radius: 10px;
     }
 
     .basic_tb td {
-      border-right: 1px solid #444444;
-      border-bottom: 1px solid #444444;
+      border-right: 1px solid #d4d4d4;
+      border-bottom: 1px solid #d4d4d4;
       padding: 10px;
     }
 
     .add_tb td {
-      border-right: 1px solid #444444;
-      border-bottom: 1px solid #444444;
+      border-right: 1px solid #d4d4d4;
+      border-bottom: 1px solid #d4d4d4;
       padding: 10px;
     }
   </style>
@@ -47,95 +49,93 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
       <hr />
       <br />
       <h4><span style="color: #cc9900">●</span> 기본정보</h4>
-      
+
       <c:if test="${userType == 'M'}">
-      <table class="basic_tb" width="455px">
-        <tr>
-          <td width="150">이름</td>
-          <td style="border-right: none">
-            <strong>${memberInfo.member_name }</strong>
-          </td>
-        </tr>
+        <table class="basic_tb" width="455px">
+          <tr>
+            <td width="150">이름</td>
+            <td style="border-right: none">
+              <strong>${memberInfo.member_name }</strong>
+            </td>
+          </tr>
 
-        <tr>
-          <td>이메일</td>
-          <td style="border-right: none">
-            <strong>${memberInfo.member_email}</strong>
-          </td>
-        </tr>
+          <tr>
+            <td>이메일</td>
+            <td style="border-right: none">
+              <strong>${memberInfo.member_email}</strong>
+            </td>
+          </tr>
 
-        <tr>
-          <td>일반전화</td>
-          <td style="border-right: none">
-            <strong
-              >${memberInfo.member_hp1}-${memberInfo.member_hp2}-${memberInfo.member_hp3
-              }</strong
-            >
-          </td>
-        </tr>
+          <tr>
+            <td>일반전화</td>
+            <td style="border-right: none">
+              <strong
+                >${memberInfo.member_hp1}-${memberInfo.member_hp2}-${memberInfo.member_hp3
+                }</strong
+              >
+            </td>
+          </tr>
 
-        <tr>
-          <td>휴대전화</td>
-          <td style="border-right: none">
-            <strong
-              >${memberInfo.member_hp1
-              }-${memberInfo.member_hp2}-${memberInfo.member_hp3 }</strong
-            >
-          </td>
-        </tr>
+          <tr>
+            <td>휴대전화</td>
+            <td style="border-right: none">
+              <strong
+                >${memberInfo.member_hp1
+                }-${memberInfo.member_hp2}-${memberInfo.member_hp3 }</strong
+              >
+            </td>
+          </tr>
 
-        <tr>
-          <td>도로명</td>
-          <td style="border-right: none">
-            &nbsp;&nbsp; <strong>${memberInfo.member_roadAddr }</strong> <br />
-          </td>
-        </tr>
-        <tr>
-          <td style="border-bottom: none">지번</td>
-          <td style="border-right: none; border-bottom: none">
-            &nbsp;&nbsp; <strong>${memberInfo.member_jibunAddr }</strong>
-          </td>
-        </tr>
-      </table>
-     </div>
+          <tr>
+            <td>도로명</td>
+            <td style="border-right: none">
+              <strong>${memberInfo.member_roadAddr }</strong>
+              <br />
+            </td>
+          </tr>
+          <tr>
+            <td style="border-bottom: none">지번</td>
+            <td style="border-right: none; border-bottom: none">
+              <strong>${memberInfo.member_jibunAddr }</strong>
+            </td>
+          </tr>
+        </table>
 
-     <br />
+        <br />
 
-      <div style="text-align: left">
-      <h4><span style="color: #cc9900">●</span> 추가정보</h4>
-      <table class="add_tb" width="455px">
-        <tr>
-          <td width="150">성별</td>
-          <td style="border-right: none">
-            <strong>${memberInfo.member_gender}</strong>
-          </td>
-        </tr>
+        <div style="text-align: left">
+          <h4><span style="color: #cc9900">●</span> 추가정보</h4>
+          <table class="add_tb" width="455px">
+            <tr>
+              <td width="150">성별</td>
+              <td style="border-right: none">
+                <strong>${memberInfo.member_gender}</strong>
+              </td>
+            </tr>
 
-        <tr>
-          <td>생년월일</td>
-          <td style="border-right: none">
-            <strong>${memberInfo.member_birth } </strong>
-          </td>
-        </tr>
+            <tr>
+              <td>생년월일</td>
+              <td style="border-right: none">
+                <strong>${memberInfo.member_birth } </strong>
+              </td>
+            </tr>
 
-        <tr>
-          <td>자녀 성별</td>
-          <td style="border-right: none">
-            <strong>${memberInfo.baby_gender }</strong>
-          </td>
-        </tr>
+            <tr>
+              <td>자녀 성별</td>
+              <td style="border-right: none">
+                <strong>${memberInfo.baby_gender }</strong>
+              </td>
+            </tr>
 
-        <tr>
-          <td style="border-bottom: none">자녀 나이 (개월수)</td>
-          <td style="border-right: none; border-bottom: none">
-            <strong>${memberInfo.baby_age }</strong>
-          </td>
-        </tr>
-      </table>
-      </div>
+            <tr>
+              <td style="border-bottom: none">자녀 나이 (개월수)</td>
+              <td style="border-right: none; border-bottom: none">
+                <strong>${memberInfo.baby_age }</strong>
+              </td>
+            </tr>
+          </table>
+        </div>
       </c:if>
-  
-
 
       <c:if test="${userType == 'S'}">
         <table class="basic_tb" width="455px">
@@ -145,14 +145,14 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
               <strong>${memberInfo.seller_name }</strong>
             </td>
           </tr>
-  
+
           <tr>
             <td>이메일</td>
             <td style="border-right: none">
               <strong>${memberInfo.seller_email}</strong>
             </td>
           </tr>
-  
+
           <tr>
             <td>일반전화</td>
             <td style="border-right: none">
@@ -162,7 +162,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
               >
             </td>
           </tr>
-  
+
           <tr>
             <td>휴대전화</td>
             <td style="border-right: none">
@@ -172,11 +172,12 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
               >
             </td>
           </tr>
-  
+
           <tr>
             <td>도로명</td>
             <td style="border-right: none">
-              &nbsp;&nbsp; <strong>${memberInfo.seller_roadAddr }</strong> <br />
+              &nbsp;&nbsp; <strong>${memberInfo.seller_roadAddr }</strong>
+              <br />
             </td>
           </tr>
           <tr>
@@ -193,7 +194,6 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
           </tr>
         </table>
       </c:if>
-
     </div>
   </div>
 </body>

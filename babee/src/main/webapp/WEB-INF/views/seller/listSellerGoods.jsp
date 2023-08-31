@@ -29,12 +29,10 @@
     margin: auto;
    }
 
-.goods li {
-   list-style-type: none;
-}
 
 
-.order_delivery_search {
+
+.order_delivery_search, .modify_delivery_search {
     background-color: #ffcd29; /* 배경색 */
     color: black; /* 텍스트색 */
     padding: 5px 5px; /* 내부 여백 */
@@ -122,7 +120,7 @@
    <script>
     $(document).ready(function() {
          if("${memberInfo.seller_status}" =='승인'){
-            $(".order_delivery_search").prop("href","${contextPath}/seller/addNewGoodsForm.do");
+            $(".order_delivery_search").prop("href","${contextPath}/seller/addNewGoodsForm.do?page=sellerPage");
          }
 
     });
@@ -137,7 +135,7 @@
       <table class="order_delivery" width="100%">
          <tr>
              <td colspan="2" width="300px" style="padding-left: 15px;">상품정보</td>
-             <td>배송비</td>
+             <td>가격</td>
              <td>상품 관리</td>
              <td>&nbsp;&nbsp;&nbsp;</td>
          </tr>
@@ -150,17 +148,12 @@
                  
                  <input type="hidden" name="goods_image_name2" value="${goods.goods_image_name2}">
                  <input type="hidden" name="goods_image_name2_id" value="${goods.goods_image_name2_id}">
-                 <td>
-                     <ul class="goods">
-                         <li style="text-align: left;"> ${goods.goods_title} </li>
-                         <li style="text-align: left;"> 가격: ${goods.goods_price}원 </li>
-                     </ul>
-                 </td>
-                 <td> 3,000원 </td>
+                 <td style="text-align:left;">${goods.goods_title}</td>
+                 <td>${goods.goods_price}원</td>
                  <td>
                  
-                     <a class="order_delivery_search" href="${contextPath}/seller/modGoodsForm.do?goods_id=${goods.goods_id}"><b>수정하기</b></a><br>
-                     <a class="order_delivery_search" href="${contextPath}/seller/removeGoodsImage.do?goods_id=${goods.goods_id}&goods_image_name1=${goods.goods_image_name1}&goods_image_name1_id=${goods.goods_image_name1_id}"><b>삭제</b></a><br>
+                     <a class="modify_delivery_search" href="${contextPath}/seller/modGoodsForm.do?page=sellerPage&goods_id=${goods.goods_id}"><b>수정하기</b></a><br>
+                     <a class="modify_delivery_search" href="${contextPath}/seller/removeGoodsImage.do?page=sellerPage&goods_id=${goods.goods_id}&goods_image_name1=${goods.goods_image_name1}&goods_image_name1_id=${goods.goods_image_name1_id}"><b>삭제</b></a><br>
                  </td>
              </tr>
          </c:forEach>

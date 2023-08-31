@@ -28,9 +28,7 @@
     margin: auto;
    }
 
-.goods li {
-   list-style-type: none;
-}
+
 
 
 .order_delivery_search {
@@ -122,8 +120,8 @@
 
 <table class="order_delivery"  width="100%">
          <tr >
-            <td colspan="2" width="300px" style="padding-left:15px;">상품정보</td>
-            <td>배송비</td>
+            <td colspan="2" width="250px" style="padding-left:15px;">상품정보</td>
+            <td>가격</td>
             <td>진행상태</td>
           
          </tr>
@@ -134,13 +132,10 @@
             <a href="${contextPath}/goods/goodsDetail.do?goods_id=${order.goods_id}">
             <img src="${contextPath}/thumbnails.do?goods_id=${order.goods_id}&fileName=${order.goods_image_name1}" style="width:100px;"> </a>
             </td>
-            <td> 
-               <ul class="goods">
-                  <li style="text-align:left;"> ${order.goods_title} [<a href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}&page=sellerPage">${order.order_id}</a>] </li>
-                  <li style="text-align:left;"> 가격: ${order.final_total_price}원 </li>
-               </ul>
-            </td>
-            <td> 3,000원 </td>
+            <td style="text-align:left;"> 
+               [<a href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}&page=sellerPage">${order.order_id}</a>]
+                 ${order.goods_title}           </td>
+            <td>${order.final_total_price} 원</td>
             
             
             <td>

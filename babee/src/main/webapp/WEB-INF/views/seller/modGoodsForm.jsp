@@ -8,12 +8,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <html>
   <head>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
-      crossorigin="anonymous"
-    />
+    
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
@@ -78,7 +73,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
             $(".file-preview1").html(
               '<img src="' +
                 e.target.result +
-                '" alt="Preview" style="width: 200px; height: 200px; margin: 10px 0 10px 0;"> <br><input type="file">'
+                '" alt="Preview" style="width: 200px; height: 200px; margin: 10px 0 10px 0;"> <br>'
             );
           };
           reader.readAsDataURL(file);
@@ -92,7 +87,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
             $(".file-preview2").html(
               '<img src="' +
                 e.target.result +
-                '" alt="Preview" style="width: 200px; height: 200px; margin: 10px 0 10px 0;"> <br><input type="file">'
+                '" alt="Preview" style="width: 200px; height: 200px; margin: 10px 0 10px 0;"> <br>'
             );
           };
           reader.readAsDataURL(file);
@@ -113,7 +108,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
         var Fashion = ["상의", "하의", "내의", "아우터", "신발", "잡화"];
         var Toys = ["신생아완구", "교육완구", "인형", "캐릭터완구"];
         var SafetyProducts = ["보호대", "안전문", "잠금장치"];
-        var ChildrenFurniture = ["침대", "놀이기구", "소품", "책상", "의자"];
+        var ChildrenFurniture = ["침대", "놀이가구", "소품", "책상", "의자"];
 
         var selectItem = $("#select1").val();
         var changeItem;
@@ -146,17 +141,12 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
 
       function itemChange2() {
         // Baby Care Items
+        var bellyBand= ["산전 복대", "산후 복대"];
         var skinCare = ["스트레치마크크림", "바디오일", "클렌징오일"];
         var maternityClothes = ["원피스", "드레스", "바지"];
         var postpartumSupplies = ["보호대", "거실용품"];
         var oralCareProducts = ["칫솔", "치약", "구강청정제"];
-        var bathProducts = [
-          "욕조",
-          "목욕의자",
-          "비누/샴푸",
-          "타월",
-          "목욕장난감",
-        ];
+        var bathProducts = ["욕조", "목욕의자", "비누/샴푸", "타월", "목욕장난감"];
         var hygieneProducts = ["화장지", "물티슈", "귀저기", "손소독제"];
         var laundryProducts = ["세탁세제", "세탁볼", "옷걸이", "섬유유연제"];
         var babySkinCare = ["로션", "선크림", "오일", "베이비 파우더"];
@@ -217,7 +207,9 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
         var selectItem1 = $("#select2").val();
         var changeItem1;
 
-        if (selectItem1 == "스킨케어") {
+        if (selectItem1 == "임산부복대") {
+          changeItem1 = bellyBand;
+        } else if (selectItem1 == "스킨케어") {
           changeItem1 = skinCare;
         } else if (selectItem1 == "임부복") {
           changeItem1 = maternityClothes;
@@ -271,11 +263,11 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
           changeItem1 = dolls;
         } else if (selectItem1 == "캐릭터완구") {
           changeItem1 = characterToys;
-        } else if (selectItem1 == "안전문") {
+        } else if (selectItem1 == "보호대") {
           changeItem1 = safetyGate;
-        } else if (selectItem1 == "잠금장치") {
+        } else if (selectItem1 == "안전문") {
           changeItem1 = lock;
-        } else if (selectItem1 == "안전소품") {
+        } else if (selectItem1 == "잠금장치") {
           changeItem1 = safetyItems;
         } else if (selectItem1 == "침대") {
           changeItem1 = bed;
@@ -386,17 +378,10 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
                 </select>
               </td>
             </tr>
-            <!-- 관련 태그 -->
-            <tr>
-              <td class="fixed">관련 태그</td>
-              <td class="fixed">
-                <textarea name="related_tags1" cols="30" rows="10">${goodsInfo.related_tags1}</textarea>
-              </td>
-            </tr>
             <!-- 상품 옵션 -->
             <tr>
               <td class="fixed">상품 옵션</td>
-              <td class="fixed">
+              <td>
                 <input type="text" name="goods_option1" value="${goodsInfo.goods_option1}" />
 		        <input type="text" name="goods_option2" value="${goodsInfo.goods_option2}" />
 		        <input type="text" name="goods_option3" value="${goodsInfo.goods_option3}" />

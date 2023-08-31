@@ -6,7 +6,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>키워드로 장소검색하고 목록으로 표출하기</title>
+    <title>산부인과 위치</title>
     <style>
       .map_wrap,
       .map_wrap * {
@@ -220,7 +220,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 
       // 키워드로 장소를 검색합니다
       searchPlaces();
-
+      showStoredLocation();
       // 키워드 검색을 요청하는 함수입니다
       function searchPlaces() {
         var keyword = document.getElementById("keyword").value;
@@ -455,6 +455,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                     offset: new kakao.maps.Point(20, 20), // 마커 아이콘의 중심을 설정
                   }
                 ),
+                zIndex: 10,
               });
 
               // Set the marker on the map
@@ -469,8 +470,5 @@ uri="http://java.sun.com/jsp/jstl/core"%>
         );
       }
     </script>
-    <p style="text-align: center">
-      <button onclick="showStoredLocation()">현위치 표시</button>
-    </p>
   </body>
 </html>
