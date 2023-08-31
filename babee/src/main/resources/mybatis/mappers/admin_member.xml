@@ -72,6 +72,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 	
 	
+	
 <select id="listMember" resultMap="memberResult" parameterType="java.util.HashMap"  >
 		  select * from (
 			    select rowNum as recNum,t.*
@@ -247,5 +248,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where member_id=#{member_id}
        ]]>
    </select>
+   
+   <delete id="deleteMember" parameterType="java.util.Map">
+	    <![CDATA[
+	      delete from t_shopping_member
+	      where member_id=#{member_id}
+    	]]>
+	</delete>
+	
+	
 </mapper> 
 

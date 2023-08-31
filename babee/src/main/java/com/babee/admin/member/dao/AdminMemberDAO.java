@@ -32,4 +32,6 @@ public interface AdminMemberDAO {
 	//회원 관리
 	public List memberManageList(Map memberMap) throws DataAccessException;
 	public MemberVO memberManageDetail(String member_id) throws DataAccessException;
+	public void deleteMember(Map memberMap) throws DataAccessException;
+	
 } 
