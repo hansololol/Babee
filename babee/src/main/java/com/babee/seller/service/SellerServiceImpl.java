@@ -1,14 +1,14 @@
 package com.babee.seller.service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.babee.goods.vo.GoodsQNA;
 import com.babee.goods.vo.GoodsVO;
@@ -44,6 +44,7 @@ public class SellerServiceImpl implements SellerService{
 		sellerDAO.deleteGoodsImage2(goods_image_name1_id);
 	}
 
+	//사업자 상품등록
 	@Override
 	public List<GoodsVO> adminGoodsList(String seller_id) throws Exception {
 		return sellerDAO.adminGoodsList(seller_id);
@@ -71,14 +72,76 @@ public class SellerServiceImpl implements SellerService{
     public List<GoodsVO> getTodayGoods(String seller_id) {
         return sellerDAO.getTodayGoods(seller_id);
     }
+	@Override
+	public List<GoodsVO> getOneWeekGoods(String seller_id){
+		return sellerDAO.getOneWeekGoods(seller_id);
+	}
+	@Override
+	public List<GoodsVO> getTwoWeekGoods(String seller_id){
+		return sellerDAO.getTwoWeekGoods(seller_id);
+	}
+	@Override
+	public List<GoodsVO> getOneMonthGoods(String seller_id){
+		return sellerDAO.getOneMonthGoods(seller_id);
+	}
+	@Override
+	public List<GoodsVO> getTwoMonthGoods(String seller_id){
+		return sellerDAO.getTwoMonthGoods(seller_id);
+	}
+	@Override
+	public List<GoodsVO> getThreeMonthGoods(String seller_id){
+		return sellerDAO.getThreeMonthGoods(seller_id);
+	}
+	@Override
+	public List<GoodsVO> getFourMonthGoods(String seller_id){
+		return sellerDAO.getFourMonthGoods(seller_id);
+	}
+	@Override
+	public List<Map<String, Object>> getDateGoods(Map<String, Object> getDateGoodsMap){
+		return sellerDAO.getDateGoods(getDateGoodsMap);
+	}
 	
 	
 	// 사업자가 등록한 상품 주문 리스트 조회
 	@Override
-    public List<Map<String, Object>> getSellerOrderList(String seller_id) throws DataAccessException {
+    public List<Map<String, Object>> getSellerOrderList(String seller_id) {
         return sellerDAO.getSellerOrderList(seller_id);
     }
+	@Override
+    public List<Map<String, Object>> getSellerOrderListTODAY(String seller_id) {
+        return sellerDAO.getSellerOrderListTODAY(seller_id);
+    }
+	@Override
+    public List<Map<String, Object>> getSellerOrderListONEWEEK(String seller_id) {
+        return sellerDAO.getSellerOrderListONEWEEK(seller_id);
+    }
+	@Override
+    public List<Map<String, Object>> getSellerOrderListTWOWEEK(String seller_id) {
+        return sellerDAO.getSellerOrderListTWOWEEK(seller_id);
+    }
+	@Override
+    public List<Map<String, Object>> getSellerOrderListONEMONTH(String seller_id) {
+        return sellerDAO.getSellerOrderListONEMONTH(seller_id);
+    }
+	@Override
+    public List<Map<String, Object>> getSellerOrderListTWOMONTH(String seller_id) {
+        return sellerDAO.getSellerOrderListTWOMONTH(seller_id);
+    }
+	@Override
+    public List<Map<String, Object>> getSellerOrderListTHREEMONTH(String seller_id) {
+        return sellerDAO.getSellerOrderListTHREEMONTH(seller_id);
+    }
+	@Override
+    public List<Map<String, Object>> getSellerOrderListFOURMONTH(String seller_id) {
+        return sellerDAO.getSellerOrderListFOURMONTH(seller_id);
+    }
+	@Override
+    public List<Map<String, Object>> getSellerOrderListDATE(String seller_id, String startDate, String endDate) {
+        return sellerDAO.getSellerOrderListDATE(seller_id, startDate, endDate);
+    }
 	
+	
+
 	//사업자 배송상태 변경
 	@Override
 	public void updateDeliveryStatus(Map<String, Object> deliveryStatusMap) throws Exception {

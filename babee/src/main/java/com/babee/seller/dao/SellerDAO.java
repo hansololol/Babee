@@ -24,8 +24,10 @@ import com.babee.seller.vo.SellerVO;
 		public void deleteGoodsImage(int goods_id) throws DataAccessException;
 		public void deleteGoodsImage2(int goods_image_name1_id) throws DataAccessException;
 		
+		
+		//상품등록리스트
 	    public List<GoodsVO> adminGoodsList(@Param("seller_id") String seller_id) throws DataAccessException;
-	    
+		
 	    
 	 // 상품 정보 업데이트
 	    public void updateGoods(Map<String, Object> modGoodsMap) throws Exception;
@@ -38,10 +40,29 @@ import com.babee.seller.vo.SellerVO;
 		
 		// 오늘 등록된 상품 조회
 	    public List<GoodsVO> getTodayGoods(String seller_id) throws DataAccessException;
+	    public List<GoodsVO> getOneWeekGoods(String seller_id) throws DataAccessException;
+	    public List<GoodsVO> getTwoWeekGoods(String seller_id) throws DataAccessException;
+	    public List<GoodsVO> getOneMonthGoods(String seller_id) throws DataAccessException;
+	    public List<GoodsVO> getTwoMonthGoods(String seller_id) throws DataAccessException;
+	    public List<GoodsVO> getThreeMonthGoods(String seller_id) throws DataAccessException;
+	    public List<GoodsVO> getFourMonthGoods(String seller_id) throws DataAccessException;
+	    public List<Map<String, Object>> getDateGoods(Map<String, Object> getDateGoodsMap) throws DataAccessException;
 	    
 	    // 사업자가 등록한 상품 주문 리스트 조회
 	    public List<Map<String, Object>> getSellerOrderList(@Param("seller_id") String seller_id) throws DataAccessException;
+	    public List<Map<String, Object>> getSellerOrderListTODAY(@Param("seller_id") String seller_id) throws DataAccessException;
+	    public List<Map<String, Object>> getSellerOrderListONEWEEK(@Param("seller_id") String seller_id) throws DataAccessException;
+	    public List<Map<String, Object>> getSellerOrderListTWOWEEK(@Param("seller_id") String seller_id) throws DataAccessException;
+	    public List<Map<String, Object>> getSellerOrderListONEMONTH(@Param("seller_id") String seller_id) throws DataAccessException;
+	    public List<Map<String, Object>> getSellerOrderListTWOMONTH(@Param("seller_id") String seller_id) throws DataAccessException;
+	    public List<Map<String, Object>> getSellerOrderListTHREEMONTH(@Param("seller_id") String seller_id) throws DataAccessException;
+	    public List<Map<String, Object>> getSellerOrderListFOURMONTH(@Param("seller_id") String seller_id) throws DataAccessException;
+	    public List<Map<String, Object>> getSellerOrderListDATE(
+	            @Param("seller_id") String seller_id,
+	            @Param("startDate") String startDate,
+	            @Param("endDate") String endDate)throws DataAccessException;
 	    
+	    	    
 	    //사업자 배송상태 업데이트
 	    public void updateDeliveryStatus(Map<String, Object> deliveryStatusMap) throws DataAccessException;
 	    

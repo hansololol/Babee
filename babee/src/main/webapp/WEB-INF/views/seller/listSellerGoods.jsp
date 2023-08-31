@@ -65,7 +65,7 @@
    <div class="order_delivery_list">
    <H3>상품관리</H3>
    <hr>
-   <form  method="post">   
+      <form action="${contextPath}/seller/getDateGoods.do?page=sellerPage&date=true" method="GET">
       <table align="center" style="margin-left: 0px;">
          <tr>
             <td> 
@@ -78,46 +78,54 @@
       </table>
       
       <hr>
-      
+
       <table align="center" style="margin-left: 0px;">
          <tr>
             <td> 
                <a href="${contextPath}/seller/getTodayGoods.do?page=sellerPage&today=true">
 				    <img src="${contextPath}/image/btn_search_one_day.jpg">
 			   </a>
-               <a href="javascript:search_order_history('one_week')">
+               <a href="${contextPath}/seller/getOneWeekGoods.do?page=sellerPage&oneweek=true">
                   <img   src="/image/btn_search_1_week.jpg">
                </a>
-               <a href="javascript:search_order_history('two_week')">
+               <a href="${contextPath}/seller/getTwoWeekGoods.do?page=sellerPage&twoweek=true">
                   <img   src="/image/btn_search_2_week.jpg">
                </a>
-               <a href="javascript:search_order_history('one_month')">
+               <a href="${contextPath}/seller/getOneMonthGoods.do?page=sellerPage&onemonth=true">
                   <img   src="/image/btn_search_1_month.jpg">
                </a>
-               <a href="javascript:search_order_history('two_month')">
+               <a href="${contextPath}/seller/getTwoMonthGoods.do?page=sellerPage&twomonth=true">
                   <img   src="/image/btn_search_2_month.jpg">
                </a>
-               <a href="javascript:search_order_history('three_month')">
+               <a href="${contextPath}/seller/getThreeMonthGoods.do?page=sellerPage&threemonth=true">
                   <img   src="/image/btn_search_3_month.jpg">
                </a>
-               <a href="javascript:search_order_history('four_month')">
+               <a href="${contextPath}/seller/getFourMonthGoods.do?page=sellerPage&fourmonth=true">
                   <img   src="/image/btn_search_4_month.jpg">
                </a>
+
       </td>
          <tr>
+         
             <td>    
-               조회한 기간 : <input  type="date"  size="4" value="${beginYear}" />
-                      ~
-                     <input  type="date"  size="4" value="${endYear}" />
-            </td>
-            
-             <td><input   type="button"  value="조회"/> </td>
+			    조회한 기간 :
+			    <input type="date" size="4"  name="startDate" />
+			    ~
+			    <input type="date" size="4" name="endDate" />
+			</td>
+			<td>
+			    <a href="${contextPath}/seller/getDateGoods.do">
+			        <input type="submit" value="조회" />
+			    </a>
+			</td>
+		 
          </tr>
       </table>
       
       <div class="clear">
    </div>  
-   
+   </form>
+   <form  method="post">
    <br>
    <script>
     $(document).ready(function() {
@@ -141,6 +149,14 @@
              <td>상품 관리</td>
              <td>&nbsp;&nbsp;&nbsp;</td>
          </tr>
+         
+         <c:choose>
+		    <c:when test="${empty sellerGoodsList}">
+		        <tr>
+		            <td colspan="4">조회된 결과가 없습니다.</td>
+		        </tr>
+		    </c:when>
+		    <c:otherwise>
          <c:forEach items="${sellerGoodsList}" var="goods">
              <tr>
             
@@ -164,13 +180,15 @@
                  </td>
              </tr>
          </c:forEach>
+         </c:otherwise>
+</c:choose>
       </table>
    </form>
       </div>
       
       
       <!-- 페이징  -->
-      <div class="paging-container">
+	<div class="paging-container">
         <c:if test="${totArticles !=null}">
            <c:choose>
               <c:when test="${totArticles > 100 }"> 
@@ -207,6 +225,7 @@
         </c:if>
                  
      </div>
-  
+
+
 </body>
 </html>

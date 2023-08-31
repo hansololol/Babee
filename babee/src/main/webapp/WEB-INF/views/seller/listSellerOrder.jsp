@@ -64,7 +64,7 @@
    <div class="order_delivery_list">
    <H3>상품관리</H3>
    <hr>
-   <form  method="post">   
+   <form action="${contextPath}/seller/getSellerOrderListDATE.do?page=sellerPage&date=true&" method="GET">   
       <table align="center" style="margin-left: 0px;">
          <tr>
             <td> 
@@ -81,36 +81,40 @@
       <table align="center" style="margin-left: 0px;">
          <tr>
             <td>
-               <a href="javascript:search_order_history('today')">
+               <a href="${contextPath}/seller/getSellerOrderListTODAY.do?page=sellerPage&today=true">
                   <img   src="/image/btn_search_one_day.jpg">
                </a>
-               <a href="javascript:search_order_history('one_week')">
+               <a href="${contextPath}/seller/getSellerOrderListONEWEEK.do?page=sellerPage&oneweek=true">
                   <img   src="/image/btn_search_1_week.jpg">
                </a>
-               <a href="javascript:search_order_history('two_week')">
+               <a href="${contextPath}/seller/getSellerOrderListTWOWEEK.do?page=sellerPage&twoweek=true">
                   <img   src="/image/btn_search_2_week.jpg">
                </a>
-               <a href="javascript:search_order_history('one_month')">
+               <a href="${contextPath}/seller/getSellerOrderListONEMONTH.do?page=sellerPage&onemonth=true">
                   <img   src="/image/btn_search_1_month.jpg">
                </a>
-               <a href="javascript:search_order_history('two_month')">
+               <a href="${contextPath}/seller/getSellerOrderListTWOMONTH.do?page=sellerPage&twomonth=true">
                   <img   src="/image/btn_search_2_month.jpg">
                </a>
-               <a href="javascript:search_order_history('three_month')">
+               <a href="${contextPath}/seller/getSellerOrderListTHREEMONTH.do?page=sellerPage&threemonth=true">
                   <img   src="/image/btn_search_3_month.jpg">
                </a>
-               <a href="javascript:search_order_history('four_month')">
+               <a href="${contextPath}/seller/getSellerOrderListFOURMONTH.do?page=sellerPage&fourmonth=true">
                   <img   src="/image/btn_search_4_month.jpg">
                </a>
       </td>
          <tr>
+         
             <td>    
-               조회한 기간 : <input  type="date"  size="4" value="${beginYear}" />
-                      ~
-                     <input  type="date"  size="4" value="${endYear}" />
-            </td>
-            
-             <td><input   type="button"  value="조회"/> </td>
+			    조회한 기간 :
+			    <input type="date" size="4"  name="startDate" />
+			    ~
+			    <input type="date" size="4" name="endDate" />
+			</td>
+			<td>
+			        <input type="submit" value="조회" />
+			</td>
+		 
          </tr>
       </table>
       

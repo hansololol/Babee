@@ -14,15 +14,13 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -269,23 +267,20 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 	       HttpSession session = request.getSession();
 	      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
 	      String seller_id = sellerVO.getSeller_id();
-	  
 	       List<GoodsVO> sellerGoodsList = sellerService.adminGoodsList(seller_id);
-	       
 	       mav.addObject("sellerGoodsList", sellerGoodsList);
-	     
 	       return mav;
 	   }
 	   
-	   //오늘등록 상품조회
+	   
+	   
+	  //오늘등록 상품조회
 	    @RequestMapping(value = "/getTodayGoods.do", method = { RequestMethod.GET, RequestMethod.POST })
 	    public ModelAndView getTodayGoods(HttpServletRequest request, HttpServletResponse response) throws Exception {
 	        ModelAndView mav = new ModelAndView();
 	        HttpSession session = request.getSession();
 		      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
 		      String seller_id = sellerVO.getSeller_id();
-
-		      
 		      List<GoodsVO> sellerGoodsList = sellerService.getTodayGoods(seller_id);
 	        
 	        mav.addObject("sellerGoodsList", sellerGoodsList);
@@ -294,7 +289,123 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 	        return mav;
 	    }
 	   
-	// 사업자가 등록한 상품 주문 리스트 조회
+	    @RequestMapping(value = "/getOneWeekGoods.do", method = { RequestMethod.GET, RequestMethod.POST })
+	    public ModelAndView getOneWeekGoods(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	        ModelAndView mav = new ModelAndView();
+	        HttpSession session = request.getSession();
+		      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+		      String seller_id = sellerVO.getSeller_id();
+
+		      
+		      List<GoodsVO> sellerGoodsList = sellerService.getOneWeekGoods(seller_id);
+	        
+	        mav.addObject("sellerGoodsList", sellerGoodsList);
+	        mav.setViewName("/seller/listSellerGoods");
+	        
+	        return mav;
+	    }
+	    @RequestMapping(value = "/getTwoWeekGoods.do", method = { RequestMethod.GET, RequestMethod.POST })
+	    public ModelAndView getTwoWeekGoods(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	        ModelAndView mav = new ModelAndView();
+	        HttpSession session = request.getSession();
+		      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+		      String seller_id = sellerVO.getSeller_id();
+
+		      
+		      List<GoodsVO> sellerGoodsList = sellerService.getTwoWeekGoods(seller_id);
+	        
+	        mav.addObject("sellerGoodsList", sellerGoodsList);
+	        mav.setViewName("/seller/listSellerGoods"); 
+	        
+	        return mav;
+	    }
+	    @RequestMapping(value = "/getTwoMonthGoods.do", method = { RequestMethod.GET, RequestMethod.POST })
+	    public ModelAndView getTwoMonthGoods(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	        ModelAndView mav = new ModelAndView();
+	        HttpSession session = request.getSession();
+		      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+		      String seller_id = sellerVO.getSeller_id();
+
+		      
+		      List<GoodsVO> sellerGoodsList = sellerService.getTwoMonthGoods(seller_id);
+	        
+	        mav.addObject("sellerGoodsList", sellerGoodsList);
+	        mav.setViewName("/seller/listSellerGoods"); 
+	        
+	        return mav;
+	    }
+	    @RequestMapping(value = "/getOneMonthGoods.do", method = { RequestMethod.GET, RequestMethod.POST })
+	    public ModelAndView getOneMonthGoods(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	        ModelAndView mav = new ModelAndView();
+	        HttpSession session = request.getSession();
+		      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+		      String seller_id = sellerVO.getSeller_id();
+
+		      
+		      List<GoodsVO> sellerGoodsList = sellerService.getOneMonthGoods(seller_id);
+	        
+	        mav.addObject("sellerGoodsList", sellerGoodsList);
+	        mav.setViewName("/seller/listSellerGoods"); 
+	        
+	        return mav;
+	    }
+	    @RequestMapping(value = "/getThreeMonthGoods.do", method = { RequestMethod.GET, RequestMethod.POST })
+	    public ModelAndView getThreeMonthGoods(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	        ModelAndView mav = new ModelAndView();
+	        HttpSession session = request.getSession();
+		      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+		      String seller_id = sellerVO.getSeller_id();
+
+		      
+		      List<GoodsVO> sellerGoodsList = sellerService.getThreeMonthGoods(seller_id);
+	        
+	        mav.addObject("sellerGoodsList", sellerGoodsList);
+	        mav.setViewName("/seller/listSellerGoods"); 
+	        
+	        return mav;
+	    }
+	    @RequestMapping(value = "/getFourMonthGoods.do", method = { RequestMethod.GET, RequestMethod.POST })
+	    public ModelAndView getFourMonthGoods(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	        ModelAndView mav = new ModelAndView();
+	        HttpSession session = request.getSession();
+		      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+		      String seller_id = sellerVO.getSeller_id();
+
+		      
+		      List<GoodsVO> sellerGoodsList = sellerService.getFourMonthGoods(seller_id);
+	        
+	        mav.addObject("sellerGoodsList", sellerGoodsList);
+	        mav.setViewName("/seller/listSellerGoods"); 
+	        
+	        return mav;
+	    }
+	    
+	    @RequestMapping(value = "/getDateGoods.do", method = { RequestMethod.GET, RequestMethod.POST })
+	    public ModelAndView getDateGoods(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	        ModelAndView mav = new ModelAndView();
+	        HttpSession session = request.getSession();
+	        SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+	        String seller_id = sellerVO.getSeller_id();
+	        String startDate = request.getParameter("startDate");
+	        String endDate = request.getParameter("endDate");
+	        Map<String, Object> getDateGoodsMap = new HashMap<>();
+	          
+	        getDateGoodsMap.put("seller_id", seller_id);
+	        getDateGoodsMap.put("startDate", startDate);
+	        getDateGoodsMap.put("endDate", endDate);
+	        System.out.println(startDate);
+	        System.out.println(endDate);
+	        List<Map<String, Object>> sellerGoodsList = sellerService.getDateGoods(getDateGoodsMap);
+	        
+	        mav.addObject("sellerGoodsList", sellerGoodsList);
+	        mav.setViewName("/seller/listSellerGoods"); 
+	        
+	        return mav;
+	    }
+	    
+	    
+	   
+	// 사업자가등록한 사용자주문목록
 	    @Override
 	    @RequestMapping(value = "/listSellerOrder.do")
 	    public ModelAndView getSellerOrderList(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -302,6 +413,104 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 		      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
 		      String seller_id = sellerVO.getSeller_id();
 	        List<Map<String, Object>> sellerOrderList = sellerService.getSellerOrderList(seller_id);
+
+	        ModelAndView mav = new ModelAndView("/seller/listSellerOrder");
+	        mav.addObject("sellerOrderList", sellerOrderList);
+	        return mav;
+	    }
+	    @RequestMapping(value = "/getSellerOrderListTODAY.do")
+	    public ModelAndView getSellerOrderListTODAY(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	    	HttpSession session = request.getSession();
+		      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+		      String seller_id = sellerVO.getSeller_id();
+	        List<Map<String, Object>> sellerOrderList = sellerService.getSellerOrderListTODAY(seller_id);
+
+	        ModelAndView mav = new ModelAndView("/seller/listSellerOrder");
+	        mav.addObject("sellerOrderList", sellerOrderList);
+	        return mav;
+	    }
+	    @RequestMapping(value = "/getSellerOrderListONEWEEK.do")
+	    public ModelAndView getSellerOrderListONEWEEK(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	    	HttpSession session = request.getSession();
+		      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+		      String seller_id = sellerVO.getSeller_id();
+	        List<Map<String, Object>> sellerOrderList = sellerService.getSellerOrderListONEWEEK(seller_id);
+
+	        ModelAndView mav = new ModelAndView("/seller/listSellerOrder");
+	        mav.addObject("sellerOrderList", sellerOrderList);
+	        return mav;
+	    }
+	    @RequestMapping(value = "/getSellerOrderListTWOWEEK.do")
+	    public ModelAndView getSellerOrderListTWOWEEK(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	    	HttpSession session = request.getSession();
+		      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+		      String seller_id = sellerVO.getSeller_id();
+	        List<Map<String, Object>> sellerOrderList = sellerService.getSellerOrderListTWOWEEK(seller_id);
+
+	        ModelAndView mav = new ModelAndView("/seller/listSellerOrder");
+	        mav.addObject("sellerOrderList", sellerOrderList);
+	        return mav;
+	    }
+	    @RequestMapping(value = "/getSellerOrderListONEMONTH.do")
+	    public ModelAndView getSellerOrderListONEMONTH(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	    	HttpSession session = request.getSession();
+		      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+		      String seller_id = sellerVO.getSeller_id();
+	        List<Map<String, Object>> sellerOrderList = sellerService.getSellerOrderListONEMONTH(seller_id);
+
+	        ModelAndView mav = new ModelAndView("/seller/listSellerOrder");
+	        mav.addObject("sellerOrderList", sellerOrderList);
+	        return mav;
+	    }
+	    @RequestMapping(value = "/getSellerOrderListTWOMONTH.do")
+	    public ModelAndView getSellerOrderListTWOMONTH(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	    	HttpSession session = request.getSession();
+		      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+		      String seller_id = sellerVO.getSeller_id();
+	        List<Map<String, Object>> sellerOrderList = sellerService.getSellerOrderListTWOMONTH(seller_id);
+
+	        ModelAndView mav = new ModelAndView("/seller/listSellerOrder");
+	        mav.addObject("sellerOrderList", sellerOrderList);
+	        return mav;
+	    }
+	    @RequestMapping(value = "/getSellerOrderListTHREEMONTH.do")
+	    public ModelAndView getSellerOrderListTHREEMONTH(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	    	HttpSession session = request.getSession();
+		      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+		      String seller_id = sellerVO.getSeller_id();
+	        List<Map<String, Object>> sellerOrderList = sellerService.getSellerOrderListTHREEMONTH(seller_id);
+
+	        ModelAndView mav = new ModelAndView("/seller/listSellerOrder");
+	        mav.addObject("sellerOrderList", sellerOrderList);
+	        return mav;
+	    }
+	    @RequestMapping(value = "/getSellerOrderListFOURMONTH.do")
+	    public ModelAndView getSellerOrderListFOURMONTH(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	    	HttpSession session = request.getSession();
+		      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+		      String seller_id = sellerVO.getSeller_id();
+	        List<Map<String, Object>> sellerOrderList = sellerService.getSellerOrderListFOURMONTH(seller_id);
+
+	        ModelAndView mav = new ModelAndView("/seller/listSellerOrder");
+	        mav.addObject("sellerOrderList", sellerOrderList);
+	        return mav;
+	    }
+	    @RequestMapping(value = "/getSellerOrderListDATE.do")
+	    public ModelAndView getSellerOrderListDATE(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	        HttpSession session = request.getSession();
+	        SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+	        String seller_id = sellerVO.getSeller_id();
+	        String startDate = request.getParameter("startDate");
+	        String endDate = request.getParameter("endDate");
+	        Map<String, Object> getSellerOrderList = new HashMap<>();
+
+	        getSellerOrderList.put("seller_id", seller_id);
+	        getSellerOrderList.put("startDate", startDate);
+	        getSellerOrderList.put("endDate", endDate);
+	        System.out.println(startDate);
+	        System.out.println(endDate);
+
+	        List<Map<String, Object>> sellerOrderList = sellerService.getSellerOrderListDATE(seller_id, startDate, endDate);
 
 	        ModelAndView mav = new ModelAndView("/seller/listSellerOrder");
 	        mav.addObject("sellerOrderList", sellerOrderList);
