@@ -32,4 +32,11 @@ public class OrderServiceImpl implements OrderService {
 		return orderDAO.findMyOrder(order_id);
 	}
 
+	@Override
+	public void stock(int goods_id, int order_goods_qty) {
+		System.out.println("order 서비스: " + order_goods_qty);
+		orderDAO.stock(goods_id, order_goods_qty);
+		
+	}
+
 }

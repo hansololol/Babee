@@ -52,6 +52,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       <result property="goods_qna_answer" column="goods_qna_answer" />
       <result property="seller_id" column="seller_id" />
    </resultMap>
+   
+    <select id="getGoods" resultMap="goodsResult"   parameterType="String">
+       <![CDATA[
+        select goods_id, goods_price from t_shopping_goods
+        where goods_id=#{goods_id};
+       ]]>
+   </select>
 
 
    <select id="selectAllGoods" resultType="GoodsVO">
@@ -148,7 +155,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM t_shopping_goods g
 		LEFT JOIN t_shopping_image d ON g.goods_image_name1 = d.fileName
 		WHERE g.goods_title LIKE CONCAT('%', "시즌" ,'%')
-		ORDER BY g.goods_creation_date DESC;
+		ORDER BY g.goods_creation_date DESC
+		Limit 6
       ]]>
   	</select>
    

@@ -9,5 +9,7 @@ public interface OrderService {
 	public void addNewOrder(List<OrderVO> myOrderList) throws Exception;
 	public OrderVO findMyOrder(String order_id) throws Exception;
 	
+	public void stock(int goods_id, int order_goods_qty);
+	
 	
 }
