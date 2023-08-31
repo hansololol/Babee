@@ -109,6 +109,8 @@ uri="http://java.sun.com/jsp/jstl/core"%>
       .custom-button:hover {
         background-color: #d47911;
       }
+      
+      
     </style>
   </head>
   <body>
@@ -187,10 +189,10 @@ uri="http://java.sun.com/jsp/jstl/core"%>
     </div>
     <!-- JavaScript 코드 추가 -->
     <script>
-      function openPopup(url) {
-        window.open(url, "_blank", "width=900,height=600");
-      }
-    </script>
+	  function openPopup(url) {
+	        window.open(url, "_blank", "width=900,height=600");
+	  }
+	</script>
     <br /><br /><br /><br />
   </body>
 </html>
