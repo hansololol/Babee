@@ -9,6 +9,7 @@
 <c:set var="imageList"  value="${goodsMap.imageList }"  />
 
 
+
 <html>
 <head>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
@@ -413,8 +414,8 @@ function add_wish(goods_id){
 				<tr>
 					<td class="fixed">정가</td>
 					<td class="active"><span >
-
-				         ${goodsVO.goods_price}원
+						<fmt:formatNumber value="${goodsVO.goods_price}"  pattern="##,###,### 원"/>
+				     
 					</span></td>
 				</tr>
 				<tr class="dot_line">
@@ -427,13 +428,14 @@ function add_wish(goods_id){
 				<tr>
 					<td class="fixed">수량</td>
 					<td class="fixed">
-					<c:if test="${goodsVO.goods_stock ==0}">
-						<p style="color: red; font-size: 17px;">품절</p> </td>
-					</c:if>
-					<c:if test="${goodsVO.goods_stock !=0}">
-			      <input type="number" value="1" style="width: 400px; text-align: center;" id="order_goods_qty" name="order_goods_qty">
-				</td>
-				</c:if>
+						<c:if test="${goodsVO.goods_stock ==0}">
+							<p style="color: red; font-size: 17px;">품절</p> 
+						</c:if>
+						<c:if test="${goodsVO.goods_stock !=0}">
+			      		<input type="number" value="1" style="width: 400px; text-align: center;" id="order_goods_qty" name="order_goods_qty" min="1" max="${goodsVO.goods_stock}">
+						</c:if>
+					</td>
+				
 				
 					 
 				</tr>
@@ -441,7 +443,7 @@ function add_wish(goods_id){
 					<td class="fixed">옵션</td>
 					<td class="fixed">
 
-						<select style="width: 400px;  height: 50px; text-align: center" id="goods_option" name="goods_option" >
+						<select style="width: 400px;  height: 25px; text-align: center" id="goods_option" name="goods_option" >
 
 							<option value="${goodsVO.goods_option1}"style="font-size: 18px;" >${goodsVO.goods_option1}</option>
 							<option value="${goodsVO.goods_option2}"style="font-size: 18px;" >${goodsVO.goods_option2}</option>
@@ -454,7 +456,7 @@ function add_wish(goods_id){
 				
 				<tr>
 					<td class="fixed">배송료</td>
-					<td class="fixed"><strong name="total_goods_price" value="${goodsVO.goods_delivery_price}" style="font-size: 16px;" >3000원</strong></td>
+					<td class="fixed"><strong name="total_goods_price" value="${goodsVO.goods_delivery_price}" style="font-size: 16px;" >3,000원</strong></td>
 				</tr>
 				
 				<tr>
@@ -477,61 +479,76 @@ function add_wish(goods_id){
 	<br><br><br>
 	
 		<ul class="nav nav-tabs" id="myTab" role="tablist">
-  <li class="nav-item" role="presentation">
-    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">상품상세</button>
-  </li>
-  <li class="nav-item" role="presentation">
-    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">상품리뷰</button>
-  </li>
-  <li class="nav-item" role="presentation">
-    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">상품문의</button>
-  </li>
-	</ul>
+  			<li class="nav-item" role="presentation">
+    		<button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">상품상세</button>
+  			</li>
+  			<li class="nav-item" role="presentation">
+    		<button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">상품리뷰</button>
+  			</li>
+  			<li class="nav-item" role="presentation">
+    		<button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">상품문의</button>
+  			</li>
+		</ul>
 	
 	<div class="tab-content" id="myTabContent">
-  <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0"><br><br><img src="${contextPath}/thumbnails.do?goods_id=${goodsVO.goods_id}&fileName=${goodsVO.goods_image_name2}"></div>
-	 
-	  <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0" style="margin-left: 27%;">
-		
-			<table class="tb_comment tb_comment_common">
-	
-	<caption>상품평 등급, 상품평내용 , 작성자, 등록일, 조회수에 관한 테이블</caption>
-	<c:if test="${review== null}">
-			<p>등록된 상품 리뷰가 없습니다.</p>
-		</c:if>			
+
+		<div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0"><br><br>
+			<img src="${contextPath}/thumbnails.do?goods_id=${goodsVO.goods_id}&fileName=${goodsVO.goods_image_name2}">
+		</div>
+
+		<div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0" style="margin:0px;">
+
+		<br><br>
+			<table class="tb_comment tb_comment_common" style="margin: auto;">
 				
-	<colgroup>
-		<col style="width:400px">
-		<col>
-		<col style="width:500px">
+			<colgroup>
+			<col style="width:400px">
+			<col>
+			<col style="width:500px">
+			</colgroup>
+
+			<c:choose>
+			<c:when test="${review == null or fn:length(review) == 0}">
+            <tr>
+                <td colspan="3" style="border:1px solid gray; padding:20px;">
+                    <p align="center">
+                        <b><span style="font-size:100pt"></span></b>
+                    </p>
+                    등록된 상품 리뷰가 없습니다.
+                </td>
+            </tr>
+        </c:when>
 			
-	</colgroup>
-	<c:forEach items="${review}" var="review">
-	<tbody>
-					
+			<c:when test="${review != null }">		
+			<c:forEach items="${review}" var="review">
 			<tr>
-				<td class="comment-grade">
-				<span class="rec rec_a"><img alt="" src="${contextPath}/thumbnails.do?goods_id=${review.member_id}&fileName=${review.review_img}&fileType=review" width="100px"></span>
+				<td class="comment-grade" style="border-bottom:1px solid gray;">
+					<span class="rec rec_a"><img alt="" src="${contextPath}/thumbnails.do?goods_id=${review.member_id}&fileName=${review.review_img}&fileType=review" width="100px"></span>
 				</td>
-				<td class="comment-content">
-				<p class="pd-tit">${review.review_title}</p>
-				<p class="con">${review.review_content}</p>
+				<td class="comment-content" style="border-bottom:1px solid gray;">
+					<p class="pd-tit">${review.review_title}</p>
+					<p class="con">${review.review_content}</p>
 				</td>
 
-				<td class="info">
-				<dl class="writer-info">
-				<dt>작성자 : </dt>
-				<dd>${review.member_id}</dd>
-				<dt>등록일 :</dt>
-				<dd>${review.review_writeDate}</dd>
-				</dl>
+				<td class="info" style="border-bottom:1px solid gray;">
+					<dl class="writer-info">
+						<dt>작성자  </dt>
+							<dd><span style="font-size:12pt">${review.member_id}</span></dd>
+							<dt>등록일 </dt>
+							<dd><span style="font-size:11pt">${review.review_writeDate}</span></dd>
+					</dl>
 				</td>		
-				</tr>
-					<tr><td ><hr></td></tr>
+			</tr>
+			</c:forEach>
+			</c:when>
+			</c:choose>
 					
-	</tbody>
-	</c:forEach>
+	
+	
+	
 </table>
+
+	
 
 <br><br>
 	</div>
