@@ -191,5 +191,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  ]]>
 	</select>
 	
+	
+	<update id="reviewStatus" parameterType="java.util.Map">
+	  <![CDATA[
+     	update t_shopping_order
+     	set delivery_status= "review_write"
+        	
+        where goods_id=#{goods_id}  
+     ]]>
+	</update>
 
 </mapper>

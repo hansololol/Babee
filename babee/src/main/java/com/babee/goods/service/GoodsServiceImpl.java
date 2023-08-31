@@ -99,4 +99,9 @@ public class GoodsServiceImpl implements GoodsService{
 	public Map<String, String> getsubcg(String sub_category) throws Exception{
 		return goodsDAO.getsubcg(sub_category);
 	}
+	@Override
+	public void reviewStatus(String goods_id) {
+		goodsDAO.reviewStatus(goods_id);
+		
+	}
 }

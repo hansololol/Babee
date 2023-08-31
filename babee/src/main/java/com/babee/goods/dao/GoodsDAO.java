@@ -32,5 +32,7 @@ public interface GoodsDAO {
 	public List selectSort(Map sortMap) throws DataAccessException;
 	public Map<String,String> getsubcg(String sub_category) throws DataAccessException;
 	public GoodsVO getGoods(String goods_id) throws DataAccessException;
+
+	public void reviewStatus(String goods_id)throws DataAccessException;
 	
 }
