@@ -20,19 +20,19 @@ function backToList(){
 	location.href = "${contextPath}/admin/member/memberManageList.do";
 }
 
+function fn_remove_member(member_id){
+      var formObj = document.createElement("form");
+      var m_member = document.createElement("input");
+          m_member.name = "member_id";
+          m_member.value = member_id;
+          formObj.appendChild(m_member);
+      document.body.appendChild(formObj);
+            formObj.method = "post";
+            formObj.action = "${contextPath}/admin/member/removeMember.do";
+            formObj.submit();
+   }
 </script>
-<script>
-window.onload = function() {
-    function toggleAllCheckboxes() {
-        var allCheckbox = document.getElementById('allCheckbox');
-        var checkboxes = document.querySelectorAll('.agreeCheckbox');
 
-        for (var i = 0; i < checkboxes.length; i++) {
-            checkboxes[i].checked = allCheckbox.checked;
-        }
-    }
-}
-</script>
 
 
 
@@ -78,6 +78,7 @@ window.onload = function() {
 		<div class="member_wrap">
 			<div class="member_tit">
 				<h2>회원 정보 조회</h2>
+            <input type="button" value="삭제" style="width:100px; display:inline-block; margin-left:590px; margin-bottom: 20px;" onclick="fn_remove_member('${member.member_id}')">
 			</div>
 
 	<div class="member_cont">
