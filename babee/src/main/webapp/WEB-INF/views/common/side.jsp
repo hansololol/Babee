@@ -54,9 +54,16 @@
 
 	<c:otherwise>
 		<div class="list-group">
-			<a href="${contextPath}/member/myPageMain.do" class="list-group-item list-group-item-action active" aria-current="true">
-				${memberInfo.member_name} 님의 마이페이지 <br>${memberInfo.member_email}
-			</a>
+			<c:if test="${userType=='S'}">
+				<a href="${contextPath}/member/myPageMain.do" class="list-group-item list-group-item-action active" aria-current="true">
+					${memberInfo.seller_name} 님의 마이페이지 <br>${memberInfo.seller_email}
+				</a>
+			</c:if>
+			<c:if test="${userType!='S'}">
+				<a href="${contextPath}/member/myPageMain.do" class="list-group-item list-group-item-action active" aria-current="true">
+					${memberInfo.member_name} 님의 마이페이지 <br>${memberInfo.member_email}
+				</a>
+			</c:if>
 			<a href="${contextPath}/member/modpassword.do" class="list-group-item list-group-item-action">내정보 수정</a>
 			<a href="${contextPath}/mypage/listMyOrderHistory.do" class="list-group-item list-group-item-action">주문내역/배송조회</a>
 			<a href="${contextPath}/cart/myCartList.do" class="list-group-item list-group-item-action">장바구니</a>
