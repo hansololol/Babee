@@ -46,5 +46,12 @@ public interface SellerController {
 	    
 	    //사업자 상품qna 리스트
 	    public ModelAndView selectAllGoodsQna(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	    
+	    public ModelAndView getTodayGoods(HttpServletRequest request, HttpServletResponse response) throws Exception;
+		  public ModelAndView getSellerOrderList(HttpServletRequest request, HttpServletResponse response) throws Exception;
+		  public ModelAndView updateDeliveryStatus(@RequestParam("order_id") int order_id,
+                @RequestParam("delivery_status") String delivery_status,
+                HttpServletRequest request,
+                HttpServletResponse response) throws Exception;
 
 }
