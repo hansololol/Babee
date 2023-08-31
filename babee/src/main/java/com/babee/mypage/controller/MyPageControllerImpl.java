@@ -228,6 +228,11 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 		int img_id = (int) Math.floor(Math.random() * 1000000);
 		String review_img_id = String.valueOf(img_id);
 		reviewMap.put("review_img_id", review_img_id);
+		
+		
+		String goods_id = review.getGoods_id();
+		goodsService.reviewStatus(goods_id);
+		
 
 		try {
 

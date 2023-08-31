@@ -28,4 +28,6 @@ public interface GoodsService {
 	public List getfitList(String baby_age) throws Exception;
 	public Map getsubcg(String sub_category) throws Exception;
 	public List selectSort(Map sortMap) throws Exception;
+	
+	public void reviewStatus(String goods_id);
 }

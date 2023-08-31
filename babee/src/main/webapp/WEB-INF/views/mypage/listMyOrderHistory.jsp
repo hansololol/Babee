@@ -178,10 +178,12 @@ function search_order_history(fixedSearchPeriod){
             <td >&nbsp;&nbsp;&nbsp;</td>
             
          </tr>
-        <c:forEach items="${myOrderList}" var="order" >
-         <tr>
+        <c:forEach items="${myOrderList}" var="order"  varStatus="status" >
+         <c:if test="${status.first || myOrderList[status.index - 1].order_id ne order.order_id}">
+        <tr>
             <td><a href="${contextPath}/goods/goodsDetail.do?goods_id=${order.goods_id}"><img src="${contextPath}/thumbnails.do?goods_id=${order.goods_id}&fileName=${order.goods_image_name}" width="100px"/></a></td>
             <td> 
+
                <ul class="goods">
                   <li style="text-align:left;"> ${order.goods_title} [<a href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}">${order.order_id}</a>] </li>
                   <li style="text-align:left;"> 주문일자: ${order.payment_order_time} </li>
@@ -210,6 +212,13 @@ function search_order_history(fixedSearchPeriod){
                      <a class="order_delivery_search" href="${contextPath}/mypage/myrefund.do?order_id=${order.order_id}"><b>반품/교환</b></a>
                   </td>
                   </c:when>
+                  <c:when test="${order.delivery_status=='review_write' }">
+                     <td> 배송완료 </td>
+                     <td> 
+                     <a class="order_delivery_search" href="${contextPath}/mypage/myrefund.do?order_id=${order.order_id}"><b>반품/교환</b></a>
+                  </td>
+                  </c:when>
+                  
                   <c:when test="${order.delivery_status=='cancel_order' }">
                      <td> 주문취소 </td>
                      <td> 
@@ -224,6 +233,7 @@ function search_order_history(fixedSearchPeriod){
                   </c:when>
              </c:choose>
          </tr>
+         </c:if>
            </c:forEach> 
    </table>
    
