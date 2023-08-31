@@ -15,5 +15,4 @@ public interface DiaryService {
 	public void delDiary(Map diaryMap) throws Exception;
 	
 	public List<DiaryVO> allDiaryList() throws Exception;
-	
 }
