@@ -55,18 +55,19 @@ ul li {
 
 <script type="text/javascript">
 
+
 function selectAll() {
-      var checkboxes = document.querySelectorAll('.product-checkbox');
-      var selectAllCheckbox = document.getElementById('select-all-checkbox');
+    var checkboxes = document.querySelectorAll('.product-checkbox');
+    var selectAllCheckbox = document.getElementById('select-all-checkbox');
 
-      for (var i = 0; i < checkboxes.length; i++) {
-         checkboxes[i].checked = selectAllCheckbox.checked;
-         
-      }
-      
-      updateTotalPrices();
-   }
+    for (var i = 0; i < checkboxes.length; i++) {
+       if (!checkboxes[i].disabled) {
+          checkboxes[i].checked = selectAllCheckbox.checked;
+       }
+    }
 
+    updateTotalPrices();
+ }
    $(document).ready(function() {
                   // 클래스가 "product-checkbox"인 체크박스 변경 감지
                   $(".product-checkbox")
@@ -82,6 +83,7 @@ function selectAll() {
                                                 var parent = $(this).closest("tr");
                                                 var priceElement = parseInt(parent.find(".price").text());
                                                 var quantityElement = parseInt(parent.find(".order_goods_qty").val()); 
+                                            
                                                 
 
                                                 
@@ -207,7 +209,7 @@ function delete_cart_goods(cart_id) {
 
                           var totalGoodsNum = 0;
                           var totalGoodsPrice = 0;
-                          var totalDiscountedPrice = 0;                                 
+                          var totalDiscountedPrice = 0;                      
 
                           $(".product-checkbox:checked").each(
                                       function() {
@@ -269,7 +271,7 @@ function delete_cart_goods(cart_id) {
 
             <c:forEach var="cartVO" items="${myCartList}" varStatus="loop">
                <tr>
-                  <td class="text_center"><input type="checkbox" class="product-checkbox"></td>
+                  <td class="text_center"> <input type="checkbox" class="product-checkbox" ${cartVO.goodsVO.goods_stock == 0 ? 'disabled' : ''}></td>
                         <input type="hidden" class="goodsId" value="${cartVO.goods_id}">
                   <td style="text-align: left;"><a href="${contextPath}/goods/goodsDetail.do?goods_id=${cartVO.goods_id}"><img src="${contextPath}/thumbnails.do?goods_id=${cartVO.goods_id}&fileName=${cartVO.cart_image_name}" width="100px" class="cart_img"/></a></td>
                   <td style="text-align: left;">${cartVO.goods_title}</td>
@@ -280,8 +282,10 @@ function delete_cart_goods(cart_id) {
 						
 						<c:choose>
 						<c:when test="${cartVO.goodsVO.goods_stock ==0}">
-						
+							<input type="hidden" class="goods-stock" value="${cartVO.goodsVO.goods_stock}">
+
 							 품절
+							 
 						</c:when>
 						
 						<c:when test="${goodsVO.goods_stock !=0}">
