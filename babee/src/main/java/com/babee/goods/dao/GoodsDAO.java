@@ -31,5 +31,6 @@ public interface GoodsDAO {
 	public List selectFitGodos(String baby_age) throws DataAccessException;
 	public List selectSort(Map sortMap) throws DataAccessException;
 	public Map<String,String> getsubcg(String sub_category) throws DataAccessException;
+	public GoodsVO getGoods(String goods_id) throws DataAccessException;
 	
 }

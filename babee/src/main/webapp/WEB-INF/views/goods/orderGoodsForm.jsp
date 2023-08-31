@@ -397,8 +397,8 @@ $(function (){
                <c:forEach var="order" items="${orderInfo}" varStatus="status">
                <tr>
                   <td width="180px;"><img src="${contextPath}/thumbnails.do?goods_id=${order.goods.goods_id}&fileName=${order.goods.goods_image_name1}" width="80px;"/></td>
-                  <td width="180px;"> ${order.goods_title}</td> 
-                  <td  width="80px;"> ${order.order_goods_qty} <input type="hidden" name="order_goods_qty" value="${order.order_goods_qty}"> (개) </td> 
+                  <td width="180px;"> ${order.goods_title}</td>  
+                  <td  width="80px;"> ${order.order_goods_qty}<input type="hidden" name="order_goods_qty" value="${order.order_goods_qty}"> (개) </td> 
                   
                </tr>
                <tr>
@@ -406,15 +406,15 @@ $(function (){
                </tr>
                </c:forEach>
             </table>   
-            <hr>
-               <h5 style="padding-left:30px;">상품 합계 ${total_goods_price} 원</h4>
-               <h5 style="padding-left:30px;">할인 금액 ${discounted_price} 원</h4>
+            <hr>  
+               <h5 style="padding-left:30px;">상품 합계 <fmt:formatNumber value="${total_goods_price}"  pattern="##,###,### 원"/></h4>
+               <h5 style="padding-left:30px;">할인 금액 <fmt:formatNumber value="${discounted_price}"  pattern="##,###,### 원"/></h4>
             <hr>
                
-               <h6 style="padding-left:30px;" name="goods_delivery_price">배송비  3000 원</h5>
+               <h6 style="padding-left:30px;" name="goods_delivery_price">배송비  3,000 원</h5>
                <input type="hidden" name="goods_delivery_price" value="3000">
             <hr>
-               <h4 style="padding-left:30px;">총 결제 금액   ${total_goods_price - discounted_price + 3000} 원</h4>
+               <h4 style="padding-left:30px;">총 결제 금액  <fmt:formatNumber value="${total_goods_price - discounted_price + 3000}"  pattern="##,###,### 원"/></h4>
                <input type="hidden" name="total_goods_price" value="${total_goods_price - discounted_price}">
          </div>
 

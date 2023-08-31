@@ -27,6 +27,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	</resultMap>
 	
+	   <resultMap id="goodsResult" type="GoodsVO">
+      <result property="goods_id" column="goods_id" />
+      <result property="goods_title" column="goods_title" />
+      <result property="goods_price" column="goods_price" />
+      <result property="goods_stock" column="goods_stock" />
+      <result property="main_category" column="main_category" />
+      <result property="middle_category" column="middle_category" />
+      <result property="sub_category" column="sub_category" />
+      <result property="seller_id" column="seller_id" />
+      <result property="goods_delivery_price" column="goods_delivery_price" />
+      <result property="goods_image_name1" column="goods_image_name1" />
+      <result property="goods_image_name1_id" column="goods_image_name1_id" />
+      <result property="goods_image_name2" column="goods_image_name2" />
+      <result property="goods_image_name2_id" column="goods_image_name2_id" />
+      <result property="age_range" column="age_range" />
+      <result property="goods_creation_date" column="goods_creation_date" />
+      <result property="related_tags" column="related_tags" />
+      <result property="tag_option1" column="tag_option1" />
+      <result property="tag_option2" column="tag_option2" />
+      <result property="tag_option3" column="tag_option3" />
+      <result property="tag_option4" column="tag_option4" />
+      <result property="tag_option5" column="tag_option5" />
+   </resultMap>
+	
 	 <select id="selectMyOrderList" resultMap="orderGoodsResult"  parameterType="orderVO"  >
 	    <![CDATA[
 			select * from t_shopping_order
@@ -73,5 +97,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  delete from t_shopping_cart
 	  where goods_id=#{goods_id}
 	</delete>
+	
+	<update id="stock" parameterType="int">
+	    <![CDATA[
+			update t_shopping_goods
+			       set goods_stock=goods_stock - #{order_goods_qty}
+		 	       where goods_id=#{goods_id}
+			        
+    	]]>
+	</update>
 	
 </mapper>
