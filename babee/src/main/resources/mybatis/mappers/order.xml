@@ -100,9 +100,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<update id="stock" parameterType="int">
 	    <![CDATA[
-			update t_shopping_goods
-			       set goods_stock=goods_stock - #{order_goods_qty}
-		 	       where goods_id=#{goods_id}
+UPDATE t_shopping_goods
+SET goods_stock = CASE WHEN goods_stock - #{order_goods_qty} < 0 THEN 0 ELSE goods_stock - #{order_goods_qty} END
+WHERE goods_id = #{goods_id}
 			        
     	]]>
 	</update>
