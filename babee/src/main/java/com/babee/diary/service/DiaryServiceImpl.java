@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.babee.diary.dao.DiaryDAO;
 import com.babee.diary.vo.DiaryVO;
-import com.babee.goods.vo.GoodsVO;
 
 
 @Service("diaryService")
@@ -59,4 +58,5 @@ public class DiaryServiceImpl implements DiaryService  {
 	public List<DiaryVO> allDiaryList() throws Exception {
 		return diaryDAO.allDiaryList();
 	}
+	
 }

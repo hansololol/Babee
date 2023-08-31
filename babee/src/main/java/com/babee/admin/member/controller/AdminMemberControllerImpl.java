@@ -28,11 +28,8 @@ import com.babee.seller.vo.SellerVO;
 @Controller("adminMemberController")
 @RequestMapping(value="/admin/member")
 public class AdminMemberControllerImpl extends BaseController  implements AdminMemberController{
-	private static String ARTICLE_IMAGE_REPO = "c:/shopping/file_repo";
-	private static String CURR_IMAGE_REPO_PATH_REVIEW = "C:/shopping/review";
-	private static String CURR_IMAGE_REPO_PATH_DIARY = "C:/shopping/diary";
-	private static String CURR_IMAGE_REPO_PATH_FREEBOARD = "C:/shopping/community/freeboard";
-	private static String CURR_IMAGE_REPO_PATH_INFO = "C:/shopping/community/info";
+	private static String CURR_IMAGE_REPO_PATH_GOODS = "C:/shopping/file_repo";
+	
 	@Autowired
 	private AdminMemberService adminMemberService;
 	@Autowired
@@ -303,7 +300,7 @@ public class AdminMemberControllerImpl extends BaseController  implements AdminM
 		adminMemberService.removeSeller(sellerMap);
 		
 		if(seller_id!=null) {
-			File delFolder = new File(ARTICLE_IMAGE_REPO+ "\\" + seller_id);
+			File delFolder = new File(CURR_IMAGE_REPO_PATH_GOODS+ "\\" + seller_id);
 			File[] deleteFolderList = delFolder.listFiles();
 			
 			for (int j = 0; j < deleteFolderList.length; j++  ) {
@@ -378,9 +375,6 @@ public class AdminMemberControllerImpl extends BaseController  implements AdminM
 		Map memberMap = new HashMap<>();
 		memberMap.put("member_id", member_id);
 		adminMemberService.removeMember(memberMap);
-		
-	
-
 		
 		PrintWriter out = response.getWriter();
 		out.println("<script>alert('삭제 완료되었습니다.');location.href='/admin/member/memberManageList.do'</script>");

@@ -165,14 +165,14 @@
     <!-- 페이징 버튼 -->
     <div class="paging-container">
         <c:if test="${section>1}">
-            <a class="paging-button" href="${contextPath}/admin/member/sellerManageWait.do?section=${section-1}&pageNum=1">이전</a>
+            <a class="paging-button" href="${contextPath}/admin/member/sellerManageWait.do?page=adminPage&section=${section-1}&pageNum=1">이전</a>
         
         </c:if>
         <c:forEach var="i" begin="1" end="5">
-            <a class="paging-button" href="${contextPath}/admin/member/sellerManageWait.do?section=${section}&pageNum=${i}">${((section-1)*5) + i}</a>
+            <a class="paging-button" href="${contextPath}/admin/member/sellerManageWait.do?page=adminPage&section=${section}&pageNum=${i}">${((section-1)*5) + i}</a>
         
         </c:forEach>
-        <a class="paging-button" href="${contextPath}/admin/member/sellerManageWait.do?section=${section+1}&pageNum=1">다음</a>
+        <a class="paging-button" href="${contextPath}/admin/member/sellerManageWait.do?page=adminPage&section=${section+1}&pageNum=1">다음</a>
     </div>
     <br><br><br><br><br>
 </body>
