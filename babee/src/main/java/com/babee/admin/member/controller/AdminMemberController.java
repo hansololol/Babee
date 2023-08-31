@@ -27,5 +27,6 @@ public interface AdminMemberController {
 	//회원 관리
 	public ModelAndView memberManageList(HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	public ModelAndView memberManageDetail(@RequestParam("member_id") String member_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView removeMember(HttpServletRequest request, HttpServletResponse response)  throws Exception;
 }
  

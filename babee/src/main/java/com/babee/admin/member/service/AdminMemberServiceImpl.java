@@ -92,5 +92,11 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 		return memberMap;
 	}
 	
+	@Override
+	public void removeMember(Map memberMap) throws Exception {
+		adminMemberDAO.deleteMember(memberMap);
+	}
+	
+	
 }
  

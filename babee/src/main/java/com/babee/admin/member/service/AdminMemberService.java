@@ -28,6 +28,8 @@ public interface AdminMemberService {
 	//회원 관리
 	public List<MemberVO> memberManageList(Map memberMap) throws Exception;
 	public Map memberManageDetail(String member_id) throws Exception;
+	public void removeMember(Map memberMap) throws Exception;
+	
 	
 }
  
