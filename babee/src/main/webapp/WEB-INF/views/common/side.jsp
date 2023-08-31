@@ -12,9 +12,9 @@
 <style>
 .list-group-item.active {
     z-index: 1;
-    color: var(--bs-list-group-active-color);
-	border-color: #ffc107;
-    background-color: #ffc107;
+    color: black;
+	border-color: #cecece;
+    background-color:#FEF7DD;
 } 
 </style>
 
