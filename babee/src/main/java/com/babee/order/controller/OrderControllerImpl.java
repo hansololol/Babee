@@ -262,7 +262,7 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 	            
 	            
 	            total_goods_price += _total_goods_price;
-	            //total_discounted_price += discounted_price;
+	            total_discounted_price += discounted_price;
 	            
 	            mav.addObject("order", goods_option);
 
@@ -278,9 +278,11 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 	     
 	            ordergoods.add(orderVO); // OrderVO 객체 리스트에 추가
 	            
+	            
 	        }
-	      
-	        total_discounted_price = (discounted_price*(goods_ids.length));
+	        
+	       // total_discounted_price = (discounted_price*(goods_ids.length));
+	        System.out.println("총할인: " + total_discounted_price);
 	        mav.addObject("discounted_price", total_discounted_price);
 	        session.setAttribute("orderInfo", ordergoods);
 	       
