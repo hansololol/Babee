@@ -23,6 +23,14 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       }
     </script>
     <style>
+      .container {
+            max-width: 850px;
+            margin: 50px auto;
+            /* background: #ededed; */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+        }
       .star-goods_star {
         display: flex;
         flex-direction: row-reverse;
@@ -78,185 +86,113 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       input[type="reset"]:hover {
         background-color: #cca300; /* 호버 시 배경색 변경 */
       }
+
+      .form-group {
+            margin-bottom: 20px;
+      }
+
+      .file-input-label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .file-input {
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+        cursor: pointer;
+      }
+      .image-preview {
+        max-width: 100%;
+        max-height: 250px;
+       
+        margin-top: 10px;
+      }
+      input[type="text"],
+        input[type="file"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            /* border: 1px solid #ccc; */
+            border: none;
+            border-radius: 5px;
+        }
     </style>
   </head>
   <body>
-    <div style="width: 66%">
-      <h3>리뷰 작성</h3>
-    </div>
+    <div class="container" style="border:1px solid lightgray; padding: 20px 40px 40px">
+    <form method="post" action="${contextPath}/mypage/reviewWrite.do" enctype="multipart/form-data">
+      <div class="form-group" style="display: flex; align-items: baseline; justify-content: center; margin-bottom: 50px;">
+        <img src="/image/reviewIcon.png" width="70" height="70"><h1>리뷰 작성</h1>
+      </div>
+      <input type="hidden" name="goods_id" value="${param.goods_id}" />
+      <input type="hidden" name="goods_image_name1" value="${param.goods_image_name1}" />
+      <input type="hidden" name="goods_title" value="${param.goods_title}" />
+      <div class="form-group" style="font-weight: bold; font-size: 18px;">
+        <img src="${contextPath}/thumbnails.do?goods_id=${param.goods_id}&fileName=${param.goods_image_name1}" style="width: 120px; margin-right: 50px;">
+        ${param.goods_title}
+      </div>
 
-    <form
-      method="post"
-      action="${contextPath}/mypage/reviewWrite.do"
-      enctype="multipart/form-data"
-      style="margin-left: 110px; width: 800px"
-    >
-       <input type="hidden" name="goods_id" value="${param.goods_id}" />
-      <table style="border-collapse: collapse; margin: 0 auto">
-        <tr>
-          <td
-            width="200"
-            style="border: 1px solid gray; background: #ffffcc; padding: 10px"
-          >
-            <p align="center">작성자</p>
-          </td>
-          <td
-            width="250"
-            colspan="2"
-            style="border: 1px solid gray; padding: 10px"
-          >
-          <c:if test="${memberInfo.member_id != null }">
-            ${memberInfo.member_name}
-            <input
-              type="hidden"
-              name="member_id"
-              value="${memberInfo.member_id}"
-            />
-          </td>
-        </c:if>
-        <c:if test="${memberInfo.seller_id != null }">
-            ${memberInfo.seller_name}
-            <input
-              type="hidden"
-              name="member_id"
-              value="${memberInfo.seller_id}"
-            />
-          </td>
-        </c:if>
-        </tr>
+      <hr>
 
-        <tr>
-          <td
-            width="200"
-            style="border: 1px solid gray; background: #ffffcc; padding: 10px"
-          >
-            <p align="center">제목</p>
-          </td>
-          <td
-            width="250"
-            colspan="2"
-            style="border: 1px solid gray; padding: 10px"
-          >
-            <input
-              type="text"
-              name="review_title"
-              size="65"
-              style="margin-left: 10px"
-            />
-          </td>
-        </tr>
+      <div class="form-group" >
+        <input type="text"name="review_title" size="45" style="margin-left: 10px" placeholder="제목"/>
+      </div>
+      
+      <hr>
 
-        <tr>
-          <td
-            align="center"
-            style="border: 1px solid gray; background: #ffffcc; padding: 10px"
-          >
-            상품 이미지
-          </td>
-          <td width="200">
-            <input
-              type="file"
-              name="imageFile"
-              onChange="readURL(this);"
-              style="margin-left: 10px"
-            />
-            <p style="font-size: 12px">
-              &nbsp;다음 파일 형식만 지원됩니다.<br />
-            </p>
-            <p style="font-size: 12px">
-              &nbsp;.jpg(JPEG), .png(Portable Network Graphics), .gif(Graphics
-              Interchange Format)
-            </p>
-          </td>
+      <div class="form-group" style="border: 1px solid lightgray; border-radius: 5px; padding: 20px; background-color:#f9f7f0;">
+        <div class="file-input-label">
+          <table>
+            <tr>
+              <td width="400px;" height="200px;">
+                <label for="imageFile"><img src="${contextPath}/image/add.png" alt="파일 선택" width="30" height="30" style="cursor: pointer;"></label>
+                <input type="file" class="file-input" id="imageFile" name="imageFile" onchange="readURL(this);">
+                			<p style="font-size: 12px;">다음 파일 형식만 지원됩니다.<br>.jpg(JPEG), .png(Portable Network Graphics), .gif(Graphics Interchange Format)</p>
+              </td>
+              <td width="400px;">
+                <img id="preview" class="image-preview" src="#" alt="" style="margin: auto;">
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
 
-          <td
-            width="250"
-            height="200"
-            style="border-right: 1px solid gray; padding: 10px"
-          >
-            <img id="preview" src="#" width="200" height="200" />
-          </td>
-        </tr>
+      <hr>
 
-        <tr>
-          <td
-            width="200"
-            style="border: 1px solid gray; background: #ffffcc; padding: 10px"
-          >
-            <p align="center">내용</p>
-          </td>
-          <td colspan="2" style="border: 1px solid gray; padding: 10px">
-            <textarea
-              name="review_content"
-              rows="10"
-              cols="70"
-              maxlength="3000"
-            ></textarea>
-          </td>
-        </tr>
-	
-        <tr>
-          <td
-            width="200"
-            style="border: 1px solid gray; background: #ffffcc; padding: 10px"
-          >
-            <p align="center">별점</p>
-          </td>
-          <td colspan="2" style="border: 1px solid gray; padding: 10px">
-            <div class="star-goods_star space-x-4 mx-auto">
-              <input
-                type="radio"
-                id="5-stars"
-                name="goods_star"
-                value="5"
-                v-model="goods_stars"
-              />
-              <label for="5-stars" class="star pr-4">★</label>
-              <input
-                type="radio"
-                id="4-stars"
-                name="goods_star"
-                value="4"
-                v-model="goods_stars"
-              />
-              <label for="4-stars" class="star">★</label>
-              <input
-                type="radio"
-                id="3-stars"
-                name="goods_star"
-                value="3"
-                v-model="goods_stars"
-              />
-              <label for="3-stars" class="star">★</label>
-              <input
-                type="radio"
-                id="2-stars"
-                name="goods_star"
-                value="2"
-                v-model="goods_stars"
-              />
-              <label for="2-stars" class="star">★</label>
-              <input
-                type="radio"
-                id="1-star"
-                name="goods_star"
-                value="1"
-                v-model="goods_stars"
-              />
-              <label for="1-star" class="star">★</label>
-            </div>
-          </td>
-        </tr>
-      </table>
+      <div class="form-group">
+        <textarea name="review_content" rows="10" maxlength="1000" placeholder="내용"></textarea>
+      </div>
 
-      <br>
-      <br>
-      <br>
+      <hr>
+      
+      <div style="margin-bottom: 50px;">
+        <div style="text-align: left; margin-left: 20px; color: gray;">별점</div>
+        <div class="star-goods_star space-x-4 mx-auto">
+          <input type="radio" id="5-stars" name="goods_star" value="5" v-model="goods_stars"/>
+          <label for="5-stars" class="star pr-4">★</label>
+
+          <input type="radio" id="4-stars" name="goods_star" value="4" v-model="goods_stars"/>
+          <label for="4-stars" class="star">★</label>
+
+          <input type="radio" id="3-stars" name="goods_star" value="3" v-model="goods_stars"/>
+          <label for="3-stars" class="star">★</label>
+
+          <input type="radio" id="2-stars" name="goods_star" value="2" v-model="goods_stars"/>
+          <label for="2-stars" class="star">★</label>
+
+          <input type="radio" id="1-star" name="goods_star" value="1" v-model="goods_stars"/>
+          <label for="1-star" class="star">★</label>
+        </div>
+      </div>
+       
        
       <div class="diary_write_btn">
         <input type="submit" value="작성하기" />&nbsp;&nbsp;&nbsp;
         <input type="reset" value="다시입력" />
       </div>
     </form>
+  </div>
   </body>
 </html>

@@ -128,7 +128,7 @@ function search_order_history(fixedSearchPeriod){
             <td> 
                <img src ="/image/people.png" width="60px;" style="display:inline-block; padding-left:15px;"/>
                
-                  <p  style="display:inline-block;"> user님 안녕하세요 </p>
+                  <p  style="display:inline-block;"> ${memberInfo.member_name} 님 안녕하세요 </p>
                
             </td>
          </tr>
@@ -197,40 +197,42 @@ function search_order_history(fixedSearchPeriod){
                      <a class="order_delivery_search" href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}"><b>주문/배송조회</b></a><br>
                      <a class="order_delivery_search" href="${contextPath}/mypage/cancelMyOrder.do?order_id=${order.order_id}"><b>주문취소</b></a><br>
                   </td>
-                  </c:when>
-                  <c:when test="${order.delivery_status=='delivering' }">
-                     <td> 배송중 </td>
-                     <td> 
+               </c:when>
+
+               <c:when test="${order.delivery_status=='delivering' }">
+                  <td> 배송중 </td>
+                  <td> 
                      <a class="order_delivery_search" href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}"><b>주문/배송조회</b></a><br>
                   </td>
-                  </c:when>
+               </c:when>
 
-                  <c:when test="${order.delivery_status=='finished_delivering' }">
-                     <td> 배송완료 </td>
-                     <td> 
-                     <a class="order_delivery_search" href="${contextPath}/member/reviewForm.do?goods_id=${order.goods_id}"><b>후기작성</b></a><br>
+               <c:when test="${order.delivery_status=='finished_delivering' }">
+                  <td> 배송완료 </td>
+                  <td>
                      <a class="order_delivery_search" href="${contextPath}/mypage/myrefund.do?order_id=${order.order_id}"><b>반품/교환</b></a>
                   </td>
-                  </c:when>
-                  <c:when test="${order.delivery_status=='review_write' }">
-                     <td> 배송완료 </td>
-                     <td> 
+               </c:when>
+               
+               <c:when test="${order.delivery_status=='review_write' }">
+                  <td> 배송완료 </td>
+                  <td> 
                      <a class="order_delivery_search" href="${contextPath}/mypage/myrefund.do?order_id=${order.order_id}"><b>반품/교환</b></a>
                   </td>
-                  </c:when>
+               </c:when>
                   
-                  <c:when test="${order.delivery_status=='cancel_order' }">
-                     <td> 주문취소 </td>
-                     <td> 
+               <c:when test="${order.delivery_status=='cancel_order' }">
+                  <td> 주문취소 </td>
+                  <td> 
                      <a class="order_delivery_search" href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}"><b>주문상세</b></a><br>
                   </td>
-                  </c:when>
-                  <c:when test="${order.delivery_status=='refund' }">
-                     <td> 반품/교환신청 </td>
-                     <td> 
+               </c:when>
+               
+               <c:when test="${order.delivery_status=='refund' }">
+                  <td> 반품/교환신청 </td>
+                  <td> 
                      <a class="order_delivery_search" href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}"><b>주문상세</b></a><br>
                   </td>
-                  </c:when>
+               </c:when>
              </c:choose>
          </tr>
          </c:if>

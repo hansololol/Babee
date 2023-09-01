@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.babee.common.base.BaseController;
 import com.babee.diary.service.DiaryService;
+import com.babee.goods.dao.GoodsDAO;
 import com.babee.goods.service.GoodsService;
 import com.babee.goods.vo.GoodsVO;
 import com.babee.member.vo.MemberVO;
@@ -41,7 +42,8 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 	private GoodsVO goodsVO;
 	@Autowired
 	private DiaryService diaryService;
-
+	@Autowired
+	private GoodsDAO goodsDAO;
 	
 	@RequestMapping(value="/orderEachGoods.do" , method=RequestMethod.POST)
 	public ModelAndView orderEachGoods(@ModelAttribute("orderVO") OrderVO orderVO,
@@ -129,25 +131,31 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		int goods_delivery_price = Integer.parseInt(receiverMap.get("goods_delivery_price"));
 		int final_total_price = total_goods_price + goods_delivery_price;
 		GoodsVO goodsVO = (GoodsVO)session.getAttribute("goods");
+		List myOrderList_ = new ArrayList<>();
 		for(int i=0; i<myOrderList.size();i++){
 			//추가
 			OrderVO orderVO = new OrderVO();
-			orderVO=(OrderVO)myOrderList.get(i);
-			orderVO.setOrder_id(order_id);	
-			orderVO.setMember_id(member_id);
-			orderVO.setRecipient_hp(recipient_hp);
-			orderVO.setRecipient_tel(recipient_tel);
-			orderVO.setDeliveryAddr(deliveryAddr);
-			orderVO.setDeliveryMessage(receiverMap.get("deliveryMessage"));
-			orderVO.setPayment_method(receiverMap.get("pay_method"));
-			orderVO.setCard_com_name(receiverMap.get("card_com_name"));
-			orderVO.setTotal_goods_price(total_goods_price);
-			orderVO.setOrder_goods_qty(Integer.valueOf(receiverMap.get("order_goods_qty")));
-			System.out.println("수량:" + orderVO.getOrder_goods_qty() );
-			orderVO.setFinal_total_price(final_total_price);
-			myOrderList.set(i, orderVO); 
+	         orderVO=(OrderVO)myOrderList.get(i);
+	         orderVO.setOrder_id(order_id);   
+	         orderVO.setMember_id(member_id);
+	         orderVO.setRecipient_hp(recipient_hp);
+	         orderVO.setRecipient_tel(recipient_tel);
+	         orderVO.setDeliveryAddr(deliveryAddr);
+	         orderVO.setDeliveryMessage(receiverMap.get("deliveryMessage"));
+	         orderVO.setPayment_method(receiverMap.get("pay_method"));
+	         orderVO.setCard_com_name(receiverMap.get("card_com_name"));
+	         orderVO.setTotal_goods_price( orderVO.getOrder_goods_qty() * orderVO.getGoods().getGoods_price() );
+	         orderVO.setOrder_goods_qty(orderVO.getOrder_goods_qty());
+	         orderVO.setFinal_total_price(final_total_price);
+	         String goods_id = orderVO.getGoods_id();
+
+	         goodsVO = goodsDAO.getGoods(goods_id);
+	         int order_goods_qty = orderVO.getOrder_goods_qty();
+	         orderService.stock(Integer.parseInt(goods_id), order_goods_qty );
+            
+            myOrderList_.add(orderVO); 
 		}//end for
-		
+	
 		
 		orderService.addNewOrder(myOrderList);
 		
@@ -174,19 +182,23 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 			for(int i=0; i<myOrderList.size();i++){
 				//추가
 				OrderVO orderVO = new OrderVO();
-				orderVO=(OrderVO)myOrderList.get(i);
-				orderVO.setOrder_id(order_id);	
-				orderVO.setMember_id(member_id);
-				orderVO.setRecipient_hp(recipient_hp);
-				orderVO.setRecipient_tel(recipient_tel);
-				orderVO.setDeliveryAddr(deliveryAddr);
-				orderVO.setDeliveryMessage(receiverMap.get("deliveryMessage"));
-				orderVO.setPayment_method(receiverMap.get("pay_method"));
-				orderVO.setCard_com_name(receiverMap.get("card_com_name"));
-				orderVO.setTotal_goods_price(total_goods_price);
-				orderVO.setOrder_goods_qty(Integer.valueOf(receiverMap.get("order_goods_qty")));
-				System.out.println("수량:" + orderVO.getOrder_goods_qty() );
-				orderVO.setFinal_total_price(final_total_price);
+		         orderVO=(OrderVO)myOrderList.get(i);
+		         orderVO.setOrder_id(order_id);   
+		         orderVO.setMember_id(member_id);
+		         orderVO.setRecipient_hp(recipient_hp);
+		         orderVO.setRecipient_tel(recipient_tel);
+		         orderVO.setDeliveryAddr(deliveryAddr);
+		         orderVO.setDeliveryMessage(receiverMap.get("deliveryMessage"));
+		         orderVO.setPayment_method(receiverMap.get("pay_method"));
+		         orderVO.setCard_com_name(receiverMap.get("card_com_name"));
+		         orderVO.setTotal_goods_price( orderVO.getOrder_goods_qty() * orderVO.getGoods().getGoods_price() );
+		         orderVO.setOrder_goods_qty(orderVO.getOrder_goods_qty());
+		         orderVO.setFinal_total_price(final_total_price);
+		         String goods_id = orderVO.getGoods_id();
+
+		         goodsVO = goodsDAO.getGoods(goods_id);
+		         int order_goods_qty = orderVO.getOrder_goods_qty();
+		         orderService.stock(Integer.parseInt(goods_id), order_goods_qty );
 				myOrderList.set(i, orderVO); 
 			}//end for
 			
@@ -250,7 +262,7 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 	            
 	            
 	            total_goods_price += _total_goods_price;
-	            //total_discounted_price += discounted_price;
+	            total_discounted_price += discounted_price;
 	            
 	            mav.addObject("order", goods_option);
 
@@ -266,9 +278,11 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 	     
 	            ordergoods.add(orderVO); // OrderVO 객체 리스트에 추가
 	            
+	            
 	        }
-	      
-	        total_discounted_price = (discounted_price*(goods_ids.length));
+	        
+	       // total_discounted_price = (discounted_price*(goods_ids.length));
+	        System.out.println("총할인: " + total_discounted_price);
 	        mav.addObject("discounted_price", total_discounted_price);
 	        session.setAttribute("orderInfo", ordergoods);
 	       

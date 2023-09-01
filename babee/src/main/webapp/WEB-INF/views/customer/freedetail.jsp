@@ -131,47 +131,7 @@ function readURL(input){
          background-color: orange;
       }
    </style>
- <!--   
-   function addComment() {
-	    var commentText = document.getElementById('commentText').value;
-	    if (commentText.trim() === '') {
-	        alert('댓글 내용을 입력하세요.');
-	        return;
-	    }
 
-	    var currentDate = new Date();
-	    var formattedDate = currentDate.toLocaleString();
-
-	    var commentContainer = document.createElement('div');
-	    commentContainer.className = 'comment';
-	    commentContainer.innerHTML = '<div class="comment-info">작성자: 사용자 아이디 | 작성일: ' + formattedDate + '</div><p>' + commentText + '</p><span class="comment-delete" onclick="deleteComment(this)">❌</span>';
-
-	    var commentList = document.getElementById('commentList');
-	    commentList.appendChild(commentContainer);
-
-	    document.getElementById('commentText').value = '';
-
-	    // Ajax를 사용하여 댓글을 서버로 전송
-	    var xhr = new XMLHttpRequest();
-	    xhr.open('POST', '/addCommnet.do', true); // 수정된 엔드포인트
-	    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-	    xhr.onreadystatechange = function () {
-	        if (xhr.readyState === 4) {
-	            if (xhr.status === 200) {
-	                // 서버에서 응답을 받았을 때 수행할 동작
-	                console.log('댓글이 성공적으로 전송되었습니다.');
-	            } else {
-	                // 에러 처리
-	                console.log('댓글 전송에 실패했습니다.');
-	            }
-	        }
-	    };
-	    var data = JSON.stringify({ content: commentText, date: formattedDate });
-	    xhr.send(data);
-	}
-
-      
-      -->
      <script>
       function fn_remove_freeboard(articleNO, free_img_id){
           var formObj = document.createElement("form");
@@ -241,8 +201,9 @@ function readURL(input){
 </head>
 <body>
    <div class="custom-style">
+      <h3>자유게시판</h3><br>
       <div class="post-container">
-         <h1>자유게시판</h1>
+
          <!-- 게시글 삭제 버튼 -->
          <c:choose>
          	<c:when test="${isLogOn == true }">
@@ -257,18 +218,20 @@ function readURL(input){
 			</c:if>
 			</c:when>
          </c:choose>
-        <p>${freeboard.free_title}</p>
+
+        <p style="font-size: 25px; text-align: left; padding-left: 23px;">${freeboard.free_title}</p>
          <hr>
          <div class="meta-info">
             <p>작성자: ${freeboard.member_id} </p>
             <p>작성일: ${freeboard.free_writeDate }</p>
          </div>
          <div class="main-image">
+            <c:if test="${freeboard.free_img != ''}">
            <img src="${contextPath}/thumbnails.do?goods_id=${freeboard.member_id}&fileName=${freeboard.free_img}&fileType=freeboard&articleNO=${freeboard.articleNO}" width="400px" id="preview">
-           
+         </c:if>
             </div>
          <div class="content">
-            <p>${freeboard.free_content }</p>
+            <p style="padding-left: 30px;">${freeboard.free_content }</p>
          </div>
          <hr>
          
