@@ -135,30 +135,60 @@ function showCategory() {
 
 
     var isLogOn = '${isLogOn}';
+   
     $(document).ready(function() {
     if(isLogOn){
         if("${memberInfo.baby_age}" != ""){
     	$("#fit").prop("href","${contextPath}/goods/fitGoods.do");
         }
-        $("#dir").prop("href","${contextPath}/diary/diaryList.do");
+       /*  $("#dir").prop("href","${contextPath}/diary/diaryList.do"); */
     }
     });
 
     function login() {
-
+    	 var userType = '<%= session.getAttribute("userType") %>';
     if(! isLogOn){
         alert("로그인 이후 이용 가능한 서비스입니다.");
         location.replace("${contextPath}/member/loginForm.do")
     }
-    if(isLogOn){
-    if("${memberInfo.baby_age}" == "" ){
-    	alert("아동 정보 입력 후 이용 가능합니다.")
-        if(confirm("아동정보 입력 창으로 이동할까요?")){
-            location.replace("${contextPath}/member/modpassword.do");
+    
+    if(isLogOn && userType === 'M'){
+    	if("${memberInfo.baby_age}" == "" ){
+    		alert("아동 정보 입력 후 이용 가능합니다.")
+       		 if(confirm("아동정보 입력 창으로 이동할까요?")){
+           		 location.replace("${contextPath}/member/modpassword.do");
+       		 }
         }
-        }
+    } else if(isLogOn && userType === 'S'){
+    	alert("일반회원에게 제공되어지는 서비스 입니다.") 
+    		 if(confirm("사업자 로그아웃 후 일반 회원가입 창으로 이동 하시겠습니까?")){
+    				
+    		 location.replace("${contextPath}/member/logout.do")	;
+    		 location.replace("${contextPath}/member/memberForm.do")	;
+   		 }
+    	}
+    
     }
-    }
+    
+    function login2() {
+   	 var userType = '<%= session.getAttribute("userType") %>';
+   if(! isLogOn){
+       alert("로그인 이후 이용 가능한 서비스입니다.");
+       location.replace("${contextPath}/member/loginForm.do")
+   }
+   	
+   if(isLogOn && userType === 'S'){
+      		alert("일반회원에게 제공되어지는 서비스 입니다.")
+      		 if(confirm("사업자 로그아웃 후 일반 회원가입 창으로 이동 하시겠습니까?")){
+    				
+      	   		 location.replace("${contextPath}/member/logout.do")	;
+      	   		 location.replace("${contextPath}/member/memberForm.do")	;
+      		 }
+       } else if (isLogOn && userType === 'M'){
+    	   location.replace("${contextPath}/diary/diaryList.do");
+       }
+   
+   }
   
 </script>
 
@@ -171,23 +201,26 @@ function showCategory() {
 <table width="70%" style="margin: 10px auto " >
 
    <tr>
-      <td>
-         <a href="${contextPath}/main/main.do">
-            <img src="/image/Babee_Logo.png" width="132px" height="49px"/>
-         </a>
-      </td>
-      <span style="width: 40px;"></span>
-      <td>
-         <a href="${contextPath}/goods/goodsList.do" style="font-size: 20px;" class="category" onmouseenter="showCategory()">카테고리</a>
-
-      </td>
-                    <span style="width: 40px;"></span>
-                    <td> 
-                    <a href="javascript:login()" style="font-size: 20px;" class="category" id="fit">맞춤상품</a>
-                </td>  <span style="width: 40px;"></span>
-                <td>
-                    <a href="javascript:login()" style="font-size: 20px;" class="category" id="dir">다이어리</a>
-                    </td>
+		<td>
+			<a href="${contextPath}/main/main.do">
+			<img src="/image/Babee_Logo.png" width="132px" height="49px"/>
+			</a>
+		</td>
+		
+   		<span style="width: 40px;"></span>
+		<td>
+         	<a href="${contextPath}/goods/goodsList.do" style="font-size: 20px;" class="category" onmouseenter="showCategory()">카테고리</a>
+		</td>
+		
+		<span style="width: 40px;"></span>
+		<td> 
+			<a href="javascript:login()" style="font-size: 20px;" class="category" id="fit">맞춤상품</a>
+		</td>  
+                	
+		<span style="width: 40px;"></span>
+		<td>
+			<a href="javascript:login2()" style="font-size: 20px;" class="category" id="dir">다이어리</a> 
+		</td>
              
 
       <span style="width: 40px;"></span>
