@@ -8,6 +8,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,6 +34,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.babee.common.base.BaseController;
 import com.babee.member.service.MemberService;
 import com.babee.member.vo.MemberVO;
+import com.babee.mypage.service.MyPageService;
 import com.babee.seller.service.SellerService;
 import com.babee.seller.vo.SellerVO;
 import com.google.gson.JsonElement;
@@ -48,6 +50,8 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 	private MemberService memberService;
 	@Autowired
 	private SellerService sellerService;
+	@Autowired
+	private MyPageService mypageService;
 	@Autowired
 	private MemberVO memberVO;
 	@Autowired
@@ -72,19 +76,22 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		ModelAndView mav = new ModelAndView();
 		 memberVO=memberService.login(loginMap);
 		 sellerVO=sellerService.login(loginMap);
-		
+		 String member_id = loginMap.get("member_id");
+		List wish = mypageService.selectWishList(member_id);
 		 HttpSession session=request.getSession();
 			session=request.getSession();
 		if(memberVO != null){
 			session.setAttribute("isLogOn", true);
 			session.setAttribute("userType", "M");
 			session.setAttribute("memberInfo",memberVO);
+			session.setAttribute("wishList", wish);
 			mav.setViewName("redirect:/main/main.do");
 			
 		}else if(sellerVO!=null) {
 			session.setAttribute("isLogOn", true);
 			session.setAttribute("userType", "S");
 			session.setAttribute("memberInfo",sellerVO);
+			session.setAttribute("wishList", wish);
 			mav.setViewName("redirect:/main/main.do");
 		}else {
 			mav.addObject("falseLog", "falseLog");
@@ -102,6 +109,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		session.removeAttribute("isLogOn");
 		session.removeAttribute("memberInfo");
 		session.removeAttribute("userType");
+		session.removeAttribute("wishList");
 		String memberpw= (String) session.getAttribute("memberpw");
 		if(memberpw !=null) {
 			session.removeAttribute("memberpw");
