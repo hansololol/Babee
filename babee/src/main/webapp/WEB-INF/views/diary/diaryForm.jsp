@@ -10,7 +10,8 @@
 <head>
 <meta charset="UTF-8">
 <title>다어이리 작성창</title>
-
+ <link rel="stylesheet" href="http://code.jquery.com/jquery-latest.min.js">
+  
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
    function readURL(input){
@@ -32,109 +33,204 @@
 </script>
 
 <style>
-.text_center{ 
-   text-align:center;
-   }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
 
-.tb {
-    left: 30px;
-    top: 30px;
-    width: 850px;
-    height: 800px;
-    background:#ededed;
-   
-    box-shadow: 25px 25px 39px rgba(0, 104, 255, 0.25);
-    border-radius: 50px;
-    border-collapse: collapse;
-    
-    
-}
+        .container {
+            max-width: 850px;
+            margin: 50px auto;
+            /* background: #ededed; */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+        }
 
- .tb tr{
- border-bottom:1px solid rgba(128, 128, 128, 0.25);
- }
-.tb tr:last-child {
-    border-bottom: none; /* 마지막 줄의 테두리 제거 */
-}
+        .text-center {
+            text-align: center;
+            margin-bottom: 10px;
+        }
 
-/* '작성하기' 버튼 스타일 */
-input[type="submit"] {
-    background-color: #ffcd29; /* 배경색 */
-    color: black; /* 텍스트색 */
-    padding: 10px 20px; /* 내부 여백 */
-    border: none; /* 테두리 없음 */
-    border-radius: 5px; /* 테두리 반경 */
-    cursor: pointer; /* 커서 모양 변경 */
-}
+        img#line {
+            display: block;
+            margin: 0 auto;
+        }
 
-/* '다시입력' 버튼 스타일 */
-input[type="reset"] {
-    background-color: #ffff80; /* 배경색 */
-    color: black; /* 텍스트색 */
-    padding: 10px 20px; /* 내부 여백 */
-    border: none; /* 테두리 없음 */
-    border-radius: 5px; /* 테두리 반경 */
-    cursor: pointer; /* 커서 모양 변경 */
-}
+        .form-group {
+            margin-bottom: 20px;
+        }
 
-/* 버튼에 호버 효과 */
-input[type="submit"]:hover, input[type="reset"]:hover {
-    background-color: #cca300; /* 호버 시 배경색 변경 */
-}
- 
-  
- 
-</style>
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="file"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            /* border: 1px solid #ccc; */
+            border: none;
+            border-radius: 5px;
+        }
+
+        input[type="file"] {
+            padding: 0;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        .image-preview {
+            max-width: 300px;
+            max-height: 200px;
+            margin-top: 10px;
+        }
+
+        .btn-container {
+            text-align: center;
+        }
+
+        input[type="submit"],
+        input[type="reset"] {
+            background-color: #ffcd29;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover,
+        input[type="reset"]:hover {
+            background-color: #cca300;
+        }
+        
+        .file-label {
+        display: inline-block;
+        background-color: #ffcd29;
+        color: black;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-bottom: 15px;
+        transition: background-color 0.3s;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .file-label span {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 10px;
+    }
+
+    .file-label:hover {
+        background-color: #cca300;
+    }
+
+    .file-info {
+        font-size: 12px;
+        color: #666;
+        margin-top: 5px;
+    }
+
+    .image-preview {
+        max-width: 100%;
+        max-height: 250px;
+       
+        margin-top: 10px;
+    }
+
+    .file-input {
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .file-input-label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+    }
+    </style>
 </head>
 <body>
+    <div class="container" style="border:1px solid lightgray;  padding:40px;">
+        <h1 class="text-center">다이어리</h1>
+        <h4 class="text-center" style="color: #996633;">작은 발자국, 큰 사랑의 다이어리</h4>
+        <img id="line" src="/image/line.png" alt="줄 출력">
+        
+        <br><br>
+        
+        <form method="post" action="${contextPath}/diary/addDiary.do" enctype="multipart/form-data">
+            <input type="hidden" name="member_id" value="${memberInfo.member_id}">
+            <div class="form-group">
+                <!-- <label for="dir_title">제목</label> -->
+                <input type="text" id="dir_title" name="dir_title" placeholder="제목">
+            </div>
+           <hr>
 
-<form method="post" action="${contextPath}/diary/addDiary.do" enctype="multipart/form-data">
-   <div style="text-align: center;">
-   <h1 class="text_center">다이어리</h1>
-   <h4 class="text_center" style="color:#996633;">작은 발자국, 큰 사랑의 다이어리</h4>
-   <img src="/image/line.png" style="margin: 0 auto; display: block;" alt="줄 출력">
-   </div>
-   
-   <br><br><br>
-   <table class="tb" align="center">
-      
-      <tr style="height: 70px;">
+ 			<div class="form-group" style="border: 1px solid lightgray; border-radius: 5px; padding: 20px; background: azure;">
+				<div class="file-input-label">
+                   <table> 
+                    <tr>
+                    	<td width="400px;" height="200px;">
+                    		<label for="dir_main_img1">
+                    		<h6 style="color:gray;">표지</h6>
+                    		<img src="${contextPath}/image/add.png" alt="파일 선택" width="30" height="30" style="cursor: pointer;"></label>
+                   			<input type="file" class="file-input" id="dir_main_img1" name="dir_main_img1" onchange="readURL(this);">
+                			<p style="font-size: 12px;">다음 파일 형식만 지원됩니다.<br>.jpg(JPEG), .png(Portable Network Graphics), .gif(Graphics Interchange Format)</p>
+                		</td>
+                
+                		<td width="400px;">
+                			<img id="preview" class="image-preview" src="#" alt="" style="margin: auto;">
+                		</td>
+                	</tr>
+                	</table>
+                </div>
+            </div>
+            
+            <hr>
+            
+            <div class="form-group">
+                <textarea id="baby_condition" name="baby_condition" rows="4" maxlength="4000" placeholder="아이의 상태"></textarea>
+            </div>
+            <hr>
+            <div class="form-group">
+                <textarea id="dir_content" name="dir_content" rows="10" maxlength="4000" placeholder="기록"></textarea>
+            </div>
+            
+            <div class="btn-container">
+                <input type="submit" value="작성하기">
+                <input type="reset" value="다시입력">
+            </div>
+            
+        </form>
+    </div>
 
-         <td width="200">작성자</td>
-         <td width="250"> <input type="text"  value="${memberInfo.member_name}" disabled></td>
-                        <input type="hidden" name="member_id" value="${memberInfo.member_id}" ></td>
-      </tr>
-      
-      <tr style="height: 70px;">
-         <td width="200"> 제목</td>
-         <td width="250"> <input type="text" name="dir_title" > </td>
-      </tr>
-   
-      <tr>
-         <td align="center">표지 </td>
-         <td width="200"><input type="file" name="dir_main_img1" onChange="readURL(this);"/> 
-            <p style="font-size:12px">&nbsp;다음 파일 형식만 지원됩니다.<br>
-            <p style="font-size:12px">&nbsp;.jpg(JPEG), .png(Portable Network Graphics), .gif(Graphics Interchange Format)
-         </td>
-         <td width="250" height="200"><img id="preview" src="#" width=200 height=200 /></td>
-      </tr>
-
-      <tr>
-         <td width="200">아이의 상태</td>
-         <td colspan = "2"><textarea name="baby_condition" rows = "4" cols="65" maxlength="4000" ></textarea> </td>
-      </tr>
-      <tr>
-         <td width="200">기록</td>
-         <td colspan = "2"><textarea name="dir_content" rows = "10" cols="65" maxlength="4000" ></textarea></td>
-      </tr>
-   </table>
-   <br><br><br><br><br>
-      <div style="text-align: center;">
-   <input type="submit" value="작성하기">&nbsp;&nbsp;&nbsp;
-   <input type="reset" value="다시입력">
-      </div>
-</form>
-<br><br><br><br><br>
-
+<script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#preview').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+</script>
 </body>
 </html>
