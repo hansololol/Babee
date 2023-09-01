@@ -29,175 +29,123 @@ request.setCharacterEncoding("utf-8"); %>
 .orange-button:hover {
   background-color: darkorange;
 }
+
+.orderTable {
+  width: 66%;
+  margin: 20px auto; 
+  border-collapse: collapse;
+}
+.orderTable th{
+  padding: 8px; 
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.orderTable td{
+  padding: 8px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.container {
+  max-width: 800px; 
+  margin: 0 auto; 
+  padding: 20px
+}
+
+.infoTable {
+  width: 100%; 
+  border-collapse: collapse;
+}
+
+.infoTable th{
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+.order_delivery_search {
+    background-color: #ffcd29; /* 배경색 */
+    color: black; /* 텍스트색 */
+    padding: 5px 5px; /* 내부 여백 */
+    border: none; /* 테두리 없음 */
+    border-radius: 5px; /* 테두리 반경 */
+    cursor: pointer; /* 커서 모양 변경 */
+    text-decoration:none;
+    font-size:1px;
+}
+
 </style>
   </head>
   <body>
-    <h2 style="text-align: center">주문 정보/배송조회</h2>
+    <h2 style="text-align: center">주문 내역/배송조회</h2>
     <hr style="width: 66%; margin: 20px auto" />
-    <table style="width: 66%; margin: 20px auto; border-collapse: collapse">
+    <table class="orderTable">
       <tr>
-        <th
-          style="
-            width: 20%;
-            padding: 8px;
-            text-align: center;
-            border-bottom: 1px solid #ddd;
-          "
-        >
-          주문번호
-        </th>
-        <th
-          style="
-            width: 20%;
-            padding: 8px;
-            text-align: center;
-            border-bottom: 1px solid #ddd;
-          "
-        >
-          주문일자
-        </th>
-        <th
-          style="
-            width: 15%;
-            padding: 8px;
-            text-align: center;
-            border-bottom: 1px solid #ddd;
-          "
-        >
-          수량
-        </th>
-        <th
-          style="
-            width: 25%;
-            padding: 8px;
-            text-align: center;
-            border-bottom: 1px solid #ddd;
-          "
-        >
-          주문상태
-        </th>
+        <th>NO</th>
+        <th>상품명</th>
+        <th>수량</th>
+        <th>주문일자</th>
+        <th>주문상태</th>
+        <th></th>
       </tr>
-      <c:forEach var="order" items="${myOrderList}">
+      <c:forEach var="order" items="${myOrderList}" varStatus="orderNO">
         <tr>
-          <td
-            style="
-              padding: 8px;
-              text-align: center;
-              border-bottom: 1px solid #ddd;
-            "
-          >
-            ${order.order_id}
-          </td>
-          <td
-            style="
-              padding: 8px;
-              text-align: center;
-              border-bottom: 1px solid #ddd;
-            "
-          >
-            ${order.payment_order_time}
-          </td>
-          <td
-            style="
-              padding: 8px;
-              text-align: center;
-              border-bottom: 1px solid #ddd;
-            "
-          >
-            ${order.order_goods_qty}
-          </td>
-          <td
-            style="
-              padding: 8px;
-              text-align: center;
-              border-bottom: 1px solid #ddd;
-            "
-          >
+          <td>${orderNO.count}</td>
+          <td>${order.goods_title}</td>
+          <td>${order.order_goods_qty}</td>
+          <td>${order.payment_order_time}</td>
+          <td>
             <c:if test="${order.delivery_status=='delivery_prepared'}">
               <b>배송준비중</b>
             </c:if>
-            <c:if test="${order.delivery_status=='delivering'}"> 배송중 </c:if>
+
+            <c:if test="${order.delivery_status=='delivering'}">
+              <b>배송중</b>
+            </c:if>
+
             <c:if test="${order.delivery_status=='finished_delivering'}">
-              배송완료
+              <b>배송완료</b>
+              <td> 
+                <a class="order_delivery_search" href="${contextPath}/member/reviewForm.do?goods_id=${order.goods_id}"><b>후기작성</b></a>
+              </td>
             </c:if>
+
             <c:if test="${order.delivery_status=='cancel_order'}">
-              주문취소
+              <b>주문취소</b>
             </c:if>
-            <c:if test="${order.delivery_status=='refund'}"> 주문취소 </c:if>
+
+            <c:if test="${order.delivery_status=='refund'}">
+              <b>주문취소</b>
+            </c:if>
+
           </td>
         </tr>
       </c:forEach>
     </table>
-    <div
-      class="container"
-      style="max-width: 800px; margin: 0 auto; padding: 20px"
-    >
-      <h1 class="header" style="text-align: center">주문내역조회</h1>
-      <div
-        class="divider"
-        style="border-top: 1px solid #ddd; margin: 20px 0"
-      ></div>
+    <div class="container">
+      <h2 style="text-align: center">주문정보조회</h2>
+      <div class="divider" style="border-top: 1px solid #ddd; margin: 20px 0"></div>
 
-      <table class="info-table" style="width: 100%; border-collapse: collapse">
+      <table class="infoTable">
         <tr>
-          <th
-            style="
-              width: 40%;
-              padding: 10px;
-              text-align: left;
-              border-bottom: 1px solid #ddd;
-            "
-          >
-            결제방법 &nbsp; &nbsp; &nbsp; ${myOrder.payment_method} - ${myOrder.card_com_name} 
-          </th>
+          <th>결제방법</th>
+          <th>${myOrder.payment_method} - ${myOrder.card_com_name}</th>
         </tr>
         <tr>
-          <th
-            style="
-              width: 40%;
-              padding: 10px;
-              text-align: left;
-              border-bottom: 1px solid #ddd;
-            "
-          >
-            배송방법 &nbsp; &nbsp; &nbsp; 택배배송
-          </th>
+          <th>배송방법</th>
+          <th>택배배송</th>
         </tr>
         <tr>
-          <th
-            style="
-              width: 40%;
-              padding: 10px;
-              text-align: left;
-              border-bottom: 1px solid #ddd;
-            "
-          >
-            배송지 &nbsp; &nbsp; &nbsp; ${myOrder.deliveryAddr}
-          </th>
+          <th>배송지</th>
+          <th>${myOrder.deliveryAddr}</th>
         </tr>
         <tr>
-          <th
-            style="
-              width: 40%;
-              padding: 10px;
-              text-align: left;
-              border-bottom: 1px solid #ddd;
-            "
-          >
-            배송 시 요청사항 &nbsp;&nbsp; &nbsp; ${myOrder.deliveryMessage}
-          </th>
+          <th>배송 시 요청사항</th>
+          <th>${myOrder.deliveryMessage}</th>
         </tr>
         <tr>
-          <th
-            style="
-              width: 40%;
-              padding: 10px;
-              text-align: left;
-              border-bottom: 1px solid #ddd;
-            "
-          >
-            결제금액 &nbsp; &nbsp; &nbsp; ${myOrder.final_total_price} 원
-          </th>
+          <th>결제금액</th>
+          <th>${myOrder.final_total_price} 원</th>
         </tr>
       </table>
       <a href="javascript:history.back()" class="orange-button">이전 페이지</a>

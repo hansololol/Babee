@@ -78,88 +78,61 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       input[type="reset"]:hover {
         background-color: #cca300; /* 호버 시 배경색 변경 */
       }
+      
+      .reviewTable {
+        border: 1px solid gray;
+        border-collapse: collapse;
+        margin: 30px auto;
+        border-radius: 50px;
+      }
+
+      .reviewTable th{
+        width: 200px;
+        border: none; 
+        padding: 30px;
+      }
+
+      .reviewTable td{
+        border: none;
+        padding: 10px;
+      }
     </style>
   </head>
   <body>
-    <div style="width: 66%">
-      <h3>리뷰 작성</h3>
-    </div>
-
-    <form
-      method="post"
-      action="${contextPath}/mypage/reviewWrite.do"
-      enctype="multipart/form-data"
-      style="margin-left: 110px; width: 800px"
-    >
-       <input type="hidden" name="goods_id" value="${param.goods_id}" />
-      <table style="border-collapse: collapse; margin: 0 auto">
+    
+    <form method="post" action="${contextPath}/mypage/reviewWrite.do" enctype="multipart/form-data" style="margin-left: 120px; width: 800px">
+      <div style="display: flex; align-items: baseline; justify-content: center;">
+        <img src="/image/reviewIcon.png"><h1>리뷰 작성</h1>
+      </div>
+      <input type="hidden" name="goods_id" value="${param.goods_id}" />
+      <table class="reviewTable">
         <tr>
-          <td
-            width="200"
-            style="border: 1px solid gray; background: #ffffcc; padding: 10px"
-          >
-            <p align="center">작성자</p>
-          </td>
-          <td
-            width="250"
-            colspan="2"
-            style="border: 1px solid gray; padding: 10px"
-          >
-          <c:if test="${memberInfo.member_id != null }">
-            ${memberInfo.member_name}
-            <input
-              type="hidden"
-              name="member_id"
-              value="${memberInfo.member_id}"
-            />
-          </td>
-        </c:if>
-        <c:if test="${memberInfo.seller_id != null }">
-            ${memberInfo.seller_name}
-            <input
-              type="hidden"
-              name="member_id"
-              value="${memberInfo.seller_id}"
-            />
-          </td>
-        </c:if>
-        </tr>
-
-        <tr>
-          <td
-            width="200"
-            style="border: 1px solid gray; background: #ffffcc; padding: 10px"
-          >
-            <p align="center">제목</p>
-          </td>
-          <td
-            width="250"
-            colspan="2"
-            style="border: 1px solid gray; padding: 10px"
-          >
-            <input
-              type="text"
-              name="review_title"
-              size="65"
-              style="margin-left: 10px"
-            />
+          <th>작성자</th>
+          <td colspan="2">
+            <!--사용자 일때-->
+            <c:if test="${memberInfo.member_id != null }">
+              ${memberInfo.member_name}
+                <input type="hidden" name="member_id" value="${memberInfo.member_id}"/> 
+            </c:if>
+            <!--사업자 일때-->
+            <c:if test="${memberInfo.seller_id != null }">
+              ${memberInfo.seller_name}
+                <input type="hidden" name="member_id" value="${memberInfo.seller_id}"/>
+            </c:if>
           </td>
         </tr>
 
         <tr>
-          <td
-            align="center"
-            style="border: 1px solid gray; background: #ffffcc; padding: 10px"
-          >
-            상품 이미지
+          <th>제목</th>
+          <td colspan="2">
+            <input type="text"name="review_title" size="45" style="margin-left: 10px"/>
           </td>
-          <td width="200">
-            <input
-              type="file"
-              name="imageFile"
-              onChange="readURL(this);"
-              style="margin-left: 10px"
-            />
+        </tr>
+
+        <tr>
+          <th>상품 이미지</th>
+          <td style="border-right-color: white;">
+            <input type="file" name="imageFile" onChange="readURL(this);" style="margin-left: 10px"/>
             <p style="font-size: 12px">
               &nbsp;다음 파일 형식만 지원됩니다.<br />
             </p>
@@ -169,89 +142,40 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             </p>
           </td>
 
-          <td
-            width="250"
-            height="200"
-            style="border-right: 1px solid gray; padding: 10px"
-          >
+          <td>
             <img id="preview" src="#" width="200" height="200" />
           </td>
         </tr>
 
         <tr>
-          <td
-            width="200"
-            style="border: 1px solid gray; background: #ffffcc; padding: 10px"
-          >
-            <p align="center">내용</p>
-          </td>
-          <td colspan="2" style="border: 1px solid gray; padding: 10px">
-            <textarea
-              name="review_content"
-              rows="10"
-              cols="70"
-              maxlength="3000"
-            ></textarea>
+          <th>내용</th>
+          <td colspan="2">
+            <textarea name="review_content" rows="10" cols="50" maxlength="3000"></textarea>
           </td>
         </tr>
 	
         <tr>
-          <td
-            width="200"
-            style="border: 1px solid gray; background: #ffffcc; padding: 10px"
-          >
-            <p align="center">별점</p>
-          </td>
-          <td colspan="2" style="border: 1px solid gray; padding: 10px">
+          <th>별점</th>
+          <td colspan="2">
             <div class="star-goods_star space-x-4 mx-auto">
-              <input
-                type="radio"
-                id="5-stars"
-                name="goods_star"
-                value="5"
-                v-model="goods_stars"
-              />
+              <input type="radio" id="5-stars" name="goods_star" value="5" v-model="goods_stars"/>
               <label for="5-stars" class="star pr-4">★</label>
-              <input
-                type="radio"
-                id="4-stars"
-                name="goods_star"
-                value="4"
-                v-model="goods_stars"
-              />
+
+              <input type="radio" id="4-stars" name="goods_star" value="4" v-model="goods_stars"/>
               <label for="4-stars" class="star">★</label>
-              <input
-                type="radio"
-                id="3-stars"
-                name="goods_star"
-                value="3"
-                v-model="goods_stars"
-              />
+
+              <input type="radio" id="3-stars" name="goods_star" value="3" v-model="goods_stars"/>
               <label for="3-stars" class="star">★</label>
-              <input
-                type="radio"
-                id="2-stars"
-                name="goods_star"
-                value="2"
-                v-model="goods_stars"
-              />
+
+              <input type="radio" id="2-stars" name="goods_star" value="2" v-model="goods_stars"/>
               <label for="2-stars" class="star">★</label>
-              <input
-                type="radio"
-                id="1-star"
-                name="goods_star"
-                value="1"
-                v-model="goods_stars"
-              />
+
+              <input type="radio" id="1-star" name="goods_star" value="1" v-model="goods_stars"/>
               <label for="1-star" class="star">★</label>
             </div>
           </td>
         </tr>
       </table>
-
-      <br>
-      <br>
-      <br>
        
       <div class="diary_write_btn">
         <input type="submit" value="작성하기" />&nbsp;&nbsp;&nbsp;
