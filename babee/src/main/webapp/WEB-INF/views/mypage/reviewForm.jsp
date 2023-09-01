@@ -16,7 +16,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         if (input.files && input.files[0]) {
           var reader = new FileReader();
           reader.onload = function (e) {
-            $("#preview").attr("src", e.target.result);
+            //$('#preview').attr('src', e.target.result);
+	            // 이미지를 미리 불러온 후, 선택한 파일 이미지로 변경
+            $("#add").attr("src", e.target.result);
           };
           reader.readAsDataURL(input.files[0]);
         }
@@ -152,6 +154,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                 			<p style="font-size: 12px;">다음 파일 형식만 지원됩니다.<br>.jpg(JPEG), .png(Portable Network Graphics), .gif(Graphics Interchange Format)</p>
               </td>
               <td width="400px;">
+                <img src ="${contextPath}/image/add2.png" class="image-preview" id="add" style="margin: auto;"/>
                 <img id="preview" class="image-preview" src="#" alt="" style="margin: auto;">
               </td>
             </tr>

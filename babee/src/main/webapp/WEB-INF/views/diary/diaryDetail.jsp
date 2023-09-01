@@ -248,7 +248,7 @@
      	 <hr>
      	
      	<label style="text-align:left;">표지</label>  
-       <div class="form-group" style="border: 1px solid lightgray; border-radius: 5px; padding: 20px; background: azure;">
+       <div class="form-group" style="border: 1px solid lightgray; border-radius: 5px; padding: 20px; background: #f9f7f0;">
                <div class="file-input-label">
                    
                <input type="hidden" name="originalFileName" value="${diary.dir_main_img}"/>

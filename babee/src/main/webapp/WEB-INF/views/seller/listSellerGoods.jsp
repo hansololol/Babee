@@ -69,7 +69,7 @@
             <td> 
                <img src ="/image/people.png" width="60px;" style="display:inline-block; padding-left:15px;"/>
                
-                  <p  style="display:inline-block;"> 사업자님 안녕하세요 </p>
+                  <p  style="display:inline-block;"> ${memberInfo.seller_name}님 안녕하세요 </p>
                
             </td>
          </tr>
