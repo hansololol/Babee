@@ -1,6 +1,6 @@
 package com.babee.community.vo;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import org.springframework.stereotype.Component;
 
@@ -10,7 +10,7 @@ public class FreeboardVO {
 	private int articleNO;
 	private String free_title;
 	private String member_id;
-	private Date free_writeDate;
+	private Timestamp free_writeDate;
 	private String free_content;
 	private int free_view_count;
 	private String free_img;
@@ -43,12 +43,7 @@ public class FreeboardVO {
 	public void setMember_id(String member_id) {
 		this.member_id = member_id;
 	}
-	public Date getFree_writeDate() {
-		return free_writeDate;
-	}
-	public void setFree_writeDate(Date free_writeDate) {
-		this.free_writeDate = free_writeDate;
-	}
+	
 	public String getFree_content() {
 		return free_content;
 	}
@@ -72,6 +67,12 @@ public class FreeboardVO {
 	}
 	public void setFree_img_id(String free_img_id) {
 		this.free_img_id = free_img_id;
+	}
+	public Timestamp getFree_writeDate() {
+		return free_writeDate;
+	}
+	public void setFree_writeDate(Timestamp free_writeDate) {
+		this.free_writeDate = free_writeDate;
 	}
 
 	
