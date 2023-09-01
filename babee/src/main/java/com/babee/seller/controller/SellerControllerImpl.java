@@ -259,7 +259,7 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 	   }
 	   
 	   //사업자 등록상품리스트
-	   @RequestMapping(value="/listSellerGoods.do", method={RequestMethod.POST,RequestMethod.GET})
+	   /*@RequestMapping(value="/listSellerGoods.do", method={RequestMethod.POST,RequestMethod.GET})
 	   public ModelAndView goodsList(HttpServletRequest request, HttpServletResponse response) throws Exception {
 	       ModelAndView mav = new ModelAndView("/seller/listSellerGoods");
 
@@ -270,250 +270,433 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 	       List<GoodsVO> sellerGoodsList = sellerService.adminGoodsList(seller_id);
 	       mav.addObject("sellerGoodsList", sellerGoodsList);
 	       return mav;
+	   }*/
+	   @RequestMapping(value = "/listSellerGoods.do", method = { RequestMethod.POST, RequestMethod.GET })
+	   public ModelAndView goodsList(HttpServletRequest request, HttpServletResponse response,
+	           @RequestParam(value = "pageNum", defaultValue = "1") int currentPage) throws Exception {
+	       ModelAndView mav = new ModelAndView("/seller/listSellerGoods");
+
+	       HttpSession session = request.getSession();
+	       SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+	       String seller_id = sellerVO.getSeller_id();
+
+	       int itemsPerPage = 2;
+	       int startIndex = (currentPage - 1) * itemsPerPage;
+
+	       // 총 상품 개수 가져오기
+	       int totalItemCount = sellerService.getGoodsListCount(seller_id);
+
+	       // 상품 목록 조회
+	       List<GoodsVO> sellerGoodsList = sellerService.adminGoodsList(seller_id, startIndex, itemsPerPage);
+
+	       int totalPages = (int) Math.ceil((double) totalItemCount / itemsPerPage);
+	       mav.addObject("sellerGoodsList", sellerGoodsList);
+	       mav.addObject("totalPages", totalPages);
+	       mav.addObject("currentPage", currentPage);
+	       System.out.println(totalPages);
+	       System.out.println(currentPage);
+
+	       return mav;
 	   }
 	   
 	   
 	   
 	  //오늘등록 상품조회
 	    @RequestMapping(value = "/getTodayGoods.do", method = { RequestMethod.GET, RequestMethod.POST })
-	    public ModelAndView getTodayGoods(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	        ModelAndView mav = new ModelAndView();
-	        HttpSession session = request.getSession();
-		      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
-		      String seller_id = sellerVO.getSeller_id();
-		      List<GoodsVO> sellerGoodsList = sellerService.getTodayGoods(seller_id);
-	        
-	        mav.addObject("sellerGoodsList", sellerGoodsList);
-	        mav.setViewName("/seller/listSellerGoods"); // 오늘 등록된 상품 목록을 보여줄 뷰 페이지 이름 지정
-	        
-	        return mav;
-	    }
+	    public ModelAndView getTodayGoods(HttpServletRequest request, HttpServletResponse response,
+	    		@RequestParam(value = "pageNum", defaultValue = "1") int currentPage) throws Exception {
+		       ModelAndView mav = new ModelAndView("/seller/listSellerGoods");
+		       HttpSession session = request.getSession();
+		       SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+		       String seller_id = sellerVO.getSeller_id();
+		       int itemsPerPage = 1;
+		       int startIndex = (currentPage - 1) * itemsPerPage;
+		       // 총 상품 개수 가져오기
+		       int totalItemCount = sellerService.getTodayGoodsCount(seller_id);
+		       // 상품 목록 조회
+		       List<GoodsVO> sellerGoodsList = sellerService.getTodayGoods(seller_id, startIndex, itemsPerPage);
+		       int totalPages = (int) Math.ceil((double) totalItemCount / itemsPerPage);
+		       mav.addObject("sellerGoodsList", sellerGoodsList);
+		       mav.addObject("totalPages", totalPages);
+		       mav.addObject("currentPage", currentPage);
+		       System.out.println(totalItemCount);
+		       System.out.println(currentPage);
+		       return mav;
+		   }
 	   
 	    @RequestMapping(value = "/getOneWeekGoods.do", method = { RequestMethod.GET, RequestMethod.POST })
-	    public ModelAndView getOneWeekGoods(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	        ModelAndView mav = new ModelAndView();
-	        HttpSession session = request.getSession();
-		      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
-		      String seller_id = sellerVO.getSeller_id();
-
-		      
-		      List<GoodsVO> sellerGoodsList = sellerService.getOneWeekGoods(seller_id);
-	        
-	        mav.addObject("sellerGoodsList", sellerGoodsList);
-	        mav.setViewName("/seller/listSellerGoods");
-	        
-	        return mav;
-	    }
+	    public ModelAndView getOneWeekGoods(HttpServletRequest request, HttpServletResponse response,
+	    		@RequestParam(value = "pageNum", defaultValue = "1") int currentPage) throws Exception {
+		       ModelAndView mav = new ModelAndView("/seller/listSellerGoods");
+		       HttpSession session = request.getSession();
+		       SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+		       String seller_id = sellerVO.getSeller_id();
+		       int itemsPerPage = 1;
+		       int startIndex = (currentPage - 1) * itemsPerPage;
+		       // 총 상품 개수 가져오기
+		       int totalItemCount = sellerService.getOneWeekGoodsCount(seller_id);
+		       // 상품 목록 조회
+		       List<GoodsVO> sellerGoodsList = sellerService.getOneWeekGoods(seller_id, startIndex, itemsPerPage);
+		       int totalPages = (int) Math.ceil((double) totalItemCount / itemsPerPage);
+		       mav.addObject("sellerGoodsList", sellerGoodsList);
+		       mav.addObject("totalPages", totalPages);
+		       mav.addObject("currentPage", currentPage);
+		       System.out.println(totalItemCount);
+		       System.out.println(currentPage);
+		       return mav;
+		   }
+	    
 	    @RequestMapping(value = "/getTwoWeekGoods.do", method = { RequestMethod.GET, RequestMethod.POST })
-	    public ModelAndView getTwoWeekGoods(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	        ModelAndView mav = new ModelAndView();
-	        HttpSession session = request.getSession();
-		      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
-		      String seller_id = sellerVO.getSeller_id();
-
-		      
-		      List<GoodsVO> sellerGoodsList = sellerService.getTwoWeekGoods(seller_id);
-	        
-	        mav.addObject("sellerGoodsList", sellerGoodsList);
-	        mav.setViewName("/seller/listSellerGoods"); 
-	        
-	        return mav;
-	    }
-	    @RequestMapping(value = "/getTwoMonthGoods.do", method = { RequestMethod.GET, RequestMethod.POST })
-	    public ModelAndView getTwoMonthGoods(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	        ModelAndView mav = new ModelAndView();
-	        HttpSession session = request.getSession();
-		      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
-		      String seller_id = sellerVO.getSeller_id();
-
-		      
-		      List<GoodsVO> sellerGoodsList = sellerService.getTwoMonthGoods(seller_id);
-	        
-	        mav.addObject("sellerGoodsList", sellerGoodsList);
-	        mav.setViewName("/seller/listSellerGoods"); 
-	        
-	        return mav;
-	    }
+	    public ModelAndView getTwoWeekGoods(HttpServletRequest request, HttpServletResponse response,
+	    		@RequestParam(value = "pageNum", defaultValue = "1") int currentPage) throws Exception {
+		       ModelAndView mav = new ModelAndView("/seller/listSellerGoods");
+		       HttpSession session = request.getSession();
+		       SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+		       String seller_id = sellerVO.getSeller_id();
+		       int itemsPerPage = 1;
+		       int startIndex = (currentPage - 1) * itemsPerPage;
+		       // 총 상품 개수 가져오기
+		       int totalItemCount = sellerService.getTwoWeekGoodsCount(seller_id);
+		       // 상품 목록 조회
+		       List<GoodsVO> sellerGoodsList = sellerService.getTwoWeekGoods(seller_id, startIndex, itemsPerPage);
+		       int totalPages = (int) Math.ceil((double) totalItemCount / itemsPerPage);
+		       mav.addObject("sellerGoodsList", sellerGoodsList);
+		       mav.addObject("totalPages", totalPages);
+		       mav.addObject("currentPage", currentPage);
+		       System.out.println(totalItemCount);
+		       System.out.println(currentPage);
+		       return mav;
+		   }
+	    
 	    @RequestMapping(value = "/getOneMonthGoods.do", method = { RequestMethod.GET, RequestMethod.POST })
-	    public ModelAndView getOneMonthGoods(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	        ModelAndView mav = new ModelAndView();
-	        HttpSession session = request.getSession();
-		      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
-		      String seller_id = sellerVO.getSeller_id();
-
-		      
-		      List<GoodsVO> sellerGoodsList = sellerService.getOneMonthGoods(seller_id);
-	        
-	        mav.addObject("sellerGoodsList", sellerGoodsList);
-	        mav.setViewName("/seller/listSellerGoods"); 
-	        
-	        return mav;
-	    }
+	    public ModelAndView getOneMonthGoods(HttpServletRequest request, HttpServletResponse response,
+	    		@RequestParam(value = "pageNum", defaultValue = "1") int currentPage) throws Exception {
+		       ModelAndView mav = new ModelAndView("/seller/listSellerGoods");
+		       HttpSession session = request.getSession();
+		       SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+		       String seller_id = sellerVO.getSeller_id();
+		       int itemsPerPage = 1;
+		       int startIndex = (currentPage - 1) * itemsPerPage;
+		       // 총 상품 개수 가져오기
+		       int totalItemCount = sellerService.getOneMonthGoodsCount(seller_id);
+		       // 상품 목록 조회
+		       List<GoodsVO> sellerGoodsList = sellerService.getOneMonthGoods(seller_id, startIndex, itemsPerPage);
+		       int totalPages = (int) Math.ceil((double) totalItemCount / itemsPerPage);
+		       mav.addObject("sellerGoodsList", sellerGoodsList);
+		       mav.addObject("totalPages", totalPages);
+		       mav.addObject("currentPage", currentPage);
+		       System.out.println(totalItemCount);
+		       System.out.println(currentPage);
+		       return mav;
+		   }
+	    @RequestMapping(value = "/getTwoMonthGoods.do", method = { RequestMethod.GET, RequestMethod.POST })
+	    public ModelAndView getTwoMonthGoods(HttpServletRequest request, HttpServletResponse response,
+	    		@RequestParam(value = "pageNum", defaultValue = "1") int currentPage) throws Exception {
+		       ModelAndView mav = new ModelAndView("/seller/listSellerGoods");
+		       HttpSession session = request.getSession();
+		       SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+		       String seller_id = sellerVO.getSeller_id();
+		       int itemsPerPage = 1;
+		       int startIndex = (currentPage - 1) * itemsPerPage;
+		       // 총 상품 개수 가져오기
+		       int totalItemCount = sellerService.getTwoMonthGoodsCount(seller_id);
+		       // 상품 목록 조회
+		       List<GoodsVO> sellerGoodsList = sellerService.getTwoMonthGoods(seller_id, startIndex, itemsPerPage);
+		       int totalPages = (int) Math.ceil((double) totalItemCount / itemsPerPage);
+		       mav.addObject("sellerGoodsList", sellerGoodsList);
+		       mav.addObject("totalPages", totalPages);
+		       mav.addObject("currentPage", currentPage);
+		       System.out.println(totalItemCount);
+		       System.out.println(currentPage);
+		       return mav;
+		   }
+	    
 	    @RequestMapping(value = "/getThreeMonthGoods.do", method = { RequestMethod.GET, RequestMethod.POST })
-	    public ModelAndView getThreeMonthGoods(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	        ModelAndView mav = new ModelAndView();
-	        HttpSession session = request.getSession();
-		      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
-		      String seller_id = sellerVO.getSeller_id();
-
-		      
-		      List<GoodsVO> sellerGoodsList = sellerService.getThreeMonthGoods(seller_id);
-	        
-	        mav.addObject("sellerGoodsList", sellerGoodsList);
-	        mav.setViewName("/seller/listSellerGoods"); 
-	        
-	        return mav;
-	    }
+	    public ModelAndView getThreeMonthGoods(HttpServletRequest request, HttpServletResponse response,
+	    		@RequestParam(value = "pageNum", defaultValue = "1") int currentPage) throws Exception {
+		       ModelAndView mav = new ModelAndView("/seller/listSellerGoods");
+		       HttpSession session = request.getSession();
+		       SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+		       String seller_id = sellerVO.getSeller_id();
+		       int itemsPerPage = 1;
+		       int startIndex = (currentPage - 1) * itemsPerPage;
+		       // 총 상품 개수 가져오기
+		       int totalItemCount = sellerService.getThreeMonthGoodsCount(seller_id);
+		       // 상품 목록 조회
+		       List<GoodsVO> sellerGoodsList = sellerService.getThreeMonthGoods(seller_id, startIndex, itemsPerPage);
+		       int totalPages = (int) Math.ceil((double) totalItemCount / itemsPerPage);
+		       mav.addObject("sellerGoodsList", sellerGoodsList);
+		       mav.addObject("totalPages", totalPages);
+		       mav.addObject("currentPage", currentPage);
+		       System.out.println(totalItemCount);
+		       System.out.println(currentPage);
+		       return mav;
+		   }
 	    @RequestMapping(value = "/getFourMonthGoods.do", method = { RequestMethod.GET, RequestMethod.POST })
-	    public ModelAndView getFourMonthGoods(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	        ModelAndView mav = new ModelAndView();
-	        HttpSession session = request.getSession();
-		      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
-		      String seller_id = sellerVO.getSeller_id();
-
-		      
-		      List<GoodsVO> sellerGoodsList = sellerService.getFourMonthGoods(seller_id);
-	        
-	        mav.addObject("sellerGoodsList", sellerGoodsList);
-	        mav.setViewName("/seller/listSellerGoods"); 
-	        
-	        return mav;
-	    }
+	    public ModelAndView getFourMonthGoods(HttpServletRequest request, HttpServletResponse response,
+	    		@RequestParam(value = "pageNum", defaultValue = "1") int currentPage) throws Exception {
+		       ModelAndView mav = new ModelAndView("/seller/listSellerGoods");
+		       HttpSession session = request.getSession();
+		       SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+		       String seller_id = sellerVO.getSeller_id();
+		       int itemsPerPage = 1;
+		       int startIndex = (currentPage - 1) * itemsPerPage;
+		       // 총 상품 개수 가져오기
+		       int totalItemCount = sellerService.getFourMonthGoodsCount(seller_id);
+		       // 상품 목록 조회
+		       List<GoodsVO> sellerGoodsList = sellerService.getFourMonthGoods(seller_id, startIndex, itemsPerPage);
+		       int totalPages = (int) Math.ceil((double) totalItemCount / itemsPerPage);
+		       mav.addObject("sellerGoodsList", sellerGoodsList);
+		       mav.addObject("totalPages", totalPages);
+		       mav.addObject("currentPage", currentPage);
+		       System.out.println(totalItemCount);
+		       System.out.println(currentPage);
+		       return mav;
+		   }
 	    
 	    @RequestMapping(value = "/getDateGoods.do", method = { RequestMethod.GET, RequestMethod.POST })
-	    public ModelAndView getDateGoods(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	        ModelAndView mav = new ModelAndView();
+	    public ModelAndView getDateGoods(HttpServletRequest request, HttpServletResponse response,
+	            @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate,
+	            @RequestParam(value = "pageNum", defaultValue = "1") int currentPage) throws Exception {
+	        ModelAndView mav = new ModelAndView("/seller/listSellerGoods");
 	        HttpSession session = request.getSession();
 	        SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
 	        String seller_id = sellerVO.getSeller_id();
-	        String startDate = request.getParameter("startDate");
-	        String endDate = request.getParameter("endDate");
+	        int itemsPerPage = 2; // 페이지당 상품 개수
+	        int startIndex = (currentPage - 1) * itemsPerPage;
+
 	        Map<String, Object> getDateGoodsMap = new HashMap<>();
-	          
 	        getDateGoodsMap.put("seller_id", seller_id);
 	        getDateGoodsMap.put("startDate", startDate);
 	        getDateGoodsMap.put("endDate", endDate);
-	        System.out.println(startDate);
-	        System.out.println(endDate);
-	        List<Map<String, Object>> sellerGoodsList = sellerService.getDateGoods(getDateGoodsMap);
-	        
+	        getDateGoodsMap.put("startIndex", startIndex);
+	        getDateGoodsMap.put("itemsPerPage", itemsPerPage);
+
+	        List<GoodsVO> sellerGoodsList = sellerService.getDateGoods(getDateGoodsMap);
+	        int totalItemCount = sellerService.getDateGoodsCount(getDateGoodsMap);
+	        int totalPages = (int) Math.ceil((double) totalItemCount / itemsPerPage);
+
 	        mav.addObject("sellerGoodsList", sellerGoodsList);
-	        mav.setViewName("/seller/listSellerGoods"); 
-	        
+	        mav.addObject("totalPages", totalPages);
+	        mav.addObject("currentPage", currentPage);
+	        mav.addObject("startDate", startDate);
+	        mav.addObject("endDate", endDate);
+
 	        return mav;
 	    }
+	
 	    
 	    
 	   
 	// 사업자가등록한 사용자주문목록
-	    @Override
-	    @RequestMapping(value = "/listSellerOrder.do")
-	    public ModelAndView getSellerOrderList(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	    	HttpSession session = request.getSession();
-		      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
-		      String seller_id = sellerVO.getSeller_id();
-	        List<Map<String, Object>> sellerOrderList = sellerService.getSellerOrderList(seller_id);
+	    @RequestMapping(value = "/listSellerOrder.do",method = { RequestMethod.POST, RequestMethod.GET })
+	    public ModelAndView getSellerOrderList(HttpServletRequest request, HttpServletResponse response,
+	    		@RequestParam(value = "pageNum", defaultValue = "1") int currentPage) throws Exception {
+		       ModelAndView mav = new ModelAndView("/seller/listSellerOrder");
 
-	        ModelAndView mav = new ModelAndView("/seller/listSellerOrder");
-	        mav.addObject("sellerOrderList", sellerOrderList);
-	        return mav;
-	    }
-	    @RequestMapping(value = "/getSellerOrderListTODAY.do")
-	    public ModelAndView getSellerOrderListTODAY(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	    	HttpSession session = request.getSession();
-		      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
-		      String seller_id = sellerVO.getSeller_id();
-	        List<Map<String, Object>> sellerOrderList = sellerService.getSellerOrderListTODAY(seller_id);
+		       HttpSession session = request.getSession();
+		       SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+		       String seller_id = sellerVO.getSeller_id();
 
-	        ModelAndView mav = new ModelAndView("/seller/listSellerOrder");
-	        mav.addObject("sellerOrderList", sellerOrderList);
-	        return mav;
-	    }
-	    @RequestMapping(value = "/getSellerOrderListONEWEEK.do")
-	    public ModelAndView getSellerOrderListONEWEEK(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	    	HttpSession session = request.getSession();
-		      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
-		      String seller_id = sellerVO.getSeller_id();
-	        List<Map<String, Object>> sellerOrderList = sellerService.getSellerOrderListONEWEEK(seller_id);
+		       int itemsPerPage = 2;
+		       int startIndex = (currentPage - 1) * itemsPerPage;
 
-	        ModelAndView mav = new ModelAndView("/seller/listSellerOrder");
-	        mav.addObject("sellerOrderList", sellerOrderList);
-	        return mav;
-	    }
-	    @RequestMapping(value = "/getSellerOrderListTWOWEEK.do")
-	    public ModelAndView getSellerOrderListTWOWEEK(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	    	HttpSession session = request.getSession();
-		      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
-		      String seller_id = sellerVO.getSeller_id();
-	        List<Map<String, Object>> sellerOrderList = sellerService.getSellerOrderListTWOWEEK(seller_id);
+		       // 총 상품 개수 가져오기
+		       int totalItemCount = sellerService.getSellerOrderListCount(seller_id);
 
-	        ModelAndView mav = new ModelAndView("/seller/listSellerOrder");
-	        mav.addObject("sellerOrderList", sellerOrderList);
-	        return mav;
-	    }
-	    @RequestMapping(value = "/getSellerOrderListONEMONTH.do")
-	    public ModelAndView getSellerOrderListONEMONTH(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	    	HttpSession session = request.getSession();
-		      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
-		      String seller_id = sellerVO.getSeller_id();
-	        List<Map<String, Object>> sellerOrderList = sellerService.getSellerOrderListONEMONTH(seller_id);
+		       // 상품 목록 조회
+		       List<Map<String, Object>> sellerOrderList = sellerService.getSellerOrderList(seller_id, startIndex, itemsPerPage);
 
-	        ModelAndView mav = new ModelAndView("/seller/listSellerOrder");
-	        mav.addObject("sellerOrderList", sellerOrderList);
-	        return mav;
-	    }
-	    @RequestMapping(value = "/getSellerOrderListTWOMONTH.do")
-	    public ModelAndView getSellerOrderListTWOMONTH(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	    	HttpSession session = request.getSession();
-		      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
-		      String seller_id = sellerVO.getSeller_id();
-	        List<Map<String, Object>> sellerOrderList = sellerService.getSellerOrderListTWOMONTH(seller_id);
+		       int totalPages = (int) Math.ceil((double) totalItemCount / itemsPerPage);
+		       mav.addObject("sellerOrderList", sellerOrderList);
+		       mav.addObject("totalPages", totalPages);
+		       mav.addObject("currentPage", currentPage);
+		       System.out.println(totalPages);
+		       System.out.println(currentPage);
 
+		       return mav;
+		   }
+	    
+	    //당일
+	    @RequestMapping(value = "/getSellerOrderListTODAY.do", method = { RequestMethod.POST, RequestMethod.GET })
+	    public ModelAndView getSellerOrderListTODAY(HttpServletRequest request, HttpServletResponse response,
+	    		@RequestParam(value = "pageNum", defaultValue = "1") int currentPage) throws Exception {
+		       ModelAndView mav = new ModelAndView("/seller/listSellerOrder");
+		       HttpSession session = request.getSession();
+		       SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+		       String seller_id = sellerVO.getSeller_id();
+		       int itemsPerPage = 2;
+		       int startIndex = (currentPage - 1) * itemsPerPage;
+		       // 총 상품 개수 가져오기
+		       int totalItemCount = sellerService.getSellerOrderListTODAYCount(seller_id);
+		       // 상품 목록 조회
+		       List<Map<String, Object>> sellerOrderList = sellerService.getSellerOrderListTODAY(seller_id, startIndex, itemsPerPage);
+		       int totalPages = (int) Math.ceil((double) totalItemCount / itemsPerPage);
+		       mav.addObject("sellerOrderList", sellerOrderList);
+		       mav.addObject("totalPages", totalPages);
+		       mav.addObject("currentPage", currentPage);
+		       return mav;
+		   }
+	    //1주 오더
+	    @RequestMapping(value = "/getSellerOrderListONEWEEK.do", method = { RequestMethod.POST, RequestMethod.GET })
+	    public ModelAndView getSellerOrderListONEWEEK(HttpServletRequest request, HttpServletResponse response,
+	    		@RequestParam(value = "pageNum", defaultValue = "1") int currentPage) throws Exception {
+		       ModelAndView mav = new ModelAndView("/seller/listSellerOrder");
+		       HttpSession session = request.getSession();
+		       SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+		       String seller_id = sellerVO.getSeller_id();
+		       int itemsPerPage = 2;
+		       int startIndex = (currentPage - 1) * itemsPerPage;
+		       // 총 상품 개수 가져오기
+		       int totalItemCount = sellerService.getSellerOrderListONEWEEKCount(seller_id);
+		       // 상품 목록 조회
+		       List<Map<String, Object>> sellerOrderList = sellerService.getSellerOrderListONEWEEK(seller_id, startIndex, itemsPerPage);
+		       int totalPages = (int) Math.ceil((double) totalItemCount / itemsPerPage);
+		       mav.addObject("sellerOrderList", sellerOrderList);
+		       mav.addObject("totalPages", totalPages);
+		       mav.addObject("currentPage", currentPage);
+		       return mav;
+		   }
+	    
+	    //2주 오더
+	    @RequestMapping(value = "/getSellerOrderListTWOWEEK.do", method = { RequestMethod.POST, RequestMethod.GET })
+	    public ModelAndView getSellerOrderListTWOWEEK(HttpServletRequest request, HttpServletResponse response,
+	    		@RequestParam(value = "pageNum", defaultValue = "1") int currentPage) throws Exception {
+		       ModelAndView mav = new ModelAndView("/seller/listSellerOrder");
+		       HttpSession session = request.getSession();
+		       SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+		       String seller_id = sellerVO.getSeller_id();
+		       int itemsPerPage = 2;
+		       int startIndex = (currentPage - 1) * itemsPerPage;
+		       // 총 상품 개수 가져오기
+		       int totalItemCount = sellerService.getSellerOrderListTWOWEEKCount(seller_id);
+		       // 상품 목록 조회
+		       List<Map<String, Object>> sellerOrderList = sellerService.getSellerOrderListTWOWEEK(seller_id, startIndex, itemsPerPage);
+		       int totalPages = (int) Math.ceil((double) totalItemCount / itemsPerPage);
+		       mav.addObject("sellerOrderList", sellerOrderList);
+		       mav.addObject("totalPages", totalPages);
+		       mav.addObject("currentPage", currentPage);
+		       return mav;
+		   }
+	    //1달 오더
+	    @RequestMapping(value = "/getSellerOrderListONEMONTH.do", method = { RequestMethod.POST, RequestMethod.GET })
+	    public ModelAndView getSellerOrderListONEMONTH(HttpServletRequest request, HttpServletResponse response,
+	    		@RequestParam(value = "pageNum", defaultValue = "1") int currentPage) throws Exception {
+		       ModelAndView mav = new ModelAndView("/seller/listSellerOrder");
+		       HttpSession session = request.getSession();
+		       SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+		       String seller_id = sellerVO.getSeller_id();
+		       int itemsPerPage = 2;
+		       int startIndex = (currentPage - 1) * itemsPerPage;
+		       // 총 상품 개수 가져오기
+		       int totalItemCount = sellerService.getSellerOrderListONEMONTHCount(seller_id);
+		       // 상품 목록 조회
+		       List<Map<String, Object>> sellerOrderList = sellerService.getSellerOrderListONEMONTH(seller_id, startIndex, itemsPerPage);
+		       int totalPages = (int) Math.ceil((double) totalItemCount / itemsPerPage);
+		       mav.addObject("sellerOrderList", sellerOrderList);
+		       mav.addObject("totalPages", totalPages);
+		       mav.addObject("currentPage", currentPage);
+		       return mav;
+		   }
+	    //2달 오더
+	    @RequestMapping(value = "/getSellerOrderListTWOMONTH.do", method = { RequestMethod.POST, RequestMethod.GET })
+	    public ModelAndView getSellerOrderListTWOMONTH(HttpServletRequest request, HttpServletResponse response,
+	    		@RequestParam(value = "pageNum", defaultValue = "1") int currentPage) throws Exception {
+		       ModelAndView mav = new ModelAndView("/seller/listSellerOrder");
+		       HttpSession session = request.getSession();
+		       SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+		       String seller_id = sellerVO.getSeller_id();
+		       int itemsPerPage = 2;
+		       int startIndex = (currentPage - 1) * itemsPerPage;
+		       // 총 상품 개수 가져오기
+		       int totalItemCount = sellerService.getSellerOrderListTWOMONTHCount(seller_id);
+		       // 상품 목록 조회
+		       List<Map<String, Object>> sellerOrderList = sellerService.getSellerOrderListTWOMONTH(seller_id, startIndex, itemsPerPage);
+		       int totalPages = (int) Math.ceil((double) totalItemCount / itemsPerPage);
+		       mav.addObject("sellerOrderList", sellerOrderList);
+		       mav.addObject("totalPages", totalPages);
+		       mav.addObject("currentPage", currentPage);
+		       return mav;
+		   }
+	    //3달
+	    @RequestMapping(value = "/getSellerOrderListTHREEMONTH.do", method = { RequestMethod.POST, RequestMethod.GET })
+	    public ModelAndView getSellerOrderListTHREEMONTH(HttpServletRequest request, HttpServletResponse response,
+	    		@RequestParam(value = "pageNum", defaultValue = "1") int currentPage) throws Exception {
+		       ModelAndView mav = new ModelAndView("/seller/listSellerOrder");
+		       HttpSession session = request.getSession();
+		       SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+		       String seller_id = sellerVO.getSeller_id();
+		       int itemsPerPage = 2;
+		       int startIndex = (currentPage - 1) * itemsPerPage;
+		       // 총 상품 개수 가져오기
+		       int totalItemCount = sellerService.getSellerOrderListTHREEMONTHCount(seller_id);
+		       // 상품 목록 조회
+		       List<Map<String, Object>> sellerOrderList = sellerService.getSellerOrderListTHREEMONTH(seller_id, startIndex, itemsPerPage);
+		       int totalPages = (int) Math.ceil((double) totalItemCount / itemsPerPage);
+		       mav.addObject("sellerOrderList", sellerOrderList);
+		       mav.addObject("totalPages", totalPages);
+		       mav.addObject("currentPage", currentPage);
+		       return mav;
+		   }
+	    //4달
+	    @RequestMapping(value = "/getSellerOrderListFOURMONTH.do", method = { RequestMethod.POST, RequestMethod.GET })
+	    public ModelAndView getSellerOrderListFOURMONTH(HttpServletRequest request, HttpServletResponse response,
+	    		@RequestParam(value = "pageNum", defaultValue = "1") int currentPage) throws Exception {
+		       ModelAndView mav = new ModelAndView("/seller/listSellerOrder");
+		       HttpSession session = request.getSession();
+		       SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+		       String seller_id = sellerVO.getSeller_id();
+		       int itemsPerPage = 2;
+		       int startIndex = (currentPage - 1) * itemsPerPage;
+		       // 총 상품 개수 가져오기
+		       int totalItemCount = sellerService.getSellerOrderListFOURMONTHCount(seller_id);
+		       // 상품 목록 조회
+		       List<Map<String, Object>> sellerOrderList = sellerService.getSellerOrderListFOURMONTH(seller_id, startIndex, itemsPerPage);
+		       int totalPages = (int) Math.ceil((double) totalItemCount / itemsPerPage);
+		       mav.addObject("sellerOrderList", sellerOrderList);
+		       mav.addObject("totalPages", totalPages);
+		       mav.addObject("currentPage", currentPage);
+		       return mav;
+		   }
+	    //정하기
+	    @RequestMapping(value = "/getSellerOrderListDATE.do", method = { RequestMethod.POST, RequestMethod.GET })
+	    public ModelAndView getSellerOrderListDATE(
+	        HttpServletRequest request,
+	        HttpServletResponse response,
+	        @RequestParam(value = "pageNum", defaultValue = "1") int currentPage,
+	        @RequestParam("startDate") String startDate,
+	        @RequestParam("endDate") String endDate
+	    ) throws Exception {
 	        ModelAndView mav = new ModelAndView("/seller/listSellerOrder");
-	        mav.addObject("sellerOrderList", sellerOrderList);
-	        return mav;
-	    }
-	    @RequestMapping(value = "/getSellerOrderListTHREEMONTH.do")
-	    public ModelAndView getSellerOrderListTHREEMONTH(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	    	HttpSession session = request.getSession();
-		      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
-		      String seller_id = sellerVO.getSeller_id();
-	        List<Map<String, Object>> sellerOrderList = sellerService.getSellerOrderListTHREEMONTH(seller_id);
-
-	        ModelAndView mav = new ModelAndView("/seller/listSellerOrder");
-	        mav.addObject("sellerOrderList", sellerOrderList);
-	        return mav;
-	    }
-	    @RequestMapping(value = "/getSellerOrderListFOURMONTH.do")
-	    public ModelAndView getSellerOrderListFOURMONTH(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	    	HttpSession session = request.getSession();
-		      SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
-		      String seller_id = sellerVO.getSeller_id();
-	        List<Map<String, Object>> sellerOrderList = sellerService.getSellerOrderListFOURMONTH(seller_id);
-
-	        ModelAndView mav = new ModelAndView("/seller/listSellerOrder");
-	        mav.addObject("sellerOrderList", sellerOrderList);
-	        return mav;
-	    }
-	    @RequestMapping(value = "/getSellerOrderListDATE.do")
-	    public ModelAndView getSellerOrderListDATE(HttpServletRequest request, HttpServletResponse response) throws Exception {
 	        HttpSession session = request.getSession();
 	        SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
 	        String seller_id = sellerVO.getSeller_id();
-	        String startDate = request.getParameter("startDate");
-	        String endDate = request.getParameter("endDate");
-	        Map<String, Object> getSellerOrderList = new HashMap<>();
+	        int itemsPerPage = 2;
+	        int startIndex = (currentPage - 1) * itemsPerPage;
 
-	        getSellerOrderList.put("seller_id", seller_id);
-	        getSellerOrderList.put("startDate", startDate);
-	        getSellerOrderList.put("endDate", endDate);
-	        System.out.println(startDate);
-	        System.out.println(endDate);
+	        // 파라미터를 맵 형태로 저장
+	        Map<String, Object> getDateGoodsMap = new HashMap<>();
+	        getDateGoodsMap.put("seller_id", seller_id);
+	        getDateGoodsMap.put("startDate", startDate);
+	        getDateGoodsMap.put("endDate", endDate);
+	        getDateGoodsMap.put("startIndex", startIndex);
+	        getDateGoodsMap.put("itemsPerPage", itemsPerPage);
 
-	        List<Map<String, Object>> sellerOrderList = sellerService.getSellerOrderListDATE(seller_id, startDate, endDate);
+	        // 총 상품 개수 가져오기
+	        int totalItemCount = sellerService.getSellerOrderListDATECount(seller_id, startDate, endDate);
 
-	        ModelAndView mav = new ModelAndView("/seller/listSellerOrder");
+	        // 상품 목록 조회
+	        List<Map<String, Object>> sellerOrderList = sellerService.getSellerOrderListDATE(getDateGoodsMap);
+
+	        int totalPages = (int) Math.ceil((double) totalItemCount / itemsPerPage);
 	        mav.addObject("sellerOrderList", sellerOrderList);
+	        mav.addObject("totalPages", totalPages);
+	        mav.addObject("currentPage", currentPage);
+
+	        // 시작 날짜와 종료 날짜도 뷰에 전달
+	        mav.addObject("startDate", startDate);
+	        mav.addObject("endDate", endDate);
+
 	        return mav;
 	    }
 	    
@@ -552,7 +735,7 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 	    
 	    
 	    //사업자 qna리스트
-	    @Override
+	   /* @Override
 	    @RequestMapping("/sellerQuestionAnswer.do")
 	    public ModelAndView selectAllGoodsQna(HttpServletRequest request, HttpServletResponse response) throws Exception {
 	        ModelAndView mav = new ModelAndView("/seller/sellerQuestionAnswer");
@@ -574,7 +757,57 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 
 	        mav.addObject("goodsQnaList", goodsQnaList); // 모델에 데이터 추가
 	        return mav;
+	    }*/
+	    @RequestMapping(value = "/sellerQuestionAnswer.do", method = { RequestMethod.POST, RequestMethod.GET })
+	    public ModelAndView selectAllGoodsQna(HttpServletRequest request,
+	                                          @RequestParam(name = "searchWord", required = false) String searchWord,
+	                                          @RequestParam(name = "pageNum", defaultValue = "1") int currentPage)
+	            throws Exception {
+	        ModelAndView mav = new ModelAndView("/seller/sellerQuestionAnswer");
+	        HttpSession session = request.getSession();
+	        SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+	        String seller_id = sellerVO.getSeller_id();
+
+	        // 전체 항목 수 가져오기
+	        int totalItemCount = sellerService.selectAllGoodsQnaCount(seller_id);
+
+	        // 페이지당 항목 수와 시작 인덱스 계산
+	        int itemsPerPage = 2; // 페이지당 항목 수를 원하는 값으로 설정하세요
+	        int startIndex = (currentPage - 1) * itemsPerPage;
+	        int totalPages = (int) Math.ceil((double) totalItemCount / itemsPerPage);
+	        // 검색 결과 가져오기
+	        Map<String, Object> goodsQnaMap = new HashMap<>();
+	        goodsQnaMap.put("seller_id", seller_id);
+	        goodsQnaMap.put("startIndex", startIndex);
+	        goodsQnaMap.put("itemsPerPage", itemsPerPage);
+
+	        List<GoodsQNA> goodsQnaList = sellerService.selectAllGoodsQna(goodsQnaMap);
+
+	        if (searchWord != null && !searchWord.isEmpty()) {
+	            String sanitizedSearchWord = searchWord.replaceAll("\\s+", ""); // 모든 공백 제거
+	            List<GoodsQNA> filteredGoodsQnaList = new ArrayList<>();
+
+	            for (GoodsQNA goodsQna : goodsQnaList) {
+	                if (goodsQna.getGoods_qna_content().replaceAll("\\s+", "").contains(sanitizedSearchWord) ||
+	                    goodsQna.getGoods_qna_title().replaceAll("\\s+", "").contains(sanitizedSearchWord) ||
+	                    goodsQna.getGoods_qna_middle_title().replaceAll("\\s+", "").contains(sanitizedSearchWord)) {
+	                    filteredGoodsQnaList.add(goodsQna);
+	                }
+	            }
+
+	            goodsQnaList = filteredGoodsQnaList;
+	        }
+	        mav.addObject("totalPages", totalPages);
+	        mav.addObject("goodsQnaList", goodsQnaList);
+	        mav.addObject("totalItemCount", totalItemCount);
+	        mav.addObject("itemsPerPage", itemsPerPage);
+	        mav.addObject("currentPage", currentPage);
+	        System.out.println(totalItemCount);
+	        System.out.println(currentPage);
+	        System.out.println(startIndex);
+	        return mav;
 	    }
+	   
 	    
 	    
 	    //사업자 qna답변

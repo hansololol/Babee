@@ -102,6 +102,40 @@
         font-weight: bold;
         text-decoration: underline;
     }
+    /*페이징*/
+.pagination {
+    display: flex; /* Flexbox를 사용하여 가운데 정렬 */
+    justify-content: center; /* 가로 가운데 정렬 */
+    margin-top: 20px;
+    position: relative; /* position 속성 추가 */
+    z-index: 11; /* 적절한 z-index 값 설정 */
+}
+
+.pagination a,
+.pagination span {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 2px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #333;
+    text-decoration: none;
+    border-radius: 3px;
+}
+
+.pagination a:hover {
+    background-color: #f0f0f0;
+}
+
+.pagination .current {
+    background-color: #ffcd29;
+    color: #fff;
+    border:none;
+}
+
+.pagination .disabled {
+    color: #ccc;
+}
 </style>
 </head>
 <body>
@@ -109,12 +143,12 @@
 <div id="search">
     <h2 style="margin: 0;">상품 문의</h2>
     <div class="search-container">
-        <form action="검색결과를_처리할_페이지_주소" method="GET">
-            <input name="searchWord" class="search-input" type="text" placeholder="검색어를 입력해주세요.">
-            <button type="submit" name="search" class="search-button">
-                <img src="/image/glass.png" alt="검색" style="width: 20px; height: 20px; margin-bottom:-5px">
-            </button>
-        </form>
+        <form action="/seller/sellerQuestionAnswer.do?page=sellerPage" method="POST">
+		    <input name="searchWord" class="search-input" type="text" placeholder="검색어를 입력해주세요.">
+		    <button type="submit" name="search" class="search-button">
+		        <img src="/image/glass.png" alt="검색" style="width: 20px; height: 20px; margin-bottom:0px">
+		    </button>
+		</form>
     </div>
 </div>
 <form action="${contextPath}/seller/addGoodsQnaAnswer.do" method="post">
@@ -169,14 +203,58 @@
     </table>
 </div>
 </form> 
-<div class="paging-container">
-    <a class="paging-button" href="#">이전</a>
-    <a class="paging-button" href="#">1</a>
-    <a class="paging-button" href="#">2</a>
-    <a class="paging-button" href="#">3</a>
-    <a class="paging-button" href="#">4</a>
-    <a class="paging-button" href="#">5</a>
-    <a class="paging-button" href="#">다음</a>
+<!-- 페이징 -->
+<div class="pagination">
+    <c:if test="${totalPages > 1}">
+        <c:set var="startPage" value="${currentPage - 1}" />
+        <c:if test="${startPage < 1}">
+            <c:set var="startPage" value="1" />
+        </c:if>
+        <c:set var="endPage" value="${currentPage + 1}" />
+        <c:if test="${endPage > totalPages}">
+            <c:set var="endPage" value="${totalPages}" />
+        </c:if>
+        <c:if test="${endPage - startPage < 2}">
+            <c:choose>
+                <c:when test="${startPage > 1}">
+                    <c:set var="startPage" value="${startPage - 1}" />
+                </c:when>
+                <c:otherwise>
+                    <c:set var="endPage" value="${endPage + 1}" />
+                </c:otherwise>
+            </c:choose>
+        </c:if>
+        <c:choose>
+            <c:when test="${currentPage > 1}">
+                <a href="?page=sellerPage&pageNum=1&searchWord=${searchWord}">First</a>
+                <a href="?page=sellerPage&pageNum=${currentPage - 1}&searchWord=${searchWord}">&lt;&lt;</a>
+            </c:when>
+            <c:otherwise>
+                <span class="disabled">First</span>
+                <span class="disabled">&lt;&lt;</span>
+            </c:otherwise>
+        </c:choose>
+        <c:forEach var="page" begin="${startPage}" end="${endPage}">
+            <c:choose>
+                <c:when test="${page == currentPage}">
+                    <span class="current">${page}</span>
+                </c:when>
+                <c:otherwise>
+                    <a href="?page=sellerPage&pageNum=${page}&searchWord=${searchWord}">${page}</a>
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
+        <c:choose>
+            <c:when test="${currentPage < totalPages}">
+                <a href="?page=sellerPage&pageNum=${currentPage + 1}&searchWord=${searchWord}">&gt;&gt;</a>
+                <a href="?page=sellerPage&pageNum=${totalPages}&searchWord=${searchWord}">Last</a>
+            </c:when>
+            <c:otherwise>
+                <span class="disabled">&gt;&gt;</span>
+                <span class="disabled">Last</span>
+            </c:otherwise>
+        </c:choose>
+    </c:if>
 </div>
 
 <script>

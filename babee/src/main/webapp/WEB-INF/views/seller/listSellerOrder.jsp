@@ -48,8 +48,51 @@
     background-color: #cca300; /* 호버 시 배경색 변경 */
 }
 
+/*이미지 어두워지는 호버*/
+.image-hover-effect {
+    transition: filter 0.3s, border-radius 0.3s; /* 호버 효과 애니메이션 */
+    border-radius: 10px; /* 둥근 모서리 반경 */
+}
 
+.image-hover-effect:hover {
+    filter: brightness(70%); /* 어둡게 만들기 */
+    border-radius: 50px; /* 호버 시 둥근 모서리 크게 적용 */
+}
 
+/*페이징*/
+.pagination {
+    display: flex; /* Flexbox를 사용하여 가운데 정렬 */
+    justify-content: center; /* 가로 가운데 정렬 */
+    margin-top: 20px;
+    position: relative; /* position 속성 추가 */
+    z-index: 11; /* 적절한 z-index 값 설정 */
+}
+
+.pagination a,
+.pagination span {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 2px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #333;
+    text-decoration: none;
+    border-radius: 3px;
+}
+
+.pagination a:hover {
+    background-color: #f0f0f0;
+}
+
+.pagination .current {
+    background-color: #ffcd29;
+    color: #fff;
+    border:none;
+}
+
+.pagination .disabled {
+    color: #ccc;
+}
 
 
 
@@ -62,7 +105,7 @@
    <div class="order_delivery_list">
    <H3>주문 관리</H3>
    <hr>
-   <form action="${contextPath}/seller/getSellerOrderListDATE.do?page=sellerPage&date=true&" method="GET">   
+   <form action="${contextPath}/seller/getSellerOrderListDATE.do?page=sellerPage&date=true" method="POST">   
       <table align="center" style="margin-left: 0px;">
          <tr>
             <td> 
@@ -79,25 +122,25 @@
       <table align="center" style="margin-left: 0px;">
          <tr>
             <td>
-               <a href="${contextPath}/seller/getSellerOrderListTODAY.do?page=sellerPage&today=true">
+               <a href="${contextPath}/seller/getSellerOrderListTODAY.do?page=sellerPage">
                   <img   src="/image/btn_search_one_day.jpg">
                </a>
-               <a href="${contextPath}/seller/getSellerOrderListONEWEEK.do?page=sellerPage&oneweek=true">
+               <a href="${contextPath}/seller/getSellerOrderListONEWEEK.do?page=sellerPage">
                   <img   src="/image/btn_search_1_week.jpg">
                </a>
-               <a href="${contextPath}/seller/getSellerOrderListTWOWEEK.do?page=sellerPage&twoweek=true">
+               <a href="${contextPath}/seller/getSellerOrderListTWOWEEK.do?page=sellerPage">
                   <img   src="/image/btn_search_2_week.jpg">
                </a>
-               <a href="${contextPath}/seller/getSellerOrderListONEMONTH.do?page=sellerPage&onemonth=true">
+               <a href="${contextPath}/seller/getSellerOrderListONEMONTH.do?page=sellerPage">
                   <img   src="/image/btn_search_1_month.jpg">
                </a>
-               <a href="${contextPath}/seller/getSellerOrderListTWOMONTH.do?page=sellerPage&twomonth=true">
+               <a href="${contextPath}/seller/getSellerOrderListTWOMONTH.do?page=sellerPage">
                   <img   src="/image/btn_search_2_month.jpg">
                </a>
-               <a href="${contextPath}/seller/getSellerOrderListTHREEMONTH.do?page=sellerPage&threemonth=true">
+               <a href="${contextPath}/seller/getSellerOrderListTHREEMONTH.do?page=sellerPage">
                   <img   src="/image/btn_search_3_month.jpg">
                </a>
-               <a href="${contextPath}/seller/getSellerOrderListFOURMONTH.do?page=sellerPage&fourmonth=true">
+               <a href="${contextPath}/seller/getSellerOrderListFOURMONTH.do?page=sellerPage">
                   <img   src="/image/btn_search_4_month.jpg">
                </a>
       </td>
@@ -134,7 +177,8 @@
         
             <td>
             <a href="${contextPath}/goods/goodsDetail.do?goods_id=${order.goods_id}">
-            <img src="${contextPath}/thumbnails.do?goods_id=${order.goods_id}&fileName=${order.goods_image_name1}" style="width:100px;"> </a>
+
+            <img src="${contextPath}/thumbnails.do?goods_id=${order.goods_id}&fileName=${order.goods_image_name1}" style="width:100px; height:100px; margin-left:-30px; margin-top: 5px; margin-bottom: 5px;" class="image-hover-effect"></a></td>
             </td>
             <td style="text-align:left;"> 
                [<a href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}&page=sellerPage">${order.order_id}</a>]
@@ -163,5 +207,48 @@
       </table>
       </div>      
   
+  <!-- 페이징 -->
+     <div class="pagination">
+    <c:if test="${totalPages >= 1}">
+        <c:set var="startPage" value="${currentPage - 5}" />
+        <c:if test="${startPage < 1}">
+            <c:set var="startPage" value="1" />
+        </c:if>
+        <c:set var="endPage" value="${currentPage + 5}" />
+        <c:if test="${endPage > totalPages}">
+            <c:set var="endPage" value="${totalPages}" />
+        </c:if>
+        <c:choose>
+            <c:when test="${currentPage > 1}">
+                <a href="?page=sellerPage&pageNum=1">First</a>
+                <a href="?page=sellerPage&pageNum=${currentPage - 1}">&lt;&lt;</a>
+            </c:when>
+            <c:otherwise>
+                <span class="disabled">First</span>
+                <span class="disabled">&lt;&lt;</span>
+            </c:otherwise>
+        </c:choose>
+        <c:forEach var="page" begin="${startPage}" end="${endPage}">
+            <c:choose>
+                <c:when test="${page == currentPage}">
+                    <span class="current">${page}</span>
+                </c:when>
+                <c:otherwise>
+                    <a href="?page=sellerPage&pageNum=${page}">${page}</a>
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
+        <c:choose>
+            <c:when test="${currentPage < totalPages}">
+                <a href="?page=sellerPage&pageNum=${currentPage + 1}">&gt;&gt;</a>
+                <a href="?page=sellerPage&pageNum=${totalPages}">Last</a>
+            </c:when>
+            <c:otherwise>
+                <span class="disabled">&gt;&gt;</span>
+                <span class="disabled">Last</span>
+            </c:otherwise>
+        </c:choose>
+    </c:if>
+</div>
 </body>
 </html>
