@@ -411,12 +411,24 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 			return "add_success";
 		}
 	}
-
 	@RequestMapping(value = "/removeWishList.do", method = RequestMethod.POST)
 	public ModelAndView removeWishList(@RequestParam("articleNO") int articleNO, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		myPageService.removeWishList(articleNO);
+		HttpSession session = request.getSession();
+		session.removeAttribute("wishList");
+		
+		Object memberInfo =session.getAttribute("memberInfo");
+		List wishList = new ArrayList();
+		if(memberInfo instanceof MemberVO) {
+			wishList= myPageService.selectWishList(((MemberVO) memberInfo).getMember_id());
+		}else if(memberInfo instanceof SellerVO) {
+			wishList= myPageService.selectWishList(((SellerVO) memberInfo).getSeller_id());
+		}
+		
+		session.setAttribute("wishList", wishList);
+		
 		mav.setViewName("redirect:/mypage/wishList.do");
 		return mav;
 	}

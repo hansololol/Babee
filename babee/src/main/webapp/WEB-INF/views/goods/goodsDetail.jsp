@@ -12,8 +12,6 @@
 
 <html>
 <head>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="/css/detail.css" />
 
 
@@ -71,28 +69,12 @@ function add_cart(goods_id){
 }
 
 
-   function imagePopup(type) {
-      if (type == 'open') {
-         // 팝업창을 연다.
-         jQuery('#layer').attr('style', 'visibility:visible');
-
-         // 페이지를 가리기위한 레이어 영역의 높이를 페이지 전체의 높이와 같게 한다.
-         jQuery('#layer').height(jQuery(document).height());
-      }
-
-      else if (type == 'close') {
-
-         // 팝업창을 닫는다.
-         jQuery('#layer').attr('style', 'visibility:hidden');
-      }
-   }
    
-   
+
 function add_wish(goods_id){
    let data = {
          goods_id : goods_id,
          };
-   
    
    let memberId = $('#isLogOnMember').val();								// 로그인 된 ID
 	let sellerId = $('#isLogOnSeller').val();	                      // 로그인 된 ID
@@ -107,7 +89,8 @@ function add_wish(goods_id){
 		location.href = "${contextPath}/member/loginForm.do";
 		   
       
-   }else{                                                   // 로그인 ID가 있을 경우
+   }else{    
+
       $.ajax({
          type : "POST",
          async : false,
@@ -115,13 +98,19 @@ function add_wish(goods_id){
          data : JSON.stringify(data),
            contentType: "application/json",
          success : function(res){
-            if(res === "add_success"){
+            if(res == "add_success"){
+				$(".btn_add_wish").css({
+				"background":"url('/image/btn_add_wish.png')", 
+				"background-repeat" : "no-repeat", 
+				"background-position":"center center"
+			});
+
                alert("위시리스트에 상품이 추가되었습니다.");
                if(confirm("위시리스트 페이지로 이동하시겠습니까?")){
                   location.href = '/mypage/wishList.do';         
                }
             }else{
-               alert("이미 찜한 상품입니다.");
+               removeWish("${deleteWish}");
             }
          },
          error : function(e){
@@ -132,22 +121,33 @@ function add_wish(goods_id){
 
 }
 
+	function removeWish(deleteWish){
 
-	function imagePopup(type) {
-		if (type == 'open') {
-			// 팝업창을 연다.
-			jQuery('#layer').attr('style', 'visibility:visible');
-
-			// 페이지를 가리기위한 레이어 영역의 높이를 페이지 전체의 높이와 같게 한다.
-			jQuery('#layer').height(jQuery(document).height());
-		}
-
-		else if (type == 'close') {
-
-			// 팝업창을 닫는다.
-			jQuery('#layer').attr('style', 'visibility:hidden');
-		}
+		var articleNO = deleteWish;
+		articleNO*=1;
+		$.ajax({
+         type : "POST",
+         async : false,
+         url : "${contextPath}/mypage/removeWishList.do",
+         data :  {articleNO : articleNO},
+         success : function(result){
+            $(".btn_add_wish").css({
+				"background":"url('/image/btn_del_wish.png')", 
+				"background-repeat" : "no-repeat", 
+				"background-position":"center center"
+			});
+		
+			if(result!=null){
+				$('.btn_add_wish').prop("href", 'javascript:add_wish("${goodsVO.goods_id}")');			    
+               } else{
+               alert("위시리스트 삭제에 실패했습니다.")
+            }
+         },
+         error : function(e){
+         }
+      });
 	}
+	
 	
 	function fn_order_each_goods() {
 	    var isLogOn = '${isLogOn}';
@@ -214,56 +214,6 @@ function add_wish(goods_id){
     padding-left: 27%;
 }
 
-.btn-primary {
-    --bs-btn-color: #000;
-    --bs-btn-bg: #ffffff;
-    --bs-btn-border-color: #ffffff;
-    --bs-btn-hover-color: #fff;
-    --bs-btn-hover-bg: #ededed;
-    --bs-btn-hover-border-color: #ffffff;
-    --bs-btn-focus-shadow-rgb: 49,132,253;
-    --bs-btn-active-color: #fff;
-    --bs-btn-active-bg: #c9c9c9;
-    --bs-btn-active-border-color: #ffffff;
-    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-    --bs-btn-disabled-color: #fff;
-    width: 800px;
-    text-align: left;
-}
-
-.card {
-    --bs-card-spacer-y: 1rem;
-    --bs-card-spacer-x: 1rem;
-    --bs-card-title-spacer-y: 0.5rem;
-    --bs-card-title-color: ;
-    --bs-card-subtitle-color: ;
-    --bs-card-border-width: var(--bs-border-width);
-    
-    --bs-card-border-radius: var(--bs-border-radius);
-    --bs-card-box-shadow: ;
-    --bs-card-inner-border-radius: calc(var(--bs-border-radius) - (var(--bs-border-width)));
-    --bs-card-cap-padding-y: 0.5rem;
-    --bs-card-cap-padding-x: 1rem;
-    --bs-card-cap-bg: rgba(var(--bs-body-color-rgb), 0.03);
-    --bs-card-cap-color: ;
-    --bs-card-height: ;
-    --bs-card-color: ;
-    --bs-card-bg: var(--bs-body-bg);
-    --bs-card-img-overlay-padding: 1rem;
-    --bs-card-group-margin: 0.75rem;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    height: var(--bs-card-height);
-    color: var(--bs-body-color);
-    word-wrap: break-word;
-    background-color: var(--bs-card-bg);
-    background-clip: border-box;
-    border-radius: var(--bs-card-border-radius);
-    margin: 0 27%;
-    text-align: left;
-}
 
 .btn_add_wish, .btn_add_wish:hover {
     width: 62px;
@@ -279,13 +229,14 @@ function add_wish(goods_id){
     margin: 0;
 	border-radius: 5px;
 }
-.btn_add_wish span {
-	background: url("/image/btn_add_wish.png") no-repeat center;
+.btn_add_wish > span {
+	background: url("/image/btn_del_wish.png") no-repeat center;
 	display: block;
     width: 100%;
     height: 100%;
 	
 }
+
 
 .board_comment + .board_comment {
     margin-top: 58px;
@@ -428,12 +379,12 @@ function add_wish(goods_id){
 				<tr>
 					<td class="fixed">수량</td>
 					<td class="fixed">
-						<c:if test="${goodsVO.goods_stock ==0}">
+							<c:if test="${goodsVO.goods_stock ==0}">
 							<p style="color: red; font-size: 17px;">품절</p> 
-						</c:if>
-						<c:if test="${goodsVO.goods_stock !=0}">
+							</c:if>
+							<c:if test="${goodsVO.goods_stock !=0}">
 			      		<input type="number" value="1" style="width: 400px; text-align: center;" id="order_goods_qty" name="order_goods_qty" min="1" max="${goodsVO.goods_stock}">
-						</c:if>
+							</c:if>
 					</td>
 				
 				
@@ -466,7 +417,24 @@ function add_wish(goods_id){
 				
 			</tbody>
 		</table>
-	
+		
+		<c:forEach var="goodsWish" items="${wishList}">
+			<c:if test="${goodsWish.goods_id == goodsVO.goods_id}">
+				<c:set var ="deleteWish" value="${goodsWish.articleNO}"/>
+				<c:set var ="equalWish" value="Y"/>
+			</c:if>
+		</c:forEach>
+	<script>
+		    $(window).ready(function () {
+		if('${equalWish}' == 'Y'){
+		$(".btn_add_wish").css({"background":"url('/image/btn_add_wish.png')", 
+								 "background-repeat" : "no-repeat", 
+   								 "background-position":"center center"});
+		$('.btn_add_wish').prop("href", 'javascript:removeWish("${deleteWish}")');						 
+		}
+	});
+
+	</script>
 		<ul>
 			<li><a class="buy" href="javascript:fn_order_each_goods()">구매하기 </a></li>
 			<li><a class="cart" href="javascript:add_cart('${goodsVO.goods_id}')">장바구니</a></li>
