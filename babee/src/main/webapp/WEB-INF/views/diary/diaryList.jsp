@@ -56,11 +56,13 @@ input[type="reset"]:hover {
  
 
 .diary_list {
-    display: inline-block;
+	display: inline-block;
     margin: 10px;
-    padding: 10px 30px;
-    width:300px;
-    
+    padding: 20px 30px;
+    width: 300px;
+    border: 1px solid lightgray;
+    border-radius: 7px;
+    background: #f9f7f0;
 }
 
 .diary_list ul {
@@ -68,9 +70,9 @@ input[type="reset"]:hover {
     padding: 0;
 }
 
-.diary_list li {
+/* .diary_list li {
     margin-bottom: 5px;
-}
+} */
 
 .diary_list li.checkbox{
     text-align: left;
@@ -81,17 +83,28 @@ input[type="reset"]:hover {
     width: 230px;
     height: 200px;
     margin-bottom: 10px;
+    border-radius: 7px;
 }
 .diary_list a{
     color: black;
     text-decoration: none;
 }
 .ellipsis {
-    width: 200px;
+   width: 200px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  margin: 10px auto;
+}
+
+.ellipsis2 {
+   width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   margin: 10px auto;
 }
@@ -151,12 +164,10 @@ input[type="reset"]:hover {
 <form method="post" action="${contextPath}/diary/diaryOrder.do" enctype="multipart/form-data">
    <div style="text-align: center;">
          <a href="${contextPath}/diary/diaryForm.do"><input type="button" value="다이어리 작성"></a>&nbsp;&nbsp;&nbsp;
-        
-         <button type="button" class="tooltip-button" id ="orderButton" onclick="fn:order()">다이어리 주문</button>
+  		 <button type="button" class="tooltip-button" id ="orderButton" onclick="fn:order()">다이어리 주문</button>
         <br>
          <p style="display:none" id="introdu">다이어리 이미지 클릭 시 선택 가능합니다</p>
-             
-   </div>
+	</div>
    
    <script>
      var orderButton= document.getElementById("orderButton");
@@ -172,20 +183,17 @@ input[type="reset"]:hover {
    </script>
   
    <div style= "padding: 0 15%;" >
-      <c:forEach var="diary" items="${diary}" varStatus = "dir">
-      <div class="diary_list" id="dirList${diary.dir_no}" onclick="findDir('${diary.dir_no}')">
-    
-         <ul>
+		<c:forEach var="diary" items="${diary}" varStatus = "dir">
+			<div class="diary_list" id="dirList${diary.dir_no}" onclick="findDir('${diary.dir_no}')">
+			<ul>
             <li style="text-align: left;"> </li>
-            
             <script>
                 var array = new Array();
                 function findDir(index){
         
                     if(orderButton.disabled == true){
                 $("#dirhref"+index).removeAttr('href');
-                $("#dirList"+index).on("click").css("border", "5px solid #ffcccc").css('border-radius', '25px');
-                    
+                $("#dirList"+index).on("click").css("border", "5px solid #ffcccc").css('border-radius', '25px');  
                     }
                 $("#selecdir"+index).each(function(i, obj) {
                     array.push(obj.name);
@@ -210,20 +218,24 @@ input[type="reset"]:hover {
                     });
                         }
                                 }
-                
-            
+
             </script>
+            
             <a href="${contextPath}/diary/diaryDetail.do?dir_no=${diary.dir_no}" id="dirhref${diary.dir_no}">
                 <li><img src="${contextPath}/thumbnails.do?goods_id=${diary.member_id}&fileName=${diary.dir_main_img}&fileType=diary&dir_no=${diary.dir_no}" width="100px"> </li>
-                <li style="font-weight: bold;">${diary.dir_title}</li>
+               
+               <div class="ellipsis2">
+               <li style="font-weight: bold;">${diary.dir_title}</li></div>
                 <div class="ellipsis">
-                    <li>${diary.dir_content}</li></div>
+                	 
+                    <li style=" height: 48px;">${diary.dir_content}</li></div>
                    <input type="hidden" id="selecdir${diary.dir_no}" name="${diary.dir_no}" value="${diary.dir_no}">
                 <li style="text-align: right; font-size: 12px;">${diary.dir_writeDate}</li>
             </a>
          </ul>
       </div>
-   </c:forEach>        
+   </c:forEach> 
+   </div>       
    
 
 </form>
