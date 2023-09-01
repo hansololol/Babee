@@ -86,7 +86,9 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 	            Map goodsVOMap = goodsService.goodsDetail(goods_id);
 	            GoodsVO goodsVO = (GoodsVO) goodsVOMap.get("goodsVO");
 	            String goods_title = goodsVO.getGoods_title();
+	            String goods_image_name1 = goodsVO.getGoods_image_name1();
 	            orderVO.setGoods_title(goods_title);
+	            orderVO.setGoods_image_name(goods_image_name1);
 	        }
 	        
 	        mav.addObject("myOrderList", myOrderList);
