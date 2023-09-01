@@ -216,10 +216,10 @@ function showCategory() {
         <c:choose>
             <c:when test="${isLogOn ==true}">
                 <c:if test="${memberInfo.member_id=='admin'}">
-                    <p><img src="/image/admin.png" width="50px">&nbsp; 관리자님 환영합니다</p>
+                    <p><img src="/image/admin.png" width="50px">&nbsp; ${memberInfo.member_name}님 환영합니다</p>
                 </c:if>
                 <c:if test="${memberInfo.seller_id!=null}">
-                    <p><img src="/image/seller.png" width="50px">&nbsp; 사업자님 환영합니다</p>
+                    <p><img src="/image/seller.png" width="50px">&nbsp; ${memberInfo.seller_name}님 환영합니다</p>
                 </c:if>
                 <c:if test="${!(memberInfo.member_id=='admin'||memberInfo.seller_id!=null)}">
                     <p><img src="/image/user.png" width="50px">&nbsp; ${memberInfo.member_name}님 환영합니다</p>
