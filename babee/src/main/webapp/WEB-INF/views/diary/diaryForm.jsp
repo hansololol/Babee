@@ -14,20 +14,24 @@
   
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
-   function readURL(input){
-      if(input.files && input.files[0]){
-         var reader = new FileReader();
-         reader.onload = function(e){
-            $('#preview').attr('src', e.target.result);
-         }
-         reader.readAsDataURL(input.files[0]);
-      }
-   }
+
    
    function backToList(obj){
       obj.action = "${contextPath}/board/listArticles.do";
       obj.submit();
    }
+   
+   function readURL(input) {
+	    if (input.files && input.files[0]) {
+	        var reader = new FileReader();
+	        reader.onload = function(e) {
+	            //$('#preview').attr('src', e.target.result);
+	            // 이미지를 미리 불러온 후, 선택한 파일 이미지로 변경
+	            $('#add').attr('src', e.target.result);
+	        }
+	        reader.readAsDataURL(input.files[0]);
+	    }
+	}
    
    
 </script>
@@ -48,6 +52,22 @@
             border-radius: 10px;
             padding: 20px;
         }
+        
+        .container button,
+  		.container a {
+      		background-color: orange;
+      		color: white;
+      		border: none;
+      		border-radius: 20px;
+      		padding: 10px 30px;
+      		font-size: 16px;
+     		cursor: pointer;
+      		margin: 0 20px;
+      		transition: background-color 0.3s;
+      		text-decoration: none;
+     		display: inline-block;
+   }
+        
 
         .text-center {
             text-align: center;
@@ -144,12 +164,6 @@
         margin-top: 5px;
     }
 
-    .image-preview {
-        max-width: 100%;
-        max-height: 250px;
-       
-        margin-top: 10px;
-    }
 
     .file-input {
         position: absolute;
@@ -165,6 +179,26 @@
         justify-content: center;
         
     }
+    
+   
+   .form-container {
+      background-color: orange;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      padding: 10px 30px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 0 20px;
+      transition: background-color 0.3s;
+      text-decoration: none;
+      display: inline-block;
+   }
+
+   .container button:hover,
+   .container a:hover {
+      background-color: #ff7e00;
+   }
     </style>
 </head>
 <body>
@@ -190,12 +224,13 @@
                     	<td width="400px;" height="200px;">
                     		<label for="dir_main_img1">
                     		<h6 style="color:gray;">표지</h6>
-                    		<img src="${contextPath}/image/add.png" alt="파일 선택" width="30" height="30" style="cursor: pointer;"></label>
+                    		<img src="${contextPath}/image/add.png" alt="파일 선택" width="40" height="40" style="cursor: pointer;"></label>
                    			<input type="file" class="file-input" id="dir_main_img1" name="dir_main_img1" onchange="readURL(this);">
                 			<p style="font-size: 12px;">다음 파일 형식만 지원됩니다.<br>.jpg(JPEG), .png(Portable Network Graphics), .gif(Graphics Interchange Format)</p>
                 		</td>
                 
                 		<td width="400px;">
+                			<img src ="${contextPath}/image/add2.png" class="image-preview" id="add" style="margin: auto;"/>
                 			<img id="preview" class="image-preview" src="#" alt="" style="margin: auto;">
                 		</td>
                 	</tr>
@@ -221,16 +256,5 @@
         </form>
     </div>
 
-<script>
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    $('#preview').attr('src', e.target.result);
-                }
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-</script>
 </body>
 </html>
