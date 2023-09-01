@@ -107,12 +107,6 @@
             resize: vertical;
         }
 
-        .image-preview {
-            max-width: 300px;
-            max-height: 200px;
-            margin-top: 10px;
-        }
-
         .btn-container {
             text-align: center;
         }
@@ -217,7 +211,7 @@
             </div>
            <hr>
 
- 			<div class="form-group" style="border: 1px solid lightgray; border-radius: 5px; padding: 20px; background: azure;">
+ 			<div class="form-group" style="border: 1px solid lightgray; border-radius: 5px; padding: 20px; background-color:#f9f7f0;">
 				<div class="file-input-label">
                    <table> 
                     <tr>

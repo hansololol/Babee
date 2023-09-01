@@ -106,7 +106,7 @@ request.setCharacterEncoding("utf-8"); %>
             <c:if test="${order.delivery_status=='finished_delivering'}">
               <b>배송완료</b>
               <td> 
-                <a class="order_delivery_search" href="${contextPath}/member/reviewForm.do?goods_id=${order.goods_id}"><b>후기작성</b></a>
+                <a class="order_delivery_search" href="${contextPath}/member/reviewForm.do?goods_id=${order.goods_id}&goods_image_name1=${order.goods_image_name}&goods_title=${order.goods_title}"><b>후기작성</b></a>
               </td>
             </c:if>
 
