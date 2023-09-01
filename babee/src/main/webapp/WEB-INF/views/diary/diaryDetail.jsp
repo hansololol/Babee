@@ -79,7 +79,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f0f0f0;
+            background-color: #f0f0f0; 
         }
 
         .container {
@@ -140,19 +140,18 @@
         }
 
         input[type="submit"],
-        input[type="reset"] {
-            background-color: #ffcd29;
-            color: black;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-right: 10px;
-            transition: background-color 0.3s;
+        input[type="button"] {
+   			background-color: #ffcd29; /* 배경색 */
+   			color: black; /* 텍스트색 */
+  			padding: 8px 8px; /* 내부 여백 */
+   			border: none; /* 테두리 없음 */
+   			border-radius: 5px; /* 테두리 반경 */
+   			cursor: pointer; /* 커서 모양 변경 */
+   			text-decoration: none;
         }
 
         input[type="submit"]:hover,
-        input[type="reset"]:hover {
+        input[type="button"]:hover {
             background-color: #cca300;
         }
         
@@ -205,17 +204,18 @@
         /* display: flex; */
         /* align-items: center; */
         justify-content: center;
-        
+      
     }
   
 
-#btnList{
-   margin: 30px auto;
-}
-#btnList_modify{
-display:none;
-margin: 30px auto;
-}
+	#btnList{
+		margin: 30px auto;
+		}
+
+	#btnList_modify{
+		display:none;
+		margin: 30px auto;
+		}
 
 
 </style>
@@ -254,7 +254,7 @@ margin: 30px auto;
                <input type="hidden" name="originalFileName" value="${diary.dir_main_img}"/>
             <label for="d_imageFileName" style="width: 50px;">
             
-             <img src="${contextPath}/image/add.png" alt="파일 선택" width="30" height="30" style="cursor: pointer; display: none;" id="add"></label>
+            <img src="${contextPath}/image/add.png" alt="파일 선택" width="30" height="30" style="cursor: pointer; display: none;" id="add"></label>
            	<input type="file" class="file-input" id="d_imageFileName" name="dir_main_img1" onchange="readURL(this);" disabled>
                    
             <img src="${contextPath}/thumbnails.do?goods_id=${diary.member_id}&fileName=${diary.dir_main_img}&fileType=diary&dir_no=${diary.dir_no}" width="250px" id="preview">
@@ -289,10 +289,11 @@ margin: 30px auto;
         	</c:choose> 
    
    
-   <div id="btnList_modify" style="margin: 30px auto;">
+   <div id="btnList_modify" style="margin: 30px auto;" class="btn-container">
       <input type="submit" value="수정반영하기" onClick="fn_modify_diary(frmDiaryDetail)" id="btnModify">
       <input type="button" value="취소" onClick="fn_disabled(this.form)">
    </div>
+   
 </div>
 </form>
 </body>
