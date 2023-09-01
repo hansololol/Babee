@@ -195,7 +195,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
                 ${freeboard.free_title }
                 <span id="viewCountSapn"> ${freeboard.commentCnt } </span>
               </a>
-              <c:if test="${freeboard.free_img !=null}">
+              <c:if test="${freeboard.free_img !=''}">
                 &nbsp; <span id="freeImage">&nbsp;&nbsp;&nbsp;&nbsp;</span>
               </c:if>
               <c:if test="${free.count <9 && pageNum ==1 }">
@@ -262,7 +262,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
     <br /><br />
     <c:choose>
       <c:when test="${isLogOn == true }">
-        <a href="${contextPath}/community/freeForm.do"
+        <a href="${contextPath}/community/freeForm.do?articleNO=${totArticles}"
           ><input type="button" value="글쓰기" style="margin-left: 700px"
         /></a>
       </c:when>

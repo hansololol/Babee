@@ -103,6 +103,7 @@ public class CommunityControllerImpl extends BaseController implements Community
 	@RequestMapping(value="/addFreeboard.do", method = RequestMethod.POST)
 	public ModelAndView addFreeboard(@ModelAttribute("freeboardVO") FreeboardVO freeboard, MultipartHttpServletRequest multipartRequest, HttpServletRequest request, HttpServletResponse response)  throws Exception {
 		multipartRequest.setCharacterEncoding("utf-8");
+		System.out.println("자유게시판 등록 오는지 확인");
 		ModelAndView mav = new ModelAndView();
 		HttpSession session=request.getSession();
 		memberVO = (MemberVO) session.getAttribute("memberInfo");
@@ -116,31 +117,30 @@ public class CommunityControllerImpl extends BaseController implements Community
 			freeboardMap.put(name, value);		
 		}
 		List imageFileName = upload(multipartRequest);
+		freeboardMap.put("member_id", member_id);
+		if(imageFileName.get(0)!=null || imageFileName.size()!=0) {
+			
 		freeboardMap.put("free_img", imageFileName.get(0));
 		int img_id = (int) Math.floor(Math.random()*1000000);
 		String free_img_id = String.valueOf(img_id);
 		freeboardMap.put("free_img_id", free_img_id);
-		
-		
-		  try {
-			  communityService.addFreeboard(freeboardMap); 
-			 // int articleNO = freeboard.getArticleNO();
+		 try {
 			  
-			  int articleNO = (int) freeboardMap.get("articleNO");
-			  System.out.println("아티클넘: " + articleNO);
-		  if(imageFileName !=null && imageFileName.size() !=0) { 
+			  String articleNOS = (String) freeboardMap.get("articleNO");
+			   int articleNO=Integer.parseInt(articleNOS);
+			  System.out.println("아티클넘: " + (articleNO+1));
+		
 			  File srcFile = new File(CURR_IMAGE_REPO_PATH_FREEBOARD + "\\" + "temp" + "\\" + imageFileName.get(0)); 
-			  File destDir = new File(CURR_IMAGE_REPO_PATH_FREEBOARD+ "\\" + member_id + "\\" + articleNO );
+			  File destDir = new File(CURR_IMAGE_REPO_PATH_FREEBOARD+ "\\" + member_id + "\\" + (articleNO+1) );
 		  FileUtils.moveFileToDirectory(srcFile, destDir, true); 
 		  
-	
-		  
-		  mav.setViewName("redirect:/community/freeboardList.do");
-		  }
 		  }catch (Exception e) {
 			  e.printStackTrace();
 	    	}
-		 
+		}
+		 communityService.addFreeboard(freeboardMap); 
+	
+		 mav.setViewName("redirect:/community/freeboardList.do");
 		return mav;
 	}
 	
