@@ -75,7 +75,7 @@ function add_wish(goods_id){
    let data = {
          goods_id : goods_id,
          };
-   
+   var deleteWish = $("#deleteWish").val();
    let memberId = $('#isLogOnMember').val();								// 로그인 된 ID
 	let sellerId = $('#isLogOnSeller').val();	                      // 로그인 된 ID
    if(memberId != null && memberId != ''){            // 로그인 된 ID가 member 일 경우 
@@ -110,7 +110,7 @@ function add_wish(goods_id){
                   location.href = '/mypage/wishList.do';         
                }
             }else{
-               removeWish("${deleteWish}");
+               removeWish(deleteWish);
             }
          },
          error : function(e){
@@ -435,7 +435,9 @@ function add_wish(goods_id){
 	});
 
 	</script>
+	<input type="hidden" value="${deleteWish }" id="deleteWish"> 
 		<ul>
+		
 			<li><a class="buy" href="javascript:fn_order_each_goods()">구매하기 </a></li>
 			<li><a class="cart" href="javascript:add_cart('${goodsVO.goods_id}')">장바구니</a></li>
 			<li><a class="btn_add_wish" href="javascript:add_wish('${goodsVO.goods_id}')"><span></span></a></li>
@@ -609,7 +611,7 @@ function add_wish(goods_id){
 </table>
 	  
 	<table class="faq-table" id="qnaWrite" style="display: none; width: 60%;">
-	</tr>
+
 	<thead>
 	<tr>
   <th style="width: 15%">구분</th>
