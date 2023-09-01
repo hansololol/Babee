@@ -45,9 +45,17 @@ public class SellerServiceImpl implements SellerService{
 	}
 
 	//사업자 상품등록
-	@Override
+	/*@Override
 	public List<GoodsVO> adminGoodsList(String seller_id) throws Exception {
 		return sellerDAO.adminGoodsList(seller_id);
+	}*/
+	@Override
+	public List<GoodsVO> adminGoodsList(String seller_id,int startIndex,int itemsPerPage)throws Exception{
+		return sellerDAO.adminGoodsList(seller_id, startIndex, itemsPerPage);
+	}
+	@Override
+	public int getGoodsListCount(String seller_id)throws Exception{
+		return sellerDAO.getGoodsListCount(seller_id);
 	}
 	
 	//업데이트
@@ -69,75 +77,166 @@ public class SellerServiceImpl implements SellerService{
 	
 	// 오늘 등록된 상품 조회
 	@Override
-    public List<GoodsVO> getTodayGoods(String seller_id) {
-        return sellerDAO.getTodayGoods(seller_id);
+    public List<GoodsVO> getTodayGoods(String seller_id, int startIndex, int itemsPerPage) {
+        return sellerDAO.getTodayGoods(seller_id, startIndex, itemsPerPage);
     }
 	@Override
-	public List<GoodsVO> getOneWeekGoods(String seller_id){
-		return sellerDAO.getOneWeekGoods(seller_id);
+	public int getTodayGoodsCount(String seller_id) {
+		return sellerDAO.getTodayGoodsCount(seller_id);
 	}
+	//1주
 	@Override
-	public List<GoodsVO> getTwoWeekGoods(String seller_id){
-		return sellerDAO.getTwoWeekGoods(seller_id);
-	}
+    public List<GoodsVO> getOneWeekGoods(String seller_id, int startIndex, int itemsPerPage) {
+        return sellerDAO.getOneWeekGoods(seller_id, startIndex, itemsPerPage);
+    }
 	@Override
-	public List<GoodsVO> getOneMonthGoods(String seller_id){
-		return sellerDAO.getOneMonthGoods(seller_id);
+	public int getOneWeekGoodsCount(String seller_id) {
+		return sellerDAO.getOneWeekGoodsCount(seller_id);
 	}
+	//2주
 	@Override
-	public List<GoodsVO> getTwoMonthGoods(String seller_id){
-		return sellerDAO.getTwoMonthGoods(seller_id);
-	}
+    public List<GoodsVO> getTwoWeekGoods(String seller_id, int startIndex, int itemsPerPage) {
+        return sellerDAO.getTwoWeekGoods(seller_id, startIndex, itemsPerPage);
+    }
 	@Override
-	public List<GoodsVO> getThreeMonthGoods(String seller_id){
-		return sellerDAO.getThreeMonthGoods(seller_id);
+	public int getTwoWeekGoodsCount(String seller_id) {
+		return sellerDAO.getTwoWeekGoodsCount(seller_id);
 	}
+	//1달
 	@Override
-	public List<GoodsVO> getFourMonthGoods(String seller_id){
-		return sellerDAO.getFourMonthGoods(seller_id);
-	}
+    public List<GoodsVO> getOneMonthGoods(String seller_id, int startIndex, int itemsPerPage) {
+        return sellerDAO.getOneMonthGoods(seller_id, startIndex, itemsPerPage);
+    }
 	@Override
-	public List<Map<String, Object>> getDateGoods(Map<String, Object> getDateGoodsMap){
-		return sellerDAO.getDateGoods(getDateGoodsMap);
+	public int getOneMonthGoodsCount(String seller_id) {
+		return sellerDAO.getOneMonthGoodsCount(seller_id);
 	}
-	
-	
+	//2달
+	@Override
+    public List<GoodsVO> getTwoMonthGoods(String seller_id, int startIndex, int itemsPerPage) {
+        return sellerDAO.getTwoMonthGoods(seller_id, startIndex, itemsPerPage);
+    }
+	@Override
+	public int getTwoMonthGoodsCount(String seller_id) {
+		return sellerDAO.getTwoMonthGoodsCount(seller_id);
+	}
+	//3달
+	@Override
+    public List<GoodsVO> getThreeMonthGoods(String seller_id, int startIndex, int itemsPerPage) {
+        return sellerDAO.getThreeMonthGoods(seller_id, startIndex, itemsPerPage);
+    }
+	@Override
+	public int getThreeMonthGoodsCount(String seller_id) {
+		return sellerDAO.getThreeMonthGoodsCount(seller_id);
+	}
+	//4달
+	@Override
+    public List<GoodsVO> getFourMonthGoods(String seller_id, int startIndex, int itemsPerPage) {
+        return sellerDAO.getFourMonthGoods(seller_id, startIndex, itemsPerPage);
+    }
+	@Override
+	public int getFourMonthGoodsCount(String seller_id) {
+		return sellerDAO.getFourMonthGoodsCount(seller_id);
+	}
+	//정하기
+	@Override
+    public List<GoodsVO> getDateGoods(Map<String, Object> getDateGoodsMap) {
+        return sellerDAO.getDateGoods(getDateGoodsMap);
+    }
+
+    @Override
+    public int getDateGoodsCount(Map<String, Object> getDateGoodsMap) {
+        return sellerDAO.getDateGoodsCount(getDateGoodsMap);
+    }
+    
+    
+    
 	// 사업자가 등록한 상품 주문 리스트 조회
 	@Override
-    public List<Map<String, Object>> getSellerOrderList(String seller_id) {
-        return sellerDAO.getSellerOrderList(seller_id);
+    public List<Map<String, Object>> getSellerOrderList(String seller_id, int startIndex, int itemsPerPage) {
+        return sellerDAO.getSellerOrderList(seller_id, startIndex, itemsPerPage);
     }
 	@Override
-    public List<Map<String, Object>> getSellerOrderListTODAY(String seller_id) {
-        return sellerDAO.getSellerOrderListTODAY(seller_id);
+	public int getSellerOrderListCount(String seller_id) {
+		return sellerDAO.getSellerOrderListCount(seller_id);
+	}
+	
+	//당일오더
+	@Override
+    public List<Map<String, Object>> getSellerOrderListTODAY(String seller_id, int startIndex, int itemsPerPage) {
+        return sellerDAO.getSellerOrderListTODAY(seller_id, startIndex, itemsPerPage);
     }
 	@Override
-    public List<Map<String, Object>> getSellerOrderListONEWEEK(String seller_id) {
-        return sellerDAO.getSellerOrderListONEWEEK(seller_id);
+	public int getSellerOrderListTODAYCount(String seller_id) {
+		return sellerDAO.getSellerOrderListTODAYCount(seller_id);
+	}
+	
+	//1주
+	@Override
+    public List<Map<String, Object>> getSellerOrderListONEWEEK(String seller_id, int startIndex, int itemsPerPage) {
+        return sellerDAO.getSellerOrderListONEWEEK(seller_id, startIndex, itemsPerPage);
     }
 	@Override
-    public List<Map<String, Object>> getSellerOrderListTWOWEEK(String seller_id) {
-        return sellerDAO.getSellerOrderListTWOWEEK(seller_id);
+	public int getSellerOrderListONEWEEKCount(String seller_id) {
+		return sellerDAO.getSellerOrderListONEWEEKCount(seller_id);
+	}
+	//2주
+	@Override
+    public List<Map<String, Object>> getSellerOrderListTWOWEEK(String seller_id, int startIndex, int itemsPerPage) {
+        return sellerDAO.getSellerOrderListTWOWEEK(seller_id, startIndex, itemsPerPage);
     }
 	@Override
-    public List<Map<String, Object>> getSellerOrderListONEMONTH(String seller_id) {
-        return sellerDAO.getSellerOrderListONEMONTH(seller_id);
+	public int getSellerOrderListTWOWEEKCount(String seller_id) {
+		return sellerDAO.getSellerOrderListTWOWEEKCount(seller_id);
+	}
+	//1달
+	@Override
+    public List<Map<String, Object>> getSellerOrderListONEMONTH(String seller_id, int startIndex, int itemsPerPage) {
+        return sellerDAO.getSellerOrderListONEMONTH(seller_id, startIndex, itemsPerPage);
     }
 	@Override
-    public List<Map<String, Object>> getSellerOrderListTWOMONTH(String seller_id) {
-        return sellerDAO.getSellerOrderListTWOMONTH(seller_id);
+	public int getSellerOrderListONEMONTHCount(String seller_id) {
+		return sellerDAO.getSellerOrderListONEMONTHCount(seller_id);
+	}
+	//2달
+	@Override
+    public List<Map<String, Object>> getSellerOrderListTWOMONTH(String seller_id, int startIndex, int itemsPerPage) {
+        return sellerDAO.getSellerOrderListTWOMONTH(seller_id, startIndex, itemsPerPage);
     }
 	@Override
-    public List<Map<String, Object>> getSellerOrderListTHREEMONTH(String seller_id) {
-        return sellerDAO.getSellerOrderListTHREEMONTH(seller_id);
+	public int getSellerOrderListTWOMONTHCount(String seller_id) {
+		return sellerDAO.getSellerOrderListTWOMONTHCount(seller_id);
+	}
+	//3달
+	@Override
+    public List<Map<String, Object>> getSellerOrderListTHREEMONTH(String seller_id, int startIndex, int itemsPerPage) {
+        return sellerDAO.getSellerOrderListTHREEMONTH(seller_id, startIndex, itemsPerPage);
     }
 	@Override
-    public List<Map<String, Object>> getSellerOrderListFOURMONTH(String seller_id) {
-        return sellerDAO.getSellerOrderListFOURMONTH(seller_id);
+	public int getSellerOrderListTHREEMONTHCount(String seller_id) {
+		return sellerDAO.getSellerOrderListTHREEMONTHCount(seller_id);
+	}
+	//4달
+	@Override
+    public List<Map<String, Object>> getSellerOrderListFOURMONTH(String seller_id, int startIndex, int itemsPerPage) {
+        return sellerDAO.getSellerOrderListFOURMONTH(seller_id, startIndex, itemsPerPage);
     }
 	@Override
-    public List<Map<String, Object>> getSellerOrderListDATE(String seller_id, String startDate, String endDate) {
-        return sellerDAO.getSellerOrderListDATE(seller_id, startDate, endDate);
+	public int getSellerOrderListFOURMONTHCount(String seller_id) {
+		return sellerDAO.getSellerOrderListFOURMONTHCount(seller_id);
+	}
+	//정하기
+	@Override
+	public List<Map<String, Object>> getSellerOrderListDATE(Map<String, Object> getDateOrderMap) throws Exception{
+        return sellerDAO.getSellerOrderListDATE(getDateOrderMap);
+    }
+
+    @Override
+    public int getSellerOrderListDATECount(
+        String seller_id,
+        String startDate,
+        String endDate) {
+        return sellerDAO.getSellerOrderListDATECount(seller_id, startDate, endDate);
     }
 	
 	
@@ -153,6 +252,10 @@ public class SellerServiceImpl implements SellerService{
     public List<GoodsQNA> selectAllGoodsQna(Map<String, Object> goodsQnaMap) {
         return sellerDAO.selectAllGoodsQna(goodsQnaMap);
     }
+	@Override
+	public int selectAllGoodsQnaCount(String seller_id) throws Exception{
+		return sellerDAO.selectAllGoodsQnaCount(seller_id);
+	}
 	
 	//사업자 qna답변
 	@Override
