@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.babee.common.base.BaseController;
 import com.babee.diary.service.DiaryService;
+import com.babee.goods.dao.GoodsDAO;
 import com.babee.goods.service.GoodsService;
 import com.babee.goods.vo.GoodsVO;
 import com.babee.member.vo.MemberVO;
@@ -41,7 +42,8 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 	private GoodsVO goodsVO;
 	@Autowired
 	private DiaryService diaryService;
-
+	@Autowired
+	private GoodsDAO goodsDAO;
 	
 	@RequestMapping(value="/orderEachGoods.do" , method=RequestMethod.POST)
 	public ModelAndView orderEachGoods(@ModelAttribute("orderVO") OrderVO orderVO,
@@ -129,6 +131,7 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		int goods_delivery_price = Integer.parseInt(receiverMap.get("goods_delivery_price"));
 		int final_total_price = total_goods_price + goods_delivery_price;
 		GoodsVO goodsVO = (GoodsVO)session.getAttribute("goods");
+		List myOrderList_ = new ArrayList<>();
 		for(int i=0; i<myOrderList.size();i++){
 			//추가
 			OrderVO orderVO = new OrderVO();
@@ -146,8 +149,14 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 			System.out.println("수량:" + orderVO.getOrder_goods_qty() );
 			orderVO.setFinal_total_price(final_total_price);
 			myOrderList.set(i, orderVO); 
+			String goods_id = orderVO.getGoods_id();
+			goodsVO = goodsDAO.getGoods(goods_id);
+            int order_goods_qty = orderVO.getOrder_goods_qty();
+            orderService.stock(Integer.parseInt(goods_id), order_goods_qty );
+            
+            myOrderList_.add(orderVO); 
 		}//end for
-		
+	
 		
 		orderService.addNewOrder(myOrderList);
 		
@@ -187,6 +196,10 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 				orderVO.setOrder_goods_qty(Integer.valueOf(receiverMap.get("order_goods_qty")));
 				System.out.println("수량:" + orderVO.getOrder_goods_qty() );
 				orderVO.setFinal_total_price(final_total_price);
+				String goods_id = orderVO.getGoods_id();
+				goodsVO = goodsDAO.getGoods(goods_id);
+	            int order_goods_qty = orderVO.getOrder_goods_qty();
+	            orderService.stock(Integer.parseInt(goods_id), order_goods_qty );
 				myOrderList.set(i, orderVO); 
 			}//end for
 			
