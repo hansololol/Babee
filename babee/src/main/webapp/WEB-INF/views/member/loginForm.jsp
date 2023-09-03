@@ -6,17 +6,6 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
   <head>
     <link rel="stylesheet" href="/css/font.css" type="text/css" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-      crossorigin="anonymous"
-    ></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <c:if test="${not empty message }">
       <script></script>
@@ -136,37 +125,49 @@ uri="http://java.sun.com/jsp/jstl/core"%>
           </form>
           <!-- //login_box -->
 
-          <script
-            type="text/javascript"
-            src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
-            charset="utf-8"
-          ></script>
-          <script
-            type="text/javascript"
-            src="http://code.jquery.com/jquery-1.11.3.min.js"
-          ></script>
+          <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 
     <div class="member_sns_login"
              >
-              <div  id="naver_id_login" style="display: none;">
-        	 </div>
+              <div id="naverIdLogin"></div> 
               <script type="text/javascript">
-                var naver_id_login = new naver_id_login(
-                  "g9MhutSOy0o5MqWSol0E",
-                  "http://localhost:8080/member/naver"
-                );
-                var state = naver_id_login.getUniqState();
-                naver_id_login.setDomain("https://nid.naver.com/oauth2.0/token");
-                naver_id_login.setState(state);
-                naver_id_login.setPopup();
-                naver_id_login.init_naver_id_login();
-
+              const naverLogin = new naver.LoginWithNaverId(
+                      {
+                          clientId: "g9MhutSOy0o5MqWSol0E",
+                          callbackUrl: "http://localhost:8080/member/loginForm.do",
+                          loginButton: {color: "green", type: 2, height: 0}
+                      }
+                  );
+           	   naverLogin.init(); // 로그인 설정
+  
+                naverLogin.getLoginStatus(function (status) {
+                    if (status) {
+                        var nickName=naverLogin.user.getNickName();
+                        var email=naverLogin.user.getEmail();
+                        $.ajax({
+                            type: "POST",
+                            async: false,
+                            url: "${contextPath}/member/naver.do",
+                            data: { 'nickName': nickName, 'email':email },
+                            dataType: 'text',
+                            success: function (result) {
+                            	window.location.replace("${contextPath}/main/main.do");
+                            }
+                           
+                        });
+                    }
+                    });
+                        
                 $(document).on("click", "#naverLogin", function () {
-                  var btnNaverLogin =
-                    document.getElementById("naver_id_login").firstChild;
-                  btnNaverLogin.click();
-                });
+                    var btnNaverLogin =
+                      document.getElementById("naverIdLogin").firstChild;
+                    btnNaverLogin.click();
+                  });
+                
+           
+   
               </script>
            
             

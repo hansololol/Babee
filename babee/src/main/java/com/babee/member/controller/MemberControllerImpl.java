@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.babee.common.base.BaseController;
@@ -231,9 +232,9 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 	}
 	//카카오 로그인
 	@GetMapping(value="/kakao", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ModelAndView kakaoLogin(@RequestParam(value = "code", required = false) String code, HttpServletRequest request) throws Exception {	
+	public String kakaoLogin(@RequestParam(value = "code", required = false) String code, HttpServletRequest request) throws Exception {	
 		 System.out.println("OAuth Code : "+code);
-		 ModelAndView mav = new ModelAndView();
+
 		
 	        String access_Token = getAccessToken(code);
 	        Map<String, Object> userInfo = getUserInfo(access_Token);
@@ -258,13 +259,43 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 			session.setAttribute("userType", "M");
 			session.setAttribute("memberInfo",memberVO);
 			session.setAttribute("memberpw",memberVO.getMember_pw());
-			mav.setViewName("redirect:/main/main.do");
 			
 		}
-		    return mav;
+		    return "redirect:/main/main.do";
 		}
 
-		
+	//네이버
+		@RequestMapping(value="/naver.do" , method= RequestMethod.POST)
+		@ResponseBody
+		public ModelAndView naverLogin(@RequestParam("nickName") String nickName, @RequestParam("email") String email, HttpServletRequest request) throws Exception {	
+			 ModelAndView mav = new ModelAndView();
+			 Map userInfo = new HashMap();
+			 userInfo.put("user_name", nickName);
+			 userInfo.put("member_id", email);
+			 if(memberService.overlapped(email).equals("false")) {
+	        	 memberVO.setMember_name(nickName);
+	        	 int random_pw = (int) Math.floor(Math.random()*100000);
+	 	        String member_pw= String.valueOf(random_pw);
+	 	        memberVO.setMember_id(email);
+	        	memberVO.setMember_pw(member_pw);
+                memberService.addMember(memberVO);
+	        }
+	        memberVO = memberService.findMyPw_kakao(userInfo);
+	        String member_pw = memberVO.getMember_pw();
+	        userInfo.put("member_pw", member_pw);
+	        HttpSession session=request.getSession();
+			session=request.getSession();
+			memberVO=memberService.login(userInfo);
+			if(memberVO != null){
+			session.setAttribute("isLogOn", true);
+			session.setAttribute("userType", "M");
+			session.setAttribute("memberInfo",memberVO);
+			session.setAttribute("memberpw",memberVO.getMember_pw());
+			mav.setViewName("redirect:/main/main.do");		
+		}
+			 return mav;
+			}
+
 	
 
     public HashMap<String, Object> getUserInfo(String accessToken) throws IOException {
