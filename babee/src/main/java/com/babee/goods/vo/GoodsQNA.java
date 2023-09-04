@@ -15,6 +15,7 @@ public class GoodsQNA {
 	private String seller_id;
 	private String goods_qna_answer;
 	private String goods_qna_middle_title;
+	private GoodsVO goodsVO;
 	public String getGoods_id() {
 		return goods_id;
 	}
@@ -72,5 +73,13 @@ public class GoodsQNA {
 	}
 	public void setGoods_qna_middle_title(String goods_qna_middle_title) {
 		this.goods_qna_middle_title = goods_qna_middle_title;
+	}
+
+	public GoodsVO getGoodsVO() {
+		return goodsVO;
+	}
+
+	public void setGoodsVO(GoodsVO goodsVO) {
+		this.goodsVO = goodsVO;
 	}
 }

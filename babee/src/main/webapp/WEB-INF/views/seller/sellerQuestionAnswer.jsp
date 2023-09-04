@@ -162,7 +162,7 @@
     <table class="faq-table">
         <thead>
             <tr>
-                <th>글번호</th>
+                <th>상품명</th>
                 <th>질문종류</th>
                 <th>등록날짜</th>
             </tr>
@@ -170,7 +170,7 @@
         <tbody>
             <c:forEach items="${goodsQnaList}" var="goodsQna">
                 <tr class="faq-content">
-                    <td>${goodsQna.articleNO}</td>
+                    <td>${goodsQna.goodsVO.goods_title}</td>
                     <td>
                         <a href="#" style="color: black; display: flex; align-items: center; text-decoration: none;" onmouseover="this.style.textDecoration='underline';" onmouseout="this.style.textDecoration='none';" onclick="toggleAnswer('${goodsQna.articleNO}')">
 						    [${goodsQna.goods_qna_middle_title}][${goodsQna.goods_qna_title}]

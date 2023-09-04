@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.babee.common.base.BaseController;
+import com.babee.goods.service.GoodsService;
 import com.babee.goods.vo.GoodsQNA;
 import com.babee.goods.vo.GoodsVO;
 import com.babee.goods.vo.ImageFileVO;
@@ -42,6 +43,8 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 	private static String ARTICLE_IMAGE_REPO = "c:/shopping/file_repo";
 	@Autowired
 	private SellerService sellerService;
+	@Autowired
+	private GoodsService goodsService;
 	@Autowired
 	private SellerVO sellerVO;
 	private static final String CURR_IMAGE_REPO_PATH = "C:\\shopping\\file_repo";
@@ -280,7 +283,7 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 	       SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
 	       String seller_id = sellerVO.getSeller_id();
 
-	       int itemsPerPage = 2;
+	       int itemsPerPage = 10;
 	       int startIndex = (currentPage - 1) * itemsPerPage;
 
 	       // 총 상품 개수 가져오기
@@ -309,7 +312,7 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 		       HttpSession session = request.getSession();
 		       SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
 		       String seller_id = sellerVO.getSeller_id();
-		       int itemsPerPage = 1;
+		       int itemsPerPage = 10;
 		       int startIndex = (currentPage - 1) * itemsPerPage;
 		       // 총 상품 개수 가져오기
 		       int totalItemCount = sellerService.getTodayGoodsCount(seller_id);
@@ -331,7 +334,7 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 		       HttpSession session = request.getSession();
 		       SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
 		       String seller_id = sellerVO.getSeller_id();
-		       int itemsPerPage = 1;
+		       int itemsPerPage = 10;
 		       int startIndex = (currentPage - 1) * itemsPerPage;
 		       // 총 상품 개수 가져오기
 		       int totalItemCount = sellerService.getOneWeekGoodsCount(seller_id);
@@ -353,7 +356,7 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 		       HttpSession session = request.getSession();
 		       SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
 		       String seller_id = sellerVO.getSeller_id();
-		       int itemsPerPage = 1;
+		       int itemsPerPage = 10;
 		       int startIndex = (currentPage - 1) * itemsPerPage;
 		       // 총 상품 개수 가져오기
 		       int totalItemCount = sellerService.getTwoWeekGoodsCount(seller_id);
@@ -375,7 +378,7 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 		       HttpSession session = request.getSession();
 		       SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
 		       String seller_id = sellerVO.getSeller_id();
-		       int itemsPerPage = 1;
+		       int itemsPerPage = 10;
 		       int startIndex = (currentPage - 1) * itemsPerPage;
 		       // 총 상품 개수 가져오기
 		       int totalItemCount = sellerService.getOneMonthGoodsCount(seller_id);
@@ -396,7 +399,7 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 		       HttpSession session = request.getSession();
 		       SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
 		       String seller_id = sellerVO.getSeller_id();
-		       int itemsPerPage = 1;
+		       int itemsPerPage = 10;
 		       int startIndex = (currentPage - 1) * itemsPerPage;
 		       // 총 상품 개수 가져오기
 		       int totalItemCount = sellerService.getTwoMonthGoodsCount(seller_id);
@@ -418,7 +421,7 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 		       HttpSession session = request.getSession();
 		       SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
 		       String seller_id = sellerVO.getSeller_id();
-		       int itemsPerPage = 1;
+		       int itemsPerPage = 10;
 		       int startIndex = (currentPage - 1) * itemsPerPage;
 		       // 총 상품 개수 가져오기
 		       int totalItemCount = sellerService.getThreeMonthGoodsCount(seller_id);
@@ -439,7 +442,7 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 		       HttpSession session = request.getSession();
 		       SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
 		       String seller_id = sellerVO.getSeller_id();
-		       int itemsPerPage = 1;
+		       int itemsPerPage = 10;
 		       int startIndex = (currentPage - 1) * itemsPerPage;
 		       // 총 상품 개수 가져오기
 		       int totalItemCount = sellerService.getFourMonthGoodsCount(seller_id);
@@ -462,7 +465,7 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 	        HttpSession session = request.getSession();
 	        SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
 	        String seller_id = sellerVO.getSeller_id();
-	        int itemsPerPage = 2; // 페이지당 상품 개수
+	        int itemsPerPage = 10; // 페이지당 상품 개수
 	        int startIndex = (currentPage - 1) * itemsPerPage;
 
 	        Map<String, Object> getDateGoodsMap = new HashMap<>();
@@ -498,7 +501,7 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 		       SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
 		       String seller_id = sellerVO.getSeller_id();
 
-		       int itemsPerPage = 2;
+		       int itemsPerPage = 10;
 		       int startIndex = (currentPage - 1) * itemsPerPage;
 
 		       // 총 상품 개수 가져오기
@@ -525,7 +528,7 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 		       HttpSession session = request.getSession();
 		       SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
 		       String seller_id = sellerVO.getSeller_id();
-		       int itemsPerPage = 2;
+		       int itemsPerPage = 10;
 		       int startIndex = (currentPage - 1) * itemsPerPage;
 		       // 총 상품 개수 가져오기
 		       int totalItemCount = sellerService.getSellerOrderListTODAYCount(seller_id);
@@ -545,7 +548,7 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 		       HttpSession session = request.getSession();
 		       SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
 		       String seller_id = sellerVO.getSeller_id();
-		       int itemsPerPage = 2;
+		       int itemsPerPage = 10;
 		       int startIndex = (currentPage - 1) * itemsPerPage;
 		       // 총 상품 개수 가져오기
 		       int totalItemCount = sellerService.getSellerOrderListONEWEEKCount(seller_id);
@@ -566,7 +569,7 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 		       HttpSession session = request.getSession();
 		       SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
 		       String seller_id = sellerVO.getSeller_id();
-		       int itemsPerPage = 2;
+		       int itemsPerPage = 10;
 		       int startIndex = (currentPage - 1) * itemsPerPage;
 		       // 총 상품 개수 가져오기
 		       int totalItemCount = sellerService.getSellerOrderListTWOWEEKCount(seller_id);
@@ -586,7 +589,7 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 		       HttpSession session = request.getSession();
 		       SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
 		       String seller_id = sellerVO.getSeller_id();
-		       int itemsPerPage = 2;
+		       int itemsPerPage = 10;
 		       int startIndex = (currentPage - 1) * itemsPerPage;
 		       // 총 상품 개수 가져오기
 		       int totalItemCount = sellerService.getSellerOrderListONEMONTHCount(seller_id);
@@ -606,7 +609,7 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 		       HttpSession session = request.getSession();
 		       SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
 		       String seller_id = sellerVO.getSeller_id();
-		       int itemsPerPage = 2;
+		       int itemsPerPage = 10;
 		       int startIndex = (currentPage - 1) * itemsPerPage;
 		       // 총 상품 개수 가져오기
 		       int totalItemCount = sellerService.getSellerOrderListTWOMONTHCount(seller_id);
@@ -626,7 +629,7 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 		       HttpSession session = request.getSession();
 		       SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
 		       String seller_id = sellerVO.getSeller_id();
-		       int itemsPerPage = 2;
+		       int itemsPerPage = 10;
 		       int startIndex = (currentPage - 1) * itemsPerPage;
 		       // 총 상품 개수 가져오기
 		       int totalItemCount = sellerService.getSellerOrderListTHREEMONTHCount(seller_id);
@@ -646,7 +649,7 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 		       HttpSession session = request.getSession();
 		       SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
 		       String seller_id = sellerVO.getSeller_id();
-		       int itemsPerPage = 2;
+		       int itemsPerPage = 10;
 		       int startIndex = (currentPage - 1) * itemsPerPage;
 		       // 총 상품 개수 가져오기
 		       int totalItemCount = sellerService.getSellerOrderListFOURMONTHCount(seller_id);
@@ -671,7 +674,7 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 	        HttpSession session = request.getSession();
 	        SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
 	        String seller_id = sellerVO.getSeller_id();
-	        int itemsPerPage = 2;
+	        int itemsPerPage = 10;
 	        int startIndex = (currentPage - 1) * itemsPerPage;
 
 	        // 파라미터를 맵 형태로 저장
@@ -718,8 +721,6 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 	             deliveryStatusMap.put("order_id", order_id);
 	             deliveryStatusMap.put("delivery_status", delivery_status);
 	            sellerService.updateDeliveryStatus(deliveryStatusMap);
-	            System.out.println("?????오더?!!!디: "+orderNO);
-		        System.out.println("상태!!!!!!!값: "+delivery_status);
 	            mav.addObject("message", "주문 상태가 업데이트되었습니다.");
 	        } catch (Exception e) {
 	            mav.addObject("message", "주문 상태 업데이트에 실패하였습니다.");
@@ -771,7 +772,7 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 	        int totalItemCount = sellerService.selectAllGoodsQnaCount(seller_id);
 
 	        // 페이지당 항목 수와 시작 인덱스 계산
-	        int itemsPerPage = 2; // 페이지당 항목 수를 원하는 값으로 설정하세요
+	        int itemsPerPage = 10;// 페이지당 항목 수를 원하는 값으로 설정하세요
 	        int startIndex = (currentPage - 1) * itemsPerPage;
 	        int totalPages = (int) Math.ceil((double) totalItemCount / itemsPerPage);
 	        // 검색 결과 가져오기
@@ -785,17 +786,28 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 	        if (searchWord != null && !searchWord.isEmpty()) {
 	            String sanitizedSearchWord = searchWord.replaceAll("\\s+", ""); // 모든 공백 제거
 	            List<GoodsQNA> filteredGoodsQnaList = new ArrayList<>();
-
+	            	
 	            for (GoodsQNA goodsQna : goodsQnaList) {
 	                if (goodsQna.getGoods_qna_content().replaceAll("\\s+", "").contains(sanitizedSearchWord) ||
 	                    goodsQna.getGoods_qna_title().replaceAll("\\s+", "").contains(sanitizedSearchWord) ||
 	                    goodsQna.getGoods_qna_middle_title().replaceAll("\\s+", "").contains(sanitizedSearchWord)) {
+	                	
 	                    filteredGoodsQnaList.add(goodsQna);
 	                }
 	            }
-
 	            goodsQnaList = filteredGoodsQnaList;
+	            
 	        }
+	    
+            for(GoodsQNA goodsQNA : goodsQnaList) {
+            	 String goods_id= goodsQNA.getGoods_id();
+            	 Map goodsDetail= goodsService.goodsDetail(goods_id);
+            	 GoodsVO goodsVO = (GoodsVO) goodsDetail.get("goodsVO");
+            	 goodsQNA.setGoodsVO(goodsVO);
+            	 goodsQnaList.remove(goodsQNA);
+            	 goodsQnaList.add(goodsQNA);
+            	 System.out.println(goodsQnaList.get(0).getGoodsVO().getGoods_title() +"상품 명 있는지 확인./.");
+            }
 	        mav.addObject("totalPages", totalPages);
 	        mav.addObject("goodsQnaList", goodsQnaList);
 	        mav.addObject("totalItemCount", totalItemCount);

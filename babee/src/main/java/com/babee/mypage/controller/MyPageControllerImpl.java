@@ -246,7 +246,7 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 		
 
 		try {
-
+			reviewMap.put("member_id", member_id);
 			myPageService.addReview(reviewMap);
 			if (imageFileName != null && imageFileName.size() != 0) {
 				File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + imageFileName.get(0));
