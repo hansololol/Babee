@@ -16,7 +16,7 @@ public class OrderVO {
 	private int goods_price;
 	private int total_goods_price;
 	private int order_goods_qty;
-	
+	private int orderNO;
 	private String recipient_name;
 	private String recipient_hp;
 	private String recipient_tel;
@@ -33,6 +33,12 @@ public class OrderVO {
 	private GoodsVO goods;
 	
 	
+	public int getOrderNO() {
+		return orderNO;
+	}
+	public void setOrderNO(int orderNO) {
+		this.orderNO = orderNO;
+	}
 	public String getOrder_id() {
 		return order_id;
 	}

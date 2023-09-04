@@ -91,7 +91,7 @@
 <title>교환 환불창</title>
 </head>
 <body>
-   
+    <form name="form_order" method="post" enctype="utf-8" action="${contextPath}/mypage/refundOrder.do">   
     <div style=" display: inline-block;">
 
       <H2 style="width:530px;">교환 환불 안내</H2>
@@ -109,7 +109,7 @@
    
       <br><br>
 
-      <form name="form_order" method="post" enctype="utf-8" action="${contextPath}/mypage/refundOrder.do">   
+     
       <div class="detail_table" style="display: inline-block;">
          <h3> &nbsp;&nbsp;교환 / 반품</h3> 
    
@@ -159,16 +159,22 @@
                   <td>상품 옵션</td>
                </tr>
                <c:forEach var="order" items="${orderList}" varStatus="var">
-                 
-               <tr>
-                  <td><input type="hidden" name="goods_id" value="${order.goods_id}" class="product-checkbox"/>${var.count} </td>
-                  <td><img src="${contextPath}/thumbnails.do?goods_id=${order.goods_id}&fileName=${order.goods_image_name}" width="100px"/></td>
-                  <input type="hidden" name="goods_title" value=" ${order.goods_title}">
-                  <td width="180px;"> ${order.goods_title} </td>
-                  <td  width="80px;"> ${order.order_goods_qty}(개) </td>
-                  <td  width="80px;"> ${order.goods_option} </td>
-               </tr>
-               </c:forEach>
+               		<tr>
+               		<p>${order.order_id}</p>
+               		</tr>
+				   <tr>
+				      <input type="hidden" name="goods_id" value="${order.goods_id}" class="product-checkbox"/>
+				      <input type="hidden" name="order_id" value="${order.order_id}">
+				      <input type="hidden" name="goods_title" value="${order.goods_title}">
+				      <input type="hidden" name="orderNO" value="${order.orderNO}"/>
+				      
+				      <td>${var.count}</td>
+				      <td><img src="${contextPath}/thumbnails.do?goods_id=${order.goods_id}&fileName=${order.goods_image_name}" width="100px"/></td>
+				      <td width="180px;">${order.goods_title}</td>
+				      <td width="80px;">${order.order_goods_qty}(개)</td>
+				      <td width="80px;">${order.goods_option}</td>
+				   </tr>
+				</c:forEach>
             </table>   
     
                
@@ -179,7 +185,7 @@
             <table>
                <tr>
                   <td width="180px;"> 취소 상품 계 </td>
-                  <td  width="80px;"> ${orderVO.final_total_price} </td>
+                  <td  width="80px;"> ${orderVO.total_goods_price} </td>
                </tr>
                <tr> 
                   <td width="60px;"> 배송비 </td>
@@ -187,7 +193,7 @@
                </tr>
                 <tr>
                   <td width="180px;"> 환불금액 </td>
-                  <td  width="80px;"> <b style="font-size: 20px;">${orderVO.final_total_price-3000}</b> </td>
+                  <td  width="80px;"> <b style="font-size: 20px;">${orderVO.total_goods_price-3000}</b> </td>
                </tr>
        
             </table>   
