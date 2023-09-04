@@ -1,134 +1,127 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" isELIgnored="false"%>
-    
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+pageEncoding="UTF-8" isELIgnored="false"%> <%@ taglib prefix="c"
+uri="http://java.sun.com/jsp/jstl/core" %>
 
-
-<c:set var="contextPath" value="${pageContext.request.contextPath}"    />
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <html>
-<head>
-<meta charset="UTF-8">
-<title>다어이리 작성창</title>
- <link rel="stylesheet" href="http://code.jquery.com/jquery-latest.min.js">
-  
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script type="text/javascript">
+  <head>
+    <meta charset="UTF-8" />
+    <title>다어이리 작성창</title>
+    <link rel="stylesheet" href="http://code.jquery.com/jquery-latest.min.js" />
 
-   
-   function backToList(obj){
-      obj.action = "${contextPath}/board/listArticles.do";
-      obj.submit();
-   }
-   
-   function readURL(input) {
-	    if (input.files && input.files[0]) {
-	        var reader = new FileReader();
-	        reader.onload = function(e) {
-	            //$('#preview').attr('src', e.target.result);
-	            // 이미지를 미리 불러온 후, 선택한 파일 이미지로 변경
-	            $('#add').attr('src', e.target.result);
-	        }
-	        reader.readAsDataURL(input.files[0]);
-	    }
-	}
-   
-   
-</script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript">
+      function backToList(obj) {
+        obj.action = "${contextPath}/board/listArticles.do";
+        obj.submit();
+      }
 
-<style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
+      function readURL(input) {
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            //$('#preview').attr('src', e.target.result);
+            // 이미지를 미리 불러온 후, 선택한 파일 이미지로 변경
+            $("#add").attr("src", e.target.result);
+          };
+          reader.readAsDataURL(input.files[0]);
         }
+      }
+    </script>
 
-        .container {
-            max-width: 850px;
-            margin: 50px auto;
-            /* background: #ededed; */
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            padding: 20px;
-        }
-        
-        .container button,
-  		.container a {
-      		background-color: orange;
-      		color: white;
-      		border: none;
-      		border-radius: 20px;
-      		padding: 10px 30px;
-      		font-size: 16px;
-     		cursor: pointer;
-      		margin: 0 20px;
-      		transition: background-color 0.3s;
-      		text-decoration: none;
-     		display: inline-block;
-   }
-        
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+      }
 
-        .text-center {
-            text-align: center;
-            margin-bottom: 10px;
-        }
+      .container {
+        max-width: 850px;
+        margin: 50px auto;
+        /* background: #ededed; */
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        padding: 20px;
+      }
 
-        img#line {
-            display: block;
-            margin: 0 auto;
-        }
+      .container button,
+      .container a {
+        background-color: orange;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        padding: 10px 30px;
+        font-size: 16px;
+        cursor: pointer;
+        margin: 0 20px;
+        transition: background-color 0.3s;
+        text-decoration: none;
+        display: inline-block;
+      }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+      .text-center {
+        text-align: center;
+        margin-bottom: 10px;
+      }
 
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
+      img#line {
+        display: block;
+        margin: 0 auto;
+      }
 
-        input[type="text"],
-        input[type="file"],
-        textarea {
-            width: 100%;
-            padding: 10px;
-            /* border: 1px solid #ccc; */
-            border: none;
-            border-radius: 5px;
-        }
+      .form-group {
+        margin-bottom: 20px;
+      }
 
-        input[type="file"] {
-            padding: 0;
-        }
+      label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
 
-        textarea {
-            resize: vertical;
-        }
+      input[type="text"],
+      input[type="file"],
+      textarea {
+        width: 100%;
+        padding: 10px;
+        /* border: 1px solid #ccc; */
+        border: none;
+        border-radius: 5px;
+      }
 
-        .btn-container {
-            text-align: center;
-        }
+      input[type="file"] {
+        padding: 0;
+      }
 
-        input[type="submit"],
-        input[type="reset"] {
-            background-color: #ffcd29;
-            color: black;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-right: 10px;
-            transition: background-color 0.3s;
-        }
+      textarea {
+        resize: vertical;
+      }
 
-        input[type="submit"]:hover,
-        input[type="reset"]:hover {
-            background-color: #cca300;
-        }
-        
-        .file-label {
+      .btn-container {
+        text-align: center;
+      }
+
+      input[type="submit"],
+      input[type="reset"] {
+        background-color: #ffcd29;
+        color: black;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-right: 10px;
+        transition: background-color 0.3s;
+      }
+
+      input[type="submit"]:hover,
+      input[type="reset"]:hover {
+        background-color: #cca300;
+      }
+
+      .file-label {
         display: inline-block;
         background-color: #ffcd29;
         color: black;
@@ -140,115 +133,168 @@
         transition: background-color 0.3s;
         position: relative;
         overflow: hidden;
-    }
+      }
 
-    .file-label span {
+      .file-label span {
         display: inline-block;
         vertical-align: middle;
         margin-right: 10px;
-    }
+      }
 
-    .file-label:hover {
+      .file-label:hover {
         background-color: #cca300;
-    }
+      }
 
-    .file-info {
+      .file-info {
         font-size: 12px;
         color: #666;
         margin-top: 5px;
-    }
+      }
 
-
-    .file-input {
+      .file-input {
         position: absolute;
         left: 0;
         top: 0;
         opacity: 0;
         cursor: pointer;
-    }
+      }
 
-    .file-input-label {
+      .file-input-label {
         display: flex;
         align-items: center;
         justify-content: center;
-        
-    }
-    
-   
-   .form-container {
-      background-color: orange;
-      color: white;
-      border: none;
-      border-radius: 20px;
-      padding: 10px 30px;
-      font-size: 16px;
-      cursor: pointer;
-      margin: 0 20px;
-      transition: background-color 0.3s;
-      text-decoration: none;
-      display: inline-block;
-   }
+      }
 
-   .container button:hover,
-   .container a:hover {
-      background-color: #ff7e00;
-   }
+      .form-container {
+        background-color: orange;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        padding: 10px 30px;
+        font-size: 16px;
+        cursor: pointer;
+        margin: 0 20px;
+        transition: background-color 0.3s;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .container button:hover,
+      .container a:hover {
+        background-color: #ff7e00;
+      }
     </style>
-</head>
-<body>
-    <div class="container" style="border:1px solid lightgray;  padding:40px;">
-        <h1 class="text-center">다이어리</h1>
-        <h4 class="text-center" style="color: #996633;">작은 발자국, 큰 사랑의 다이어리</h4>
-        <img id="line" src="/image/line.png" alt="줄 출력">
-        
-        <br><br>
-        
-        <form method="post" action="${contextPath}/diary/addDiary.do" enctype="multipart/form-data">
-            <input type="hidden" name="member_id" value="${memberInfo.member_id}">
-            <div class="form-group">
-                <!-- <label for="dir_title">제목</label> -->
-                <input type="text" id="dir_title" name="dir_title" placeholder="제목">
-            </div>
-           <hr>
+  </head>
+  <body>
+    <div class="container" style="border: 1px solid lightgray; padding: 40px">
+      <h1 class="text-center">다이어리</h1>
+      <h4 class="text-center" style="color: #996633">
+        작은 발자국, 큰 사랑의 다이어리
+      </h4>
+      <img id="line" src="/image/line.png" alt="줄 출력" />
 
- 			<div class="form-group" style="border: 1px solid lightgray; border-radius: 5px; padding: 20px; background-color:#f9f7f0;">
-				<div class="file-input-label">
-                   <table> 
-                    <tr>
-                    	<td width="400px;" height="200px;">
-                    		<label for="dir_main_img1">
-                    		<h6 style="color:gray;">표지</h6>
-                    		<img src="${contextPath}/image/add.png" alt="파일 선택" width="40" height="40" style="cursor: pointer;"></label>
-                   			<input type="file" class="file-input" id="dir_main_img1" name="dir_main_img1" onchange="readURL(this);">
-                			<p style="font-size: 12px;">다음 파일 형식만 지원됩니다.<br>.jpg(JPEG), .png(Portable Network Graphics), .gif(Graphics Interchange Format)</p>
-                		</td>
-                
-                		<td width="400px;">
-                			<img src ="${contextPath}/image/add2.png" class="image-preview" id="add" style="margin: auto;"/>
-                			<img id="preview" class="image-preview" src="#" alt="" style="margin: auto;">
-                		</td>
-                	</tr>
-                	</table>
-                </div>
-            </div>
-            
-            <hr>
-            
-            <div class="form-group">
-                <textarea id="baby_condition" name="baby_condition" rows="4" maxlength="4000" placeholder="아이의 상태"></textarea>
-            </div>
-            <hr>
-            <div class="form-group">
-                <textarea id="dir_content" name="dir_content" rows="10" maxlength="4000" placeholder="기록"></textarea>
-            </div>
-            
-            <div class="btn-container">
-                <input type="submit" value="작성하기">
-                <input type="reset" value="다시입력">
-            </div>
-            
-        </form>
+      <br /><br />
+
+      <form
+        method="post"
+        action="${contextPath}/diary/addDiary.do"
+        enctype="multipart/form-data"
+      >
+        <input type="hidden" name="member_id" value="${memberInfo.member_id}" />
+        <div class="form-group">
+          <!-- <label for="dir_title">제목</label> -->
+          <input
+            type="text"
+            id="dir_title"
+            name="dir_title"
+            placeholder="제목"
+          />
+        </div>
+        <hr />
+
+        <div
+          class="form-group"
+          style="
+            border: 1px solid lightgray;
+            border-radius: 5px;
+            padding: 20px;
+            background-color: #f9f7f0;
+          "
+        >
+          <div class="file-input-label">
+            <table>
+              <tr>
+                <td width="400px;" height="200px;">
+                  <label for="dir_main_img1">
+                    <h6 style="color: gray">표지</h6>
+                    <img
+                      src="${contextPath}/image/add.png"
+                      alt="파일 선택"
+                      width="40"
+                      height="40"
+                      style="cursor: pointer"
+                  /></label>
+                  <input
+                    type="file"
+                    class="file-input"
+                    id="dir_main_img1"
+                    name="dir_main_img1"
+                    onchange="readURL(this);"
+                  />
+                  <p style="font-size: 12px">
+                    다음 파일 형식만 지원됩니다.<br />.jpg(JPEG), .png(Portable
+                    Network Graphics), .gif(Graphics Interchange Format)
+                  </p>
+                </td>
+
+                <td width="400px;">
+                  <img
+                    src="${contextPath}/image/add2.png"
+                    class="image-preview"
+                    id="add"
+                    style="margin: auto"
+                  />
+                  <img
+                    id="preview"
+                    class="image-preview"
+                    src="#"
+                    alt=""
+                    style="margin: auto"
+                    width="400px;"
+                  />
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <hr />
+
+        <div class="form-group">
+          <textarea
+            id="baby_condition"
+            name="baby_condition"
+            rows="4"
+            maxlength="4000"
+            placeholder="아이의 상태"
+          ></textarea>
+        </div>
+        <hr />
+        <div class="form-group">
+          <textarea
+            id="dir_content"
+            name="dir_content"
+            rows="10"
+            maxlength="4000"
+            placeholder="기록"
+          ></textarea>
+        </div>
+
+        <div class="btn-container">
+          <input type="submit" value="작성하기" />
+          <input type="reset" value="다시입력" />
+        </div>
+      </form>
     </div>
-
-</body>
+  </body>
 </html>

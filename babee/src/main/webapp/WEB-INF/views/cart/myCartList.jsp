@@ -45,7 +45,7 @@ ul li {
 }
 
 .cart_img {
-   margin-right: -60px;
+   margin-right: 20px;
    width: 100px;
    height: 100px;
    border-radius: 10px; /* 둥근 경계선 추가 */
