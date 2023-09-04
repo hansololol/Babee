@@ -212,13 +212,7 @@ function search_order_history(fixedSearchPeriod){
                      <a class="order_delivery_search" href="${contextPath}/mypage/myrefund.do?order_id=${order.order_id}"><b>반품/교환</b></a>
                   </td>
                </c:when>
-               
-               <c:when test="${order.delivery_status=='review_write' }">
-                  <td> 배송완료 </td>
-                  <td> 
-                     <a class="order_delivery_search" href="${contextPath}/mypage/myrefund.do?order_id=${order.order_id}"><b>반품/교환</b></a>
-                  </td>
-               </c:when>
+
                   
                <c:when test="${order.delivery_status=='cancel_order' }">
                   <td> 주문취소 </td>
