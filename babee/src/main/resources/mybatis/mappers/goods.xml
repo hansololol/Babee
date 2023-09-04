@@ -60,10 +60,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
        ]]>
    </select>
 
-
+	<!-- 상품전체조회 -->
    <select id="selectAllGoods" resultType="GoodsVO">
-    SELECT * FROM t_shopping_goods 
-  </select>
+	    SELECT * FROM t_shopping_goods
+	    ORDER BY goods_creation_date DESC
+	    LIMIT #{startIndex}, #{itemsPerPage};
+	</select>
+	<select id="selectAllGoodsCount" resultType="int">
+	    SELECT COUNT(*) FROM t_shopping_goods;
+	</select>
+
+  
+  
    <select id="selectAllGoodsQna" resultMap="goodsQnaResult" parameterType="String">
    <![CDATA[
     SELECT * FROM t_shopping_goodsqna where goods_id=#{goods_id}
@@ -76,6 +84,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	      where member_id=#{member_id} and goods_id=#{goods_id} and goods_qna_title =#{goods_qna_title}
     	]]>
 	</delete>
+   
    
     <select id="selectAllCategoryGoods" resultType="goodsVO" parameterType="java.util.Map">
 
@@ -124,22 +133,51 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			#{goods_qna_content}, now(), #{goods_qna_middle_title})
    	    ]]>
    </insert>
-	
-	<select id="selectSort" parameterType="java.util.Map"  resultType="GoodsVO">
-			<if test='sort == "highGoods"'>
-		    select * from t_shopping_goods order by goods_price desc;
-			 </if>
-		 	<if test='sort == "lowGoods"'>
-		    select * from t_shopping_goods order by goods_price asc;
-			 </if>
-		 	<if test='sort == "newArriv"'>
-		  select * from t_shopping_goods order by goods_creation_date desc;
-		 	</if>
+	<!-- 상품목록 옵션별 -->
+	<select id="selectSort" resultType="GoodsVO">
+	    <if test='sort == "high"'>
+	        select * from t_shopping_goods order by goods_price desc
+	    </if>
+	    <if test='sort == "low"'>
+	        select * from t_shopping_goods order by goods_price asc
+	    </if>
+	    <if test='sort == "new"'>
+	        select * from t_shopping_goods order by goods_creation_date desc
+	    </if>
+	    LIMIT #{startIndex}, #{itemsPerPage}
 	</select>
-	
+		<select id="selectSortCount" resultType="int">
+	    <if test='sort == "high"'>
+	        select count(*) from t_shopping_goods;
+	    </if>
+	    <if test='sort == "low"'>
+	        select count(*) from t_shopping_goods;
+	    </if>
+	    <if test='sort == "new"'>
+	        select count(*) from t_shopping_goods;
+	    </if>
+	</select>
    
     <select id="hotGoodsList" resultType="GoodsVO">
-	 <![CDATA[
+	    <![CDATA[
+	    SELECT b.*, COUNT(a.goods_id) AS order_count
+	    FROM t_shopping_goods b
+	    LEFT JOIN t_shopping_order a ON b.goods_id = a.goods_id
+	    GROUP BY b.goods_id
+	    ORDER BY order_count DESC
+	    LIMIT #{startIndex}, #{itemsPerPage}
+	    ]]>
+	</select>
+	<select id="hotGoodsListCount" resultType="int">
+	    <![CDATA[
+	    SELECT COUNT(*) FROM t_shopping_goods b
+	    LEFT JOIN t_shopping_order a ON b.goods_id = a.goods_id
+	    ]]>
+	</select>
+  	
+  	
+  	<select id="hotGoodsListMain" resultType="GoodsVO">
+	    <![CDATA[
 		SELECT b.*, COUNT(a.goods_id) AS order_count
 		FROM t_shopping_goods b
 		LEFT JOIN t_shopping_order a ON b.goods_id = a.goods_id
@@ -147,8 +185,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ORDER BY order_count DESC
 		LIMIT 3;
       ]]>
-  	</select>
-  	
+	</select>
   	    <select id="seasonGoodsList" resultType="GoodsVO">
 	 <![CDATA[
 		SELECT g.*

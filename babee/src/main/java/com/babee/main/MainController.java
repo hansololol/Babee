@@ -30,8 +30,8 @@ public class MainController extends BaseController {
 		ModelAndView mav=new ModelAndView();
 		String viewName=(String)request.getAttribute("viewName");
 		mav.setViewName(viewName);
-		
-		 List<GoodsVO> hotGoodsList = goodsService.hotGoodsList();
+
+		 List<GoodsVO> hotGoodsList = goodsService.hotGoodsListMain();
 	     mav.addObject("hotGoodsList", hotGoodsList);
 		
 	     
