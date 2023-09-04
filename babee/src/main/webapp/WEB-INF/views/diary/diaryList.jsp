@@ -52,8 +52,6 @@ input[type="button"]:hover, button[type="button"]:hover {
 input[type="reset"]:hover {
     background-color: #cca300; /* 호버 시 배경색 변경 */
 }
- 
- 
 
 .diary_list {
 	display: inline-block;
@@ -145,6 +143,25 @@ input[type="reset"]:hover {
     opacity: 1;
     top: -60px;
 }
+
+ .paging-container {
+        text-align: center;
+        margin-top: 20px;
+      }
+      .paging-button {
+        display: inline-block;
+        margin: 0 5px;
+        padding: 5px 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f0f0f0;
+        color: #333;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .paging-button:hover {
+        background-color: #ccc;
+      }
  
 </style>
 </head>
@@ -187,6 +204,7 @@ input[type="reset"]:hover {
 			<div class="diary_list" id="dirList${diary.dir_no}" onclick="findDir('${diary.dir_no}')">
 			<ul>
             <li style="text-align: left;"> </li>
+  
             <script>
                 var array = new Array();
                 function findDir(index){
@@ -235,10 +253,47 @@ input[type="reset"]:hover {
          </ul>
       </div>
    </c:forEach> 
-   </div>       
+   </div>
    
+   <div class="paging-container">
+      <c:if test="${totArticles !=null}">
+        <c:choose>
+          <c:when test="${totArticles > 100 }">
+            <c:forEach var="page" begin="1" end="10" step="1">
+              <c:if test="${section >1 && page==1 }">
+                <a class="paging-button" href="${contextPath}/community/freeboardList.do?section=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp; pre</a>
+              </c:if>
+              <a class="paging-button" href="${contextPath}/community/freeboardList.do?section=${section-1}&pageNum=${(section-1)*10 +page }"></a>
+              <c:if test="${page ==10 }">
+                <a class="paging-button" href="${contextPath}/community/freeboardList.do?section=${section-1}&pageNum=${section*10 +1 }">&nbsp; next</a>
+              </c:if>
+            </c:forEach>
+          </c:when>
 
+          <c:when test="${totArticles ==100 }">
+            <c:forEach var="page" begin="1" end="10" step="1">
+              <a class="paging-button" href="#"> ${page }</a>
+            </c:forEach>
+          </c:when>
+
+          <c:when test="${totArticles <100 }">
+            <c:forEach var="page" begin="1" end="${totArticles/10 +1 }" step="1">
+              <c:choose>
+                <c:when test="${page==pageNum }">
+                  <a class="paging-button" href="${contextPath}/community/freeboardList.do?section=${section}&pageNum=${page}">${page }</a>
+                </c:when>
+                <c:otherwise>
+                  <a class="paging-button" href="${contextPath}/community/freeboardList.do?section=${section}&pageNum=${page}">${page }</a>
+                </c:otherwise>
+              </c:choose>
+            </c:forEach>
+          </c:when>
+        </c:choose>
+      </c:if>
+    </div>       
 </form>
+
+<br><br><br>
 
 </body>
 </html>
