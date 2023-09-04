@@ -4,16 +4,26 @@ import org.springframework.stereotype.Component;
 
 @Component("refundVO")
 public class RefundVO {
-	
+		private int orderNO;
 		private String order_id;
 		private String delivery_status;
 		private String reason;
 		private String goods_id;
 		private String member_id;
 		private String reason_option;
+		
 		public String getOrder_id() {
 			return order_id;
 		}
+		
+		public int getOrderNO() {
+			return orderNO;
+		}
+
+		public void setOrderNO(int orderNO) {
+			this.orderNO = orderNO;
+		}
+
 		public void setOrder_id(String order_id) {
 			this.order_id = order_id;
 		}

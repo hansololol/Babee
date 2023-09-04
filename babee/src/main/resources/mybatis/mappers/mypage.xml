@@ -9,6 +9,7 @@
 		<result property="order_id" column="order_id" />
 		<result property="member_id" column="member_id" />
 		<result property="goods_id" column="goods_id" />
+		<result property="orderNO" column="orderNO" />
 		<result property="total_goods_price" column="total_goods_price" />
 		<result property="order_goods_qty" column="order_goods_qty" />
 		<result property="recipient_name" column="recipient_name" />
@@ -82,6 +83,7 @@
 	<insert id="updateMyOrderRefund" parameterType="refundVO">
 	 <![CDATA[
 	  insert t_shopping_refund values(
+	  		#{orderNO},
 	  		#{order_id},
 		    #{delivery_status},
 	   		#{reason},

@@ -178,59 +178,53 @@ function search_order_history(fixedSearchPeriod){
             <td >&nbsp;&nbsp;&nbsp;</td>
             
          </tr>
-        <c:forEach items="${myOrderList}" var="order"  varStatus="status" >
-         <c:if test="${status.first || myOrderList[status.index - 1].order_id ne order.order_id}">
-        <tr>
-            <td><a href="${contextPath}/goods/goodsDetail.do?goods_id=${order.goods_id}"><img src="${contextPath}/thumbnails.do?goods_id=${order.goods_id}&fileName=${order.goods_image_name}" width="100px" height="100px"/></a></td>
-            <td> 
-
-               <ul class="goods">
-                  <li style="text-align:left;"> ${order.goods_title} [<a href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}">${order.order_id}</a>] </li>
-                  <li style="text-align:left;"> 주문일자: ${order.payment_order_time} </li>
-               </ul>
-            </td>
-            <td> ${order.final_total_price} 원</td>
-            <c:choose>
-               <c:when test="${order.delivery_status=='delivery_prepared'}">
-                  <td> 배송준비중 </td>
-                  <td> 
-                     <a class="order_delivery_search" href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}"><b>주문/배송조회</b></a><br>
-                     <a class="order_delivery_search" href="${contextPath}/mypage/cancelMyOrder.do?order_id=${order.order_id}"><b>주문취소</b></a><br>
-                  </td>
-               </c:when>
-
-               <c:when test="${order.delivery_status=='delivering' }">
-                  <td> 배송중 </td>
-                  <td> 
-                     <a class="order_delivery_search" href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}"><b>주문/배송조회</b></a><br>
-                  </td>
-               </c:when>
-
-               <c:when test="${order.delivery_status=='finished_delivering' }">
-                  <td> 배송완료 </td>
-                  <td>
-                     <a class="order_delivery_search" href="${contextPath}/mypage/myrefund.do?order_id=${order.order_id}"><b>반품/교환</b></a>
-                  </td>
-               </c:when>
-
-                  
-               <c:when test="${order.delivery_status=='cancel_order' }">
-                  <td> 주문취소 </td>
-                  <td> 
-                     <a class="order_delivery_search" href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}"><b>주문상세</b></a><br>
-                  </td>
-               </c:when>
-               
-               <c:when test="${order.delivery_status=='refund' }">
-                  <td> 반품/교환신청 </td>
-                  <td> 
-                     <a class="order_delivery_search" href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}"><b>주문상세</b></a><br>
-                  </td>
-               </c:when>
-             </c:choose>
-         </tr>
-         </c:if>
-           </c:forEach> 
+        <c:forEach items="${myOrderList}" var="order" varStatus="status">
+    <tr>
+    	
+      <td><a href="${contextPath}/goods/goodsDetail.do?goods_id=${order.goods_id}"><img src="${contextPath}/thumbnails.do?goods_id=${order.goods_id}&fileName=${order.goods_image_name}" width="100px" height="100px"/></a></td>
+      <td>
+        <ul class="goods">
+          <li style="text-align:left;"> ${order.goods_title} [<a href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}">${order.order_id}</a>] </li>
+          <li style="text-align:left;"> 주문일자: ${order.payment_order_time} </li>
+        </ul>
+      </td>
+      <td> ${order.final_total_price} 원</td>
+      <c:choose>
+        <c:when test="${order.delivery_status=='delivery_prepared'}">
+          <td> 배송준비중 </td>
+          <td> 
+            <a class="order_delivery_search" href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}"><b>주문/배송조회</b></a><br>
+            <a class="order_delivery_search" href="${contextPath}/mypage/cancelMyOrder.do?order_id=${order.order_id}"><b>주문취소</b></a><br>
+          </td>
+        </c:when>
+        <c:when test="${order.delivery_status=='delivering' }">
+          <td> 배송중 </td>
+          <td> 
+            <a class="order_delivery_search" href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}"><b>주문/배송조회</b></a><br>
+          </td>
+        </c:when>
+        <c:when test="${order.delivery_status=='finished_delivering' }">
+          <td> 배송완료 </td>
+          <td>
+          	<input type="hidden" name="orderNO" value="${order.orderNO}">
+            <a class="order_delivery_search" href="${contextPath}/mypage/myrefund.do?orderNO=${order.orderNO}&order_id=${order.order_id}"><b>반품/교환</b></a>
+          </td>
+        </c:when>
+        <c:when test="${order.delivery_status=='cancel_order' }">
+          <td> 주문취소 </td>
+          <td> 
+            <a class="order_delivery_search" href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}"><b>주문상세</b></a><br>
+          </td>
+        </c:when>
+        <c:when test="${order.delivery_status=='refund' }">
+          <td> 반품/교환신청 </td>
+          <td> 
+            <a class="order_delivery_search" href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}"><b>주문상세</b></a><br>
+          </td>
+        </c:when>
+      </c:choose>
+    </tr>
+  </c:forEach>
    </table>
    
    </div>
