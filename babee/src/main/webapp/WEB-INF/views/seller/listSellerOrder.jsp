@@ -50,13 +50,14 @@
 
 /*이미지 어두워지는 호버*/
 .image-hover-effect {
-    transition: filter 0.3s, border-radius 0.3s; /* 호버 효과 애니메이션 */
+    transition: filter 0.3s; /* 호버 효과 애니메이션 */
     border-radius: 10px; /* 둥근 모서리 반경 */
+    transition: transform 0.2s;
 }
 
 .image-hover-effect:hover {
     filter: brightness(70%); /* 어둡게 만들기 */
-    border-radius: 50px; /* 호버 시 둥근 모서리 크게 적용 */
+    transform: scale(1.1);
 }
 
 /*페이징*/
@@ -189,6 +190,7 @@
             <td>
 			    <form action="${contextPath}/seller/updateDeliveryStatus" method="post">
 				    <input type="hidden" name="order_id" value="${order.order_id}" />
+				    <input type="hidden" name="orderNO" value="${order.orderNO}" />
 				    <select name="delivery_status">
 				        <option value="delivering" ${order.delivery_status eq 'delivering' ? 'selected' : ''}>배송중</option>
 				        <option value="finished_delivering" ${order.delivery_status eq 'finished_delivering' ? 'selected' : ''}>배송완료</option>

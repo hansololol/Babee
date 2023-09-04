@@ -154,7 +154,7 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 				break;
 			}
 		}
-
+		
 		mav.addObject("myOrderList", myOrderList);
 		mav.addObject("section", section);
 		mav.addObject("pageNum", pageNum);

@@ -38,6 +38,7 @@ public interface SellerController {
        // 주문 상태 변경
        public ModelAndView updateDeliveryStatus(@RequestParam("order_id") int order_id,
                                                 @RequestParam("delivery_status") String delivery_status,
+                                                @RequestParam("orderNO") int orderNO,
                                                 HttpServletRequest request,
                                                 HttpServletResponse response) throws Exception;
        
