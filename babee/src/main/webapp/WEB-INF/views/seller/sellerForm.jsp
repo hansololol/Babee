@@ -348,7 +348,7 @@ request.setCharacterEncoding("utf-8"); %>
             <div style="margin-top: -20px">
               <table class="join_input_sec">
                 <tr>
-                  <td width="150"><h4 text-align="right">사업자 정보</h4></td>
+                  <td width="150"><h4 text-align="right">사업자 정보 *</h4></td>
                 </tr>
 
                 <tr>
