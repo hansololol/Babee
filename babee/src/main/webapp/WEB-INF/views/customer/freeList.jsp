@@ -134,7 +134,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
           <img
             src="/image/glass.png"
             alt="검색"
-            style="width: 20px; height: 20px"
+            style="width: 20px; height: 20px; margin-top: 5px;"
           />
         </button>
         <script>

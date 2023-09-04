@@ -45,7 +45,51 @@ ul li {
 }
 
 .cart_img {
-   margin-right: 30px;
+   margin-right: -60px;
+   width: 100px;
+   height: 100px;
+   border-radius: 10px; /* 둥근 경계선 추가 */
+   margin-top: 10px; /* 위쪽 마진 추가 */
+   margin-bottom: 10px; /* 아래쪽 마진 추가 */
+   transition: transform 0.2s;
+}
+.cart_img:hover {
+    transform: scale(1.1);
+}
+
+/* 체크박스 스타일 */
+input[type="checkbox"] {
+  width: 20px; /* 체크박스 너비 조절 */
+  height: 20px; /* 체크박스 높이 조절 */
+  margin-top: -2px;
+  border: 2px solid #ccc; /* 테두리 스타일 지정 */
+  border-radius: 5px; /* 둥근 테두리 적용 */
+  outline: none; /* 포커스 스타일 제거 */
+  vertical-align: middle;
+}
+
+
+/* 전체 선택 텍스트 스타일 */
+#select-all-checkbox-label {
+  vertical-align: middle; /* 세로 중앙 정렬 */
+  margin-left: 20px; /* 좌측 마진을 추가하여 체크박스와 텍스트 사이 간격 조절 */
+}
+
+/* 버튼 스타일 */
+input[type="button"] {
+  background-color: #ffcd29; /* 배경색 */
+  color: black; /* 텍스트색 */
+  padding: 10px 20px; /* 내부 여백 */
+  border: none; /* 테두리 없음 */
+  border-radius: 5px; /* 테두리 반경 */
+  cursor: pointer; /* 커서 모양 변경 */
+  font-size: 16px; /* 폰트 크기 */
+}
+
+/* 버튼에 호버 효과 */
+input[type="button"]:hover {
+  background-color: #cca300; /* 호버 시 배경색 변경 */
+  color: #fff;
 }
 </style>
 
@@ -273,7 +317,7 @@ function delete_cart_goods(cart_id) {
                <tr>
                   <td class="text_center"> <input type="checkbox" class="product-checkbox" ${cartVO.goodsVO.goods_stock == 0 ? 'disabled' : ''}></td>
                         <input type="hidden" class="goodsId" value="${cartVO.goods_id}">
-                  <td style="text-align: left;"><a href="${contextPath}/goods/goodsDetail.do?goods_id=${cartVO.goods_id}"><img src="${contextPath}/thumbnails.do?goods_id=${cartVO.goods_id}&fileName=${cartVO.cart_image_name}" width="100px" class="cart_img"/></a></td>
+                  <td style="text-align: left;"><a href="${contextPath}/goods/goodsDetail.do?goods_id=${cartVO.goods_id}"><img src="${contextPath}/thumbnails.do?goods_id=${cartVO.goods_id}&fileName=${cartVO.cart_image_name}" width="100px" height="100px"class="cart_img"/></a></td>
                   <td style="text-align: left;">${cartVO.goods_title}</td>
                   <td><span class="price">${cartVO.goods_price} 원</span></td>
                   <td><span class="quantity">
@@ -290,7 +334,7 @@ function delete_cart_goods(cart_id) {
 						
 						<c:when test="${goodsVO.goods_stock !=0}">
 
- 				        <input type="number" value="${cartVO.cart_goods_qty}" data-index="${loop.index}" class="order_goods_qty" name="order_goods_qty" style="width: 100px; text-align: center;" onchange="updateTotalPrices()" min="1" max="${cartVO.goodsVO.goods_stock }"> 
+ 				        <input type="number" value="${cartVO.cart_goods_qty}" data-index="${loop.index}" class="order_goods_qty" name="order_goods_qty" style="width: 60px; height: 25px; text-align: center; border: 1px solid #ccc; border-radius: 5px;" onchange="updateTotalPrices()" min="1" max="${cartVO.goodsVO.goods_stock}">
  				        </c:when>
  				        </c:choose>
  				        </span> 
@@ -298,15 +342,15 @@ function delete_cart_goods(cart_id) {
  				        </td>   
  				            
                   
-                  <td>  <select style="width: 100px; text-align: center" id="_goods_option" name="goods_option" >
-                 
-                        <option value="${cartVO.goods_option1}">${cartVO.goods_option1}</option>
-                        <option value="${cartVO.goods_option2}">${cartVO.goods_option2}</option>
-                        <option value="${cartVO.goods_option3}">${cartVO.goods_option3}</option>
-                        <option value="${cartVO.goods_option4}">${cartVO.goods_option4}</option>
-                        <option value="${cartVO.goods_option5}">${cartVO.goods_option5}</option>
-                     </select>
-                  </td>
+                  <td>
+					  <select style="width: 100px; height: 25px; text-align: center; border: 1px solid #ccc; border-radius: 5px;" id="_goods_option" name="goods_option">
+					    <option value="${cartVO.goods_option1}">${cartVO.goods_option1}</option>
+					    <option value="${cartVO.goods_option2}">${cartVO.goods_option2}</option>
+					    <option value="${cartVO.goods_option3}">${cartVO.goods_option3}</option>
+					    <option value="${cartVO.goods_option4}">${cartVO.goods_option4}</option>
+					    <option value="${cartVO.goods_option5}">${cartVO.goods_option5}</option>
+					  </select>
+					</td>
                   
                   <td id="deleteButton1">  <a href="javascript:delete_cart_goods(${cartVO.cart_id})" style="font-size: 3px;" ><b><span>삭제</span></b></a> </td>
                   
