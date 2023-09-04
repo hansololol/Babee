@@ -13,13 +13,15 @@
 }
 
 .shipping_address{
-   border: 1px solid gray;
+   border: 1px solid rgb(221, 221, 221);
+   border-radius: 5px;
    width: 500px;
    
 }
 
 .order_list{
-   border: 1px solid gray;
+   border: 1px solid rgb(90, 90, 90);
+   border-radius: 5px;
    width: 500px;
    display:inline-block;
 }
@@ -32,10 +34,11 @@
 }
 
 .detail_table{
-   border: 1px solid gray;
+   border: 1px solid rgb(221, 221, 221);
+   border-radius: 5px;
    width: 500px;
    margin-top:-30px;
-
+   padding: 0 10%;
 }
 
 #buttonRefund > input[type="submit"] {
@@ -48,7 +51,7 @@
 }
 
 /* '구매하기' 버튼 스타일 */
-#buttonRefund > input[type="reset"] {
+#buttonRefund > button[type="button"] {
     background-color: #ffff80; /* 배경색 */
     color: black; /* 텍스트색 */
     padding: 10px 20px; /* 내부 여백 */
@@ -58,13 +61,32 @@
 }
 
 /* 버튼에 호버 효과 */
-#buttonRefund > input[type="submit"]:hover, input[type="reset"]:hover {
+#buttonRefund > input[type="submit"]:hover, input[type="button"]:hover {
     background-color: #cca300; /* 호버 시 배경색 변경 */
 }
 
 #selectBox {
- width: 200px;
+ width: 400px;
+ height: 30px;
 }
+
+.radio-1 input[type="radio"] {
+        display: none;
+    }
+
+    .radio-1 input[type="radio"] + span {
+        display: inline-block;
+        padding: 15px 30px;
+        border: 1px solid #dfdfdf;
+        background-color: #ffffff;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    .radio-1 input[type="radio"]:checked + span {
+        background-color: #ffe281;
+        color: #000000;
+    }
 </style>
 <title>교환 환불창</title>
 </head>
@@ -93,8 +115,8 @@
    
       <table style="padding-left:10px;">
             <tr>
-               <td width="200px;" ><input type="radio" name="delivery_status" value="refund" checked>반품 </td>
-               <td width="200px;"><input type="radio" name="delivery_status" value="change">&nbsp;&nbsp;교환 </td>
+               <td width="200px;" ><label class="radio-1" ><input type="radio" name="delivery_status" value="refund" checked><span>반품 </span></label></td>
+               <td width="200px;"><label class="radio-1"><input type="radio" name="delivery_status" value="change">&nbsp;&nbsp;<span>교환 </span></label></td>
             </tr>
             
             <tr> <td colspan="2"> 
@@ -107,9 +129,9 @@
                  </div>
                  </td>
                </tr>
-              <tr> <td colspan="2"> <textarea name="reason" cols="30" rows="5"></textarea> </td> </tr>
+              <tr> <td colspan="2"> <textarea name="reason" cols="30" rows="5" style="width: 400px;"></textarea> </td> </tr>
               
-                 <tr><td colspan="2"> <p>*주문 시 선택된 카드사로 환불이 요청되며 최대 3일까지 소요될 수 있습니다.</p></td></tr>
+                 <tr><td colspan="2"> <p style="text-align: left;">*주문 시 선택된 카드사로 환불이 요청되며 최대 3일까지 소요될 수 있습니다.</p></td></tr>
          
       </table>   
       
@@ -127,15 +149,17 @@
       <H2>상품 선택</H2>
          <div class="order_list" >
             <table>
+
+               <input type="hidden" name="order_id" value="${order.order_id}">
+               <tr>
+                  <td>목록</td>
+                  <td>상품 이미지</td>
+                  <td>상품명</td>
+                  <td>수량</td>
+                  <td>상품 옵션</td>
+               </tr>
                <c:forEach var="order" items="${orderList}" varStatus="var">
-                  <input type="hidden" name="order_id" value="${order.order_id}">
-                  <tr>
-                     <td>목록</td>
-                     <td>상품 이미지</td>
-                     <td>상품명</td>
-                     <td>수량</td>
-                     <td>상품 옵션</td>
-                  </tr>
+                 
                <tr>
                   <td><input type="hidden" name="goods_id" value="${order.goods_id}" class="product-checkbox"/>${var.count} </td>
                   <td><img src="${contextPath}/thumbnails.do?goods_id=${order.goods_id}&fileName=${order.goods_image_name}" width="100px"/></td>
@@ -154,21 +178,16 @@
          <div class="order_list">
             <table>
                <tr>
-                  
-
                   <td width="180px;"> 취소 상품 계 </td>
                   <td  width="80px;"> ${orderVO.final_total_price} </td>
                </tr>
-               <tr>
-                  
-                  
+               <tr> 
                   <td width="60px;"> 배송비 </td>
                   <td width="80px;"> 3,000 </td>
                </tr>
-               <tr>
-                  
-                  <td width="180px;"> 실 환불금액 </td>
-                  <td  width="80px;"> <b>${orderVO.final_total_price-3000}</b> </td>
+                <tr>
+                  <td width="180px;"> 환불금액 </td>
+                  <td  width="80px;"> <b style="font-size: 20px;">${orderVO.final_total_price-3000}</b> </td>
                </tr>
        
             </table>   
@@ -177,7 +196,7 @@
       </div>
       <div style="text-align: center; margin-top:10px;" id="buttonRefund">
               <input type="submit" value="환불하기">&nbsp;&nbsp;&nbsp;
-              <input type="reset" value="취소">
+              <button type="button"onclick="location.href='${contextPath}/mypage/listMyOrderHistory.do'">취소</button>
       </div>
       </div>
    </form>
