@@ -137,7 +137,7 @@
 </div>
 <br>
 <div id="popular-products" style="display: flex; flex-direction: column; align-items: left;">
-    <hr style="border: none; border-top: 2px solid #000; width: 70px; margin: 10px 0; margin-left: 20%;">
+    <hr style="border: none; border-top: 2px solid #000; width: 70px; margin: 10px 0; margin-left: 15%;">
     <div style="display: flex; flex-direction: row; align-items: flex-start; margin: auto;">
         <span style="font-size: 14px; font-weight: 300; margin: -5px 5px;">
     실시간 <br>인기상품

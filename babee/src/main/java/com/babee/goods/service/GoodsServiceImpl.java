@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -21,10 +22,16 @@ public class GoodsServiceImpl implements GoodsService{
 	@Autowired
 	private GoodsDAO goodsDAO;
 	
+	//상품조회
 	@Override
-    public List<GoodsVO> getAllGoods() throws Exception {
-        return goodsDAO.selectAllGoods();  
+    public List<GoodsVO> getAllGoods(int startIndex, int itemsPerPage) throws Exception {
+        return goodsDAO.selectAllGoods(startIndex, itemsPerPage);  
     }
+	@Override
+	public int selectAllGoodsCount() throws Exception{
+		return goodsDAO.selectAllGoodsCount();
+	}
+	
 	@Override
 	public List<GoodsQNA> getAllGoodsQna(String goods_id) throws Exception {
 		return goodsDAO.selectAllGoodsQna(goods_id);  
@@ -76,11 +83,27 @@ public class GoodsServiceImpl implements GoodsService{
 	public List<CategoryVO> getAllcg(CategoryVO category) throws Exception {
         return goodsDAO.getAllcg(category);
     }
-	
+	//상품옵션조회
 	@Override
-	public List<GoodsVO> hotGoodsList()throws Exception{
-		return goodsDAO.hotGoodsList();
-		
+	public List<GoodsVO> hotGoodsList(int startIndex, int itemsPerPage)throws Exception{
+		return goodsDAO.hotGoodsList(startIndex, itemsPerPage);
+	}
+	@Override
+	public int hotGoodsListCount() throws Exception{
+		return goodsDAO.hotGoodsListCount();
+	}
+	@Override
+	public List<GoodsVO> selectSort(String sort,int startIndex, int itemsPerPage) throws Exception{
+		return goodsDAO.selectSort(sort, startIndex,itemsPerPage);
+	}
+	@Override
+	public int selectSortCount() throws Exception{
+		return goodsDAO.selectAllGoodsCount();
+	}
+	//
+	@Override
+	public List<GoodsVO> hotGoodsListMain() throws Exception{
+		return goodsDAO.hotGoodsListMain();
 	}
 	@Override
 	public List<GoodsVO> seasonGoodsList()throws Exception{
@@ -90,10 +113,6 @@ public class GoodsServiceImpl implements GoodsService{
 	@Override
 	public List getfitList(String baby_age) throws Exception{
 		return goodsDAO.selectFitGodos(baby_age);
-	}
-	@Override
-	public List selectSort(Map sortMap) throws Exception{
-		return goodsDAO.selectSort(sortMap);
 	}
 	@Override
 	public Map<String, String> getsubcg(String sub_category) throws Exception{
