@@ -147,7 +147,7 @@
 		      	,a.goods_id
 		      	,a.articleNO
 		      	,a.member_id
-		FROM 	babee.t_shopping_wish a, babee.t_shopping_goods b
+		FROM 	t_shopping_wish a, t_shopping_goods b
 		WHERE 	a.goods_id = b.goods_id
 		AND 	a.member_id = #{member_id}	
 		]]>

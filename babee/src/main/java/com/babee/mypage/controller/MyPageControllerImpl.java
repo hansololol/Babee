@@ -353,6 +353,7 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 
 		HttpSession session = request.getSession();
 		String userType = (String) session.getAttribute("userType");
+		
 		// 로그인한 사용자 ID 가져오기(memberId)
 		List<WishVO> myWishList = new ArrayList<>();
 	
@@ -361,6 +362,7 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 			String member_id = memberVO.getMember_id();
 
 			myWishList = myPageService.selectWishList(member_id);
+			System.out.println(myWishList.size()+"위시 리스트 사이즈 확인");
 			  for(int i=0; i<myWishList.size(); i++) { 
 				  wishVO = myWishList.get(i);
 				  int  goods_id = wishVO.getGoods_id(); String id= String.valueOf(goods_id); 
@@ -369,6 +371,7 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 				  wishVO.setGoods_title(goodsCart.getGoods_title());
 			  wishVO.setGoods_price(goodsCart.getGoods_price());
 			  wishVO.setGoods_image_name1(goodsCart.getGoods_image_name1()); 
+			  System.out.println(wishVO.getGoods_id() + "장바구니..");
 			  
 			  }
 			 
@@ -380,13 +383,14 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 			myWishList = myPageService.selectWishList(member_id);
 			  for(int i=0; i<myWishList.size(); i++) { 
 				  wishVO = myWishList.get(i);
-				  int  goods_id = wishVO.getGoods_id(); String id= String.valueOf(goods_id); 
+				  int  goods_id = wishVO.getGoods_id(); 
+				  String id= String.valueOf(goods_id); 
 				  Map  goods = goodsService.goodsDetail(id); 
 				  GoodsVO goodsCart = (GoodsVO) goods.get("goodsVO"); 
 				  wishVO.setGoods_title(goodsCart.getGoods_title());
 			  wishVO.setGoods_price(goodsCart.getGoods_price());
 			  wishVO.setGoods_image_name1(goodsCart.getGoods_image_name1()); 
-			  
+			
 			  }
 
 		}
