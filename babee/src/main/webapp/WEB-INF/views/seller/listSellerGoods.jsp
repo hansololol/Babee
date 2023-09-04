@@ -206,7 +206,7 @@
             	<td style="text-align:center;">${goods.goods_id}</td>
                  <td>
                  <a href="${contextPath}/goods/goodsDetail.do?goods_id=${goods.goods_id}&fileName=${goods.goods_image_name1_id}">
-                 <img src="${contextPath}/thumbnails.do?goods_id=${goods.goods_id}&fileName=${goods.goods_image_name1}" style="width:100px; height:100px; margin-left:-70px; margin-top: 5px; margin-bottom: 5px;" class="image-hover-effect"></a></td>
+                 <img src="${contextPath}/thumbnails.do?goods_id=${goods.goods_id}&fileName=${goods.goods_image_name1}" style="width:100px; height:100px; margin-top: 5px; margin-bottom: 5px;" class="image-hover-effect"></a></td>
                  
                  <input type="hidden" name="goods_image_name2" value="${goods.goods_image_name2}">
                  <input type="hidden" name="goods_image_name2_id" value="${goods.goods_image_name2_id}">

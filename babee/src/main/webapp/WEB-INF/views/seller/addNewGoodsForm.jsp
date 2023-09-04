@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-pageEncoding="utf-8" isELIgnored="false"%>
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+pageEncoding="utf-8" isELIgnored="false"%> <%@ taglib
+uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %> <%@ taglib prefix="c"
+uri="http://java.sun.com/jsp/jstl/core"%> <%@ taglib prefix="fmt"
+uri="http://java.sun.com/jsp/jstl/fmt" %> <%@ taglib prefix="fn"
+uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <html>
@@ -94,14 +94,61 @@ pageEncoding="utf-8" isELIgnored="false"%>
       });
 
       function itemChange() {
-        var Preparation = ["중분류 선택", "임산부복대", "스킨케어", "임부복", "산후용품"];
-        var HouseholdItems = ["중분류 선택", "구강용품", "목욕용품", "위생용품", "세탁용품", "유아스킨케어"];
-        var BabyFood = ["중분류 선택", "분유", "이유식", "유아음료", "유아간식"];
-        var OutdoorGear = ["중분류 선택", "유모차", "아기띠", "보호대", "마스크", "우산"];
-        var Fashion = ["중분류 선택", "상의", "하의", "내의", "아우터", "신발", "잡화"];
-        var Toys = ["중분류 선택", "신생아완구", "교육완구", "인형", "캐릭터완구"];
+        var Preparation = [
+          "중분류 선택",
+          "임산부복대",
+          "스킨케어",
+          "임부복",
+          "산후용품",
+        ];
+        var HouseholdItems = [
+          "중분류 선택",
+          "구강용품",
+          "목욕용품",
+          "위생용품",
+          "세탁용품",
+          "유아스킨케어",
+        ];
+        var BabyFood = [
+          "중분류 선택",
+          "분유",
+          "이유식",
+          "유아음료",
+          "유아간식",
+        ];
+        var OutdoorGear = [
+          "중분류 선택",
+          "유모차",
+          "아기띠",
+          "보호대",
+          "마스크",
+          "우산",
+        ];
+        var Fashion = [
+          "중분류 선택",
+          "상의",
+          "하의",
+          "내의",
+          "아우터",
+          "신발",
+          "잡화",
+        ];
+        var Toys = [
+          "중분류 선택",
+          "신생아완구",
+          "교육완구",
+          "인형",
+          "캐릭터완구",
+        ];
         var SafetyProducts = ["중분류 선택", "보호대", "안전문", "잠금장치"];
-        var ChildrenFurniture = ["중분류 선택", "침대", "놀이가구", "소품", "책상", "의자"];
+        var ChildrenFurniture = [
+          "중분류 선택",
+          "침대",
+          "놀이가구",
+          "소품",
+          "책상",
+          "의자",
+        ];
 
         var selectItem = $("#select1").val();
         var changeItem;
@@ -134,12 +181,18 @@ pageEncoding="utf-8" isELIgnored="false"%>
 
       function itemChange2() {
         // Baby Care Items
-        var bellyBand= ["산전 복대", "산후 복대"];
+        var bellyBand = ["산전 복대", "산후 복대"];
         var skinCare = ["스트레치마크크림", "바디오일", "클렌징오일"];
         var maternityClothes = ["원피스", "드레스", "바지"];
         var postpartumSupplies = ["보호대", "거실용품"];
         var oralCareProducts = ["칫솔", "치약", "구강청정제"];
-        var bathProducts = ["욕조", "목욕의자", "비누/샴푸", "타월", "목욕장난감"];
+        var bathProducts = [
+          "욕조",
+          "목욕의자",
+          "비누/샴푸",
+          "타월",
+          "목욕장난감",
+        ];
         var hygieneProducts = ["화장지", "물티슈", "귀저기", "손소독제"];
         var laundryProducts = ["세탁세제", "세탁볼", "옷걸이", "섬유유연제"];
         var babySkinCare = ["로션", "선크림", "오일", "베이비 파우더"];
@@ -165,14 +218,24 @@ pageEncoding="utf-8" isELIgnored="false"%>
 
         // Toys and Educational Items
         var newbornToys = ["모빌", "시각자극완구", "소리자극완구"];
-        var educationalToys = ["플레이매트", "블록및조립", "숫자및알파벳", "퍼즐", "실험완구"];
+        var educationalToys = [
+          "플레이매트",
+          "블록및조립",
+          "숫자및알파벳",
+          "퍼즐",
+          "실험완구",
+        ];
         var dolls = ["캐릭터인형", "동물인형"];
         var characterToys = ["만화완구", "디즈니완구"];
 
         // Safety Products
         var safetyGate = ["머리보호대", "엉덩이보호대", "무릎보호대"];
         var lock = ["문형안전문", "난간형안전문", "울타리형안전문"];
-        var safetyItems = ["콘센트잠금장치", "서랍잠금장치", "가전제품용잠금장치"];
+        var safetyItems = [
+          "콘센트잠금장치",
+          "서랍잠금장치",
+          "가전제품용잠금장치",
+        ];
 
         // Children's Furniture
         var bed = ["싱글침대", "접이식침대", "캐노피침대", "난간형침대"];
@@ -316,7 +379,8 @@ pageEncoding="utf-8" isELIgnored="false"%>
                   name="main_category"
                   id="select1"
                   onchange="itemChange()"
-                > <option>대분류 선택</option>
+                >
+                  <option>대분류 선택</option>
                   <option>출산준비</option>
                   <option>생활용품</option>
                   <option>유아식품</option>
@@ -371,13 +435,13 @@ pageEncoding="utf-8" isELIgnored="false"%>
         <div class="clear"></div>
         <br /><br /><br />
         <div>
-          <label for="goods_image_name1">Image 1:</label>
+          <label for="goods_image_name1">메인 이미지:</label>
           <input type="file" name="goods_image_name1" />
 
           <div class="file-preview1"></div>
         </div>
         <div>
-          <label for="goods_image_name2">Image 2:</label>
+          <label for="goods_image_name2">상세 이미지:</label>
           <input type="file" name="goods_image_name2" />
           <div class="file-preview2"></div>
         </div>
