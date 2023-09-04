@@ -181,7 +181,7 @@ function search_order_history(fixedSearchPeriod){
         <c:forEach items="${myOrderList}" var="order"  varStatus="status" >
          <c:if test="${status.first || myOrderList[status.index - 1].order_id ne order.order_id}">
         <tr>
-            <td><a href="${contextPath}/goods/goodsDetail.do?goods_id=${order.goods_id}"><img src="${contextPath}/thumbnails.do?goods_id=${order.goods_id}&fileName=${order.goods_image_name}" width="100px"/></a></td>
+            <td><a href="${contextPath}/goods/goodsDetail.do?goods_id=${order.goods_id}"><img src="${contextPath}/thumbnails.do?goods_id=${order.goods_id}&fileName=${order.goods_image_name}" width="100px" height="100px"/></a></td>
             <td> 
 
                <ul class="goods">

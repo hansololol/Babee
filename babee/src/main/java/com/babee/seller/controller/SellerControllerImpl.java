@@ -706,20 +706,19 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 	    @RequestMapping("/updateDeliveryStatus")
 	    public ModelAndView updateDeliveryStatus(@RequestParam("order_id") int order_id,
 	                                             @RequestParam("delivery_status") String delivery_status,
+	                                             @RequestParam("orderNO") int orderNO,
 	                                             HttpServletRequest request,
 	                                             HttpServletResponse response) throws Exception{
 	    	HttpSession session = request.getSession();
 		    SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
-	    	
-	    	System.out.println("실행됨.,.");
-	    	
 	        ModelAndView mav = new ModelAndView();
 	        try {
 	        	 Map<String, Object> deliveryStatusMap = new HashMap<>();
+	        	 deliveryStatusMap.put("orderNO", orderNO);
 	             deliveryStatusMap.put("order_id", order_id);
 	             deliveryStatusMap.put("delivery_status", delivery_status);
 	            sellerService.updateDeliveryStatus(deliveryStatusMap);
-	            System.out.println("오더아이!!!디: "+order_id);
+	            System.out.println("?????오더?!!!디: "+orderNO);
 		        System.out.println("상태!!!!!!!값: "+delivery_status);
 	            mav.addObject("message", "주문 상태가 업데이트되었습니다.");
 	        } catch (Exception e) {
