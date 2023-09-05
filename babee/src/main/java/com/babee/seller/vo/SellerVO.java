@@ -37,6 +37,14 @@ public class SellerVO {
 	private String member_id;
 	private String member_pw;
 	private String baby_age;
+	private String member_name;
+	
+	public String getMember_name() {
+		return member_name;
+	}
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
+	}
 	public String getSeller_id() {
 		return seller_id;
 	}
