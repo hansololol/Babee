@@ -99,6 +99,8 @@ public interface SellerService {
     	
     
     //사업자 qna답변
-    public void addGoodsQnaAnswer(Map<String, Object> goodsQnaAnswerMap) throws Exception;
+    public void addGoodsQnaAnswer(Map<String, Object> goodsQnaAnswer) throws Exception;
+    //사업자 정보 수정
+    public void modSeller(SellerVO sellerVO) throws Exception;
 }
 
