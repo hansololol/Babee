@@ -205,7 +205,7 @@ function moveTop(){
 	</div>
 	  <br>
 	    <br>  <br>  
-<div class="gray_bg"  style="padding:0px; width:1100px; height:1200px; margin:auto;">
+<div class="gray_bg"  style="padding:0px; width:1100px; height:916px; margin:auto;">
  <br>  
         <h1 align=center>시즌오프 세일 ~70%</h1>
         <h2 align=center>보다 저렴하게 구매가능한 시즌오프 세일 모음</h2>
@@ -217,7 +217,7 @@ function moveTop(){
         <a href="${contextPath}/goods/goodsDetail.do?goods_id=${goods.goods_id}&fileName=${goods.goods_image_name1}">
             <img src="${contextPath}/thumbnails.do?goods_id=${goods.goods_id}&fileName=${goods.goods_image_name1}" style="margin-right:30px; margin-bottom:10px;" class="my_img"
                 <c:if test="${loopStatus.index == 0}">
-                    width="300px" height="500px"
+                    width="300px" height="300px"
                 </c:if>
                 <c:if test="${loopStatus.index != 0}">
                     width="250px" height="250px"
