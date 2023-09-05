@@ -820,18 +820,21 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 	            goodsQnaList = filteredGoodsQnaList;
 	            
 	        }
-	    
-            for(GoodsQNA goodsQNA : goodsQnaList) {
+	        List goodsQNAList = new ArrayList();
+	        if(goodsQnaList!=null) {
+	        	
+            for(int i=0; i<goodsQnaList.size(); i++) {
+            	GoodsQNA goodsQNA =  goodsQnaList.get(i);
             	 String goods_id= goodsQNA.getGoods_id();
             	 Map goodsDetail= goodsService.goodsDetail(goods_id);
             	 GoodsVO goodsVO = (GoodsVO) goodsDetail.get("goodsVO");
+            	 goodsQnaList.remove(i);
             	 goodsQNA.setGoodsVO(goodsVO);
-            	 goodsQnaList.remove(goodsQNA);
-            	 goodsQnaList.add(goodsQNA);
-
-            }
+            	 goodsQNAList.add(goodsQNA);
+            	}	
+	        }
 	        mav.addObject("totalPages", totalPages);
-	        mav.addObject("goodsQnaList", goodsQnaList);
+	        mav.addObject("goodsQnaList", goodsQNAList);
 	        mav.addObject("totalItemCount", totalItemCount);
 	        mav.addObject("itemsPerPage", itemsPerPage);
 	        mav.addObject("currentPage", currentPage);
