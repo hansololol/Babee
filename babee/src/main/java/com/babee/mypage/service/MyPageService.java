@@ -3,6 +3,9 @@ package com.babee.mypage.service;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+import org.springframework.dao.DataAccessException;
+
 import com.babee.cart.vo.CartVO;
 import com.babee.goods.vo.GoodsVO;
 import com.babee.mypage.vo.ReviewVO;
@@ -14,6 +17,8 @@ public interface MyPageService{
 	public List<OrderVO> listMyOrderGoods(String member_id) throws Exception;
 	
 	public List findMyOrderInfo(String order_id) throws Exception;
+	public List<Map<String, Object>> refundList(int orderNO) throws Exception;
+	public List<Map<String, Object>> selectGroupedOrders(String order_id) throws Exception;
 	
 	public List<OrderVO> listMyOrderHistory(Map dateMap) throws Exception;
 	

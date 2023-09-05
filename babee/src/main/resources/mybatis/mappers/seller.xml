@@ -95,6 +95,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       <result property="goods_qna_answer" column="goods_qna_answer" />
       <result property="seller_id" column="seller_id" />
    </resultMap>
+   
+   <resultMap id="refundResult" type="RefundVO">
+    <id property="orderNO" column="orderNO" />
+    <result property="order_id" column="order_id" />
+    <result property="delivery_status" column="delivery_status" />
+    <result property="reason" column="reason" />
+    <result property="goods_id" column="goods_id" />
+    <result property="member_id" column="member_id" />
+    <result property="reason_option" column="reason_option" />
+    <result property="returnPrice" column="returnPrice" />
+</resultMap>
 
 	<select id="login" resultType="sellerVO"  parameterType="java.util.Map"  >
 	    <![CDATA[

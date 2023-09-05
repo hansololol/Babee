@@ -70,10 +70,25 @@
 }
 
 
+/* 이미지에 여백과 둥근 테두리 추가 */
+.hover-zoom-image {
+  width: 100px;
+  height: 100px;
+  margin: 10px 0; /* 이미지 위아래 여백 조절 */
+  border-radius: 5px; /* 둥근 테두리 적용 */
+  overflow: hidden; /* 둥근 테두리에 이미지가 넘칠 경우 자르기 */
+}
+.order_delivery img:hover {
+    transform: scale(1.1); /* Enlarge the image by 10% on hover */
+    filter: brightness(0.7); /* Darken the image to 70% brightness on hover */
+    transition: transform 0.3s ease, filter 0.3s ease; /* Smooth transition */
 
+  }
 
-
-
+/* order_id에 호버 효과 추가 */
+.goods li a:hover {
+  font-weight: bold; /* 호버 시 진하게 만듭니다. */
+}
 </style>
 <title>주문내역/배송조회 창</title>
 <script>
@@ -181,7 +196,11 @@ function search_order_history(fixedSearchPeriod){
         <c:forEach items="${myOrderList}" var="order" varStatus="status">
     <tr>
     	
-      <td><a href="${contextPath}/goods/goodsDetail.do?goods_id=${order.goods_id}"><img src="${contextPath}/thumbnails.do?goods_id=${order.goods_id}&fileName=${order.goods_image_name}" width="100px" height="100px"/></a></td>
+      <td>
+		  <a href="${contextPath}/goods/goodsDetail.do?goods_id=${order.goods_id}">
+		    <img src="${contextPath}/thumbnails.do?goods_id=${order.goods_id}&fileName=${order.goods_image_name}" alt="${order.goods_title}" class="hover-zoom-image" style="width:100px; height:100px;" >
+		  </a>
+		</td>
       <td>
         <ul class="goods">
           <li style="text-align:left;"> ${order.goods_title} [<a href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}">${order.order_id}</a>] </li>
@@ -269,5 +288,23 @@ function search_order_history(fixedSearchPeriod){
       
    
    <br><br><br><br>
+   <script>
+  // HTML 마지막 부분인 </body> 태그 바로 전에 이 JavaScript를 추가하세요.
+  document.addEventListener('DOMContentLoaded', function() {
+    const hoverImages = document.querySelectorAll('.hover-zoom-image');
+
+    hoverImages.forEach(image => {
+      image.addEventListener('mouseenter', function() {
+        // 호버 시 이미지에 클래스 추가하기 (이 클래스는 CSS에서 정의할 수 있습니다)
+        this.classList.add('hovered');
+      });
+
+      image.addEventListener('mouseleave', function() {
+        // 마우스가 벗어날 때 추가된 클래스 제거하기
+        this.classList.remove('hovered');
+      });
+    });
+  });
+</script>
 </body>
 </html>

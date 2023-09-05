@@ -88,6 +88,7 @@
         color: #000000;
     }
 </style>
+
 <title>교환 환불창</title>
 </head>
 <body>
@@ -158,7 +159,7 @@
                   <td>수량</td>
                   <td>상품 옵션</td>
                </tr>
-               <c:forEach var="order" items="${orderList}" varStatus="var">
+               <c:forEach var="order" items="${refundList}" varStatus="var">
                		<tr>
                		<p>${order.order_id}</p>
                		</tr>
@@ -169,7 +170,7 @@
 				      <input type="hidden" name="orderNO" value="${order.orderNO}"/>
 				      
 				      <td>${var.count}</td>
-				      <td><img src="${contextPath}/thumbnails.do?goods_id=${order.goods_id}&fileName=${order.goods_image_name}" width="100px"/></td>
+				      <td><img src="${contextPath}/thumbnails.do?goods_id=${order.goods_id}&fileName=${order.goods_image_name1}" width="100px"/></td>
 				      <td width="180px;">${order.goods_title}</td>
 				      <td width="80px;">${order.order_goods_qty}(개)</td>
 				      <td width="80px;">${order.goods_option}</td>
@@ -182,22 +183,34 @@
          <div style="display: block;">
            <H2>환불 예정 금액</H2>
          <div class="order_list">
-            <table>
-               <tr>
-                  <td width="180px;"> 취소 상품 계 </td>
-                  <td  width="80px;"> ${orderVO.total_goods_price} </td>
-               </tr>
-               <tr> 
-                  <td width="60px;"> 배송비 </td>
-                  <td width="80px;"> 3,000 </td>
-               </tr>
-                <tr>
-                  <td width="180px;"> 환불금액 </td>
-                  <td  width="80px;"> <b style="font-size: 20px;">${orderVO.total_goods_price-3000}</b> </td>
-               </tr>
-       
-            </table>   
-
+             <table>
+        <tr>
+            <td width="180px;"> 취소 상품 계 </td>
+            <td width="80px;">
+                <c:forEach var="order" items="${refundList}">
+                    ${order.total_goods_price}
+                </c:forEach>
+            </td>
+        </tr>
+        <tr>
+            <td width="60px;"> 배송비 </td>
+            <td width="80px;"> 3,000 </td>
+        </tr>
+        <tr>
+            <td width="180px;"> 환불금액 </td>
+            <td width="80px;">
+                <b style="font-size: 20px;">
+                    <c:set var="refundAmount" value="0" />
+                    <c:forEach var="order" items="${refundList}">
+                        <c:set var="refundAmount" value="${refundAmount + order.total_goods_price}" />
+                    </c:forEach>
+                    ${refundAmount - 3000}
+                     <input type="hidden" name="returnPrice" value="${refundAmount - 3000}" />
+                </b>
+            </td>
+        </tr>
+    </table> 
+	
          </div>
       </div>
       <div style="text-align: center; margin-top:10px;" id="buttonRefund">

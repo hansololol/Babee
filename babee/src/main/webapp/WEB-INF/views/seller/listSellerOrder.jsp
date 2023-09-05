@@ -182,7 +182,7 @@
             <img src="${contextPath}/thumbnails.do?goods_id=${order.goods_id}&fileName=${order.goods_image_name1}" style="width:100px; height:100px;  margin-top: 5px; margin-bottom: 5px;" class="image-hover-effect"></a></td>
             </td>
             <td style="text-align:left;"> 
-               [<a href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}&page=sellerPage">${order.order_id}</a>]
+               [<a href="${contextPath}/seller/sellerOrderDetail.do?order_id=${order.order_id}&page=sellerPage">${order.order_id}</a>]
                  ${order.goods_title}           </td>
             <td>${order.final_total_price} 원</td>
             

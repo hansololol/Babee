@@ -154,6 +154,10 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 				break;
 			}
 		}
+		/*String order_id = request.getParameter("order_id");
+		System.out.println(order_id);
+		List<Map<String, Object>> groupedOrders = myPageService.selectGroupedOrders(order_id);
+		mav.addObject("groupedOrders", groupedOrders);*/
 		
 		mav.addObject("myOrderList", myOrderList);
 		mav.addObject("section", section);
@@ -162,7 +166,21 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 
 		return mav;
 	}
-
+	@RequestMapping(value = "/myOrderDetailList.do", method = RequestMethod.GET)
+	public ModelAndView myOrder(@RequestParam("order_id") String order_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	    ModelAndView mav = new ModelAndView();
+	    System.out.println(order_id);
+	    // 주문 상품을 가져옴
+	    List<Map<String, Object>> groupedOrders = myPageService.selectGroupedOrders(order_id);
+	    
+	    // 이후에 groupedOrders를 화면에 전달하고 출력하는 코드 작성
+	    
+	    mav.addObject("groupedOrders", groupedOrders);
+	    mav.setViewName("redirect:/mypage/listMyOrderHistory.do"); // 뷰 이름 설정
+	    
+	    return mav;
+	}
+	
 	@Override
 	@RequestMapping(value = "/cancelMyOrder.do", method = RequestMethod.GET)
 	public ModelAndView cancelMyOrder(@RequestParam("order_id") String order_id, HttpServletRequest request,
@@ -173,7 +191,7 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 		return mav;
 	}
 
-	@Override
+	/*@Override
 	@RequestMapping(value = "/myrefund.do", method = RequestMethod.GET)
 	public ModelAndView myrefund(@RequestParam("order_id") String order_id, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -196,15 +214,37 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 		orderVO = (OrderVO) OrderListAll.get(0);
 		mav.addObject("orderVO", orderVO);
 		return mav;
+	}*/
+	@Override
+	@RequestMapping(value = "/myrefund.do", method = RequestMethod.GET)
+	public ModelAndView myrefund(@RequestParam("order_id") String order_id,@RequestParam("orderNO") int orderNO, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+	    ModelAndView mav = new ModelAndView(viewName);
+	    List<Map<String, Object>> refundList = myPageService.refundList(orderNO);
+
+	    if (!refundList.isEmpty()) {
+	        Map<String, Object> refundInfo = refundList.get(0);
+	        mav.addObject("refundInfo", refundInfo);
+	    }
+
+	    mav.addObject("refundList", refundList);
+
+	    return mav;
 	}
 
 	@Override
 	@RequestMapping(value = "/refundOrder.do", method = RequestMethod.POST)
-	public ModelAndView refundOrder(@ModelAttribute("refundVO") RefundVO refund, HttpServletRequest request,
+	public ModelAndView refundOrder(@ModelAttribute("refundVO") RefundVO refund,@RequestParam("order_id") String order_id,@RequestParam("returnPrice") int returnPrice,
+			HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		HttpSession session = request.getSession();
 		memberVO = (MemberVO) session.getAttribute("memberInfo");
+		order_id = order_id.replace(",", "");
+		refund.setOrder_id(order_id);
+		refund.setReturnPrice(returnPrice);
+		System.out.println(returnPrice);
 		refund.setMember_id(memberVO.getMember_id());
 		myPageService.refundOrder(refund);
 		mav.setViewName("redirect:/mypage/listMyOrderHistory.do");
