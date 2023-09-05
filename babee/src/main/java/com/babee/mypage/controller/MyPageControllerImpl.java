@@ -98,6 +98,17 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 	        SellerVO sellerVO = (SellerVO) memberInfo;
 	        // 셀러에 관련된 로직 수행
 	        List<OrderVO> myOrderList = myPageService.findMyOrderInfo(order_id);
+	        
+	        for (OrderVO orderVO : myOrderList) {
+	            String goods_id = orderVO.getGoods_id();
+	            Map goodsVOMap = goodsService.goodsDetail(goods_id);
+	            GoodsVO goodsVO = (GoodsVO) goodsVOMap.get("goodsVO");
+	            String goods_title = goodsVO.getGoods_title();
+	            String goods_image_name1 = goodsVO.getGoods_image_name1();
+	            orderVO.setGoods_title(goods_title);
+	            orderVO.setGoods_image_name(goods_image_name1);
+	        }
+	        
 	        mav.addObject("myOrderList", myOrderList);
 	        orderVO = myOrderList.get(0);
 	        mav.addObject("myOrder", orderVO);
@@ -112,12 +123,16 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 		HttpSession session = request.getSession();
-		Object member = session.getAttribute("memberInfo");
+		
+		Object memberInfo = session.getAttribute("memberInfo");
 		String member_id = null;
-		if(member instanceof MemberVO) {
-			member_id = ((MemberVO) member).getMember_id();
-		}else if(member instanceof SellerVO) {
-			member_id = ((SellerVO)member).getSeller_id();
+		String member_name = null;
+		if(memberInfo instanceof MemberVO) {
+			member_id = ((MemberVO) memberInfo).getMember_id();
+			member_name = ((MemberVO) memberInfo).getMember_name();
+		}else if(memberInfo instanceof SellerVO) {
+			member_id = ((SellerVO)memberInfo).getSeller_id();
+			member_name = ((SellerVO)memberInfo).getSeller_name();
 		}
 	
 		String _section = request.getParameter("section");
@@ -163,7 +178,8 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 		mav.addObject("section", section);
 		mav.addObject("pageNum", pageNum);
 		mav.addObject("totArticles", ListSize);
-
+		mav.addObject("memberInfo", memberInfo);
+		
 		return mav;
 	}
 	@RequestMapping(value = "/myOrderDetailList.do", method = RequestMethod.GET)
@@ -244,6 +260,9 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 		order_id = order_id.replace(",", "");
 		refund.setOrder_id(order_id);
 		refund.setReturnPrice(returnPrice);
+		if ("change".equals(refund.getDelivery_status())) {
+	        refund.setReturnPrice(-3000);
+	    }
 		System.out.println(returnPrice);
 		if ("change".equals(refund.getDelivery_status())) {
 	        refund.setReturnPrice(-3000);
@@ -317,7 +336,11 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 		// 상품 리뷰 상세 컨트롤러
 		String goods_id = request.getParameter("goods_id");
 		HttpSession session = request.getSession();
-		memberVO = (MemberVO) session.getAttribute("memberInfo");
+		
+		
+		 Object memberInfo = session.getAttribute("memberInfo");
+		    if (memberInfo instanceof MemberVO) {
+		        MemberVO orderer = (MemberVO) memberInfo;
 		String member_id = memberVO.getMember_id();
 		Map reviewMap = new HashMap<>();
 		reviewMap.put("member_id", member_id);
@@ -330,6 +353,22 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 			File path = new File("C:/shopping/review" + "/" + member_id + "/" + goods_img);
 			path.delete();
 		}
+		    }else if (memberInfo instanceof SellerVO) {
+		        SellerVO sellerVO = (SellerVO) memberInfo;
+		        String member_id = sellerVO.getSeller_id();
+				Map reviewMap = new HashMap<>();
+				reviewMap.put("member_id", member_id);
+				reviewMap.put("goods_id", goods_id);
+				myPageService.delReview(reviewMap);
+				
+				String goods_img = request.getParameter("goods_img");
+				System.out.println(goods_img + "상품 이미지 확인");
+				if(goods_img!=null) {
+					File path = new File("C:/shopping/review" + "/" + member_id + "/" + goods_img);
+					path.delete();
+				}
+		    }
+		  
 		ModelAndView mav = new ModelAndView("redirect:/mypage/myReviewList.do");
 		return mav;
 	}

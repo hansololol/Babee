@@ -106,7 +106,14 @@ import com.babee.seller.vo.SellerVO;
 	    //사업자 qna문의내역 답변
 	    public void GoodsQnaAnswer(Map<String, Object> goodsQnaAnswerMap) throws DataAccessException;
 	    
+
 	    //상품정보디테일
 	    public List<Map<String, Object>> sellerOrderInfo(Map<String, Object> sellerOrderInfoMap)throws DataAccessException;
+
+	  //사업자 정보 수정
+	    public void modSeller(SellerVO sellerVO) throws DataAccessException;
+	    
+	    
+
 
 	}

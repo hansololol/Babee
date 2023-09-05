@@ -628,6 +628,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  SET goods_qna_answer = #{goods_qna_answer}, seller_id = #{seller_id}
 	  WHERE articleNO = #{articleNO}
 	</update>
+    <update id="modSeller" parameterType="sellerVO">
+	  UPDATE t_shopping_seller
+	  SET
+            seller_pw = #{seller_pw},
+            seller_name = #{seller_name},
+            seller_tel1 = #{seller_tel1},
+            seller_tel2 = #{seller_tel2},
+            seller_tel3 = #{seller_tel3},
+            seller_hp1 = #{seller_hp1},
+            seller_hp2 = #{seller_hp2},
+            seller_hp3 = #{seller_hp3},
+            seller_email = #{seller_email},
+            seller_zipcode = #{seller_zipcode},
+            seller_roadAddr = #{seller_roadAddr},
+            seller_jibunAddr = #{seller_jibunAddr},
+            seller_namujiAddr = #{seller_namujiAddr},
+            seller_bank_num = #{seller_bank_num},
+            seller_bank_name= #{seller_bank_name},
+            seller_bank_com= #{seller_bank_com},
+            seller_company= #{seller_company},
+            seller_company_info= #{seller_company_info},
+            seller_bank_name= #{seller_bank_name},
+            seller_img1 = #{seller_img1}
+           
+     	   WHERE seller_id = #{seller_id}
+	</update>
 	
 	
 	<select id="sellerOrderInfo" resultType="java.util.Map" parameterType="java.util.Map">

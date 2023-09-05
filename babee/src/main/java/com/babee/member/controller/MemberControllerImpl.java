@@ -246,6 +246,10 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 	 	        String member_pw= String.valueOf(random_pw);
 	 	        memberVO.setMember_id(member_id);
 	        	memberVO.setMember_pw(member_pw);
+	        	memberVO.setMember_hp1("-");
+	        	memberVO.setMember_hp2("-");
+	        	memberVO.setMember_hp3("-");
+	        	memberVO.setMember_email("-");
                 memberService.addMember(memberVO);
 	        }
 	        memberVO = memberService.findMyPw_kakao(userInfo);
@@ -277,7 +281,11 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 	        	 int random_pw = (int) Math.floor(Math.random()*100000);
 	 	        String member_pw= String.valueOf(random_pw);
 	 	        memberVO.setMember_id(email);
+	 	        memberVO.setMember_email(email);
 	        	memberVO.setMember_pw(member_pw);
+	        	memberVO.setMember_hp1("-");
+	        	memberVO.setMember_hp2("-");
+	        	memberVO.setMember_hp3("-");
                 memberService.addMember(memberVO);
 	        }
 	        memberVO = memberService.findMyPw_kakao(userInfo);

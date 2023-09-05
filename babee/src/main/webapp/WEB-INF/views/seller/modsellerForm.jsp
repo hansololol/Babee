@@ -155,7 +155,7 @@ function execDaumPostcode() {
 
 	<div class="member_cont">
 
-		<form id="formjoin" method="post" action="${contextPath}/seller/addSeller.do?page=sellerPage" novalidate="novalidate" enctype="multipart/form-data">
+		<form id="formjoin" method="post" action="${contextPath}/seller/updateSeller.do" novalidate="novalidate" enctype="multipart/form-data">
 			
 			<div class="member_join_box">
 			<img src="/image/Babee_Logo.png"><br><br>
@@ -168,8 +168,8 @@ function execDaumPostcode() {
    
       <tr>
          <td width="200"><p align="center">사업자 아이디 *</td>
-         <td  width="300"><input type="text" name="seller_id" value="${memberInfo.seller_id}" style="width: 189px; margin-right: 0;  display: inherit;">
-         <button type="button">중복확인</button></td>
+            <input type="hidden" name ="seller_id"  value="${memberInfo.seller_id}">
+         <td  width="300"><input type="text" name="seller_id" value="${memberInfo.seller_id}"  disabled>
       </tr>
       
       <tr>
@@ -232,7 +232,7 @@ function execDaumPostcode() {
       <tr>
          <td><p align="center">필요 서류<br></td>
             <td>
-        사업자 등록증<input type="file" name="seller_img1"><br>
+        사업자 등록증<input type="file" name="seller_img2"><br>
         
       </td>
       </tr>

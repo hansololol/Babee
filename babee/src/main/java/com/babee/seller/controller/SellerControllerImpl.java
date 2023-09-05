@@ -14,13 +14,11 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -114,6 +112,30 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 		return resEntity;
 	}
 	
+	@Override
+	@RequestMapping(value="/updateSeller.do" , method= RequestMethod.POST)
+	public ModelAndView updateSeller (@ModelAttribute("sellerVO") SellerVO _sellerVO, MultipartHttpServletRequest multipartRequest,HttpServletRequest request, HttpServletResponse response) throws Exception{
+		 HttpSession session=request.getSession();
+		 session.removeAttribute("memberInfo");
+		session.setAttribute("memberInfo",_sellerVO);
+		 ModelAndView mav = new ModelAndView();
+		List imageFileName = upload(multipartRequest);
+		String sellerImage = (String) imageFileName.get(0);
+		System.out.println(sellerImage + "사업자 이미지 안옴. ");
+		 if (sellerImage != null && !sellerImage.isEmpty()) {
+		        File oldFile1 = new File(CURR_IMAGE_REPO_PATH + "\\" + _sellerVO.getSeller_id() + "\\"+sellerImage);
+		        oldFile1.delete();
+		 }else {
+			 File srcFile = new File(ARTICLE_IMAGE_REPO+ "\\" + "temp" + "\\" + sellerImage);
+			 File destDir = new File(ARTICLE_IMAGE_REPO+ "\\" + _sellerVO.getSeller_id());
+			 FileUtils.moveFileToDirectory(srcFile, destDir, true);
+		 }
+		 _sellerVO.setSeller_img1(sellerImage);
+		sellerService.modSeller(_sellerVO);
+
+		 mav.setViewName("redirect:/member/myPageMain.do?page=sellerPage"); 
+		return mav;
+	}
 	//업데이트
 	@Override
 	@RequestMapping(value="/modgoods.do", method={RequestMethod.GET,RequestMethod.POST})
@@ -806,7 +828,7 @@ public class SellerControllerImpl extends BaseController implements SellerContro
             	 goodsQNA.setGoodsVO(goodsVO);
             	 goodsQnaList.remove(goodsQNA);
             	 goodsQnaList.add(goodsQNA);
-            	 System.out.println(goodsQnaList.get(0).getGoodsVO().getGoods_title() +"상품 명 있는지 확인./.");
+
             }
 	        mav.addObject("totalPages", totalPages);
 	        mav.addObject("goodsQnaList", goodsQnaList);
