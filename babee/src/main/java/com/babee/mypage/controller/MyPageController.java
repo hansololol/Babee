@@ -27,9 +27,10 @@ public interface MyPageController {
 	public ModelAndView removeWishList(@RequestParam("articleNO") int articleNO, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 	//환불
-	public ModelAndView refundOrder(@ModelAttribute("refundVO") RefundVO refund, HttpServletRequest request,
+	public ModelAndView refundOrder(@ModelAttribute("refundVO") RefundVO refund,@RequestParam("order_id") String order_id, @RequestParam("returnPrice") int returnPrice,HttpServletRequest request,
 			HttpServletResponse response) throws Exception;
-	public ModelAndView myrefund(@RequestParam("order_id") String order_id, HttpServletRequest request, HttpServletResponse response)  throws Exception;
+	public ModelAndView myrefund(@RequestParam("order_id") String order_id,@RequestParam("orderNO") int orderNO, HttpServletRequest request,
+			HttpServletResponse response) throws Exception;
 	
 	//리뷰
 	public ModelAndView reviewWrite(@ModelAttribute("reviewVO") ReviewVO review, MultipartHttpServletRequest multipartRequest, HttpServletRequest request, HttpServletResponse response)  throws Exception;

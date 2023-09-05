@@ -6,9 +6,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.babee.seller.vo.SellerVO;
 
 public interface SellerController {
    public ModelAndView login(@RequestParam Map<String, String> loginMap,HttpServletRequest request, HttpServletResponse response) throws Exception;
@@ -42,6 +45,8 @@ public interface SellerController {
                                                 HttpServletRequest request,
                                                 HttpServletResponse response) throws Exception;
        
+       //사업자 정보 업데이트
+       public ModelAndView updateSeller (@ModelAttribute("sellerVO") SellerVO _sellerVO, MultipartHttpServletRequest multipartRequest,HttpServletRequest request, HttpServletResponse response) throws Exception;
        //사업자 상품qna 리스트
        //public ModelAndView selectAllGoodsQna(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
