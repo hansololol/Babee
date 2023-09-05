@@ -865,6 +865,37 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 	        mav.setViewName("redirect:/seller/sellerQuestionAnswer.do?page=sellerPage");// 답변 처리 후 리다이렉트할 페이지 주소 설정
 	        return mav;
 	    }
+	    
+	    @RequestMapping("/sellerOrderDetail.do")
+	    public ModelAndView sellerOrderDetail(@RequestParam("order_id") String order_id,
+	                                          HttpServletRequest request,
+	                                          HttpServletResponse response) throws Exception {
+	        ModelAndView mav = new ModelAndView();
+	        request.setCharacterEncoding("utf-8");
+	        HttpSession session = request.getSession();
+	        SellerVO sellerVO = (SellerVO) session.getAttribute("memberInfo");
+	        String seller_id = sellerVO.getSeller_id();
+	        System.out.println(seller_id);
+	        
+	        Map<String, Object> orderInfoMap = new HashMap<>();
+	        orderInfoMap.put("order_id", order_id);
+	        orderInfoMap.put("seller_id", seller_id);
+
+	        try {
+	            // sellerOrderInfo 서비스 메서드를 호출하여 주문 및 환불 정보를 가져옵니다.
+	            List<Map<String, Object>> orderInfoList = sellerService.sellerOrderInfo(orderInfoMap);
+
+	            // 모델에 데이터를 추가하여 JSP 페이지로 전달합니다.
+	            mav.addObject("orderInfoList", orderInfoList);
+
+	            // JSP 페이지 이름을 설정합니다. 해당 JSP 페이지는 orderInfoList 데이터를 활용하여 화면을 구성합니다.
+	            mav.setViewName("/seller/sellerOrderDetail");
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+
+	        return mav;
+	    }
 	   
 	
 	protected List upload(MultipartHttpServletRequest multipartRequest) throws Exception{
