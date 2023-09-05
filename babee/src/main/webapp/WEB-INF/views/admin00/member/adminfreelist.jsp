@@ -163,7 +163,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       .faq-table th,
       .faq-table td {
         padding: 10px;
-        text-align: center;
+
         border: none; /* 기존 테두리 제거 */
         border-bottom: 1px solid #ccc; /* 아래쪽 경계선 추가 */
       }
@@ -211,7 +211,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             <th style="width: 10%">작성자</th>
             <th style="width: 15%">작성일</th>
             <th style="width: 8%">조회수</th>
-            <th style="width: 5%">삭제</th>
           </tr>
         </thead>
         <tbody>
@@ -223,8 +222,10 @@ uri="http://java.sun.com/jsp/jstl/core" %>
               <td>
                 <a
                   href="/community/freeboardDetail.do?articleNO=${free.articleNO} "
-                  style="display: flex; align-items: center"
-                  ><span style="color: black">${free.free_title}</span></a
+                  style="display: flex"
+                  ><span style="color: black; text-align: left"
+                    >${free.free_title}</span
+                  ></a
                 >
               </td>
               <td>
@@ -241,14 +242,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                 <p style="align-items: center">
                   <span style="color: black">${free.free_view_count}</span>
                 </p>
-              </td>
-              <td>
-                <a
-                  href="/member/delete/${free.articleNO}?page=adminPage"
-                  style="color: red"
-                  onclick="return confirm('삭제하시겠습니까?');"
-                  ><span style="font-size: 20px">&#128683;</span></a
-                >
               </td>
             </tr>
           </c:forEach>
