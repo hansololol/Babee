@@ -73,6 +73,7 @@ request.setCharacterEncoding("utf-8"); %>
         text-decoration: none;
         font-size: 1px;
       }
+      
     </style>
   </head>
   <body>
@@ -85,11 +86,11 @@ request.setCharacterEncoding("utf-8"); %>
         <th>수량</th>
         <th>주문일자</th>
         <th>주문상태</th>
-        <th></th>
+        <th>반품가격</th>
       </tr>
-      <c:forEach var="order" items="${myOrderList}" varStatus="orderNO">
+      <c:forEach var="order" items="${orderInfoList}">
         <tr>
-          <td>${orderNO.count}</td>
+          <td>${order.orderNO}</td>
           <td>${order.goods_title}</td>
           <td>${order.order_goods_qty}</td>
           <td>${order.payment_order_time}</td>
@@ -104,13 +105,6 @@ request.setCharacterEncoding("utf-8"); %>
 
             <c:if test="${order.delivery_status=='finished_delivering'}">
               <b>배송완료</b>
-              <td>
-                <a
-                  class="order_delivery_search"
-                  href="${contextPath}/member/reviewForm.do?goods_id=${order.goods_id}&goods_image_name1=${order.goods_image_name}&goods_title=${order.goods_title}"
-                  ><b>후기작성</b></a
-                >
-              </td>
             </c:if>
 
             <c:if test="${order.delivery_status=='cancel_order'}">
@@ -118,46 +112,44 @@ request.setCharacterEncoding("utf-8"); %>
             </c:if>
 
             <c:if test="${order.delivery_status=='refund'}">
-              <b>주문취소</b>
+              <b>반품/교환</b>
             </c:if>
 
             <c:if test="${order.delivery_status=='review_write' }">
               <b>리뷰작성완료</b>
+              </c:if>
               </td>
-            </c:if>
-          </td>
+              <td>
+              <p style="display: flex; justify-content: center; margin-top: 15px;">${order.returnPrice}</p>
         </tr>
       </c:forEach>
     </table>
     <div class="container">
-      <h2 style="text-align: center">주문정보조회</h2>
-      <div
-        class="divider"
-        style="border-top: 1px solid #ddd; margin: 20px 0"
-      ></div>
+  <h2 style="text-align: center">주문정보조회</h2>
+  <div class="divider" style="border-top: 1px solid #ddd; margin: 20px 0"></div>
 
-      <table class="infoTable">
-        <tr>
-          <th>결제방법</th>
-          <th>${myOrder.payment_method} - ${myOrder.card_com_name}</th>
-        </tr>
-        <tr>
-          <th>배송방법</th>
-          <th>택배배송</th>
-        </tr>
-        <tr>
-          <th>배송지</th>
-          <th>${myOrder.deliveryAddr}</th>
-        </tr>
-        <tr>
-          <th>배송 시 요청사항</th>
-          <th>${myOrder.deliveryMessage}</th>
-        </tr>
-        <tr>
-          <th>결제금액</th>
-          <th>${myOrder.final_total_price} 원</th>
-        </tr>
-      </table>
+  <table class="infoTable">
+    <tr>
+      <th>결제방법</th>
+      <th>${orderInfoList[0].payment_method} - ${orderInfoList[0].card_com_name}</th>
+    </tr>
+    <tr>
+      <th>배송방법</th>
+      <th>택배배송</th>
+    </tr>
+    <tr>
+      <th>배송지</th>
+      <th>${orderInfoList[0].deliveryAddr}</th>
+    </tr>
+    <tr>
+      <th>배송 시 요청사항</th>
+      <th>${orderInfoList[0].deliveryMessage}</th>
+    </tr>
+    <tr>
+      <th>결제금액</th>
+      <th>${orderInfoList[0].final_total_price} 원</th>
+    </tr>
+  </table>
       <a href="javascript:history.back()" class="orange-button">이전 페이지</a>
     </div>
   </body>

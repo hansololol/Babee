@@ -245,6 +245,9 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 		refund.setOrder_id(order_id);
 		refund.setReturnPrice(returnPrice);
 		System.out.println(returnPrice);
+		if ("change".equals(refund.getDelivery_status())) {
+	        refund.setReturnPrice(-3000);
+	    }
 		refund.setMember_id(memberVO.getMember_id());
 		myPageService.refundOrder(refund);
 		mav.setViewName("redirect:/mypage/listMyOrderHistory.do");

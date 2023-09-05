@@ -100,5 +100,7 @@ public interface SellerService {
     
     //사업자 qna답변
     public void addGoodsQnaAnswer(Map<String, Object> goodsQnaAnswerMap) throws Exception;
+    
+    public List<Map<String, Object>> sellerOrderInfo(Map<String, Object> sellerOrderInfoMap) throws Exception;
 }
 

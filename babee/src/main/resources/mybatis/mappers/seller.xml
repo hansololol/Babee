@@ -629,4 +629,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  WHERE articleNO = #{articleNO}
 	</update>
 	
+	
+	<select id="sellerOrderInfo" resultType="java.util.Map" parameterType="java.util.Map">
+	  <![CDATA[
+	    SELECT o.*, g.goods_title, r.returnPrice, r.delivery_status
+		FROM t_shopping_order AS o
+		INNER JOIN t_shopping_goods AS g ON o.goods_id = g.goods_id
+		LEFT JOIN t_shopping_refund AS r ON o.orderNO = r.orderNO
+		WHERE g.seller_id = #{seller_id}
+		  AND o.order_id = #{order_id}
+	  ]]>
+	</select>
 </mapper>

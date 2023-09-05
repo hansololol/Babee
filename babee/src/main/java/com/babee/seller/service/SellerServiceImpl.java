@@ -262,4 +262,9 @@ public class SellerServiceImpl implements SellerService{
     public void addGoodsQnaAnswer(Map<String, Object> goodsQnaAnswerMap) throws Exception {
         sellerDAO.GoodsQnaAnswer(goodsQnaAnswerMap);
     }
+	
+	@Override
+    public List<Map<String, Object>> sellerOrderInfo(Map<String, Object> sellerOrderInfoMap) throws Exception {
+        return sellerDAO.sellerOrderInfo(sellerOrderInfoMap);
+    }
 }
