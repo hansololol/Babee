@@ -87,9 +87,23 @@
          padding:30px 180px 0 180px;
       background-color:#FEF7DD;
       }
-      
+  
+      #sideChannel{
+
+        position: sticky;
+        float: right;
+       top: 75%;
+       right:180px;
+    
+       height: 150px;
+       padding: 15px;
+      }
+    
    </style>
    </head>
+
+
+   
 <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
@@ -130,14 +144,43 @@
         </div>
     </form>
 </div>
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.3.0/kakao.min.js"
+integrity="sha384-70k0rrouSYPWJt7q9rSTKpiTfX6USlMYjZUtr1Du+9o4cGvhPAWxngdtVZDdErlh" crossorigin="anonymous"></script>
+<script>
+Kakao.init('881cd43e5724e04602b618321bb393c1'); // 사용하려는 앱의 JavaScript 키 입력
+</script>
+
+<script>
+function addChannel() {
+  Kakao.Channel.addChannel({
+    channelPublicId: '_XrYxdG',
+  });
+  Kakao.Channel.chat({
+  channelPublicId: '_XrYxdG' // 카카오톡 채널 홈 URL에 명시된 id로 설정합니다.
+}).open;
+}
+
+function moveTop(){
+  window.scrollTo(0,0)
+}
+</script>
 <br>
+<div id="sideChannel">
+<a id="add-channel-button" href="javascript:addChannel()">
+  <img src="/image/id_type.png" width="60px" style="border-radius: 50%;"
+    alt="카카오톡 채널 추가하기 버튼" />
+  </a>
+  <br>
+  <a href="javascript:moveTop()">
+  <img src="/image/moveTop.png" width="70px">
+</a>
+</div>
 <div id="popular-products" style="display: flex; flex-direction: column; align-items: left;">
    
     <div style="display: flex; flex-direction: row; align-items: flex-start; margin: auto;">
         <span style="font-size: 14px; font-weight: 300; margin: -5px 5px; ">
     실시간 <br>인기상품
    </span>
-
 
 		<c:forEach var="goods" items="${hotGoodsList}">
 			<div class="my_img_container">
@@ -150,7 +193,7 @@
 				</ul>
 			</div>
 		</c:forEach>
-		
+
 		  <div class="my_img_container">
           <a href="${contextPath}/goods/goodsList.do"><img src="/image/rightButton.png" width="30px" height="50px" style="margin-top: 500%; cursor: pointer;"></a>
         </div>
@@ -184,7 +227,6 @@
         <div class="img_text">${goods.goods_title}</div>
     </div>
 </c:forEach>
-       
         <br><br>
 </div>
 </div>
