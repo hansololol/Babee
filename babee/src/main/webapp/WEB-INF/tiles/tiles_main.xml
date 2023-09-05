@@ -358,7 +358,12 @@
          <put-attribute name="title" value="사업자 주문 리스트" />
          <put-attribute name="body" value="/WEB-INF/views/seller/listSellerOrder.jsp" />
        </definition>
-  
+  		
+  		<definition name="/seller/sellerOrderDetail" extends="baseLayout_user">
+       <put-attribute name="title" value="사업자 주문 상세" />
+       <put-attribute name="body" value="/WEB-INF/views/seller/sellerOrderDetail.jsp" />
+     </definition>
+     
        <definition name="/seller/sellerQuestionAnswer" extends="baseLayout_user">
          <put-attribute name="title" value="사업자 문의 내역 관리" />
          <put-attribute name="body" value="/WEB-INF/views/seller/sellerQuestionAnswer.jsp" />

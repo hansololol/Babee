@@ -27,9 +27,17 @@ public class MyPageServiceImpl  implements MyPageService{
 		return myPageDAO.selectMyOrderGoodsList(member_id);
 	}
 	
+	
 	public List findMyOrderInfo(String order_id) throws Exception{
 		return myPageDAO.selectMyOrderInfo(order_id);
 	}
+	public List<Map<String, Object>> refundList(int orderNO) throws Exception{
+		return myPageDAO.refundList(orderNO);
+	}
+	public List<Map<String, Object>> selectGroupedOrders(String order_id) throws Exception{
+	    return myPageDAO.selectGroupedOrders(order_id);
+	}
+	
 	
 	public List<OrderVO> listMyOrderHistory(Map dateMap) throws Exception{
 		return myPageDAO.selectMyOrderHistoryList(dateMap);

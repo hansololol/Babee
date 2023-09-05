@@ -11,7 +11,17 @@ public class RefundVO {
 		private String goods_id;
 		private String member_id;
 		private String reason_option;
+		private int returnPrice;
 		
+		
+		public int getReturnPrice() {
+			return returnPrice;
+		}
+
+		public void setReturnPrice(int returnPrice) {
+			this.returnPrice = returnPrice;
+		}
+
 		public String getOrder_id() {
 			return order_id;
 		}

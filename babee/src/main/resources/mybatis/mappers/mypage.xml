@@ -44,7 +44,51 @@
       <result property="review_writeDate" column="review_writeDate" />
    </resultMap>
    
-   
+   <resultMap id="refundResult" type="RefundVO">
+    <id property="orderNO" column="orderNO" />
+    <result property="order_id" column="order_id" />
+    <result property="delivery_status" column="delivery_status" />
+    <result property="reason" column="reason" />
+    <result property="goods_id" column="goods_id" />
+    <result property="member_id" column="member_id" />
+    <result property="reason_option" column="reason_option" />
+    <result property="returnPrice" column="returnPrice" />
+</resultMap>
+   <!-- 상품각각조회 -->
+   <select id="refundList" resultType="java.util.Map" parameterType="int" >
+	    <![CDATA[
+		    SELECT
+		      o.*,
+		      g.goods_image_name1,
+		      g.goods_title
+		    FROM
+		      t_shopping_order o
+		    INNER JOIN
+		      t_shopping_goods g
+		    ON
+		      o.goods_id = g.goods_id
+		    WHERE
+		      o.orderNO = #{orderNO}
+    	]]>
+	</select>
+	<!-- 상품목록 (더보기)조회 -->
+	<select id="selectGroupedOrders" resultType="java.util.Map" parameterType="String">
+	  <![CDATA[
+	    SELECT
+	      o.*,
+	      g.goods_title,
+	      g.goods_image_name1
+	    FROM
+	      t_shopping_order o
+	    INNER JOIN
+	      t_shopping_goods g
+	    ON
+	      o.goods_id = g.goods_id
+	    WHERE
+	      o.order_id = #{order_id}
+	  ]]>
+	</select>
+
 	 <select id="selectMyOrderGoodsList" resultMap="orderGoodsResult"  parameterType="String"  >
 	   
 	    <![CDATA[
@@ -89,7 +133,8 @@
 	   		#{reason},
 	   		#{goods_id},
 	   		#{member_id},
-	   		#{reason_option})
+	   		#{reason_option},
+	   		#{returnPrice})
 	   		   ]]>
 	</insert>
 	
