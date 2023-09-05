@@ -198,10 +198,14 @@ public class GoodsControllerImpl extends BaseController implements GoodsControll
 		
 	}
 	@RequestMapping(value="/fitGoods.do" ,method = RequestMethod.GET)
-	public ModelAndView fitGoods(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	public ModelAndView fitGoods(HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "pageNum", defaultValue = "1") int currentPage) throws Exception{
 		String viewName=(String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 		HttpSession session=request.getSession();
+		
+		int itemsPerPage = 15;
+	    int startIndex = (currentPage - 1) * itemsPerPage;
+		
 		MemberVO member = (MemberVO) session.getAttribute("memberInfo");
 		String baby_age = member.getBaby_age();
 		List fitList = goodsService.getfitList(baby_age);
@@ -224,6 +228,54 @@ public class GoodsControllerImpl extends BaseController implements GoodsControll
 		cate.put("middle_category", middle_category);
 		List<GoodsVO> goodsList = goodsService.getAllCategoryGoods(category);
 		System.out.println(goodsList.size() + "상품 사이즈 확인");
+		
+	   
+	    
+	    // 현재 정렬 방식을 request 파라미터에서 읽어옴
+	    String sort = request.getParameter("sort");
+	    if (sort == null) {
+	        sort = "defaultSort"; // 정렬 방식이 선택되지 않았을 때 기본값 설정
+	    }
+
+	    // 정렬 방식에 따라 상품 목록을 가져옴
+	    List<GoodsVO> newGoodsList = null;
+	    int totalItemCount = 0;
+
+	    switch (sort) {
+	        case "new":
+	            newGoodsList = goodsService.selectSort("new", startIndex, itemsPerPage);
+	            totalItemCount = goodsService.selectSortCount();
+	            break;
+
+	        case "popular":
+	            newGoodsList = goodsService.hotGoodsList(startIndex, itemsPerPage);
+	            totalItemCount = goodsService.hotGoodsListCount();
+	            break;
+
+	        case "low":
+	            newGoodsList = goodsService.selectSort("low", startIndex, itemsPerPage);
+	            totalItemCount = goodsService.selectSortCount();
+	            break;
+
+	        case "high":
+	            newGoodsList = goodsService.selectSort("high", startIndex, itemsPerPage);
+	            totalItemCount = goodsService.selectSortCount();
+	            break;
+	            
+	        default: // 정렬 방식이 선택되지 않았거나 올바르지 않은 값일 때
+	            newGoodsList = goodsService.getAllGoods(startIndex, itemsPerPage);
+	            totalItemCount = goodsService.selectAllGoodsCount();
+	            sort = "defaultSort"; // 기본값 설정
+	            break;
+	    }
+
+	    int totalPages = (int) Math.ceil((double) totalItemCount / itemsPerPage);
+
+	    mav.addObject("totalPages", totalPages);
+	    
+
+	   
+	    mav.addObject("currentPage", currentPage);
 		mav.addObject("goods", goodsList);
 		
 		
