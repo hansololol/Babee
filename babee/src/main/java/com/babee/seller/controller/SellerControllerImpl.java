@@ -828,7 +828,6 @@ public class SellerControllerImpl extends BaseController implements SellerContro
             	 String goods_id= goodsQNA.getGoods_id();
             	 Map goodsDetail= goodsService.goodsDetail(goods_id);
             	 GoodsVO goodsVO = (GoodsVO) goodsDetail.get("goodsVO");
-            	 goodsQnaList.remove(i);
             	 goodsQNA.setGoodsVO(goodsVO);
             	 goodsQNAList.add(goodsQNA);
             	}	
