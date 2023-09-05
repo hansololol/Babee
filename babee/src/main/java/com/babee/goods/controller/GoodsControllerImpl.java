@@ -83,7 +83,7 @@ public class GoodsControllerImpl extends BaseController implements GoodsControll
 
 	    request.setCharacterEncoding("utf-8");
 	    ModelAndView mav = new ModelAndView("/goods/goodsList");
-	    int itemsPerPage = 2;
+	    int itemsPerPage = 15;
 	    int startIndex = (currentPage - 1) * itemsPerPage;
 	    
 	    // 현재 정렬 방식을 request 파라미터에서 읽어옴

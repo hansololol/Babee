@@ -73,31 +73,42 @@
         width: 70%;
         margin: 50px auto -10px;
     }
-.diary_list {
+.goods_list {
     display: inline-block;
     margin: -15px;
     padding: 10px;
     width:300px;
+    height:450px;
     
 }
 
-.diary_list ul {
+.goods_list ul {
     list-style: none;
     padding: 0;
 }
 
-.diary_list li {
+.goods_list li {
     margin-bottom: 5px;
 }
 
-.diary_list li.checkbox{
+.goods_list li.checkbox{
     text-align: left;
 }
 
 
-.diary_list li img{
+.goods_list li img{
     width: 250px;
     height: 300px;
+}
+
+.ellipsis2 {
+  width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  margin: 10px auto;
 }
  
  
@@ -200,12 +211,17 @@
     </c:if>
           <div>
           <c:forEach var="goods" items="${newGoodsList}">
-      <div class="diary_list">
+      
+      
+      <div class="goods_list" >
          <ul>                                                                                                            
             <li style="text-align: left;"> <input type="checkbox" id="check" hidden> </li>
             <li> <a href="${contextPath}/goods/goodsDetail.do?goods_id=${goods.goods_id}&fileName=${goods.goods_image_name1}"><img src="${contextPath}/thumbnails.do?goods_id=${goods.goods_id}&fileName=${goods.goods_image_name1}" style="border-radius: 9%"> </a></li>
-            <li>${goods.goods_title}</li>
-            <li>${goods.goods_price}원</li>
+            <div class="ellipsis2">
+            <li style="font-weight: bold; height:48px;">${goods.goods_title}</li>
+            </div>
+            <li><fmt:formatNumber value="${goods.goods_price}"  pattern="##,###,### 원"/></li>
+            
          </ul>
       </div>
         </c:forEach>
@@ -216,14 +232,15 @@
             <div style="height: 800px;">
                 <br>
                 <img src="/image/glass.png" style="width: 60px;"> <br> <br>
-            <p>검색된 상품이 없습니다.</p>
-            <a href="/main/main.do" class="btn btn-warning">메인 페이지로 이동</a>
-         </div>
+            	<p>검색된 상품이 없습니다.</p>
+            	<a href="/main/main.do" class="btn btn-warning">메인 페이지로 이동</a>
+         	</div>
          </c:if>
          
-         <!-- 페이징 -->
-     <div class="pagination">
+<!-- 페이징 -->
+<div class="pagination">
     <c:if test="${totalPages >= 1}">
+        <c:set var="itemsPerPage" value="10" /> <!-- 한 페이지당 항목 수 설정 -->
         <c:set var="startPage" value="${currentPage - 5}" />
         <c:if test="${startPage < 1}">
             <c:set var="startPage" value="1" />
@@ -234,8 +251,8 @@
         </c:if>
         <c:choose>
             <c:when test="${currentPage > 1}">
-                <a href="?pageNum=1&sort=${sort}">First</a>
-                <a href="?pageNum=${currentPage - 1}&sort=${sort}">&lt;&lt;</a>
+                <a href="?pageNum=1&itemsPerPage=${itemsPerPage}&sort=${sort}">First</a>
+                <a href="?pageNum=${currentPage - 1}&itemsPerPage=${itemsPerPage}&sort=${sort}">&lt;&lt;</a>
             </c:when>
             <c:otherwise>
                 <span class="disabled">First</span>
@@ -248,14 +265,14 @@
                     <span class="current">${page}</span>
                 </c:when>
                 <c:otherwise>
-                    <a href="?pageNum=${page}&sort=${sort}">${page}</a>
+                    <a href="?pageNum=${page}&itemsPerPage=${itemsPerPage}&sort=${sort}">${page}</a>
                 </c:otherwise>
             </c:choose>
         </c:forEach>
         <c:choose>
             <c:when test="${currentPage < totalPages}">
-                <a href="?pageNum=${currentPage + 1}&sort=${sort}">&gt;&gt;</a>
-                <a href="?pageNum=${totalPages}&sort=${sort}">Last</a>
+                <a href="?pageNum=${currentPage + 1}&itemsPerPage=${itemsPerPage}&sort=${sort}">&gt;&gt;</a>
+                <a href="?pageNum=${totalPages}&itemsPerPage=${itemsPerPage}&sort=${sort}">Last</a>
             </c:when>
             <c:otherwise>
                 <span class="disabled">&gt;&gt;</span>
@@ -264,5 +281,6 @@
         </c:choose>
     </c:if>
 </div>
+
 </body>
 </html>
