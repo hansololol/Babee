@@ -36,7 +36,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
         margin: 0 20px 15px 0;
         border: 1px solid #fef7dd;
         background: #fef7dd;
-        color: #ffffff;
+        color: #131313;
         font-size: 15px;
         font-weight: bold;
         cursor: pointer;
@@ -125,57 +125,53 @@ uri="http://java.sun.com/jsp/jstl/core"%>
           </form>
           <!-- //login_box -->
 
-          <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+          <script
+            src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"
+            charset="utf-8"
+          ></script>
+          <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
+          <div class="member_sns_login">
+            <div id="naverIdLogin"></div>
+            <script type="text/javascript">
+              const naverLogin = new naver.LoginWithNaverId({
+                clientId: "g9MhutSOy0o5MqWSol0E",
+                callbackUrl: "http://localhost:8080/member/loginForm.do",
+                loginButton: { color: "green", type: 2, height: 0 },
+              });
+              naverLogin.init(); // 로그인 설정
 
-    <div class="member_sns_login"
-             >
-              <div id="naverIdLogin"></div> 
-              <script type="text/javascript">
-              const naverLogin = new naver.LoginWithNaverId(
-                      {
-                          clientId: "g9MhutSOy0o5MqWSol0E",
-                          callbackUrl: "http://localhost:8080/member/loginForm.do",
-                          loginButton: {color: "green", type: 2, height: 0}
-                      }
-                  );
-           	   naverLogin.init(); // 로그인 설정
-  
-                naverLogin.getLoginStatus(function (status) {
-                    if (status) {
-                        var nickName=naverLogin.user.getNickName();
-                        var email=naverLogin.user.getEmail();
-                        $.ajax({
-                            type: "POST",
-                            async: false,
-                            url: "${contextPath}/member/naver.do",
-                            data: { 'nickName': nickName, 'email':email },
-                            dataType: 'text',
-                            success: function (result) {
-                            	window.location.replace("${contextPath}/main/main.do");
-                            }
-                           
-                        });
-                    }
-                    });
-                        
-                $(document).on("click", "#naverLogin", function () {
-                    var btnNaverLogin =
-                      document.getElementById("naverIdLogin").firstChild;
-                    btnNaverLogin.click();
+              naverLogin.getLoginStatus(function (status) {
+                if (status) {
+                  var nickName = naverLogin.user.getNickName();
+                  var email = naverLogin.user.getEmail();
+                  $.ajax({
+                    type: "POST",
+                    async: false,
+                    url: "${contextPath}/member/naver.do",
+                    data: { nickName: nickName, email: email },
+                    dataType: "text",
+                    success: function (result) {
+                      window.location.replace("${contextPath}/main/main.do");
+                    },
                   });
-                
-           
-   
-              </script>
-           
-            
-              <img
-                src="https://cdn-pro-web-219-28.cdn-nhncommerce.com/malltr2083_godomall_com/data/skin/front/moment/img/etc/pc_naver.png"
-                alt="네이버 아이디 로그인" id="naverLogin" style="cursor: pointer;"
-              />
-             </div>
+                }
+              });
+
+              $(document).on("click", "#naverLogin", function () {
+                var btnNaverLogin =
+                  document.getElementById("naverIdLogin").firstChild;
+                btnNaverLogin.click();
+              });
+            </script>
+
+            <img
+              src="https://cdn-pro-web-219-28.cdn-nhncommerce.com/malltr2083_godomall_com/data/skin/front/moment/img/etc/pc_naver.png"
+              alt="네이버 아이디 로그인"
+              id="naverLogin"
+              style="cursor: pointer"
+            />
+          </div>
 
           <div>
             <script
