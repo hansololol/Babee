@@ -806,7 +806,7 @@ public class SellerControllerImpl extends BaseController implements SellerContro
             	 goodsQNA.setGoodsVO(goodsVO);
             	 goodsQnaList.remove(goodsQNA);
             	 goodsQnaList.add(goodsQNA);
-            	 System.out.println(goodsQnaList.get(0).getGoodsVO().getGoods_title() +"상품 명 있는지 확인./.");
+
             }
 	        mav.addObject("totalPages", totalPages);
 	        mav.addObject("goodsQnaList", goodsQnaList);
