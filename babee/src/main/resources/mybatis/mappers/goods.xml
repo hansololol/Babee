@@ -66,6 +66,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    ORDER BY goods_creation_date DESC
 	    LIMIT #{startIndex}, #{itemsPerPage};
 	</select>
+	
 	<select id="selectAllGoodsCount" resultType="int">
 	    SELECT COUNT(*) FROM t_shopping_goods;
 	</select>

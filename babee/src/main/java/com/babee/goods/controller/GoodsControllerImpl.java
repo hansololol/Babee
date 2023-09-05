@@ -83,7 +83,7 @@ public class GoodsControllerImpl extends BaseController implements GoodsControll
 
 	    request.setCharacterEncoding("utf-8");
 	    ModelAndView mav = new ModelAndView("/goods/goodsList");
-	    int itemsPerPage = 15;
+	    int itemsPerPage = 16;
 	    int startIndex = (currentPage - 1) * itemsPerPage;
 	    
 	    // 현재 정렬 방식을 request 파라미터에서 읽어옴
@@ -95,6 +95,7 @@ public class GoodsControllerImpl extends BaseController implements GoodsControll
 	    // 정렬 방식에 따라 상품 목록을 가져옴
 	    List<GoodsVO> newGoodsList = null;
 	    int totalItemCount = 0;
+	    System.out.println(sort + startIndex + "시작 페이지" + itemsPerPage +"끝 페이지" + "출력 확인" );
 
 	    switch (sort) {
 	        case "new":
