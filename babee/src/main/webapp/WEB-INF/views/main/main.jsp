@@ -212,7 +212,7 @@ function moveTop(){
 		
 		
 <c:forEach var="goods" items="${seosonList}" varStatus="loopStatus">
-    <div class="my_img_container" style="border-radius: 50%; float: left;">
+    <div class="my_img_container" style="border-radius: 50%; float: center; margin-bottom: 10px;">
         <a href="${contextPath}/goods/goodsDetail.do?goods_id=${goods.goods_id}&fileName=${goods.goods_image_name1}">
             <img src="${contextPath}/thumbnails.do?goods_id=${goods.goods_id}&fileName=${goods.goods_image_name1}" class="my_img"  
             />
