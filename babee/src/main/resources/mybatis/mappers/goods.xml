@@ -27,6 +27,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       <result property="tag_option3" column="tag_option3" />
       <result property="tag_option4" column="tag_option4" />
       <result property="tag_option5" column="tag_option5" />
+      <result property="buycnt" column="buycnt" />
+      <result property="buyprice" column="buyprice" />
    </resultMap>   
 
    <resultMap id="imageResult" type="ImageFileVO">

@@ -46,6 +46,9 @@ public class MyPageServiceImpl  implements MyPageService{
 	public void cancelOrder(int orderNO) throws Exception{
 		myPageDAO.updateMyOrderCancel(orderNO);
 	}
+	public void updateBuyCountByOrderNo(int orderNO) throws Exception{
+		myPageDAO.updateBuyCountByOrderNo(orderNO);
+	}
 	public void refundOrder(RefundVO refundOrder) throws Exception{
 		myPageDAO.updateMyOrderRefund(refundOrder);
 	}

@@ -203,6 +203,7 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 			HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		myPageService.cancelOrder(orderNO);
+		myPageService.updateBuyCountByOrderNo(orderNO);
 		mav.setViewName("redirect:/mypage/listMyOrderHistory.do");
 		return mav;
 	}
@@ -263,10 +264,8 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 		if ("change".equals(refund.getDelivery_status())) {
 	        refund.setReturnPrice(-3000);
 	    }
-		System.out.println(returnPrice);
-		if ("change".equals(refund.getDelivery_status())) {
-	        refund.setReturnPrice(-3000);
-	    }
+		int orderNO = refund.getOrderNO();
+		myPageService.updateBuyCountByOrderNo(orderNO);
 		refund.setMember_id(memberVO.getMember_id());
 		myPageService.refundOrder(refund);
 		mav.setViewName("redirect:/mypage/listMyOrderHistory.do");

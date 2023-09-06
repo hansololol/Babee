@@ -67,7 +67,7 @@
                <td colspan="5" style="border: none; border-bottom: 1px solid gray;"><h4 style="margin-bottom:0px;">주문내역</h4></td>
          </tr>
            <tr height="10" align="center" >
-              <td width="50%" >주문상품</td>
+              <td width="30%" >주문상품</td>
               <td>판매금액</td>
               <td>할인금액</td>
               <td>수량</td>
@@ -77,7 +77,7 @@
            <c:forEach  var="order" items="${myOrderList}" varStatus="articleNum" >
              <tr width="80px;" height="10">
                  
-                  <td style="width:100px; text-align: left;"> <img src="${contextPath}/thumbnails.do?goods_id=${order.goods.goods_id}&fileName=${order.goods.goods_image_name1}" width="100px">  ${order.goods.goods_title}</td>
+                  <td style="width:100px;"> <img src="${contextPath}/thumbnails.do?goods_id=${order.goods.goods_id}&fileName=${order.goods.goods_image_name1}" width="100px" height="100px" >  ${order.goods.goods_title}</td>
                   <td><fmt:formatNumber value="${order.goods.goods_price * order.order_goods_qty}" pattern="##,###,###원" /></td>
                   <%-- <td>${discounted_price * order.order_goods_qty} 원 </td> --%>
                   <td><fmt:formatNumber value="${order.goods.goods_price/10 * order.order_goods_qty}" pattern="##,###,### 원" /></td>

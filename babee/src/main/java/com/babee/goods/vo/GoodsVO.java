@@ -29,6 +29,21 @@ public class GoodsVO {
     private String goods_option4;
     private String goods_option5;
     private String fileType;
+    private int buycnt;
+    private int buyprice;
+    
+	public int getBuycnt() {
+		return buycnt;
+	}
+	public void setBuycnt(int buycnt) {
+		this.buycnt = buycnt;
+	}
+	public int getBuyprice() {
+		return buyprice;
+	}
+	public void setBuyprice(int buyprice) {
+		this.buyprice = buyprice;
+	}
 	public int getGoods_id() {
 		return goods_id;
 	}

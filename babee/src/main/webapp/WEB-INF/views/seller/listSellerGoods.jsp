@@ -106,7 +106,7 @@
 
 </head>
 <body>
-
+	<c:set var="totalBuyPrice" value="0" />
    <div class="order_delivery_list" style="margin-left:165px;">
    <H3>상품관리</H3>
    <hr>
@@ -117,7 +117,7 @@
                <img src ="/image/people.png" width="60px;" style="display:inline-block; padding-left:15px;"/>
                
                   <p  style="display:inline-block;"> ${memberInfo.seller_name}님 안녕하세요 </p>
-               
+                  
             </td>
          </tr>
       </table>
@@ -190,8 +190,11 @@
       <table class="order_delivery" width="100%">
          <tr>
          	 <td style="font-weight:bold;">상품번호</td>
-             <td colspan="2" width="300px" style="padding-left: 15px; font-weight:bold; ">상품명</td>
+         	 <td style="font-weight:bold;">상품정보</td>
+             <td style="font-weight:bold; ">상품명</td>
              <td style="font-weight:bold;">가격</td>
+             <td style="font-weight:bold;">판매량</td>
+             <td style="font-weight:bold;">수익</td>
              <td style="font-weight:bold;">상품 관리</td>
          </tr>
          
@@ -202,6 +205,7 @@
 		        </tr>
 		    </c:when>
 		    <c:otherwise>
+		    <c:set var="totalBuyPrice" value="0" />
          <c:forEach items="${sellerGoodsList}" var="goods">
              <tr>
             	<td style="text-align:center;">${goods.goods_id}</td>
@@ -211,18 +215,24 @@
                  
                  <input type="hidden" name="goods_image_name2" value="${goods.goods_image_name2}">
                  <input type="hidden" name="goods_image_name2_id" value="${goods.goods_image_name2_id}">
-                 <td style="text-align:left;">${goods.goods_title}</td>
+                 <td style="text-align:center;">${goods.goods_title}</td>
                  <td><fmt:formatNumber value="${goods.goods_price}" type="Number"  />원</td>
-             
+             	<td>${goods.buycnt}</td>
+             	<td><fmt:formatNumber value="${goods.buyprice}" pattern="#,###,###" />원</td>
                  <td>
                  
                      <a class="modify_delivery_search" href="${contextPath}/seller/modGoodsForm.do?page=sellerPage&goods_id=${goods.goods_id}"><b>수정하기</b></a><br>
                      <a class="modify_delivery_search" href="${contextPath}/seller/removeGoodsImage.do?page=sellerPage&goods_id=${goods.goods_id}&goods_image_name1=${goods.goods_image_name1}&goods_image_name1_id=${goods.goods_image_name1_id}"><b>삭제</b></a><br>
                  </td>
+                 <c:set var="totalBuyPrice" value="${totalBuyPrice + goods.buyprice}" />
              </tr>
          </c:forEach>
+         
          </c:otherwise>
+         
+         
 </c:choose>
+<p style="text-align:left; font-weight:bold;">총 수익: <fmt:formatNumber value="${totalBuyPrice}" pattern="#,###,###"/> 원</p>
       </table>
    </form>
    
