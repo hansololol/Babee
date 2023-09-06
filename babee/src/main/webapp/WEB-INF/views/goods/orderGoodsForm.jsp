@@ -3,8 +3,7 @@
     isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-
+<% request.setCharacterEncoding("utf-8"); %>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 
 
@@ -64,12 +63,12 @@ ul li{
 */
 
 #kakaopayBtn img{
-   width: 300px;
-   margin: 70px;
+   width: 150px;
+   margin: 100px;
 }
 #bankbookBtn img{
    width: 300px;
-   margin: 70px;
+   margin: 100px;
 }
 
 #layer {
@@ -264,6 +263,8 @@ $(function (){
               $('.cardList').css('display','block');
               $('#kakaopayBtn').css('display','none');
               $('#bankbookBtn').css('display','none');
+              $('#normalOrder').css('display','block');
+              $('#kakaoOrder').css('display','none');
    } 
  }); 
 });
@@ -274,6 +275,8 @@ $(function (){
               $('.cardList').css('display','none');
               $('#kakaopayBtn').css('display','block');
               $('#bankbookBtn').css('display','none');
+              $('#normalOrder').css('display','none');
+              $('#kakaoOrder').css('display','block');
    } 
  }); 
 });
@@ -285,10 +288,27 @@ $(function (){
               $('.cardList').css('display','none');
               $('#kakaopayBtn').css('display','none');
               $('#bankbookBtn').css('display','block');
+              $('#normalOrder').css('display','block');
+              $('#kakaoOrder').css('display','none');
    } 
  }); 
 });
 
+$(function(){
+	$('#apiBtn').click(function(){
+		$.ajax({
+			url:'${contextPath}/jq/kakaopay.do',
+			dataType:'json',
+			success: function(data){
+            var box = data.next_redirect_pc_url;
+            window.open(box);
+			},
+			error: function(error) {
+				alert(error);
+			}
+		})
+	})
+})
 
 </script>
 </head>
@@ -380,7 +400,7 @@ $(function (){
          <input type="radio" id="KKOcard" name="card_com_name" value="카카오뱅크"><label for="KKOcard"><img src="/image/12.카카오뱅크.png"></label>
 
       </div>
-      <div id="kakaopayBtn" style="display:none;"><img src="/image/카카오페이.PNG" name="card_com_name" value="카카오페이"></div>   
+      <div id="kakaopayBtn" style="display:none;"><img src="/image/payment_icon_yellow_medium.png" name="card_com_name" value="카카오페이"></div>   
       <div id="bankbookBtn" style="display:none;"><img src="/image/무통장입금.png" name="card_com_name" value="카카오뱅크 3333-02-9467466"></div>
    </div>
    
@@ -419,10 +439,14 @@ $(function (){
          </div>
 
          
-                  <div style="text-align: center; margin-top:10px;" class="orderinput">
-                         <input type="submit"  value="구매하기">&nbsp;&nbsp;&nbsp;
+                  <div id="normalOrder" style="text-align: center; margin-top:10px;" class="orderinput">
+                        <input type="submit"  value="구매하기">&nbsp;&nbsp;&nbsp;
                         <input type="reset" value="취소">
                   </div>
+                  <div id="kakaoOrder" style="display:none; text-align: center; margin-top:10px;" class="orderinput">
+                     <input type="button" id="apiBtn" value="카카오페이 결제하기">&nbsp;&nbsp;&nbsp;
+                     <input type="reset" value="취소">
+               </div>
 
 
     	</div>
