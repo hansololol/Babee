@@ -213,7 +213,7 @@ function search_order_history(fixedSearchPeriod){
           <td> 배송준비중 </td>
           <td> 
             <a class="order_delivery_search" href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}"><b>주문/배송조회</b></a><br>
-            <a class="order_delivery_search" href="${contextPath}/mypage/cancelMyOrder.do?order_id=${order.order_id}"><b>주문취소</b></a><br>
+            <a class="order_delivery_search" href="${contextPath}/mypage/cancelMyOrder.do?orderNO=${order.orderNO}&order_id=${order.order_id}"><b>주문취소</b></a><br>
           </td>
         </c:when>
         <c:when test="${order.delivery_status=='delivering' }">
@@ -239,6 +239,12 @@ function search_order_history(fixedSearchPeriod){
           <td> 반품/교환신청 </td>
           <td> 
             <a class="order_delivery_search" href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}"><b>주문상세</b></a><br>
+          </td>
+        </c:when>
+        <c:when test="${order.delivery_status=='review_write' }">
+          <td> 리뷰작성완료 </td>
+          <td> 
+            <a class="order_delivery_search" href="${contextPath}/mypage/myOrderDetail.do?order_id=${order.order_id}"><b>주문/배송조회</b></a><br>
           </td>
         </c:when>
       </c:choose>

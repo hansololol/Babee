@@ -26,7 +26,7 @@ public interface MyPageDAO {
 	public List<OrderVO> selectMyOrderHistoryList(Map dateMap) throws DataAccessException;
 	public void updateMyInfo(Map memberMap) throws DataAccessException;
 	public MemberVO selectMyDetailInfo(String member_id) throws DataAccessException;
-	public void updateMyOrderCancel(String order_id) throws DataAccessException;
+	public void updateMyOrderCancel(int orderNO) throws DataAccessException;
 	public void updateMyOrderRefund(RefundVO orderVO) throws DataAccessException;
 	public boolean selectCountWishList(WishVO wishVO) throws DataAccessException;
 	public void insertWishList(WishVO wishVO) throws DataAccessException;

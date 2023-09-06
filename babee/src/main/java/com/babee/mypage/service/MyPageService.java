@@ -22,7 +22,7 @@ public interface MyPageService{
 	
 	public List<OrderVO> listMyOrderHistory(Map dateMap) throws Exception;
 	
-	public void cancelOrder(String order_id) throws Exception;
+	public void cancelOrder(int orderNO) throws Exception;
 
 	public void refundOrder(RefundVO refundOrder) throws Exception;
 	
