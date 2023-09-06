@@ -8,9 +8,7 @@
 
 
 <head>
-    
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <style>
 
 
@@ -222,7 +220,6 @@ function fnOrderGoods() {
         });
     });
 
-    console.log("cartOrderArr", cartOrderArr);
 
     var form = document.createElement("form");
     form.setAttribute("method", "post");
@@ -293,7 +290,7 @@ $(function (){
    } 
  }); 
 });
-
+var popup;
 $(function(){
 	$('#apiBtn').click(function(){
 		$.ajax({
@@ -301,7 +298,13 @@ $(function(){
 			dataType:'json',
 			success: function(data){
             var box = data.next_redirect_pc_url;
-            window.open(box);
+            const width = 800;
+            const height = 200;
+
+let left = (document.body.offsetWidth / 2) - (width / 2);
+let tops = (document.body.offsetHeight) - (height / 10);
+               
+            popup=window.open(box,"카카오페이 결제창", "width=800, height=700, top="+tops+",left=" +left);
 			},
 			error: function(error) {
 				alert(error);
@@ -310,6 +313,11 @@ $(function(){
 	})
 })
 
+if("${kakaoSuccess}"!= '' ){
+               window.close();
+            
+               }  
+               
 </script>
 </head>
 <body>
@@ -326,7 +334,7 @@ $(function(){
          <br>
       <h3 style="display: inline-block; margin-right: 320px;"> &nbsp;&nbsp;배송지</h3> <button onclick="execDaumPostcode()" style="cursor: pointer; float: right;
       margin: 0 58px;">배송지 변경</button>
-      <form  name="form_order" action="${contextPath}/order/payToOrderGoods.do" enctype="utf-8" method="post">
+      <form  name="form_order" action="${contextPath}/order/payToOrderGoods.do" enctype="utf-8" method="post" id="kakaoForm">
       <ul>
          <li style="margin-top: 20px;"></li>      
          <c:if test="${memberInfo.member_id !=null}">   
@@ -344,7 +352,7 @@ $(function(){
            나머지 주소<input name="member_namujiAddr" type="text" size="45" value="${memberInfo.seller_namujiAddr }" id="member_namujiAddr" ></li>
 
         <li> 연락처 : ${memberInfo.seller_hp1} - ${memberInfo.seller_hp2} - ${memberInfo.seller_hp3} </li>   
-   </c:if>
+      </c:if>
          <br>
          <li><input type="text" size="45" placeholder="요청사항을 입력해주세요." name="deliveryMessage"></li>
       </ul>
@@ -353,38 +361,17 @@ $(function(){
       
    
    
-   <br><br>
+     <br><br>
 
    
-   <div class="detail_table">
+    <div class="detail_table">
          <h3>결제 수단</h3> 
          <div class="pay_method">
                <span><input type="radio" id="card" name="pay_method" value="체크/신용카드" checked>체크/신용카드</span>
-               <span><input type="radio" id="kakaopay" name="pay_method" value="카카오 페이">카카오 페이</span>
+               <span id="apiBtn"><input type="radio" id="kakaopay" name="pay_method" value="카카오 페이" >카카오 페이</span>
                <span><input type="radio" id="bankbook" name="pay_method" value="무통장 입금">무통장 입금</span>
          </div>
-         <!--
-      <table>
-         <tr>
-            <td><button type="button" name="card_com_name" value="현대카드" onClick="#"><img src="/image/1.현대카드.png"></button></td>
-            <td><button type="button" name="card_com_name" value="국민카드" onClick="#"><img src="/image/2.국민카드.png"></button></td>
-            <td><button type="button" name="card_com_name" value="신한카드" onClick="#"><img src="/image/3.신한카드.png"></button></td>
-            <td><button type="button" name="card_com_name" value="삼성카드" onClick="#"><img src="/image/4.삼성카드.png"></button></td>
-         </tr>
-         <tr>
-            <td><button type="button" name="card_com_name" value="비씨카드" onClick="#"><img src="/image/5.비씨카드.png"></button></td>
-            <td><button type="button" name="card_com_name" value="우리카드" onClick="#"><img src="/image/6.우리카드.png"></button></td>
-            <td><button type="button" name="card_com_name" value="농협카드" onClick="#"><img src="/image/7.농협카드.png"></button></td>
-            <td><button type="button" name="card_com_name" value="하나카드" onClick="#"><img src="/image/8.하나카드.png"></button></td>
-         </tr>
-         <tr>
-            <td><button type="button" name="card_com_name" value="롯데카드" onClick="#"><img src="/image/9.롯데카드.png"></button></td>
-            <td><button type="button" name="card_com_name" value="마스터카드" onClick="#"><img src="/image/10.마스터카드.png"></button></td>
-            <td><button type="button" name="card_com_name" value="씨티카드" onClick="#"><img src="/image/11.씨티카드.png"></button></td>
-            <td><button type="button" name="card_com_name" value="카카오뱅크" onClick="#"><img src="/image/12.카카오뱅크.png"></button></td>
-         </tr>
-      </table>
-      -->
+    
       <div class="cardList">
          <input type="radio" id="HDcard" name="card_com_name" value="현대카드"><label for="HDcard"><img src="/image/1.현대카드.png"></label>
          <input type="radio" id="KMcard" name="card_com_name" value="국민카드"><label for="KMcard"><img src="/image/2.국민카드.png"></label>
@@ -400,17 +387,17 @@ $(function(){
          <input type="radio" id="KKOcard" name="card_com_name" value="카카오뱅크"><label for="KKOcard"><img src="/image/12.카카오뱅크.png"></label>
 
       </div>
-      <div id="kakaopayBtn" style="display:none;"><img src="/image/payment_icon_yellow_medium.png" name="card_com_name" value="카카오페이"></div>   
+      <div id="kakaopayBtn" style="display:none; cursor: pointer;"><img src="/image/payment_icon_yellow_medium.png"  name="card_com_name" value="카카오페이"></div>   
       <div id="bankbookBtn" style="display:none;"><img src="/image/무통장입금.png" name="card_com_name" value="카카오뱅크 3333-02-9467466"></div>
-   </div>
+    </div>
    
-   <br>
+    <br>
+
    
    
+      </div>
    
-   </div>
-   
-   <div style="display: inline-table;">
+    <div style="display: inline-table;">
       <H2>주문 상품 목록</H2>
          <div class="order_list" >
             <table>
@@ -444,7 +431,7 @@ $(function(){
                         <input type="reset" value="취소">
                   </div>
                   <div id="kakaoOrder" style="display:none; text-align: center; margin-top:10px;" class="orderinput">
-                     <input type="button" id="apiBtn" value="카카오페이 결제하기">&nbsp;&nbsp;&nbsp;
+                     <input type="submit"  value="카카오페이 결제 완료하기">&nbsp;&nbsp;&nbsp;
                      <input type="reset" value="취소">
                </div>
 

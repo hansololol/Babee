@@ -54,10 +54,12 @@
    <div class="text_center">
       <img src="/image/check.png" style="display:inline-block; margin-block-end: 10px;"/>
       <h3 style="display:inline-block;">상품 구매가 완료 되었습니다.</h3>
-      
+ 
+      <c:if test="${kakaoSuccess ==null}">
       <h5><strong>카카오뱅크 3333-02-9467466</strong></h5>
       <h6 style="color:darkgray;">위의 입금 계좌로 최종 결제 금액을 입금해주시길 바랍니다.</h6>
       <h6 style="color:darkgray;">※ 3일 이내에 입금이 완료되지 않을 시 주문이 취소됩니다. ※ </h6>
+       </c:if>
    </div>
 
 

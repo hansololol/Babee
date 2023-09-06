@@ -31,8 +31,16 @@ public class OrderVO {
 	private String goods_option;
 	private String goods_image_name;
 	private GoodsVO goods;
-	
-	
+	    private String tid; // 결제 고유 번호
+	    private String cid; // 가맹점 코드
+	    private String status; // 결제 상태
+	    private String partner_order_id; // 가맹점 주문 번호
+	    private String partner_user_id; // 가맹점 회원 ID
+	    private String payment_method_type; // 결제 수단
+	    private String item_code; // 상품 코드
+	    private int quantity; // 상품 수량
+
+	 
 	public int getOrderNO() {
 		return orderNO;
 	}
@@ -166,5 +174,68 @@ public class OrderVO {
 		this.goods = goods;
 	}
 	
+	
+	//카카오페이 정보
+	public String getAid() {
+		return order_id;
+	}
+	public void setAid(String aid) {
+		this.order_id = aid;
+	}
+	public String getTid() {
+		return tid;
+	}
+	public void setTid(String tid) {
+		this.tid = tid;
+	}
+	public String getCid() {
+		return cid;
+	}
+	public void setCid(String cid) {
+		this.cid = cid;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getPartner_order_id() {
+		return partner_order_id;
+	}
+	public void setPartner_order_id(String partner_order_id) {
+		this.partner_order_id = partner_order_id;
+	}
+	public String getPartner_user_id() {
+		return partner_user_id;
+	}
+	public void setPartner_user_id(String partner_user_id) {
+		this.partner_user_id = partner_user_id;
+	}
+	public String getPayment_method_type() {
+		return payment_method_type;
+	}
+	public void setPayment_method_type(String payment_method_type) {
+		this.payment_method_type = payment_method_type;
+	}
+	public String getItem_name() {
+		return goods_title;
+	}
+	public void setItem_name(String item_name) {
+		this.goods_title = item_name;
+	}
+	public String getItem_code() {
+		return item_code;
+	}
+	public void setItem_code(String item_code) {
+		this.item_code = item_code;
+	}
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
 	
 }
