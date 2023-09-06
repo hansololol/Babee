@@ -118,7 +118,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
     <div class="gray-box">
       <img src="/image/Babee_Logo.png" alt="Babee Logo" />
     </div>
-    <h2 style="margin-top: 10px; text-align: center; color: #ccc">육아정보</h2>
+    <h1 style="margin-top: 30px; text-align: center; color: black">육아정보</h1>
     <div class="square-container">
       <div class="square" onclick="openPopup('../hosmap.jsp')">
         <img src="/image/hoss.png" alt="hospiter" width="50px" height="50px" />

@@ -225,7 +225,7 @@ function showCategory() {
 
       <span style="width: 40px;"></span>
       <td>
-         <a href="${contextPath}/community/questionList.do" style="font-size: 20px;" class="category">고객센터</a>
+         <a href="${contextPath}/member/babyinfo.do" style="font-size: 20px;" class="category">육아정보</a>
       </td>
       <span style="width: 40px;"></span>
       <td>
@@ -236,9 +236,9 @@ function showCategory() {
             </a>
       
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="${contextPath}/member/babyinfo.do">육아정보</a></li>
               <li><a class="dropdown-item" href="${contextPath}/community/infoList.do">공지사항</a></li>
               <li><a class="dropdown-item" href="${contextPath}/community/freeboardList.do">자유게시판</a></li>
+              <li><a class="dropdown-item" href="${contextPath}/community/questionList.do">고객센터</a></li>
             </ul>
           </div>
 
