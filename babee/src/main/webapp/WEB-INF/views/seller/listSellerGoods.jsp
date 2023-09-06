@@ -44,7 +44,7 @@
     cursor: pointer; /* 커서 모양 변경 */
     text-decoration: none;
     font-size: 1px;
-	
+   
     width: 100%; /* 버튼 너비 100%로 꽉 차게 설정 */
     text-align: center; /* 텍스트 가운데 정렬 */
     transition: background-color 0.3s; /* 호버 효과 애니메이션 */
@@ -106,7 +106,7 @@
 
 </head>
 <body>
-	<c:set var="totalBuyPrice" value="0" />
+   <c:set var="totalBuyPrice" value="0" />
    <div class="order_delivery_list" style="margin-left:165px;">
    <H3>상품관리</H3>
    <hr>
@@ -128,8 +128,8 @@
          <tr>
             <td> 
                <a href="${contextPath}/seller/getTodayGoods.do?page=sellerPage" style="text-decoration:none;">
-				    <img src="${contextPath}/image/btn_search_one_day.jpg">
-			   </a>
+                <img src="${contextPath}/image/btn_search_one_day.jpg">
+            </a>
                <a href="${contextPath}/seller/getOneWeekGoods.do?page=sellerPage" style="text-decoration:none;">
                   <img   src="/image/btn_search_1_week.jpg">
                </a>
@@ -153,17 +153,17 @@
          <tr>
          
             <td>    
-			    조회 기간 :
-			    <input type="date" size="4"  name="startDate" />
-			    ~
-			    <input type="date" size="4" name="endDate" />
-			</td>
-			<td>
-			    <a href="${contextPath}/seller/getDateGoods.do">
-			        <input type="submit" value="조회" />
-			    </a>
-			</td>
-		 
+             조회 기간 :
+             <input type="date" size="4"  name="startDate" />
+             ~
+             <input type="date" size="4" name="endDate" />
+         </td>
+         <td>
+             <a href="${contextPath}/seller/getDateGoods.do">
+                 <input type="submit" value="조회" />
+             </a>
+         </td>
+       
          </tr>
       </table>
       
@@ -189,8 +189,8 @@
    margin-bottom: 10px;"><b>상품 등록하기</b></a>
       <table class="order_delivery" width="100%">
          <tr>
-         	 <td style="font-weight:bold;">상품번호</td>
-         	 <td style="font-weight:bold;">상품정보</td>
+             <td style="font-weight:bold;">상품번호</td>
+             <td style="font-weight:bold;">상품정보</td>
              <td style="font-weight:bold; ">상품명</td>
              <td style="font-weight:bold;">가격</td>
              <td style="font-weight:bold;">판매량</td>
@@ -199,16 +199,16 @@
          </tr>
          
          <c:choose>
-		    <c:when test="${empty sellerGoodsList}">
-		        <tr>
-		            <td colspan="4">조회된 결과가 없습니다.</td>
-		        </tr>
-		    </c:when>
-		    <c:otherwise>
-		    <c:set var="totalBuyPrice" value="0" />
+          <c:when test="${empty sellerGoodsList}">
+              <tr>
+                  <td colspan="4">조회된 결과가 없습니다.</td>
+              </tr>
+          </c:when>
+          <c:otherwise>
+          <c:set var="totalBuyPrice" value="0" />
          <c:forEach items="${sellerGoodsList}" var="goods">
              <tr>
-            	<td style="text-align:center;">${goods.goods_id}</td>
+               <td style="text-align:center;">${goods.goods_id}</td>
                  <td>
                  <a href="${contextPath}/goods/goodsDetail.do?goods_id=${goods.goods_id}&fileName=${goods.goods_image_name1_id}">
                  <img src="${contextPath}/thumbnails.do?goods_id=${goods.goods_id}&fileName=${goods.goods_image_name1}" style="width:100px; height:100px; margin-top: 5px; margin-bottom: 5px;" class="image-hover-effect"></a></td>
@@ -217,8 +217,8 @@
                  <input type="hidden" name="goods_image_name2_id" value="${goods.goods_image_name2_id}">
                  <td style="text-align:center;">${goods.goods_title}</td>
                  <td><fmt:formatNumber value="${goods.goods_price}" type="Number"  />원</td>
-             	<td>${goods.buycnt}</td>
-             	<td><fmt:formatNumber value="${goods.buyprice}" pattern="#,###,###" />원</td>
+                <td>${goods.buycnt}</td>
+                <td><fmt:formatNumber value="${goods.buyprice}" pattern="#,###,###" />원</td>
                  <td>
                  
                      <a class="modify_delivery_search" href="${contextPath}/seller/modGoodsForm.do?page=sellerPage&goods_id=${goods.goods_id}"><b>수정하기</b></a><br>
