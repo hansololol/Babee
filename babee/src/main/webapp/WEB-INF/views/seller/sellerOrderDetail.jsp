@@ -122,9 +122,6 @@ request.setCharacterEncoding("utf-8"); %>
 
             <c:if test="${order.delivery_status=='refund'}">
               <b>반품/교환</b>
-              <c:set var="rePrice" value = "${order.total_goods_price - order.total_goods_price - order.total_goods_price}" />
-              <c:set var="returnPrice" value = "${order.returnPrice}" />
-              <c:set var="deliveryPricerefund" value = "3000" />
             </c:if>
 
             <c:if test="${order.delivery_status=='review_write' }">
@@ -134,35 +131,12 @@ request.setCharacterEncoding("utf-8"); %>
               <td>
               <c:if test="${order.delivery_status=='refund'}">
               <p style="display: flex; justify-content: center; margin-top: 15px;">${order.returnPrice}</p>
-              <c:set var="totalEarnings" value="${orderInfoList[0].final_total_price - 3000 - deliveryPricerefund - returnPrice - cancelPrice}" />
               </c:if>
               
         </tr>
-        <c:set var="totalGoodsPrice" value="${order.total_goods_price}" />
-    <c:set var="orderGoodsQty" value="${order.order_goods_qty}" />
-    <c:set var="returnPrice" value = "${order.returnPrice}"/>
-    
-    <c:set var="seller" value="${order.seller_name}" />
-    <c:set var="orderNum" value="${order.order_id}" />
       </c:forEach>
     </table>
     
-    <div class="container">
-    <c:set var="totalEarnings" value="${totalEarnings}" />
-    <h2 style="font-size: 24px; font-weight: bold;">[${orderNum}]</h2>
-    <h3 style="font-size: 18px; margin-top: 10px;">배송비 미포함 총 수익금</h3>
-    <p class="total-price" style="font-size: 20px;">
-        [<span style="font-weight: bold;">
-            ${orderInfoList[0].final_total_price - 3000}
-        </span>] 원
-    </p>
-    <h3 style="font-size: 18px; margin-top: 20px;">사업자님의 실 수익금은</h3>
-    <p class="earnings" style="font-size: 20px; color: #0101DF;">
-        [<span style="font-weight: bold;">
-            ${totalEarnings} 
-        </span>] 원 입니다.
-    </p>
-</div>
     <div class="container">
   <h2 style="text-align: center">주문정보조회</h2>
   <div class="divider" style="border-top: 1px solid #ddd; margin: 20px 0"></div>
