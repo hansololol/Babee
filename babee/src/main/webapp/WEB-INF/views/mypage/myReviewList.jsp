@@ -4,26 +4,19 @@ pageEncoding="UTF-8" isELIgnored="false"%>
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <meta charset="UTF-8" />
-    <title>고객센터 헤더</title>
-    <style>
-      #search {
-        background-color: #fef7dd;
-        padding: 20px;
-        display: flex;
-        justify-content: space-between;
-        width: 70%;
-        margin: 50px auto -10px;
-      }
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<meta charset="UTF-8" />
+<title>나의 리뷰 목록</title>
+
+<style>
       .search-container {
         display: flex;
         align-items: center;
         width: 70%;
       }
       .search-input {
-        width: 200px;
-        border: 1px solid #ffa500;
+        width: 100px;
+        border: 1px solid #d9d9d9;
         text-align: center;
         padding: 5px;
         flex: 3;
@@ -34,29 +27,8 @@ pageEncoding="UTF-8" isELIgnored="false"%>
         border: none;
         background: none;
       }
-      .menu-container {
-        text-align: center; /* 가운데 정렬 */
-        margin-top: 50px; /* 여기서 100px 만큼 아래로 이동합니다. */
-      }
 
-      .menu-options {
-        display: flex; /* 옆으로 정렬 */
-        gap: 100px; /* 사이 간격 */
-        align-items: flex-end; /* 메뉴와 아래 정렬 요소 정렬 */
-        justify-content: center; /* 가운데 정렬 */
-      }
 
-      .menu-option {
-        font-weight: normal;
-        text-decoration: none;
-        color: #333;
-      }
-
-      /* 선택 시 스타일 */
-      .menu-option:hover {
-        font-weight: bold;
-        text-decoration: underline;
-      }
       a:hover {
         font-weight: bold;
       }
@@ -85,29 +57,6 @@ pageEncoding="UTF-8" isELIgnored="false"%>
         background-color: #ccc;
       }
 
-      .menu-container {
-        text-align: center;
-        margin-top: 50px;
-      }
-
-      .menu-options {
-        display: flex;
-        gap: 100px;
-        align-items: flex-end;
-        justify-content: center;
-      }
-
-      .menu-option {
-        font-weight: normal;
-        text-decoration: none;
-        color: #333;
-      }
-
-      .menu-option:hover {
-        font-weight: bold;
-        text-decoration: underline;
-      }
-
       .faq-content {
         text-align: center;
         margin-top: 10px;
@@ -116,25 +65,6 @@ pageEncoding="UTF-8" isELIgnored="false"%>
       .faq-answer {
         margin-top: 10px;
         display: none;
-      }
-      .answer-textarea {
-        width: 100%;
-        height: 100px;
-        resize: none;
-        margin-top: 10px;
-        border: 1px solid #ccc;
-        padding: 5px;
-      }
-      .answer-button {
-        padding: 5px 10px;
-        border: none;
-        border-radius: 5px;
-        background-color: #f0f0f0;
-        color: #333;
-        cursor: pointer;
-      }
-      .answer-button:hover {
-        background-color: #ccc;
       }
       .faq-table {
         width: 80%;
@@ -146,57 +76,85 @@ pageEncoding="UTF-8" isELIgnored="false"%>
         padding: 10px;
         text-align: center;
         border: 1px solid #ccc;
+        border-right:none;
       }
+	.review_list { 
+		width: 66%;
+    	margin: 0 auto;
+    	
+    	}
+    	
+    .delete_button {
+            background-color: #ffcd29; /* 배경색 */
+            color: black; /* 텍스트색 */
+            padding: 8px 12px; /* 내부 여백 */
+            border: none; /* 테두리 없음 */
+            border-radius: 5px; /* 테두리 반경 */
+            cursor: pointer; /* 커서 모양 변경 */
+            text-decoration: none;
+            transition: background-color 0.2s; /* 호버 효과를 위한 전환 효과 */
+        }
 
-      .menu-option-selected {
-        font-weight: bold;
-        text-decoration: underline;
-      }
+        .delete_button:hover {
+            background-color: #ffa600; /* 호버 시 배경색 변경 */
+            color: #fff;
+        }	
     </style>
   </head>
-  <body>
-    <div id="search">
-      <h2 style="margin: 0">나의 리뷰</h2>
-      <script>
-        function reviewSearch(){
-          var reviewTitle= $(".search-input").val();
-      
-       $.ajax({
-		            type:'get',
-	            	url: '${contextPath}/mypage/myReviewList.do',
-                    data : { reviewTitle :  reviewTitle},
-                      
-                    success: function(result){
-                        $('#container').html(result);
-                        }
-                    });
-        }
-    
-      </script>
-      <div class="search-container">
-          <input
-            class="search-input"
-            type="text"
-            placeholder="검색어를 입력해주세요."
-          />
-          <button type="button" name="search" onclick="fn:reviewSearch()" class="search-button">
-            <img
-              src="/image/glass.png"
-              alt="검색"
-              style="width: 20px; height: 20px; margin-bottom: -5px"
-            />
-          </button>
-      </div>
-    </div>
+  
+<body>
+   
+
+	<div class="review_list"  style="margin-left:165px;">
+		<H3 style="display:inline-grid;">나의 리뷰</H3>
+		<hr>
+		<table align="center" style="margin-left: 0px;">
+			<tr>
+				<td> 
+					<img src ="/image/people.png" width="60px;" style="display:inline-block; padding-left:15px;"/>
+               		<p  style="display:inline-block;"> ${memberInfo.member_name} 님 안녕하세요 </p>
+				</td>
+         	</tr>
+      	</table>
+      	<hr>
+
+ 
+    	<div id="search" style="width:66%; ">
+			<script>
+				function reviewSearch() {
+					var reviewTitle = $(".search-input").val();
+
+					$.ajax({
+						type : 'get',
+						url : '${contextPath}/mypage/myReviewList.do',
+						data : {
+							reviewTitle : reviewTitle
+						},
+
+						success : function(result) {
+							$('#container').html(result);
+						}
+					});
+				}
+			</script>
+
+		<div class="search-container">
+			<input class="search-input" type="text" placeholder="상품명을 입력해주세요." />
+				<button type="button" name="search" onclick="fn:reviewSearch()"class="search-button">
+					<img src="/image/glass.png" alt="검색" style="width: 20px; height: 20px; margin-bottom: -5px" />
+				</button>
+		</div>
+	
+		</div> 
 
     <div class="table-container">
-      <table class="faq-table">
+      <table class="faq-table" style="width:100%;">
         <thead>
           <tr>
-            <th style="width: 12%">상품명</th>
-            <th style="width: 50%">리뷰 내용</th>
-            <th style="width: 20%">작성일</th>
-            <th style="width: 8%">삭제</th>
+            <th style="width: 200px; border-left:none;">상품명</th>
+            <th style="width: 450px">리뷰 내용</th>
+            <th style="width: 130px">작성일</th>
+            <th style="width: 80px">삭제</th>
           </tr>
         </thead>
         <tbody>
@@ -216,30 +174,22 @@ pageEncoding="UTF-8" isELIgnored="false"%>
                 formObj.action = "${contextPath}/mypage/removeGoodsReview.do";
                 formObj.submit();
               }
-            
           </script>
+          
           <c:forEach var="faq" items="${review}" varStatus="varSta">
             <tr class="faq-content">
-              <td>${faq.goodsVO.goods_title}</td>
-              <td>
-                <a
-                  href="#"
-                  style="color: black; display: flex; align-items: center"
-                  onclick="toggleAnswer('${varSta.count}')"
-                >
-                  <b>${faq.review_title}</b>
-                </a>
-              </td>
-              <td>${faq.review_writeDate}</td>
-              <td>
-                <button onclick="deleteReview('${faq.goods_id}', '${faq.review_img}')">삭제</button>
-              </td>
+				<td style="border-left:none;">${faq.goodsVO.goods_title}</td>
+				<td><a href="#" style="color: black; display: flex; align-items: center" onclick="toggleAnswer('${varSta.count}')">
+					<b>${faq.review_title}</b>
+					</a>
+              	</td>
+              	<td>${faq.review_writeDate}</td>
+              	<td>
+                <button  class="delete_button" onclick="deleteReview('${faq.goods_id}', '${faq.review_img}')">삭제</button>
+              	</td>
             </tr>
-            <tr
-              class="faq-answer${varSta.count}"
-              id="faqAnswer${varSta.count}"
-              style="display: none"
-            >
+            
+            <tr class="faq-answer${varSta.count}" id="faqAnswer${varSta.count}" style="display: none">
             <script>
                 function toggleAnswer(numberId) {
                   var answer = document.getElementById("faqAnswer"+numberId);
@@ -250,7 +200,7 @@ pageEncoding="UTF-8" isELIgnored="false"%>
                   }
                 }
               </script>
-            <td>
+            <td style="border-left:none;">
                 <c:forEach var="star" begin="1" end="${faq.goods_star}">
                     ★
                 </c:forEach>
@@ -267,6 +217,7 @@ pageEncoding="UTF-8" isELIgnored="false"%>
         </tbody>
       </table>
     </div>
+
 
     <div class="paging-container">
         <c:if test="${totArticles !=null}">
@@ -305,6 +256,7 @@ pageEncoding="UTF-8" isELIgnored="false"%>
         </c:if>
                  
      </div>
+      </div>
 
   </body>
 </html>
