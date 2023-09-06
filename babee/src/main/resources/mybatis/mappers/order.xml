@@ -4,30 +4,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.babee.order.dao.OrderDAO">
-<!-- 리절트 맵 정의 -->	
-	<resultMap id="orderGoodsResult" type="OrderVO">
+<!-- 리절트 맵 정의 -->   
+   <resultMap id="orderGoodsResult" type="OrderVO">
 
-		<result property="order_id" column="order_id" />
-		<result property="member_id" column="member_id" />
-		<result property="goods_id" column="goods_id" />
-		<result property="total_goods_price" column="total_goods_price" />
-		<result property="order_goods_qty" column="order_goods_qty" />
-		<result property="recipient_name" column="recipient_name" />
-		<result property="recipient_hp" column="recipient_hp" />
-		<result property="recipient_tel" column="recipient_tel" />
-		<result property="deliveryAddr" column="deliveryAddr" />
-		<result property="deliveryMessage" column="deliveryMessage" />
-		<result property="trackingNum" column="trackingNum" />
-		<result property="payment_method" column="payment_method" />
-		<result property="card_com_name" column="card_com_name" />
-		<result property="payment_order_time" column="payment_order_time" />
-		<result property="delivery_status" column="delivery_status" />
-		<result property="final_total_price" column="final_total_price" />
-		<result property="goods_option" column="goods_option" />
-	
-	</resultMap>
-	
-	   <resultMap id="goodsResult" type="GoodsVO">
+      <result property="order_id" column="order_id" />
+      <result property="member_id" column="member_id" />
+      <result property="goods_id" column="goods_id" />
+      <result property="total_goods_price" column="total_goods_price" />
+      <result property="order_goods_qty" column="order_goods_qty" />
+      <result property="recipient_name" column="recipient_name" />
+      <result property="recipient_hp" column="recipient_hp" />
+      <result property="recipient_tel" column="recipient_tel" />
+      <result property="deliveryAddr" column="deliveryAddr" />
+      <result property="deliveryMessage" column="deliveryMessage" />
+      <result property="trackingNum" column="trackingNum" />
+      <result property="payment_method" column="payment_method" />
+      <result property="card_com_name" column="card_com_name" />
+      <result property="payment_order_time" column="payment_order_time" />
+      <result property="delivery_status" column="delivery_status" />
+      <result property="final_total_price" column="final_total_price" />
+      <result property="goods_option" column="goods_option" />
+   
+   </resultMap>
+   
+      <resultMap id="goodsResult" type="GoodsVO">
       <result property="goods_id" column="goods_id" />
       <result property="goods_title" column="goods_title" />
       <result property="goods_price" column="goods_price" />
@@ -49,62 +49,71 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       <result property="tag_option3" column="tag_option3" />
       <result property="tag_option4" column="tag_option4" />
       <result property="tag_option5" column="tag_option5" />
+      <result property="buycnt" column="buycnt" />
+      <result property="buyprice" column="buyprice" />
    </resultMap>
-	
-	 <select id="selectMyOrderList" resultMap="orderGoodsResult"  parameterType="orderVO"  >
-	    <![CDATA[
-			select * from t_shopping_order
-			where to_char(pay_order_time,'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd') 
-        	and member_id=#{member_id}
-        	order by pay_order_time desc
-		]]>
-	</select>
-	<insert id="insertNewOrder" parameterType="java.util.List" >
-		   <![CDATA[
-		insert into t_shopping_order
-		(order_id, member_id, goods_id, total_goods_price,
-		order_goods_qty, recipient_name,recipient_hp, recipient_tel,
-		deliveryAddr, deliveryMessage, payment_method, card_com_name,
-		payment_order_time, final_total_price, goods_option) 
-		values
-		]]>
-		<foreach collection="list" item="item" separator=",">
-		    <![CDATA[
-		(#{item.order_id}, #{item.member_id}, #{item.goods_id}, #{item.total_goods_price}, 
-		 #{item.order_goods_qty}, #{item.member_id}, #{item.recipient_hp}, #{item.recipient_tel},
-		 #{item.deliveryAddr}, #{item.deliveryMessage}, #{item.payment_method}, #{item.card_com_name},
-		now(), #{item.final_total_price}, #{item.goods_option})
-			]]>
-    	</foreach>
-	</insert>
+   
+    <select id="selectMyOrderList" resultMap="orderGoodsResult"  parameterType="orderVO"  >
+       <![CDATA[
+         select * from t_shopping_order
+         where to_char(pay_order_time,'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd') 
+           and member_id=#{member_id}
+           order by pay_order_time desc
+      ]]>
+   </select>
+   <insert id="insertNewOrder" parameterType="java.util.List" >
+         <![CDATA[
+      insert into t_shopping_order
+      (order_id, member_id, goods_id, total_goods_price,
+      order_goods_qty, recipient_name,recipient_hp, recipient_tel,
+      deliveryAddr, deliveryMessage, payment_method, card_com_name,
+      payment_order_time, final_total_price, goods_option) 
+      values
+      ]]>
+      <foreach collection="list" item="item" separator=",">
+          <![CDATA[
+      (#{item.order_id}, #{item.member_id}, #{item.goods_id}, #{item.total_goods_price}, 
+       #{item.order_goods_qty}, #{item.member_id}, #{item.recipient_hp}, #{item.recipient_tel},
+       #{item.deliveryAddr}, #{item.deliveryMessage}, #{item.payment_method}, #{item.card_com_name},
+      now(), #{item.final_total_price}, #{item.goods_option})
+         ]]>
+       </foreach>
+   </insert>
+   <update id="updateBuycntByGoodsId" parameterType="java.util.Map">
+     <![CDATA[
+     UPDATE t_shopping_goods
+     SET buycnt = COALESCE(buycnt, 0) + #{order_goods_qty}
+     WHERE goods_id = #{goods_id}
+     ]]>
+   </update>
 
    <select id="selectOrderID" resultType="int"  >
-	    <![CDATA[
-		    select ifnull(max(order_id)+1,0) from t_shopping_order
-    	]]>
-	</select>
-	
-	<select id="selectMyOrder" resultMap="orderGoodsResult"   parameterType="String"  >
-	    <![CDATA[
-		    select * from t_shopping_order
+       <![CDATA[
+          select ifnull(max(order_id)+1,0) from t_shopping_order
+       ]]>
+   </select>
+   
+   <select id="selectMyOrder" resultMap="orderGoodsResult"   parameterType="String"  >
+       <![CDATA[
+          select * from t_shopping_order
             where to_char(pay_order_time,'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd') 
             and order_id=#{order_id}
             order by pay_order_time desc
-    	]]>
-	</select>
-	
-	<delete id="deleteGoodsFromCart" parameterType="orderVO">
-	  delete from t_shopping_cart
-	  where goods_id=#{goods_id}
-	</delete>
-	
-	<update id="stock" parameterType="int">
-	    <![CDATA[
+       ]]>
+   </select>
+   
+   <delete id="deleteGoodsFromCart" parameterType="orderVO">
+     delete from t_shopping_cart
+     where goods_id=#{goods_id}
+   </delete>
+   
+   <update id="stock" parameterType="int">
+       <![CDATA[
 UPDATE t_shopping_goods
 SET goods_stock = CASE WHEN goods_stock - #{order_goods_qty} < 0 THEN 0 ELSE goods_stock - #{order_goods_qty} END
 WHERE goods_id = #{goods_id}
-			        
-    	]]>
-	</update>
-	
+                 
+       ]]>
+   </update>
+   
 </mapper>
