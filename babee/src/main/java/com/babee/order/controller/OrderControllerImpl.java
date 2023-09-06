@@ -60,7 +60,8 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		int goods_price = Integer.valueOf(goodsVO.getGoods_price());
 		int discounted_price = (goods_price / 10) * order_goods_qty;
 		int total_goods_price = goods_price * order_goods_qty;
-		
+		int final_total_price=(int) ((total_goods_price*0.9)+3000);
+		orderVO.setFinal_total_price(final_total_price);
 		mav.addObject("total_goods_price", total_goods_price);
 		mav.addObject("discounted_price", discounted_price);
 		orderVO.setTotal_goods_price(total_goods_price);
@@ -68,7 +69,7 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		
 		List ordergoods = new ArrayList<>();
 		ordergoods.add(orderVO);
-		session.setAttribute("goods", goodsVO);
+		
 		session.setAttribute("orderInfo", ordergoods);
 		return mav;
 	}
@@ -275,17 +276,20 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 	            orderVO.setGoods_image_name("goods_image_name");
 	            orderVO.setGoods_title(goods_title);
 	            goodsVO.setGoods_delivery_price(3000);
+	            
 	            orderVO.setGoods(goodsVO);
 		        mav.addObject("total_goods_price", total_goods_price);
-	     
+		        
 	            ordergoods.add(orderVO); // OrderVO 객체 리스트에 추가
 	            
 	            
 	        }
-	        
+			int final_total_price=(int) ((total_goods_price*0.9)+3000);
+			ordergoods.get(0).setFinal_total_price(final_total_price);
 	       // total_discounted_price = (discounted_price*(goods_ids.length));
 	        System.out.println("총할인: " + total_discounted_price);
 	        mav.addObject("discounted_price", total_discounted_price);
+	        
 	        session.setAttribute("orderInfo", ordergoods);
 	       
 	        
