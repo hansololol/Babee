@@ -67,6 +67,7 @@
     width: 300px;
     vertical-align: top;
     display: inline-block;
+    margin-top: 30px;
 }
 
 .xans-layout-footer .inner .cs .cs_info {
@@ -136,7 +137,7 @@
 }
 
 .xans-layout-footer .inner .cs .cs_right {
-    margin: 0
+    margin-top: 30px;
 }
 
 
@@ -253,6 +254,7 @@
 .xans-layout-footer .company_pg {
     display: inline-block;
     width: 550px;
+    margin-top: 30px;
 }
 
 .xans-layout-footer .company_pg .inner2 {
