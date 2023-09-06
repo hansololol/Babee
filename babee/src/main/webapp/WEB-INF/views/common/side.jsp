@@ -64,7 +64,9 @@
 					${memberInfo.member_name} 님의 마이페이지 <br>${memberInfo.member_email}
 				</a>
 			</c:if>
-			<a href="${contextPath}/member/modpassword.do" class="list-group-item list-group-item-action">내정보 수정</a>
+			<c:if test="${userType!='S'}">
+			<a href="${contextPath}/member/modpassword.do" class="list-group-item list-group-item-action">내 정보 수정</a>
+			</c:if>
 			<a href="${contextPath}/mypage/listMyOrderHistory.do" class="list-group-item list-group-item-action">주문내역/배송조회</a>
 			<a href="${contextPath}/cart/myCartList.do" class="list-group-item list-group-item-action">장바구니</a>
 			<a href="${contextPath}/mypage/wishList.do" class="list-group-item list-group-item-action">위시리스트</a>

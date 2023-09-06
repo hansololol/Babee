@@ -303,12 +303,18 @@ function delete_cart_goods(cart_id) {
 <form action="${contextPath}/order/cartOrder.do" method="post" name="cartorderForm" enctype="multipart/form-data">
    <div class="cart_list_a"  style="margin-left:165px;">
 		<H3 style="display:inline-grid;">나의 장바구니</H3>
-		<hr>
+		<hr style="margin-top:revert">
 		<table align="center" style="margin-left: 0px;">
 			<tr>
 				<td> 
 					<img src ="/image/people.png" width="60px;" style="display:inline-block; padding-left:15px;"/>
-               		<p  style="display:inline-block;"> ${memberInfo.member_name} 님 안녕하세요 </p>
+               				<c:if test="${userType=='S'}">
+                  <p  style="display:inline-block;"> ${memberInfo.seller_name} 님 안녕하세요 </p>
+               	</c:if>
+               	<c:if test="${userType!='S'}">
+                  <p  style="display:inline-block;"> ${memberInfo.member_name} 님 안녕하세요 </p>
+               	</c:if>
+            </td>
 				</td>
          	</tr>
       	</table>
@@ -324,14 +330,14 @@ function delete_cart_goods(cart_id) {
             <tr>
                <td width="120px;" height="15px;">
                   <div class="text_center">
-                     <input type="checkbox" id="select-all-checkbox" onchange="selectAll()"> 전체 선택
+                     <input type="checkbox" id="select-all-checkbox" onchange="selectAll()" > <span style="font-weight:bold;">전체 선택</span>
                   </div>
                </td>
-               <td colspan="2" width="300px">상품 정보</td>
-               <td width="98px">가격</td>
-               <td width="98px">수량</td>
-               <td width="100px">옵션</td>
-               <td width="70px"></td>
+               <td colspan="2" width="300px" style="font-weight:bold;">상품 정보</td>
+               <td width="98px" style="font-weight:bold;">가격</td>
+               <td width="98px" style="font-weight:bold;">수량</td>
+               <td width="100px" style="font-weight:bold;">옵션</td>
+               <td width="70px" style="font-weight:bold;"></td>
             </tr>
 
             <c:forEach var="cartVO" items="${myCartList}" varStatus="loop">

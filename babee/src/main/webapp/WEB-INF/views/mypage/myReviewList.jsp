@@ -107,12 +107,18 @@ pageEncoding="UTF-8" isELIgnored="false"%>
 
 	<div class="review_list"  style="margin-left:165px;">
 		<H3 style="display:inline-grid;">나의 리뷰</H3>
-		<hr>
+		<hr style="margin-top:revert">
 		<table align="center" style="margin-left: 0px;">
 			<tr>
 				<td> 
 					<img src ="/image/people.png" width="60px;" style="display:inline-block; padding-left:15px;"/>
-               		<p  style="display:inline-block;"> ${memberInfo.member_name} 님 안녕하세요 </p>
+               						<c:if test="${userType=='S'}">
+                  <p  style="display:inline-block;"> ${memberInfo.seller_name} 님 안녕하세요 </p>
+               	</c:if>
+               	<c:if test="${userType!='S'}">
+                  <p  style="display:inline-block;"> ${memberInfo.member_name} 님 안녕하세요 </p>
+               	</c:if>
+            </td>
 				</td>
          	</tr>
       	</table>

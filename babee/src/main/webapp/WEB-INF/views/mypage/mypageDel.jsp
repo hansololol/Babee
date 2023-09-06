@@ -11,9 +11,9 @@
 
 <head>
 <style>
-.text_center{ 
-   text-align:center;
-   margin: 0 auto;
+.mydel { 
+	width: 66%;
+    margin: auto;
    }
 
 .del_notice {
@@ -43,6 +43,8 @@
 
 
 
+
+
 </style>
 <script>
    function delMember(){
@@ -59,16 +61,15 @@
 
 
 <form>
-<div class="text_center" style="width:66%;">
+ <div class="mydel" style="margin-left:165px;">
 
-   <div style="text-align:left;">
-      <img src="/image/people.png" style="display:inline-block; margin-block-end: -6px;" width="30"/>
+   <div style="text-align:center;">
+      <img src="/image/people.png" style="display:inline-block; margin-block-end: 10px;" width="30"/>
       <h3 style="display:inline-block;">회원탈퇴</h3>
    <hr>
    <br>
    </div>
-   
-   <br>
+
    <div class="del_notice" border="1">
       <img src="/image/Babee_Logo.png" />
       
@@ -79,8 +80,8 @@
           더 나은 서비스로 보답하고자 항상 노력하고 있습니다.<br><br>
           감사합니다.<br><br>
         <b>Babee</b>드림</p>  
-        
-        <input type="password" placeholder="비밀번호를 입력해 주세요." id="inPassword"/> <br><br><br>
+        <br>
+        <input type="password" placeholder="비밀번호를 입력해 주세요." id="inPassword" style="text-align: center; border: 1px solid #ccc; border-radius: 5px; width: 300px; height:40px;"/> <br><br><br>
          <div class="del_btn">
     <a href="javascript:delMember()"><b><span>탈퇴하기</span></b> 
    

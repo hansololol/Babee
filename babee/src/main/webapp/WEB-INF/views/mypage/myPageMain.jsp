@@ -9,11 +9,6 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <head>
   <style>
-    .text_center {
-      text-align: center;
-      margin: 0 auto;
-    }
-
     .basic_tb,
     .add_tb {
       width: 100%;
@@ -33,22 +28,40 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
       border-bottom: 1px solid #d4d4d4;
       padding: 10px;
     }
+    
+    .my { 
+	width: 66%;
+    margin: auto;
+   }
+    
   </style>
 
   <title>마이페이지 메인창</title>
 </head>
 <body>
-  <div class="text_center" style="width: 66%">
-    <div style="text-align: left">
-      <img
-        src="/image/people.png"
-        style="display: inline-block; margin-block-end: -6px"
-        width="30"
-      />
-      <h3 style="display: inline-block">내 정보</h3>
-      <hr />
-      <br />
-      <h4><span style="color: #cc9900">●</span> 기본정보</h4>
+
+
+
+<div class="my" style="margin-left:165px;">
+
+	<h3 style="display:inline-block;">내 정보</h3>
+   <hr>
+      <table align="center" style="margin-left: 0px;">
+         <tr>
+            <td> 
+               <img src ="/image/people.png" width="60px;" style="display:inline-block; padding-left:15px;"/>
+               
+                  <p  style="display:inline-block;"> ${memberInfo.member_name} 님 안녕하세요 </p>
+               
+            </td>
+         </tr>
+      </table>
+      
+      <hr>
+	<br>
+	
+	 <div style="text-align: left">
+	<h4><span style="color: #cc9900">●</span> 기본정보</h4>
 
       <c:if test="${userType == 'M'}">
         <table class="basic_tb" width="455px">
@@ -100,7 +113,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
             </td>
           </tr>
         </table>
-
+		
         <br />
 
         <div style="text-align: left">
@@ -195,5 +208,8 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
         </table>
       </c:if>
     </div>
-  </div>
+    </div>
+    
+    <br><br><br>
+
 </body>
