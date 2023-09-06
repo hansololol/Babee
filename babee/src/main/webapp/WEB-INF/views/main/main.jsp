@@ -111,14 +111,10 @@
     </div>
     <div class="carousel-item">
       <a href="${contextPath}/goods/goodsDetail.do?goods_id=29&fileName=화면 캡처 2023-08-23 154819.png"  width="30px" height="50px" style="margin-top: 500%; cursor: pointer;">
-      <img src="/image/banner2.png" class="d-block w-100" height="500px">
+      <img src="/image/pc_main(2000x600)_2305tpu.jpg " class="d-block w-100" height="500px">
       </a>
     </div>
-    <div class="carousel-item">
-      <a href="${contextPath}/goods/goodsDetail.do?goods_id=30&fileName=화면 캡처 2023-08-23 154819.png"  width="30px" height="50px" style="margin-top: 500%; cursor: pointer;">
-      <img src="/image/main_banner03.png" class="d-block w-100" height="500px">
-      </a>
-    </div>
+    
   </div>
  
  

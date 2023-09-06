@@ -60,9 +60,10 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		int goods_price = Integer.valueOf(goodsVO.getGoods_price());
 		int discounted_price = (goods_price / 10) * order_goods_qty;
 		int total_goods_price = goods_price * order_goods_qty;
+		
 		mav.addObject("total_goods_price", total_goods_price);
 		mav.addObject("discounted_price", discounted_price);
-		
+		orderVO.setTotal_goods_price(total_goods_price);
 		orderVO.setGoods(goodsVO);
 		
 		List ordergoods = new ArrayList<>();
