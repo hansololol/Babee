@@ -2,6 +2,7 @@ package com.babee.order.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -155,7 +156,12 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 	         goodsVO = goodsDAO.getGoods(goods_id);
 	         int order_goods_qty = orderVO.getOrder_goods_qty();
 	         orderService.stock(Integer.parseInt(goods_id), order_goods_qty );
-            
+	         Map<String, Object> updateMap = new HashMap<>();
+	         updateMap.put("goods_id", Integer.parseInt(goods_id));
+	         updateMap.put("order_goods_qty", order_goods_qty);
+
+	         // OrderService의 updateBuycntByGoodsId 메서드를 호출하여 buycnt를 업데이트
+	         orderService.updateBuycntByGoodsId(updateMap);
             myOrderList_.add(orderVO); 
 		}//end for
 	
@@ -202,6 +208,10 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		         goodsVO = goodsDAO.getGoods(goods_id);
 		         int order_goods_qty = orderVO.getOrder_goods_qty();
 		         orderService.stock(Integer.parseInt(goods_id), order_goods_qty );
+		         Map<String, Object> updateMap = new HashMap<>();
+		         updateMap.put("goods_id", Integer.parseInt(goods_id));
+		         updateMap.put("order_goods_qty", order_goods_qty);
+		         orderService.updateBuycntByGoodsId(updateMap);
 				myOrderList.set(i, orderVO); 
 			}//end for
 			
