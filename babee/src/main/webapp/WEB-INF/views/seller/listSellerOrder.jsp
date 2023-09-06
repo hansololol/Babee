@@ -2,6 +2,7 @@
    pageEncoding="utf-8"
    isELIgnored="false"%>  
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 <!DOCTYPE html >
 <html>
@@ -16,7 +17,8 @@
 
 }
 .order_delivery td {
-    border-top: 1px solid gray;
+    border-top: 1px solid #ccc;
+    padding:10px;
     
 }
 
@@ -95,15 +97,32 @@
     color: #ccc;
 }
 
+/* 버튼 스타일 */
+input[type="submit"] {
+  background-color: #ffcd29; /* 배경색 */
+  color: black; /* 텍스트색 */
+  padding: 3px 14px; /* 내부 여백 */
+  border: none; /* 테두리 없음 */
+  border-radius: 5px; /* 테두리 반경 */
+  cursor: pointer; /* 커서 모양 변경 */
+  font-size: 13px; /* 폰트 크기 */
+}
+
+/* 버튼에 호버 효과 */
+input[type="submit"]:hover {
+  background-color: #cca300; /* 호버 시 배경색 변경 */
+  color: #fff;
+}
+
 
 
 </style>
-<title>상품 관리창</title>
+<title>주문 관리창</title>
 
 </head>
 <body>
-<br><br>
-   <div class="order_delivery_list">
+
+   <div class="order_delivery_list" style="margin-left:165px;">
    <H3>주문 관리</H3>
    <hr>
    <form action="${contextPath}/seller/getSellerOrderListDATE.do?page=sellerPage&date=true" method="POST">   
@@ -123,25 +142,25 @@
       <table align="center" style="margin-left: 0px;">
          <tr>
             <td>
-               <a href="${contextPath}/seller/getSellerOrderListTODAY.do?page=sellerPage">
+               <a href="${contextPath}/seller/getSellerOrderListTODAY.do?page=sellerPage"  style="text-decoration:none;">
                   <img   src="/image/btn_search_one_day.jpg">
                </a>
-               <a href="${contextPath}/seller/getSellerOrderListONEWEEK.do?page=sellerPage">
+               <a href="${contextPath}/seller/getSellerOrderListONEWEEK.do?page=sellerPage"  style="text-decoration:none;">
                   <img   src="/image/btn_search_1_week.jpg">
                </a>
-               <a href="${contextPath}/seller/getSellerOrderListTWOWEEK.do?page=sellerPage">
+               <a href="${contextPath}/seller/getSellerOrderListTWOWEEK.do?page=sellerPage"  style="text-decoration:none;">
                   <img   src="/image/btn_search_2_week.jpg">
                </a>
-               <a href="${contextPath}/seller/getSellerOrderListONEMONTH.do?page=sellerPage">
+               <a href="${contextPath}/seller/getSellerOrderListONEMONTH.do?page=sellerPage" style="text-decoration:none;">
                   <img   src="/image/btn_search_1_month.jpg">
                </a>
-               <a href="${contextPath}/seller/getSellerOrderListTWOMONTH.do?page=sellerPage">
+               <a href="${contextPath}/seller/getSellerOrderListTWOMONTH.do?page=sellerPage" style="text-decoration:none;">
                   <img   src="/image/btn_search_2_month.jpg">
                </a>
-               <a href="${contextPath}/seller/getSellerOrderListTHREEMONTH.do?page=sellerPage">
+               <a href="${contextPath}/seller/getSellerOrderListTHREEMONTH.do?page=sellerPage" style="text-decoration:none;">
                   <img   src="/image/btn_search_3_month.jpg">
                </a>
-               <a href="${contextPath}/seller/getSellerOrderListFOURMONTH.do?page=sellerPage">
+               <a href="${contextPath}/seller/getSellerOrderListFOURMONTH.do?page=sellerPage" style="text-decoration:none;">
                   <img   src="/image/btn_search_4_month.jpg">
                </a>
       </td>
@@ -168,9 +187,9 @@
 
 <table class="order_delivery"  width="100%">
          <tr >
-            <td colspan="2" width="250px" style="padding-left:15px;">상품정보</td>
-            <td>가격</td>
-            <td>진행상태</td>
+            <td colspan="2"style="padding-left:15px;">상품정보</td>
+            <td width="130px">가격</td>
+            <td width="190px">진행상태</td>
           
          </tr>
         <c:forEach items="${sellerOrderList}" var="order">
@@ -184,14 +203,13 @@
             <td style="text-align:left;"> 
                [<a href="${contextPath}/seller/sellerOrderDetail.do?order_id=${order.order_id}&page=sellerPage">${order.order_id}</a>]
                  ${order.goods_title}           </td>
-            <td>${order.final_total_price} 원</td>
-            
+            <td><fmt:formatNumber value="${order.final_total_price}" type="Number"  />원</td>
             
             <td>
 			    <form action="${contextPath}/seller/updateDeliveryStatus" method="post">
 				    <input type="hidden" name="order_id" value="${order.order_id}" />
 				    <input type="hidden" name="orderNO" value="${order.orderNO}" />
-				    <select name="delivery_status">
+				    <select name="delivery_status" style="width: 100px; height: 25px; text-align: center; border: 1px solid #ccc; border-radius: 5px;">
 				        <option value="delivering" ${order.delivery_status eq 'delivering' ? 'selected' : ''}>배송중</option>
 				        <option value="finished_delivering" ${order.delivery_status eq 'finished_delivering' ? 'selected' : ''}>배송완료</option>
 				        <option value="cancel_order" ${order.delivery_status eq 'cancel_order' ? 'selected' : ''}>주문취소</option>
