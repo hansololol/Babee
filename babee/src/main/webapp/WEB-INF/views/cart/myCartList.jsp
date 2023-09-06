@@ -10,10 +10,6 @@
 
 <head>
 <style>
-.text_center {
-   text-align: center;
-   margin: 0 auto;
-}
 
 /* '삭제' 버튼 스타일 */
 #deleteButton1 > a {
@@ -37,15 +33,14 @@ ul li {
 
 .cart_list {
    border-collapse: collapse;
-   border-bottom: 1px solid gray;
+   border-bottom: 1px solid #ccc;
 }
 
 .cart_list td {
-   border-top: 1px solid gray;
+   border-top: 1px solid #ccc;
 }
 
 .cart_img {
-   margin-right: 20px;
    width: 100px;
    height: 100px;
    border-radius: 10px; /* 둥근 경계선 추가 */
@@ -91,6 +86,25 @@ input[type="button"]:hover {
   background-color: #cca300; /* 호버 시 배경색 변경 */
   color: #fff;
 }
+
+	.cart_list_a { 
+		width: 66%;
+    	margin: 0 auto;
+    	}
+    	
+	.cart_list tr td {
+		padding: 10px;
+	}
+	
+	      a:hover {
+        font-weight: bold;
+      }
+
+      a {
+        color: black;
+        text-decoration: none;
+      }
+   
 </style>
 
 
@@ -287,28 +301,35 @@ function delete_cart_goods(cart_id) {
 
 <body>
 <form action="${contextPath}/order/cartOrder.do" method="post" name="cartorderForm" enctype="multipart/form-data">
+   <div class="cart_list_a"  style="margin-left:165px;">
+		<H3 style="display:inline-grid;">나의 장바구니</H3>
+		<hr>
+		<table align="center" style="margin-left: 0px;">
+			<tr>
+				<td> 
+					<img src ="/image/people.png" width="60px;" style="display:inline-block; padding-left:15px;"/>
+               		<p  style="display:inline-block;"> ${memberInfo.member_name} 님 안녕하세요 </p>
+				</td>
+         	</tr>
+      	</table>
+		<hr style=" margin-bottom: 50px;">
+
    
-   <div class="text_center" style="width: 65%;">
+   
+   
+   <div style="width: 100%;">
 
-      <div style="text-align: left;">
-         <img src="/image/cart.png"
-            style="display: inline-block; margin-block-end: 15px;" width="30" />
-         <h3 style="display: inline-block;">나의 장바구니</h3>
-         <hr>
-         <br>
-      </div>
-
-      <div class="text_center">
-         <table class="cart_list">
+      <div>
+         <table class="cart_list" style="width: 100%;">
             <tr>
-               <td width="100px;" height="15px;">
+               <td width="120px;" height="15px;">
                   <div class="text_center">
                      <input type="checkbox" id="select-all-checkbox" onchange="selectAll()"> 전체 선택
                   </div>
                </td>
                <td colspan="2" width="300px">상품 정보</td>
-               <td width="100px">가격</td>
-               <td width="150px">수량</td>
+               <td width="98px">가격</td>
+               <td width="98px">수량</td>
                <td width="100px">옵션</td>
                <td width="70px"></td>
             </tr>
@@ -318,7 +339,7 @@ function delete_cart_goods(cart_id) {
                   <td class="text_center"> <input type="checkbox" class="product-checkbox" ${cartVO.goodsVO.goods_stock == 0 ? 'disabled' : ''}></td>
                         <input type="hidden" class="goodsId" value="${cartVO.goods_id}">
                   <td style="text-align: left;"><a href="${contextPath}/goods/goodsDetail.do?goods_id=${cartVO.goods_id}"><img src="${contextPath}/thumbnails.do?goods_id=${cartVO.goods_id}&fileName=${cartVO.cart_image_name}" width="100px" height="100px"class="cart_img"/></a></td>
-                  <td style="text-align: left;">${cartVO.goods_title}</td>
+                  <td style="text-align: left;"><a href="${contextPath}/goods/goodsDetail.do?goods_id=${cartVO.goods_id}">${cartVO.goods_title}</td>
                   <td><span class="price">${cartVO.goods_price} 원</span></td>
                   <td><span class="quantity">
               
@@ -364,7 +385,7 @@ function delete_cart_goods(cart_id) {
       <!-- 체크 한 상품의 정보 출력해주는 div -->
       <div class="text_center">
       
-            <table width=80% class="text_center" style="background: #cacaff">
+            <table width=100% class="text_center" style="background: #ffffcc">
                <tbody>
                   <tr align=center class="fixed">
                      <td class="fixed">총 상품수</td>
@@ -405,7 +426,7 @@ function delete_cart_goods(cart_id) {
          
       </div>
    </div>
-
+	</div>
 
    <br><br>   <input type="button" onClick="javascript:fnOrderGoods()" value="구매하기">
    

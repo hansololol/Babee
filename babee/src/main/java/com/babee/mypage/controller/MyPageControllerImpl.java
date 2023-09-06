@@ -340,7 +340,7 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 		
 		 Object memberInfo = session.getAttribute("memberInfo");
 		    if (memberInfo instanceof MemberVO) {
-		        MemberVO orderer = (MemberVO) memberInfo;
+		        MemberVO memberVO = (MemberVO) memberInfo;
 		String member_id = memberVO.getMember_id();
 		Map reviewMap = new HashMap<>();
 		reviewMap.put("member_id", member_id);
