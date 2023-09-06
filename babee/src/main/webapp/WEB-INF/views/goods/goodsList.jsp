@@ -167,6 +167,17 @@
 .pagination .disabled {
     color: #ccc;
 }
+
+.goods_list li img {
+    width: 250px;
+    height: 300px;
+    transition: all 0.3s; /* 호버 효과에 애니메이션을 적용 */
+}
+
+.goods_list li img:hover {
+    opacity: 0.7; /* 이미지를 어둡게 만듭니다. */
+    transform: scale(1.1); /* 이미지 크기를 확대합니다. */
+}
 </style>
 
 </head>
