@@ -151,7 +151,7 @@
 	    UPDATE t_shopping_goods AS goods
 	    JOIN t_shopping_order AS orders ON goods.goods_id = orders.goods_id
 	    SET goods.buycnt = goods.buycnt - orders.order_goods_qty
-	    WHERE orders.orderNO = #{orderNo}
+	    WHERE orders.orderNO = #{orderNO}
 	  </update>
 	
 	<insert id="updateMyOrderRefund" parameterType="refundVO">
