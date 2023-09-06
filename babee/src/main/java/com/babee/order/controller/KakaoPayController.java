@@ -55,14 +55,15 @@ public class KakaoPayController {
 	@ResponseBody
 	public String kakaopay(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String successRe = "/goods/orderGoodsForm";
-		request.setCharacterEncoding("utf-8");
+		
 		HttpSession session=request.getSession();
-		GoodsVO goodsVO = (GoodsVO)session.getAttribute("goods");
-		String goods_title = goodsVO.getGoods_title();
-		 goods_title = URLEncoder.encode(goods_title);
 		List ordergoods = (List)session.getAttribute("orderInfo");
 		OrderVO orderVO = (OrderVO) ordergoods.get(0);
-		String final_total_price = String.valueOf(orderVO.getTotal_goods_price());
+		goodsVO = orderVO.getGoods();
+		String goods_title = goodsVO.getGoods_title();
+		 goods_title = URLEncoder.encode(goods_title);
+	
+		String final_total_price = String.valueOf(orderVO.getFinal_total_price());
 		try {
 			URL address = new URL("https://kapi.kakao.com/v1/payment/ready");
 			HttpURLConnection server = (HttpURLConnection) address.openConnection();
