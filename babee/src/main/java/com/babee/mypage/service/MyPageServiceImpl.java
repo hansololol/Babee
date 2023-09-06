@@ -43,8 +43,8 @@ public class MyPageServiceImpl  implements MyPageService{
 		return myPageDAO.selectMyOrderHistoryList(dateMap);
 	}
 	
-	public void cancelOrder(String order_id) throws Exception{
-		myPageDAO.updateMyOrderCancel(order_id);
+	public void cancelOrder(int orderNO) throws Exception{
+		myPageDAO.updateMyOrderCancel(orderNO);
 	}
 	public void refundOrder(RefundVO refundOrder) throws Exception{
 		myPageDAO.updateMyOrderRefund(refundOrder);

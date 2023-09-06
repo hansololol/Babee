@@ -123,6 +123,9 @@ request.setCharacterEncoding("utf-8"); %>
 
             <c:if test="${order.delivery_status=='review_write' }">
               <b>리뷰작성완료</b>
+              <td>
+                
+                <a class="order_delivery_search" href="${contextPath}/mypage/myReviewList.do?goods_id=${order.goods_id}"><b>리뷰관리</b></a>
               </td>
             </c:if>
           </td>
@@ -145,7 +148,7 @@ request.setCharacterEncoding("utf-8"); %>
           <th>배송방법</th>
           <th>택배배송</th>
         </tr>
-        <tr>
+        <tr>후
           <th>배송지</th>
           <th>${myOrder.deliveryAddr}</th>
         </tr>

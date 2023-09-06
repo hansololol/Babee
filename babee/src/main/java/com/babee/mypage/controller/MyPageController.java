@@ -18,7 +18,7 @@ public interface MyPageController {
 	
 	//주문
 	public ModelAndView myOrderDetail(@RequestParam("order_id")  String order_id,HttpServletRequest request, HttpServletResponse response)  throws Exception;
-	public ModelAndView cancelMyOrder(@RequestParam("order_id")  String order_id,HttpServletRequest request, HttpServletResponse response)  throws Exception;
+	public ModelAndView cancelMyOrder(@RequestParam("order_id")  String order_id,@RequestParam("orderNO")  int orderNO,HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	public ModelAndView listMyOrderHistory(HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	public ModelAndView myDetailInfo(HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	

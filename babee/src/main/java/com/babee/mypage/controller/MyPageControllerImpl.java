@@ -199,10 +199,10 @@ public class MyPageControllerImpl extends BaseController implements MyPageContro
 	
 	@Override
 	@RequestMapping(value = "/cancelMyOrder.do", method = RequestMethod.GET)
-	public ModelAndView cancelMyOrder(@RequestParam("order_id") String order_id, HttpServletRequest request,
+	public ModelAndView cancelMyOrder(@RequestParam("order_id") String order_id,@RequestParam("orderNO") int orderNO, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		myPageService.cancelOrder(order_id);
+		myPageService.cancelOrder(orderNO);
 		mav.setViewName("redirect:/mypage/listMyOrderHistory.do");
 		return mav;
 	}

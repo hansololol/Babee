@@ -115,11 +115,11 @@
 	</select>	
 	
 	
-	<update id="updateMyOrderCancel" parameterType="String">
+	<update id="updateMyOrderCancel" parameterType="int">
 		    <![CDATA[
 	   update t_shopping_order
 	 	  set delivery_status='cancel_order'
-	   where order_id=#{order_id}
+	   where orderNO=#{orderNO}
 	   ]]>
 	</update>
 
