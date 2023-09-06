@@ -2,6 +2,7 @@
    pageEncoding="utf-8"
     isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 <!DOCTYPE html >
 <html>
@@ -202,10 +203,14 @@
                 <b style="font-size: 20px;">
                     <c:set var="refundAmount" value="0" />
                     <c:forEach var="order" items="${refundList}">
-                        <c:set var="refundAmount" value="${refundAmount + order.total_goods_price}" />
+                        <c:set var="refundAmount" value="${refundAmount + order.total_goods_price * 0.9}" />
+						<c:set var="returnPrice" value="${(refundAmount - 3000)}" />
                     </c:forEach>
-                    ${refundAmount - 3000}
-                     <input type="hidden" name="returnPrice" value="${refundAmount - 3000}" />
+                    
+                     <c:set var="returnPriceInt" value="${returnPrice.intValue()}" />
+					<input type="hidden" name="returnPrice" value="${returnPriceInt}" />
+					${returnPriceInt}
+                     
                 </b>
             </td>
         </tr>

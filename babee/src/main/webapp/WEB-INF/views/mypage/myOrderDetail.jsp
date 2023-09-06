@@ -148,7 +148,6 @@ request.setCharacterEncoding("utf-8"); %>
           <th>배송방법</th>
           <th>택배배송</th>
         </tr>
-        <tr>후
           <th>배송지</th>
           <th>${myOrder.deliveryAddr}</th>
         </tr>
