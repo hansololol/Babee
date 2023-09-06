@@ -23,7 +23,8 @@ public interface MyPageService{
 	public List<OrderVO> listMyOrderHistory(Map dateMap) throws Exception;
 	
 	public void cancelOrder(int orderNO) throws Exception;
-
+	public void updateBuyCountByOrderNo(int orderNO) throws Exception;
+	
 	public void refundOrder(RefundVO refundOrder) throws Exception;
 	
 	public boolean findWishList(WishVO wishVO) throws Exception;	//위시리스트 값 여부 확인

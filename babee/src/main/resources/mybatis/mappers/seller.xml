@@ -226,7 +226,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    
    
    <select id="adminGoodsList" parameterType="map" resultMap="goodsResult">
-	    SELECT goods_id, goods_title, goods_price, goods_image_name1, goods_image_name1_id, goods_creation_date
+	    SELECT *
 	    FROM t_shopping_goods
 	    WHERE seller_id = #{seller_id}
 	    ORDER BY goods_creation_date DESC
