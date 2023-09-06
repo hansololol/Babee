@@ -6,163 +6,184 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>고객센터 헤더</title>
+<title>상품 문의 목록(사업자)</title>
 <style>
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-    }
-    #search {
-        background-color: #FEF7DD;
-        padding: 20px;
-        display: flex;
-        justify-content: space-between;
-        width: 70%;
-        margin: 50px auto -10px;
-    }
-    .search-container {
-        display: flex;
-        align-items: center;
-        width: 70%;
-    }
-    .search-input {
-        width: 300px;
-        border: 1px solid #FFA500;
-        text-align: center;
-        padding: 5px;
-        flex: 3;
-        border-radius: 5px;
-        margin-left: 20px;
-    }
-    .search-button {
-        border: none;
-        background: none;
-    }
-   
-    .faq-table {
-        width: 80%;
-        margin: 20px auto;
-        border-collapse: collapse;
-    }
-    .faq-table th, .faq-table td {
-        padding: 10px;
-        text-align: center;
-        border: 1px solid #ccc;
-    }
-    .faq-content {
-        text-align: center;
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
-    .faq-answer {
-        display: none;
-    }
-    .answer-textarea {
-        width: 100%;
-        height: 100px;
-        resize: none;
-        margin-top: 10px;
-        border: 1px solid #ccc;
-        padding: 5px;
-    }
-    .answer-button {
-        padding: 5px 10px;
-        border: none;
-        border-radius: 5px;
-        background-color: #f0f0f0;
-        color: #333;
-        cursor: pointer;
-        margin-top: 20px;
-    }
-    .answer-button:hover {
-        background-color: #ccc;
-    }
-    .paging-container {
-        text-align: center;
-        margin-top: 20px;
-    }
-    .paging-button {
-        display: inline-block;
-        margin: 0 5px;
-        padding: 5px 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        background-color: #f0f0f0;
-        color: #333;
-        text-decoration: none;
-        cursor: pointer;
-    }
-    .paging-button:hover {
-        background-color: #ccc;
-    }
-    
-    
-    .menu-option-selected {
-        font-weight: bold;
-        text-decoration: underline;
-    }
-    /*페이징*/
-.pagination {
-    display: flex; /* Flexbox를 사용하여 가운데 정렬 */
-    justify-content: center; /* 가로 가운데 정렬 */
-    margin-top: 20px;
-    position: relative; /* position 속성 추가 */
-    z-index: 11; /* 적절한 z-index 값 설정 */
+.search-container {
+	display: flex;
+	align-items: center;
+	width: 70%;
 }
 
-.pagination a,
-.pagination span {
-    display: inline-block;
-    padding: 5px 10px;
-    margin: 2px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    color: #333;
-    text-decoration: none;
-    border-radius: 3px;
+.search-input {
+	width: 300px;
+	border: 1px solid #d9d9d9;
+	text-align: center;
+	padding: 5px;
+	flex: 3;
+	border-radius: 5px;
+	margin-left: 5px;
+}
+
+.search-button {
+	border: none;
+	background: none;
+}
+
+.faq-table {
+	width: 80%;
+	margin: 20px auto;
+	border-collapse: collapse;
+}
+
+.faq-table th, .faq-table td {
+	padding: 10px;
+	text-align: center;
+	border: 1px solid #ccc;
+	border-right: none;
+}
+
+.faq-content {
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.faq-answer {
+	display: none;
+}
+
+.answer-textarea {
+	width: 100%;
+	height: 100px;
+	resize: none;
+	margin-top: 10px;
+	border: 1px solid #ccc;
+	padding: 5px;
+}
+
+.answer-button {
+	padding: 5px 10px;
+	border: none;
+	border-radius: 5px;
+	background-color: #f0f0f0;
+	color: #333;
+	cursor: pointer;
+	margin-top: 20px;
+}
+
+.answer-button:hover {
+	background-color: #ccc;
+}
+
+.paging-container {
+	text-align: center;
+	margin-top: 20px;
+}
+
+.paging-button {
+	display: inline-block;
+	margin: 0 5px;
+	padding: 5px 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	background-color: #f0f0f0;
+	color: #333;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.paging-button:hover {
+	background-color: #ccc;
+}
+
+.menu-option-selected {
+	font-weight: bold;
+	text-decoration: underline;
+}
+/*페이징*/
+.pagination {
+	display: flex; /* Flexbox를 사용하여 가운데 정렬 */
+	justify-content: center; /* 가로 가운데 정렬 */
+	margin-top: 20px;
+	position: relative; /* position 속성 추가 */
+	z-index: 11; /* 적절한 z-index 값 설정 */
+}
+
+.pagination a, .pagination span {
+	display: inline-block;
+	padding: 5px 10px;
+	margin: 2px;
+	border: 1px solid #ccc;
+	background-color: #fff;
+	color: #333;
+	text-decoration: none;
+	border-radius: 3px;
 }
 
 .pagination a:hover {
-    background-color: #f0f0f0;
+	background-color: #f0f0f0;
 }
 
 .pagination .current {
-    background-color: #ffcd29;
-    color: #fff;
-    border:none;
+	background-color: #ffcd29;
+	color: #fff;
+	border: none;
 }
 
 .pagination .disabled {
-    color: #ccc;
+	color: #ccc;
+}
+
+.goodsqna_list {
+	width: 66%;
+	margin: 0 auto;
 }
 </style>
 </head>
 <body>
 
-<div id="search">
-    <h2 style="margin: 0;">상품 문의</h2>
+	<div class="goodsqna_list"  style="margin-left:165px;">
+		<H3 style="display:inline-grid;">상품 문의 목록</H3>
+		<hr style="margin-top:revert">
+		<table align="center" style="margin-left: 0px;">
+			<tr>
+				<td> 
+					<img src ="/image/people.png" width="60px;" style="display:inline-block; padding-left:15px;"/>
+               						<c:if test="${userType=='S'}">
+                  <p  style="display:inline-block;"> ${memberInfo.seller_name} 님 안녕하세요 </p>
+               	</c:if>
+               	<c:if test="${userType!='S'}">
+                  <p  style="display:inline-block;"> ${memberInfo.member_name} 님 안녕하세요 </p>
+               	</c:if>
+            </td>
+				
+         	</tr>
+      	</table>
+      	<hr>
+
+
+
+    
     <div class="search-container">
-        <form action="/seller/sellerQuestionAnswer.do?page=sellerPage" method="POST">
+			<form action="/seller/sellerQuestionAnswer.do?page=sellerPage" method="POST">
 		    <input name="searchWord" class="search-input" type="text" placeholder="검색어를 입력해주세요.">
 		    <button type="submit" name="search" class="search-button">
 		        <img src="/image/glass.png" alt="검색" style="width: 20px; height: 20px; margin-bottom:0px">
 		    </button>
 		</form>
-    </div>
-</div>
-<form action="${contextPath}/seller/addGoodsQnaAnswer.do" method="post">
-<div class="menu-container">
+		</div>
+    
     
 
-    <hr width="66%" style= "margin-left: 170px">
-</div>
-
+<form action="${contextPath}/seller/addGoodsQnaAnswer.do" method="post">
 <div class="table-container">
-    <table class="faq-table">
+    <table class="faq-table" style="margin-left: 0px; width:100%;">
+    
         <thead>
             <tr>
-                <th>상품명</th>
+            	<th style="border-left:none;"></th>
+				 
+                <th colspan="2:">상품명</th>
                 <th>질문종류</th>
                 <th>등록날짜</th>
             </tr>
@@ -170,7 +191,24 @@
         <tbody>
             <c:forEach items="${goodsQnaList}" var="goodsQna">
                 <tr class="faq-content">
-                    <td>${goodsQna.goodsVO.goods_title}</td>
+                  <td style="border-left:none;">
+                    
+                    <c:choose>
+            		<c:when test="${goodsQna.goods_qna_answer != null}">
+                	
+                   	완료
+                    
+                    </c:when>
+                    <c:when test="${goodsQna.goods_qna_answer == null}">
+                	
+                   	대기
+                    
+                    </c:when>
+                    </c:choose>
+                    </td>
+                    
+                    <td>
+                    <td style="border-left:none;">${goodsQna.goodsVO.goods_title}</td>
                     <td>
                         <a href="#" style="color: black; display: flex; align-items: center; text-decoration: none;" onmouseover="this.style.textDecoration='underline';" onmouseout="this.style.textDecoration='none';" onclick="toggleAnswer('${goodsQna.articleNO}')">
 						    [${goodsQna.goods_qna_middle_title}][${goodsQna.goods_qna_title}]
@@ -180,7 +218,7 @@
                 </tr>
           
                 <tr class="faq-answer" id="faqAnswer${goodsQna.articleNO}" style="display: none;">
-				    <td colspan="3">
+				    <td style="border-left:none;" colspan="5">
 				        <p>${goodsQna.goods_qna_content}</p>
 				        <c:choose>
 				            <c:when test="${not empty goodsQna.goods_qna_answer}">
@@ -255,6 +293,8 @@
             </c:otherwise>
         </c:choose>
     </c:if>
+</div>
+</div>
 </div>
 
 <script>
