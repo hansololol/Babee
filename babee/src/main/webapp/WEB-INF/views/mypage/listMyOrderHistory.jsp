@@ -2,6 +2,7 @@
    pageEncoding="utf-8"
    isELIgnored="false"%>  
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 <!DOCTYPE html >
@@ -16,13 +17,14 @@
    border-collapse: collapse;
 
 }
+
+.order_delivery a {
+	text-decoration:none;
+}
 .order_delivery td {
-    border-top: 1px solid gray;
+    border-top: 1px solid #ccc;
     
 }
-
-
-
 
 .order_delivery_list { 
 	width: 66%;
@@ -41,8 +43,12 @@
     border: none; /* 테두리 없음 */
     border-radius: 5px; /* 테두리 반경 */
     cursor: pointer; /* 커서 모양 변경 */
-    text-decoration:none;
-    font-size:1px;
+    text-decoration: none;
+    font-size: 3px;
+}
+
+.order_delivery_search:hover {
+    background-color: #cca300;
 }
  .paging-container {
             text-align: center;
@@ -63,11 +69,6 @@
             background-color: #ccc;
         }
 
-
-/* 버튼에 호버 효과 */
-.order_delivery_search :hover{
-    background-color: #cca300; /* 호버 시 배경색 변경 */
-}
 
 
 /* 이미지에 여백과 둥근 테두리 추가 */
@@ -134,8 +135,8 @@ function search_order_history(fixedSearchPeriod){
 </script>
 </head>
 <body>
-<br><br>
-   <div class="order_delivery_list">
+
+   <div class="order_delivery_list" style="margin-left:165px;">
    <H3>주문내역/배송조회</H3>
    <hr>
       <table align="center" style="margin-left: 0px;">
@@ -150,46 +151,14 @@ function search_order_history(fixedSearchPeriod){
       </table>
       
       <hr>
-      <form  method="post" name = "dateForm">   
-      <table align="center" style="margin-left: 0px;">
-         <tr>
-            <td>
-               <a href="javascript:search_order_history('today')" id="today">
-                  <img   src="/image/btn_search_one_day.jpg">
-               </a>
-               <a href="javascript:search_order_history('one_week')" id="week">
-                  <img   src="/image/btn_search_1_week.jpg">
-               </a>
-    
-               <a href="javascript:search_order_history('one_month')" id="month">
-                  <img   src="/image/btn_search_1_month.jpg">
-               </a>
-               <a href="javascript:search_order_history('three_month')" id="threemonth">
-                  <img   src="/image/btn_search_3_month.jpg">
-               </a>
-      </td>
-         <tr>
-            <td>    
-               조회한 기간 : <input  type="date"  size="4" value="${beginYear}" />
-                      ~
-                     <input  type="date"  size="4" value="${endYear}" />
-            </td>
-            
-             <td><input   type="button"  value="조회"/> </td>
-         </tr>
-      </table>
-      
-      <div class="clear">
-   </div>
-   </form>   
-   
+
    <br>
 
 <table class="order_delivery"  width="100%">
          <tr >
-            <td colspan="2" width="300px" style="padding-left:15px;">주문정보</td>
-            <td>결제금액</td>
-            <td>진행상태</td>
+            <td colspan="2" width="300px" style="padding-left:15px; padding:10px; font-weight:bold;">주문정보</td>
+            <td style="font-weight:bold;">결제금액</td>
+            <td style="font-weight:bold;">진행상태</td>
             <td >&nbsp;&nbsp;&nbsp;</td>
             
          </tr>
@@ -207,7 +176,7 @@ function search_order_history(fixedSearchPeriod){
           <li style="text-align:left;"> 주문일자: ${order.payment_order_time} </li>
         </ul>
       </td>
-      <td> ${order.final_total_price} 원</td>
+      <td><fmt:formatNumber value="${order.final_total_price}" type="Number"  />원</td>
       <c:choose>
         <c:when test="${order.delivery_status=='delivery_prepared'}">
           <td> 배송준비중 </td>

@@ -107,7 +107,7 @@ pageEncoding="UTF-8" isELIgnored="false"%>
 
 	<div class="review_list"  style="margin-left:165px;">
 		<H3 style="display:inline-grid;">나의 리뷰</H3>
-		<hr>
+		<hr style="margin-top:revert">
 		<table align="center" style="margin-left: 0px;">
 			<tr>
 				<td> 

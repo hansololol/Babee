@@ -43,7 +43,7 @@ request.setCharacterEncoding("utf-8"); %>
         text-decoration: none;
       }
       #sidebar-left {
-        width: 16%;
+      	width:230px;
         height: auto;
         padding: 5px;
         margin-top: 52px;
@@ -52,7 +52,7 @@ request.setCharacterEncoding("utf-8"); %>
         float: left;
         color: #003d0a;
         margin-left: 16%;
-        font-size: 20px;
+        font-size: 15px;
       }
 
       #content {

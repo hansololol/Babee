@@ -85,7 +85,7 @@
 
 	 <div class="wish_list_a"  style="margin-left:165px;">
 		<H3 style="display:inline-grid;">나의 위시리트스</H3>
-		<hr>
+		<hr style="margin-top:revert">
 		<table align="center" style="margin-left: 0px;">
 			<tr>
 				<td> 
