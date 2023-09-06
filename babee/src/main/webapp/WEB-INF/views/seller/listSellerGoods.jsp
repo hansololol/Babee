@@ -2,6 +2,7 @@
    pageEncoding="utf-8"
    isELIgnored="false"%>  
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
@@ -18,7 +19,8 @@
 
 }
 .order_delivery td {
-    border-top: 1px solid gray;
+    border-top: 1px solid #ccc;
+    padding:10px;
     
 }
 
@@ -104,8 +106,8 @@
 
 </head>
 <body>
-<br><br>
-   <div class="order_delivery_list">
+
+   <div class="order_delivery_list" style="margin-left:165px;">
    <H3>상품관리</H3>
    <hr>
       <form action="${contextPath}/seller/getDateGoods.do?page=sellerPage" method="POST">
@@ -125,25 +127,25 @@
       <table align="center" style="margin-left: 0px;">
          <tr>
             <td> 
-               <a href="${contextPath}/seller/getTodayGoods.do?page=sellerPage">
+               <a href="${contextPath}/seller/getTodayGoods.do?page=sellerPage" style="text-decoration:none;">
 				    <img src="${contextPath}/image/btn_search_one_day.jpg">
 			   </a>
-               <a href="${contextPath}/seller/getOneWeekGoods.do?page=sellerPage">
+               <a href="${contextPath}/seller/getOneWeekGoods.do?page=sellerPage" style="text-decoration:none;">
                   <img   src="/image/btn_search_1_week.jpg">
                </a>
-               <a href="${contextPath}/seller/getTwoWeekGoods.do?page=sellerPage">
+               <a href="${contextPath}/seller/getTwoWeekGoods.do?page=sellerPage" style="text-decoration:none;">
                   <img   src="/image/btn_search_2_week.jpg">
                </a>
-               <a href="${contextPath}/seller/getOneMonthGoods.do?page=sellerPage">
+               <a href="${contextPath}/seller/getOneMonthGoods.do?page=sellerPage" style="text-decoration:none;">
                   <img   src="/image/btn_search_1_month.jpg">
                </a>
-               <a href="${contextPath}/seller/getTwoMonthGoods.do?page=sellerPage">
+               <a href="${contextPath}/seller/getTwoMonthGoods.do?page=sellerPage" style="text-decoration:none;">
                   <img   src="/image/btn_search_2_month.jpg">
                </a>
-               <a href="${contextPath}/seller/getThreeMonthGoods.do?page=sellerPage">
+               <a href="${contextPath}/seller/getThreeMonthGoods.do?page=sellerPage" style="text-decoration:none;">
                   <img   src="/image/btn_search_3_month.jpg">
                </a>
-               <a href="${contextPath}/seller/getFourMonthGoods.do?page=sellerPage">
+               <a href="${contextPath}/seller/getFourMonthGoods.do?page=sellerPage" style="text-decoration:none;">
                   <img   src="/image/btn_search_4_month.jpg">
                </a>
 
@@ -151,7 +153,7 @@
          <tr>
          
             <td>    
-			    조회한 기간 :
+			    조회 기간 :
 			    <input type="date" size="4"  name="startDate" />
 			    ~
 			    <input type="date" size="4" name="endDate" />
@@ -187,11 +189,10 @@
    margin-bottom: 10px;"><b>상품 등록하기</b></a>
       <table class="order_delivery" width="100%">
          <tr>
-         	 <td>상품번호</td>
-             <td colspan="2" width="300px" style="padding-left: 15px;">상품명</td>
-             <td>가격</td>
-             <td>상품 관리</td>
-             <td>&nbsp;&nbsp;&nbsp;</td>
+         	 <td style="font-weight:bold;">상품번호</td>
+             <td colspan="2" width="300px" style="padding-left: 15px; font-weight:bold; ">상품명</td>
+             <td style="font-weight:bold;">가격</td>
+             <td style="font-weight:bold;">상품 관리</td>
          </tr>
          
          <c:choose>
@@ -211,7 +212,8 @@
                  <input type="hidden" name="goods_image_name2" value="${goods.goods_image_name2}">
                  <input type="hidden" name="goods_image_name2_id" value="${goods.goods_image_name2_id}">
                  <td style="text-align:left;">${goods.goods_title}</td>
-                 <td>${goods.goods_price}원</td>
+                 <td><fmt:formatNumber value="${goods.goods_price}" type="Number"  />원</td>
+             
                  <td>
                  
                      <a class="modify_delivery_search" href="${contextPath}/seller/modGoodsForm.do?page=sellerPage&goods_id=${goods.goods_id}"><b>수정하기</b></a><br>

@@ -51,7 +51,13 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
             <td> 
                <img src ="/image/people.png" width="60px;" style="display:inline-block; padding-left:15px;"/>
                
+                 				<c:if test="${userType=='S'}">
+                  <p  style="display:inline-block;"> ${memberInfo.seller_name} 님 안녕하세요 </p>
+               	</c:if>
+               	<c:if test="${userType!='S'}">
                   <p  style="display:inline-block;"> ${memberInfo.member_name} 님 안녕하세요 </p>
+               	</c:if>
+            </td>
                
             </td>
          </tr>
