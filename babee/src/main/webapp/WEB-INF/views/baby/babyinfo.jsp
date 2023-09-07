@@ -316,7 +316,8 @@ uri="http://java.sun.com/jsp/jstl/core"%>
     <!--정보 전체 묶기-->
     <div id="babyInfoAll">
       <div class="square-container1">
-        <p style="text-align: left; float: left">
+        <p style="text-align: left; float: left; display: flex;
+        align-items: center;">
           임신관련<br />
           주요 서비스
         </p>
@@ -381,7 +382,8 @@ uri="http://java.sun.com/jsp/jstl/core"%>
       <!--출산정보-->
 
       <div class="square-container2" style="display: none">
-        <p style="text-align: left; float: left">
+        <p style="text-align: left; float: left; display: flex;
+        align-items: center;">
           출산관련<br />
           주요 서비스
         </p>
@@ -448,7 +450,8 @@ uri="http://java.sun.com/jsp/jstl/core"%>
       <!--육아정보-->
 
       <div class="square-container3" style="display: none">
-        <p style="text-align: left; float: left">
+        <p style="text-align: left; float: left; display: flex;
+        align-items: center;">
           육아정보<br />
           주요 서비스
         </p>
@@ -515,7 +518,8 @@ uri="http://java.sun.com/jsp/jstl/core"%>
       <!--어린이집, 유치원정보-->
 
       <div class="square-container4" style="display: none">
-        <p style="text-align: left; float: left">
+        <p style="text-align: left; float: left; display: flex;
+        align-items: center;">
           유치원<br />
           주요 서비스
         </p>
