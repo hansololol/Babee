@@ -67,16 +67,19 @@ a {
 
 <div class="admin_free_list" style="margin-left: 165px;">
 	<H3 style="display:inline-grid;">자유게시판 관리</H3>
-		<hr style="margin-top:revert">
+				<div style="background:rgb(255, 255, 202);">
+		
+		<hr style="margin-top: revert">
 		<table align="center" style="margin-left: 0px;">
 			<tr>
-				<td> 
-					<img src ="/image/people.png" width="60px;" style="display:inline-block; padding-left:15px;"/>
- 					<p style="display:inline-block;"> ${memberInfo.member_name} 님 안녕하세요 </p>
-				</td>
-         	</tr>
-      	</table>
-		<hr style=" margin-bottom: 50px;">
+				<td><img src="/image/people.png" width="60px;"
+					style="display: inline-block; padding-left: 15px;" />
+					<p style="display: inline-block;">${memberInfo.member_name}님
+						안녕하세요</p></td>
+			</tr>
+		</table>
+		<hr style="margin-bottom: 50px;">
+		</div>
 
     <div style="width: 100%;" >
       <table class="free-table" style="width: 100%;">

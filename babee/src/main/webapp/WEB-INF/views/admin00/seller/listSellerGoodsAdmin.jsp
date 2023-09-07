@@ -2,6 +2,7 @@
    pageEncoding="utf-8"
    isELIgnored="false"%>  
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 <!DOCTYPE html >
 <html>
@@ -16,17 +17,14 @@
 
 }
 .order_delivery td {
-    border-top: 1px solid gray;
+    border-top: 1px solid #ccc;
     
 }
 
 
 
 
-.order_delivery_list { 
-	width: 66%;
-    margin: auto;
-   }
+
 
 .goods li {
    list-style-type: none;
@@ -101,83 +99,44 @@
          opacity: .25;
 }
 
+.admin_goods_list {
+	width: 66%;
+	margin: 0 auto;
+}
+
 </style>
 <title>상품 관리창</title>
 
 </head>
 <body>
 
-   <div class="order_delivery_list">
-   <H3>상품관리</H3>
-   <hr>
-   <form  method="post">   
-      <table align="center" style="margin-left: 0px;">
-         <tr>
-            <td> 
-               <img src ="/image/people.png" width="60px;" style="display:inline-block; padding-left:15px;"/>
-               
-                  <p  style="display:inline-block;"> 관리자님 안녕하세요 </p>
-               
-            </td>
-         </tr>
-      </table>
-      
-      <hr>
-      
-      <table align="center" style="margin-left: 0px;">
-         <tr>
-            <td>
-               <a href="javascript:search_order_history('today')">
-                  <img   src="/image/btn_search_one_day.jpg">
-               </a>
-               <a href="javascript:search_order_history('one_week')">
-                  <img   src="/image/btn_search_1_week.jpg">
-               </a>
-               <a href="javascript:search_order_history('two_week')">
-                  <img   src="/image/btn_search_2_week.jpg">
-               </a>
-               <a href="javascript:search_order_history('one_month')">
-                  <img   src="/image/btn_search_1_month.jpg">
-               </a>
-               <a href="javascript:search_order_history('two_month')">
-                  <img   src="/image/btn_search_2_month.jpg">
-               </a>
-               <a href="javascript:search_order_history('three_month')">
-                  <img   src="/image/btn_search_3_month.jpg">
-               </a>
-               <a href="javascript:search_order_history('four_month')">
-                  <img   src="/image/btn_search_4_month.jpg">
-               </a>
-      </td>
-         <tr>
-            <td>    
-               조회한 기간 : <input  type="date"  size="4" value="${beginYear}" />
-                      ~
-                     <input  type="date"  size="4" value="${endYear}" />
-            </td>
-            
-             <td><input   type="button"  value="조회"/> </td>
-         </tr>
-      </table>
-      
-      <div class="clear">
-   </div>
-   </form>   
-   
-   <br>
+  <div class="admin_goods_list" style="margin-left: 165px;">
+		<H3 style="display: inline-grid;">상품 관리</H3>
+		<div style="background:rgb(255, 255, 202);">
+		
+		<hr style="margin-top: revert">
+		<table align="center" style="margin-left: 0px;">
+			<tr>
+				<td><img src="/image/people.png" width="60px;"
+					style="display: inline-block; padding-left: 15px;" />
+					<p style="display: inline-block;">${memberInfo.member_name}님
+						안녕하세요</p></td>
+			</tr>
+		</table>
+		<hr style="margin-bottom: 50px;">
+		</div>
 
-     
-      <br>
-<table class="order_delivery"  width="100%">
-         <tr >
-            <td colspan="2" width="300px" style="padding-left:15px;">상품정보</td>
-            <td>배송비</td>
-            <td>상품 관리</td>
+<div style="width: 100%;">
+			<table class="seller-table" style="width: 100%;">
+		         <tr>
+            <td colspan="2" width="300px" style="padding-left:15px; font-weight:bold;">상품정보</td>
+            <td style="font-weight:bold">배송비</td>
+            <td style="font-weight:bold" >상품 관리</td>
             <td >&nbsp;&nbsp;&nbsp;</td>
             
          </tr>
         <c:forEach items="${allGoodsList}" var="all"> 
-         <tr>
+         <tr  style="border-top: 1px solid #ccc;">
         
             <td>
 				<a href="${contextPath}/goods/goodsDetail.do?goods_id=${all.goods_id}">
@@ -185,7 +144,9 @@
             <td> 
                <ul class="goods">
                   <li style="text-align:left;"> ${all.goods_title} [${all.goods_id}] </li>
-                  <li style="text-align:left;"> 가격: ${all.goods_price}원 </li>
+                  <li style="text-align:left;"> 가격: <fmt:formatNumber value="${all.goods_price}" pattern="#,###,###" />원 </li>
+                  
+              
                </ul>
             </td>
             <td> 3,000원 </td>
@@ -199,6 +160,7 @@
            </c:forEach> 
            
       </table>
+       </div>
       	 <div class="paging-container">
    <c:if test="${totArticles !=null}">
       <c:choose>
@@ -234,7 +196,7 @@
          </c:when>
       </c:choose>
    </c:if>
-            
+           
 </div>
       </div>      
   
