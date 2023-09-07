@@ -47,11 +47,16 @@
 
 </style>
 <script>
-   function delMember(){
-      var password = document.getElementById('inPassword').value;
-      console.log(password);
-      location.href="${contextPath}/member/memberDel.do?member_pw=" +password
-   }
+function delMember() {
+    var password = document.getElementById('inPassword').value;
+    var confirmWithdraw = confirm("정말로 회원탈퇴하시겠습니까?");
+    
+    if (confirmWithdraw) {
+       location.href = "${contextPath}/member/memberDel.do?member_pw=" + password;
+    } else {
+       alert("회원탈퇴가 취소되었습니다.");
+    }
+ }
 </script>
 
 <title>마이페이지 메인창</title>
