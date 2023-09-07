@@ -141,7 +141,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		mav.setViewName("redirect:/main/main.do");
 		}else {
 		mav.addObject("alertMember", "fail");
-		mav.setViewName("redirect:/main/main.do");
+		mav.setViewName("redirect:/member/mypageDel.do");
 		}
 		return mav;
 	}
