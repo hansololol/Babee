@@ -199,27 +199,26 @@ public class SellerControllerImpl extends BaseController implements SellerContro
 		  try {
 			  
 			  if (imageFileName != null && !imageFileName.isEmpty()) {
-				    for (String fileName : imageFileName) {
-				        File srcFile = new File(CURR_IMAGE_REPO_PATH + "\\" + "temp" + "\\" + fileName);
-				        File destDir = new File(CURR_IMAGE_REPO_PATH + "\\" + goods_id);
-				        
-
-				        // 이미지 파일을 옮깁니다.
-				        FileUtils.moveFileToDirectory(srcFile, destDir, true);
-				    }
-				    
-				    // 이미지 파일을 옮긴 후 기존 파일 삭제
+				    // 이미지 파일을 삭제합니다.
 				    String goods_image_name1 = (String) goodsInfo.get("goods_image_name1");
 				    if (goods_image_name1 != null && !goods_image_name1.isEmpty()) {
 				        File oldFile1 = new File(CURR_IMAGE_REPO_PATH + "\\" + goods_id + "\\" + goods_image_name1);
 				        oldFile1.delete();
-	
 				    }
 
 				    String goods_image_name2 = (String) goodsInfo.get("goods_image_name2");
 				    if (goods_image_name2 != null && !goods_image_name2.isEmpty()) {
 				        File oldFile2 = new File(CURR_IMAGE_REPO_PATH + "\\" + goods_id + "\\" + goods_image_name2);
 				        oldFile2.delete();
+				    }
+
+				    // 이미지 파일을 옮깁니다.
+				    for (String fileName : imageFileName) {
+				        File srcFile = new File(CURR_IMAGE_REPO_PATH + "\\" + "temp" + "\\" + fileName);
+				        File destDir = new File(CURR_IMAGE_REPO_PATH + "\\" + goods_id);
+				        File existingFile = new File(destDir, fileName);
+
+				        FileUtils.moveFileToDirectory(srcFile, destDir, true);
 				    }
 				}
 		  mav.setViewName("redirect:/seller/listSellerGoods.do?page=sellerPage");

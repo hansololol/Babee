@@ -63,6 +63,54 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
         float: left;
         margin-left: 10%;
       }
+      
+      /* 기본 버튼 스타일 */
+  input[type="submit"] {
+    background-color: #ffcc00; /* 기본 배경색 (노란색) */
+    color: #333; /* 기본 글자색 */
+    padding: 10px 20px; /* 패딩 값은 필요에 따라 조정하세요 */
+    border: none; /* 테두리 스타일 */
+    border-radius: 5px; /* 버튼 모서리 둥글게 만듭니다 */
+    cursor: pointer; /* 커서 모양을 포인터로 변경합니다 */
+    transition: background-color 0.3s, color 0.3s; /* 호버 효과에 사용될 속성과 지속 시간 설정 */
+  }
+
+  /* 호버 효과 스타일 */
+  input[type="submit"]:hover {
+    background-color: #ddaa00; /* 호버 시 배경색을 어두운 노란색으로 변경합니다 */
+    color: #fff; /* 호버 시 글자색을 흰색으로 변경합니다 */
+  }
+  /* 뒤로가기 버튼 스타일 */
+input[type="button"] {
+    background-color: #ffcc00; /* 뒤로가기 버튼의 배경색 */
+    color: #333; /* 뒤로가기 버튼의 글자색 */
+    padding: 10px 20px; /* 패딩 값은 필요에 따라 조정하세요 */
+    border: none; /* 테두리 스타일 */
+    border-radius: 5px; /* 버튼 모서리 둥글게 만듭니다 */
+    cursor: pointer; /* 커서 모양을 포인터로 변경합니다 */
+    transition: background-color 0.3s, color 0.3s; /* 호버 효과에 사용될 속성과 지속 시간 설정 */
+}
+
+/* 뒤로가기 버튼 호버 효과 스타일 */
+input[type="button"]:hover {
+    background-color: #555; /* 호버 시 배경색을 어두운 회색으로 변경합니다 */
+    color: #fff; /* 호버 시 글자색을 흰색으로 변경합니다 */
+}
+        /* 스타일 설정 */
+        .bordered-container {
+            border: 1px solid #ccc;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            margin: 10px;
+            padding: 10px;
+            background-color: #fff;
+            width: 1000px;
+            margin-top: 0px;
+            margin-left: 150px;
+            height: auto;
+        }
+  
+  
     </style>
     <script type="text/javascript">
       $(document).ready(function () {
@@ -73,7 +121,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
             $(".file-preview1").html(
               '<img src="' +
                 e.target.result +
-                '" alt="Preview" style="width: 200px; height: 200px; margin: 10px 0 10px 0;"> <br>'
+                '" alt="Preview" style="width: 300px; height: 300px; margin: 10px; border-radius: 20%;"> <br>'
             );
           };
           reader.readAsDataURL(file);
@@ -87,7 +135,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
             $(".file-preview2").html(
               '<img src="' +
                 e.target.result +
-                '" alt="Preview" style="width: 200px; height: 200px; margin: 10px 0 10px 0;"> <br>'
+                '" alt="Preview" style="width: 500px; height: auto; margin: 10px 0 10px 0;"> <br>'
             );
           };
           reader.readAsDataURL(file);
@@ -288,21 +336,60 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
           $("#select3").append(option1);
         }
       }
+      
+      $(document).ready(function () {
+  	    $('form').submit(function (e) {
+  	        e.preventDefault(); // 기본 폼 제출 동작을 막습니다.
+
+  	        // 사용자에게 먼저 확인을 받기 위한 대화상자 표시
+  	        var userConfirmation = confirm('상품을 수정하시겠습니까?');
+
+  	        if (userConfirmation) {
+  	            // 파일 업로드와 다른 필드를 서버로 전송합니다.
+  	            $.ajax({
+  	                url: $(this).attr('action'),
+  	                type: $(this).attr('method'),
+  	                data: new FormData(this),
+  	                processData: false,
+  	                contentType: false,
+  	                success: function (response) {
+  	                    if (response === 'failure') { // 서버 응답이 'failure'인 경우
+  	                        alert('상품 입력란을 다시 확인해주세요.');
+  	                        // 실패 시 현재 페이지에 머무릅니다.
+  	                    } else {
+  	                        alert('상품이 성공적으로 수정되었습니다.');
+  	                        window.location.href = "${contextPath}/seller/listSellerGoods.do?page=sellerPage";
+  	                        // 성공 시 다른 페이지로 이동합니다.
+  	                    }
+  	                },
+  	                error: function () {
+  	                    alert('상품 입력란을 다시 확인해주세요.');
+  	                    // 오류 시 현재 페이지에 머무릅니다.
+  	                },
+  	            });
+  	        } else {
+  	            // 사용자가 취소한 경우 아무 작업도 수행하지 않음
+  	        }
+  	    });
+  	});
     </script>
   </head>
   <body>
+  
+        <form
+            action="${contextPath}/seller/modgoods.do"
+            method="post"
+            enctype="multipart/form-data"
+        >
+        <div class="bordered-container">
     <br />
-    <h1>상품 수정하기</h1>
+    <h1 style="text-align:center;">상품 수정하기</h1>
     <br /><br />
 
-    <div id="detail_table" style="margin-left: 25%">
-      <form
-        action="${contextPath}/seller/modgoods.do"
-        method="post"
-        enctype="multipart/form-data"
-      >
+    <div id="detail_table" style="margin-left: 37%">
+      
         <table>
-        <input type="hidden" name="goods_id" value="${goodsInfo.goods_id}" />
+        <input type="hidden" name="goods_id" value="${goodsInfo.goods_id}"/>
           <tbody>
             <!-- 상품명 -->
             <tr>
@@ -392,25 +479,34 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
             <!-- ... 기타 폼 요소들 추가 ... -->
           </tbody>
         </table>
+        </div>
         <div class="clear"></div>
         <br /><br /><br />
-        <div>
-    <label for="goods_image_name1">Image 1:</label>
-    <input type="file" name="goods_image_name1" />
-    <div class="file-preview1">
-        <img src="${contextPath}/thumbnails.do?goods_id=${goodsInfo.goods_id}&fileName=${goodsInfo.goods_image_name1}" style="width: 200px; height: 200px;"> </a></td>
+        <div style="text-align-last: left;
+    margin: -465px 0px -400px 20px; " >
+    <label for="goods_image_name1"style="display: block; margin-left: 120px; margin-bottom: 10px;"><b>메인 이미지</b></label>
+    <input type="file" name="goods_image_name1" style="position: absolute;margin: 340px 0px 00px 620px;left: 55px;top: 10px;"/>
+    <div style="width: 320px; height: 320px; margin-left: 10px; margin-top: 50px; position: relative;">
+    <div style="border: 1px dashed #000 ; width: 320px; height: 320px; position: absolute; top: 0; left: -10px;">
+    <div class="file-preview1" style="width: 310px; height: 310px; overflow: hidden;">
+    
+        <img src="${contextPath}/thumbnails.do?goods_id=${goodsInfo.goods_id}&fileName=${goodsInfo.goods_image_name1}" style="width: 300px;height: 300px;margin: 10px; border-radius: 20%;"> </a></td>
+    </div>
     </div>
 	</div>
-	<div>
-	    <label for="goods_image_name2">Image 2:</label>
-	    <input type="file" name="goods_image_name2"/>
+	</div>
+	<div style="text-align-last: center;">
+	    <label for="goods_image_name2"style="display: block;margin-bottom: 10px; margin-top:410px;"><b>상세 이미지</b></label>
+	    <input type="file" name="goods_image_name2"style="margin-bottom: 20px;" />
 	    <div class="file-preview2">
-	        <img src="${contextPath}/thumbnails.do?goods_id=${goodsInfo.goods_id}&fileName=${goodsInfo.goods_image_name2}" style="width: 200px; height: 200px;"> </a></td>
+	        <img src="${contextPath}/thumbnails.do?goods_id=${goodsInfo.goods_id}&fileName=${goodsInfo.goods_image_name2}" style="width: 500px; height: auto; margin-bottom: 50px;"> </a></td>
 	    </div>
 	</div>
-        <input type="submit" value="수정하기" />
+        <input style="margin-bottom: 20px;" type="submit" value="수정하기" />
+        <input type="button" value="뒤로가기" onclick="history.back();" />
         <div class="clear"></div>
       </form>
+      
     </div>
   </body>
 </html>
