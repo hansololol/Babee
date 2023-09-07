@@ -8,7 +8,7 @@ public class RefundVO {
 		private String order_id;
 		private String delivery_status;
 		private String reason;
-		private String goods_id;
+		private int goods_id;
 		private String member_id;
 		private String reason_option;
 		private int returnPrice;
@@ -49,12 +49,7 @@ public class RefundVO {
 		public void setReason(String reason) {
 			this.reason = reason;
 		}
-		public String getGoods_id() {
-			return goods_id;
-		}
-		public void setGoods_id(String goods_id) {
-			this.goods_id = goods_id;
-		}
+		
 		public String getMember_id() {
 			return member_id;
 		}
@@ -66,6 +61,14 @@ public class RefundVO {
 		}
 		public void setReason_option(String reason_option) {
 			this.reason_option = reason_option;
+		}
+
+		public int getGoods_id() {
+			return goods_id;
+		}
+
+		public void setGoods_id(int goods_id) {
+			this.goods_id = goods_id;
 		}
 
 		
