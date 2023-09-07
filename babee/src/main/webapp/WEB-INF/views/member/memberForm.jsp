@@ -93,7 +93,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
         if (keyCode == 8 || keyCode == 46) {
           return;
         }
-        if (val.length < maxLen) {
+        if (val.length <= maxLen) {
           $("#id_check").html(
             "<p style='color: red; text-align: left; margin-bottom: 0px;'> 8자리 이상 아이디를 입력해주세요</p>"
           );
