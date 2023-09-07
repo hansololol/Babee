@@ -6,200 +6,164 @@
 <!DOCTYPE html>
 <html>
 <head>
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-    <meta charset="UTF-8">
-<title>고객센터</title>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<title>문의내역 관리(관리자)</title>
 <style>
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-    }
-    #search {
-        background-color: #FEF7DD;
-        padding: 20px;
-        display: flex;
-        justify-content: space-between;
-        width: 70%;
-        margin: 50px auto -10px;
-    }
-    .search-container {
-        display: flex;
-        align-items: center;
-        width: 70%;
-    }
-    .search-input {
-        width: 300px;
-        border: 1px solid #FFA500;
-        text-align: center;
-        padding: 5px;
-        flex: 3;
-        border-radius: 5px;
-        margin-left: 20px;
-    }
-    .search-button {
-        border: none;
-        background: none;
-    }
-    .menu-container {
-            text-align: center; /* 가운데 정렬 */
-            margin-top: 50px; /* 여기서 100px 만큼 아래로 이동합니다. */
-        }
+a:hover {
+	font-weight: bold;
+}
 
-        .menu-options {
-            display: flex; /* 옆으로 정렬 */
-            gap: 100px; /* 사이 간격 */
-            align-items: flex-end; /* 메뉴와 아래 정렬 요소 정렬 */
-            justify-content: center; /* 가운데 정렬 */
-        }
+a {
+	color: black;
+	text-decoration: none;
+}
 
-        .menu-option {
-            font-weight: normal;
-            text-decoration: none;
-            color: #333;
-        }
+.paging-container {
+	text-align: center;
+	margin-top: 20px;
+}
 
-        /* 선택 시 스타일 */
-        .menu-option:hover {
-            font-weight: bold;
-            text-decoration: underline;
-        }
-        a:hover {
-            font-weight: bold;
-        }
-        
-        a {
-            color: black;
-            text-decoration: none;
-        }
-        
-        .paging-container {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .paging-button {
-            display: inline-block;
-            margin: 0 5px;
-            padding: 5px 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #f0f0f0;
-            color: #333;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .paging-button:hover {
-            background-color: #ccc;
-        }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        .menu-container {
-        text-align: center;
-        margin-top: 50px;
-    }
+.paging-button {
+	display: inline-block;
+	margin: 0 5px;
+	padding: 5px 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	background-color: #f0f0f0;
+	color: #333;
+	text-decoration: none;
+	cursor: pointer;
+}
 
-    .menu-options {
-        display: flex;
-        gap: 100px;
-        align-items: flex-end;
-        justify-content: center;
-    }
+.paging-button:hover {
+	background-color: #ccc;
+}
 
-    .menu-option {
-        font-weight: normal;
-        text-decoration: none;
-        color: #333;
-    }
+.menu-container {
+	text-align: center;
+	margin-top: 50px;
+}
 
-    .menu-option:hover {
-        font-weight: bold;
-        text-decoration: underline;
-    }
+.menu-options {
+	display: flex;
+	gap: 100px;
+	align-items: flex-end;
+	justify-content: center;
+}
 
-    a:hover {
-        font-weight: bold;
-    }
-    
-    a {
-        color: black;
-        text-decoration: none;
-    }
-    
-    .faq-content {
-        text-align: center;
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
-    .faq-answer {
-        margin-top: 10px;
-        display: none;
-    }
-    .answer-textarea {
-        width: 100%;
-        height: 100px;
-        resize: none;
-        margin-top: 10px;
-        border: 1px solid #ccc;
-        padding: 5px;
-    }
-    .answer-button {
-        
-        padding: 5px 10px;
-        border: none;
-        border-radius: 5px;
-        background-color: #FEF7DD;
-        color: #333;
-        cursor: pointer;
-        
-    }
-    .answer-button:hover {
-        background-color: #ccc;
-    }
-    .faq-table {
-        width: 80%;
-        margin: 20px auto;
-        border-collapse: collapse;
-    }
-    .faq-table th, .faq-table td {
-        padding: 10px;
-        text-align: center;
-        border: 1px solid #ccc;
-    }
-    
-    .menu-option-selected {
-        font-weight: bold;
-        text-decoration: underline;
-    }
+.menu-option {
+	font-weight: normal;
+	text-decoration: none;
+	color: #333;
+}
+
+.menu-option:hover {
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+a:hover {
+	font-weight: bold;
+}
+
+a {
+	color: black;
+	text-decoration: none;
+}
+
+.faq-content {
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.faq-answer {
+	margin-top: 10px;
+	display: none;
+}
+
+.answer-textarea {
+	width: 100%;
+	height: 100px;
+	resize: none;
+	margin-top: 10px;
+	border: 1px solid #ccc;
+	padding: 5px;
+}
+
+.answer-button {
+	padding: 5px 10px;
+	border: none;
+	border-radius: 5px;
+	background-color: #ffcd29;
+	color: #333;
+	cursor: pointer;
+}
+
+.answer-button:hover {
+	background-color: #cca300;
+}
+
+.faq-table {
+	width: 80%;
+	margin: 20px auto;
+	border-collapse: collapse;
+}
+
+.faq-table th, .faq-table td {
+	padding: 10px;
+	text-align: center;
+	border: 1px solid #ccc;
+}
+
+.menu-option-selected {
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+.admin-qna-table {
+	width: 80%;
+	margin: 60px auto;
+	border-collapse: collapse;
+}
+
+.admin-qna-table th, .admin-qna-table td {
+	padding: 8px;
+	text-align: center;
+	border: none; /* 기존 테두리 제거 */
+	border-right: 1px solid #ccc;
+	border-bottom: 1px solid #ccc; /* 아래쪽 경계선 추가 */
+}
+.admin_qna_list {
+	width: 66%;
+	margin: 0 auto;
+}
+
 </style>
 </head>
 <body>
-<div id="search">
-    <h2 style="margin: 0;">고객센터</h2>
-    <div class="search-container">
-        <form action="검색결과를_처리할_페이지_주소" method="GET">
-            <input name="searchWord" class="search-input" type="text" placeholder="검색어를 입력해주세요.">
-            <button type="submit" name="search" class="search-button">
-                <img src="/image/glass.png" alt="검색" style="width: 20px; height: 20px; margin-bottom:0px">
-            </button>
-        </form>
-    </div>
-</div>
+<div class="admin_qna_list" style="margin-left: 165px;">
+	<H3 style="display:inline-grid;"><span style="color:gray; font-size:20px; margin-bottom:3px;">[고객센터]</span>문의내역 관리</H3>
+		<hr style="margin-top:revert">
+		<table align="center" style="margin-left: 0px;">
+			<tr>
+				<td> 
+					<img src ="/image/people.png" width="60px;" style="display:inline-block; padding-left:15px;"/>
+ 					<p style="display:inline-block;"> ${memberInfo.member_name}님 안녕하세요 </p>
+				</td>
+         	</tr>
+      	</table>
+		<hr style=" margin-bottom: 50px;">
 
 
 <div class="table-container">
-    <table class="faq-table" style="width:840px">
+    <table class="admin-qna-table" style="width: 100%;">
         <thead>
             <tr>
-                <th style="width: 10%;">답변상태</th>
-                <th style="width: 50%;">문의</th>
-                <th style="width: 20%;">작성일</th>
+                <th style="width: 10%; border-top:1px solid #ccc; padding: 5px;">답변상태</th>
+                <th style="width: 50%; border-top:1px solid #ccc;">문의 내용</th>
+                <th style="width: 20%; border-top:1px solid #ccc; border-right:none;">작성일</th>
             </tr>
         </thead>
         <tbody>
@@ -209,8 +173,7 @@
                     
                     <c:choose>
             		<c:when test="${faq.qna_answer != null}">
-                	
-                   	완료
+                	<span style="color: rgb(103, 185, 110);"><b>완료</b></span>
                     
                     </c:when>
                     <c:when test="${faq.qna_answer == null}">
@@ -226,14 +189,19 @@
                             ${faq.qna_title}
                         </a>
                     </td>
-                    <td>${faq.qna_writeDate}</td>
+                    <td style="border-right:none;">${faq.qna_writeDate}</td>
                 </tr>
-                <tr class="faq-answer" id="faqAnswer${cnt.count}" style="display: none;">
-                    <td colspan="3">
-                    	<div style="background:#e6e6e6; padding:5px;">
-                        <p>${faq.qna_content}</p>
+                <tr class="faq-answer" id="faqAnswer${cnt.count}" style="display: none; ">
+                    <td colspan="3" style="border-right:none;">
+                    	<div style="background:#e6e6e6; padding:15px; border-radius:10px; display:flex; margin-bottom:10px;">
+                    	<h5 style="float:left;"><span style="color: red;">Q.&nbsp;&nbsp;&nbsp;</span></h5>
+   						<p>${faq.qna_content}</p>
    						</div>
+   						
+   						<div style="background:#e6e6e6; padding:15px; border-radius:10px; display:flex;  margin-bottom:10px;">
+   						<h5 style="float:left;"><span style="color: green;">A.&nbsp;&nbsp;&nbsp;</span></h5>
    						<p>${faq.qna_answer}</p>
+   						</div>
                         <div style="text-align: center; margin-top: -10px;">
                          
                   		<form action="${contextPath}/community/addQnaAnswer.do?page=adminPage" method="post">
@@ -251,7 +219,54 @@
     </table>
 </div>
 
+<div class="paging-container">
+			<c:if test="${totArticles !=null}">
+				<c:choose>
+					<c:when test="${totArticles > 100 }">
+						<c:forEach var="page" begin="1" end="10" step="1">
+							<c:if test="${section >1 && page==1 }">
+								<a class="paging-button"
+									href="${contextPath}/community/adminAnswer.do?section=${section-1}&pageNum=${(section-1)*10 +1  }&page=adminPage">&nbsp;
+									pre </a>
+							</c:if>
+							<a class="paging-button"
+								href="${contextPath}/community/adminAnswer.do?section=${section-1}&pageNum=${(section-1)*10 +page }&page=adminPage">
+							</a>
+							<c:if test="${page ==10 }">
+								<a class="paging-button"
+									href="${contextPath}/community/adminAnswer.do?section=${section-1}&pageNum=${section*10 +1 }&page=adminPage">&nbsp;
+									next </a>
+							</c:if>
+						</c:forEach>
+					</c:when>
 
+					<c:when test="${totArticles ==100 }">
+						<c:forEach var="page" begin="1" end="10" step="1">
+							<a class="paging-button" href="#"> ${page }</a>
+						</c:forEach>
+					</c:when>
+
+					<c:when test="${totArticles <100 }">
+						<c:forEach var="page" begin="1" end="${totArticles/10 +1 }"
+							step="1">
+							<c:choose>
+								<c:when test="${page==pageNum }">
+									<a class="paging-button"
+										href="${contextPath}/community/adminAnswer.do?section=${section}&pageNum=${page}&page=adminPage">${page }</a>
+								</c:when>
+								<c:otherwise>
+									<a class="paging-button"
+										href="${contextPath}/community/adminAnswer.do?section=${section}&pageNum=${page}&page=adminPage">${page }</a>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					</c:when>
+				</c:choose>
+			</c:if>
+
+		</div>
+
+</div>
 
 <script>
     function toggleAnswer(answerId) {
