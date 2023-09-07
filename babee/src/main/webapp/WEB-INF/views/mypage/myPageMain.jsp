@@ -121,7 +121,8 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
         </table>
 		
         <br />
-
+		
+		<c:if test="${memberInfo.member_id != 'admin'}">
         <div style="text-align: left">
           <h4><span style="color: #cc9900">●</span> 추가정보</h4>
           <table class="add_tb" width="455px">
@@ -154,6 +155,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
             </tr>
           </table>
         </div>
+        </c:if>
       </c:if>
 
       <c:if test="${userType == 'S'}">

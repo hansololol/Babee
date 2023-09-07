@@ -24,7 +24,7 @@
 	<c:when test="${isLogOn==true && param.page=='adminPage'}">
 		<div class="list-group">
 			<a href="${contextPath}/member/myPageMain.do?page=adminPage" class="list-group-item list-group-item-action active" aria-current="true">
-				${memberInfo.member_name} 님의 마이페이지 <br>${memberInfo.member_email}
+				${memberInfo.member_name}님의 마이페이지 <br>${memberInfo.member_email}
 			</a>
 			<a href="${contextPath}/admin/member/sellerManageList.do?page=adminPage" class="list-group-item list-group-item-action">사업자 관리</a>
 			<a href="${contextPath}/admin/order/diaryManageList.do?page=adminPage" class="list-group-item list-group-item-action">다이어리 관리</a>
@@ -42,7 +42,7 @@
         <!-- 사업자 side 메뉴 -->
         <div class="list-group">
             <a href="${contextPath}/member/myPageMain.do?page=sellerPage" class="list-group-item list-group-item-action active" aria-current="true">
-                ${memberInfo.seller_name} 님의 마이페이지 <br>${memberInfo.seller_email}
+                ${memberInfo.seller_name}님의 마이페이지 <br>${memberInfo.seller_email}
 
             <a href="${contextPath}/member/modpassword.do?page=sellerPage" class="list-group-item list-group-item-action">사업자 정보 수정</a>
             <a href="${contextPath}/seller/listSellerGoods.do?page=sellerPage" class="list-group-item list-group-item-action">상품 관리</a>
@@ -56,12 +56,12 @@
 		<div class="list-group">
 			<c:if test="${userType=='S'}">
 				<a href="${contextPath}/member/myPageMain.do" class="list-group-item list-group-item-action active" aria-current="true">
-					${memberInfo.seller_name} 님의 마이페이지 <br>${memberInfo.seller_email}
+					${memberInfo.seller_name}님의 마이페이지 <br>${memberInfo.seller_email}
 				</a>
 			</c:if>
 			<c:if test="${userType!='S'}">
 				<a href="${contextPath}/member/myPageMain.do" class="list-group-item list-group-item-action active" aria-current="true">
-					${memberInfo.member_name} 님의 마이페이지 <br>${memberInfo.member_email}
+					${memberInfo.member_name}님의 마이페이지 <br>${memberInfo.member_email}
 				</a>
 			</c:if>
 			<c:if test="${userType!='S'}">
