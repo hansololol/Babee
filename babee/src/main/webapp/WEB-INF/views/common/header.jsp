@@ -147,17 +147,26 @@ function showCategory() {
 
     function login() {
     	 var userType = '<%= session.getAttribute("userType") %>';
+    	 var member_id_ = '<%= session.getAttribute("memberInfo") %>';
+    	 var member_id = member_id_.member_id;
     if(! isLogOn){
         alert("로그인 이후 이용 가능한 서비스입니다.");
         location.replace("${contextPath}/member/loginForm.do")
     }
     
-    if(isLogOn && userType === 'M'){
-    	if("${memberInfo.baby_age}" == "" ){
+    if(isLogOn && userType === 'M' ){
+    	if("${memberInfo.baby_age}" == "" && !member_id === "admin" ){
     		alert("아동 정보 입력 후 이용 가능합니다.")
        		 if(confirm("아동정보 입력 창으로 이동할까요?")){
            		 location.replace("${contextPath}/member/modpassword.do");
        		 }
+        } else {
+        	alert("일반회원에게 제공되어지는 서비스 입니다.") 
+       	 if(confirm("관리자 로그아웃 후 일반 회원가입 창으로 이동 하시겠습니까?")){
+				
+    		 location.replace("${contextPath}/member/logout.do")	;
+    		 location.replace("${contextPath}/member/memberForm.do")	;
+   		 }
         }
     } else if(isLogOn && userType === 'S'){
     	alert("일반회원에게 제공되어지는 서비스 입니다.") 
@@ -166,12 +175,14 @@ function showCategory() {
     		 location.replace("${contextPath}/member/logout.do")	;
     		 location.replace("${contextPath}/member/memberForm.do")	;
    		 }
-    	}
+    	} 
     
     }
     
     function login2() {
    	 var userType = '<%= session.getAttribute("userType") %>';
+   	 var member_id_ = '<%= session.getAttribute("memberInfo") %>';
+   	 var member_id = member_id_.member_id;
    if(! isLogOn){
        alert("로그인 이후 이용 가능한 서비스입니다.");
        location.replace("${contextPath}/member/loginForm.do")
@@ -184,8 +195,15 @@ function showCategory() {
       	   		 location.replace("${contextPath}/member/logout.do")	;
       	   		 location.replace("${contextPath}/member/memberForm.do")	;
       		 }
-       } else if (isLogOn && userType === 'M'){
+       } else if (isLogOn && userType === 'M' && !member_id === "admin"){
     	   location.replace("${contextPath}/diary/diaryList.do");
+       } else {
+    	   alert("일반회원에게 제공되어지는 서비스 입니다.")
+    		 if(confirm("관리자 로그아웃 후 일반 회원가입 창으로 이동 하시겠습니까?")){
+  				
+    	   		 location.replace("${contextPath}/member/logout.do")	;
+    	   		 location.replace("${contextPath}/member/memberForm.do")	;
+    		 }
        }
    
    }

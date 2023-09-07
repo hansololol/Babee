@@ -14,7 +14,7 @@
 <style>
 a:hover {
 	font-weight: bold;
-	text-decoration: underline;
+	text-decoration: none;
 }
 
 a {
@@ -64,7 +64,7 @@ background-color: #cca300; /* 호버 시 배경색 변경 */
 	border-collapse: collapse;
 }
 
-.info-table th, .faq-table td {
+.info-table th, .info-table td {
 	padding: 8px;
 	text-align: center;
 	border: none; /* 기존 테두리 제거 */
@@ -83,17 +83,19 @@ background-color: #cca300; /* 호버 시 배경색 변경 */
 
 <div class="admin_info_list" style="margin-left: 165px;">
 	<H3 style="display:inline-grid;">공지사항 관리</H3>
-		<hr style="margin-top:revert">
+		<div style="background:rgb(255, 255, 202);">
+		
+		<hr style="margin-top: revert">
 		<table align="center" style="margin-left: 0px;">
 			<tr>
-				<td> 
-					<img src ="/image/people.png" width="60px;" style="display:inline-block; padding-left:15px;"/>
- 					<p style="display:inline-block;"> ${memberInfo.member_name} 님 안녕하세요 </p>
-				</td>
-         	</tr>
-      	</table>
+				<td><img src="/image/people.png" width="60px;"
+					style="display: inline-block; padding-left: 15px;" />
+					<p style="display: inline-block;">${memberInfo.member_name}님
+						안녕하세요</p></td>
+			</tr>
+		</table>
 		<hr style=" margin-bottom: 50px;">
-
+		</div>
 		<div style="width: 100%;" >
 			<table class="info-table" style="width: 100%;">
 				<thead style="border-top: 1px solid #ccc;">

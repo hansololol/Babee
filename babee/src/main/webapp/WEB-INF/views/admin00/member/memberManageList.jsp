@@ -98,33 +98,45 @@
          opacity: .25;
 }
 
+.member_list {
+	width: 66%;
+	margin: 0 auto;
+}
+
+a:hover {
+	font-weight: bold;
+	text-decoration: none;
+}
+
+a {
+	color: black;
+	text-decoration: none;
+}
 
 </style>
 
 </head>
 <body>
-    <br><br><br>
-<div id="search">
-    <h2 style=>회원 관리</h2>
-    <div class="search-container">
-    <form action="검색결과를_처리할_페이지_주소" method="GET"><!-- form 엘리먼트 추가 -->
-        <input name="searchWord" class="search-input" type="text" placeholder="검색어를 입력해주세요.">
-        <button type="submit" name="search" class="search-button">
-            <img src="/image/glass.png" alt="검색" style="width: 20px; height: 20px;">
-        </button>
-    </form>
-</div>
-
-</div>
-<br>
+<div class="member_list" style="margin-left: 165px;">
+		<H3 style="display: inline-grid;">Babee 회원 관리</H3>
+		<div style="background:rgb(255, 255, 202);">
+		
+		<hr style="margin-top: revert">
+		<table align="center" style="margin-left: 0px;">
+			<tr>
+				<td><img src="/image/people.png" width="60px;"
+					style="display: inline-block; padding-left: 15px;" />
+					<p style="display: inline-block;">${memberInfo.member_name}님
+						안녕하세요</p></td>
+			</tr>
+		</table>
+		<hr style="margin-bottom: 50px;">
+		</div>
 	<div>
         
- 
-    <br>
-    
-    <div style="text-align:center;"> 
-    <table style="text-align:center; margin:0 auto; ">
-    	<tr style="border-bottom:1px solid gray; ">
+    <div style="width: 100%;">
+			<table class="seller-table" style="width: 100%;">
+			<tr style="border-bottom:1px solid #ccc; ">
 			<td width="80px;"><b>NO</b></td>
 			<td width="150px;"><b>ID</b></td>
 			<td width="150px;"><b>회원명</b></td>
@@ -134,7 +146,7 @@
 		
 			
     <c:forEach var="member" items="${member}" varStatus="memberNO">
-		<tr style="height: 50px; border-bottom:1px solid gray;">
+		<tr style="height: 50px; border-bottom:1px solid #ccc;">
 			<td>${memberNO.count}</td>
 			<td><a href="${contextPath}/admin/member/memberManageDetail.do?page=adminPage&member_id=${member.member_id}">${member.member_id}</a></td>
 			<td>${member.member_name}</td>
@@ -163,6 +175,7 @@
     </div>
 
 
+    </div>
     </div>
     </div>
     <br><br><br><br><br>
