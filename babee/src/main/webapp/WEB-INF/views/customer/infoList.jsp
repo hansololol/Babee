@@ -33,6 +33,7 @@
         margin-left: 20px;
         width: 400px;
          height: 30px;
+         margin-left:100px;
     }
     .search-button {
         border: none;
@@ -102,12 +103,12 @@
 <body>
     <br><br><br>
 <div id="search">
-    <h2 style=>공지사항</h2>
+    <h2 style="margin-top:10px;">공지사항</h2>
     <div class="search-container">
     <form action="검색결과를_처리할_페이지_주소" method="GET"><!-- form 엘리먼트 추가 -->
         <input name="searchWord" class="search-input" type="text" placeholder="검색어를 입력해주세요.">
         <button type="submit" name="search" class="search-button">
-            <img src="/image/glass.png" alt="검색" style="width: 20px; height: 20px;">
+            <img src="/image/glass.png" alt="검색" style="width: 20px; height: 20px; margin-bottom:5px;">
         </button>
     </form>
 	</div>
