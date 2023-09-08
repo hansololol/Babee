@@ -169,7 +169,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         <br />
         <div class="btn-container">
           <button type="submit">작성하기</button>
-          <a href="/member/admininfolist.do?page=adminPage">뒤로가기</a>
+          <a href="/community/admininfolist.do?page=adminPage">뒤로가기</a>
         </div>
       </form>
     </div>
