@@ -119,7 +119,7 @@ a {
 					<a
 						href="${contextPath}/admin/member/sellerManageWait.do?page=adminPage"
 						style="color: black; margin-right: 380px; 
-								background-color: #ffcd29; border-radius: 5px 5px 0px 0px;  padding: 10px;">
+								background-color: #fef7dd; border-radius: 5px 5px 0px 0px;  padding: 10px;">
 								사업자 등록 요청</a>
 				</div>
 
@@ -165,18 +165,49 @@ a {
 
 		<!-- 페이징 버튼 -->
 		<div class="paging-container">
-			<c:if test="${section>1}">
-				<a class="paging-button"
-					href="${contextPath}/admin/member/sellerManageWait.do?page=adminPage&section=${section-1}&pageNum=1">이전</a>
+			<c:if test="${totArticles !=null}">
+				<c:choose>
+					<c:when test="${totArticles > 100 }">
+						<c:forEach var="page" begin="1" end="10" step="1">
+							<c:if test="${section >1 && page==1 }">
+								<a class="paging-button"
+									href="${contextPath}/admin/member/sellerManageWait.do?page=adminPage&section=${section-1}&pageNum=${(section-1)*10 +1  }&page=adminPage">&nbsp;
+									pre </a>
+							</c:if>
+							<a class="paging-button"
+								href="${contextPath}/admin/member/sellerManageWait.do?page=adminPage&section=${section-1}&pageNum=${(section-1)*10 +page }&page=adminPage">
+							</a>
+							<c:if test="${page ==10 }">
+								<a class="paging-button"
+									href="${contextPath}/admin/member/sellerManageWait.do?page=adminPage&section=${section-1}&pageNum=${section*10 +1 }&page=adminPage">&nbsp;
+									next </a>
+							</c:if>
+						</c:forEach>
+					</c:when>
 
+					<c:when test="${totArticles ==100 }">
+						<c:forEach var="page" begin="1" end="10" step="1">
+							<a class="paging-button" href="#"> ${page }</a>
+						</c:forEach>
+					</c:when>
+
+					<c:when test="${totArticles <100 }">
+						<c:forEach var="page" begin="1" end="${totArticles/10 +1 }"
+							step="1">
+							<c:choose>
+								<c:when test="${page==pageNum }">
+									<a class="paging-button"
+										href="${contextPath}/admin/member/sellerManageWait.do?page=adminPage&section=${section}&pageNum=${page}&page=adminPage">${page }</a>
+								</c:when>
+								<c:otherwise>
+									<a class="paging-button"
+										href="${contextPath}/admin/member/sellerManageWait.do?page=adminPage&section=${section}&pageNum=${page}&page=adminPage">${page }</a>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					</c:when>
+				</c:choose>
 			</c:if>
-			<c:forEach var="i" begin="1" end="5">
-				<a class="paging-button"
-					href="${contextPath}/admin/member/sellerManageWait.do?page=adminPage&section=${section}&pageNum=${i}">${((section-1)*5) + i}</a>
-
-			</c:forEach>
-			<a class="paging-button"
-				href="${contextPath}/admin/member/sellerManageWait.do?page=adminPage&section=${section+1}&pageNum=1">다음</a>
 		</div>
 	</div>
 	<br>

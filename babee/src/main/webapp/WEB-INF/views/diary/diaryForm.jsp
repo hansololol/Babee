@@ -251,16 +251,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                   <img
                     src="${contextPath}/image/add2.png"
                     class="image-preview"
+                    width="300px"
                     id="add"
                     style="margin: auto"
-                  />
-                  <img
-                    id="preview"
-                    class="image-preview"
-                    src="#"
-                    alt=""
-                    style="margin: auto"
-                    width="400px;"
                   />
                 </td>
               </tr>
