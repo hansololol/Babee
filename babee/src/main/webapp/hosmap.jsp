@@ -180,11 +180,11 @@ uri="http://java.sun.com/jsp/jstl/core"%>
             <form onsubmit="searchPlaces(); return false;">
               키워드 :
               <input
-                type="text"
-                value="${memberInfo.member_jibunAddr}근처 산부인과"
-                id="keyword"
-                size="15"
-              />
+				  type="text"
+				  value="${memberInfo.member_jibunAddr}근처 산부인과"
+				  id="keyword"
+				  size="15"
+				/>
               <button type="submit">검색하기</button>
             </form>
           </div>
@@ -200,6 +200,12 @@ uri="http://java.sun.com/jsp/jstl/core"%>
       src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6edf9c12e03c6b6469eb19b942d63395&libraries=services"
     ></script>
     <script>
+    var jibunAddr = "${memberInfo.member_jibunAddr}";
+
+    // 주소가 null 또는 빈 문자열인 경우 알림 메시지를 표시합니다.
+    if (!jibunAddr) {
+      alert("주소를 입력해주세요.");
+    }
       // 마커를 담을 배열입니다
       var markers = [];
 
@@ -464,7 +470,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
               // Zoom the map to the stored location
               map.setCenter(currentPosition);
             } else {
-              alert("주소를 변환할 수 없습니다.");
+              
             }
           }
         );
