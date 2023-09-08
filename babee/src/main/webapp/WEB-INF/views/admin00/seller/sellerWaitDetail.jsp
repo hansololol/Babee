@@ -162,7 +162,7 @@ function fn_seller_Refuse(seller_id, seller_status, seller_refuse){
 			<td  colspan="3">${seller.seller_company_info}</td>
 		</tr>
 </table>
-	
+	</div>
 	
 	
 	<table class="store_basic"  style="margin:0 auto;">
@@ -207,6 +207,7 @@ function fn_seller_Refuse(seller_id, seller_status, seller_refuse){
 				<td><input type="button" value="입력" onClick="fn_seller_Refuse('${seller.seller_id}', '반려', '${seller.seller_refuse}')"></td>
       		</tr>
  	 	</table>
+	</div>
 	</div>
 	 
 	
