@@ -340,6 +340,7 @@ public class AdminMemberControllerImpl extends BaseController  implements AdminM
 		memberMap.put("start", start);
 		
 		List member =adminMemberService.memberManageList(memberMap);
+		System.out.println(member.contains("member_delDate"));
 		int ListSize = member.size();
 		
 		mav.addObject("member", member);
