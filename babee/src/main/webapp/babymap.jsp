@@ -198,6 +198,12 @@ pageEncoding="utf-8"%>
       src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6edf9c12e03c6b6469eb19b942d63395&libraries=services"
     ></script>
     <script>
+    var jibunAddr = "${memberInfo.member_jibunAddr}";
+
+    // 주소가 null 또는 빈 문자열인 경우 알림 메시지를 표시합니다.
+    if (!jibunAddr) {
+      alert("주소를 입력해주세요.");
+    }
       // 마커를 담을 배열입니다
       var markers = [];
 
@@ -461,7 +467,7 @@ pageEncoding="utf-8"%>
               // Zoom the map to the stored location
               map.setCenter(currentPosition);
             } else {
-              alert("주소를 변환할 수 없습니다.");
+              
             }
           }
         );
