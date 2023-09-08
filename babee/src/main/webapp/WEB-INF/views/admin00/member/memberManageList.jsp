@@ -142,6 +142,7 @@ a {
 			<td width="150px;"><b>회원명</b></td>
             <td width="100px;"><b>활동상태</b></td>
 			<td width="150px;"><b>가입일</b></td>
+			<td width="150px;"><b>탈퇴일</b></td>
 		</tr>
 		
 			
@@ -150,8 +151,18 @@ a {
 			<td>${memberNO.count}</td>
 			<td><a href="${contextPath}/admin/member/memberManageDetail.do?page=adminPage&member_id=${member.member_id}">${member.member_id}</a></td>
 			<td>${member.member_name}</td>
-            <td>${member.member_status}</td>
+            <td>
+			  <c:choose>
+			    <c:when test="${member.member_status eq 'active'}">
+			      활동중
+			    </c:when>
+			    <c:when test="${member.member_status eq 'delete'}">
+			      탈퇴
+			    </c:when>
+			  </c:choose>
+			</td>
 			<td>${member.member_joinDate}</td>
+			<td>${member.member_delDate}</td>
 		</tr>
     </c:forEach>
     </table>

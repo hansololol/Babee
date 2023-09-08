@@ -33,6 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="namujiAddress" column="namujiAddress" />
 		<result property="joinDate" column="joinDate" />
 		<result property="del_yn" column="del_yn" />
+		<result property="member_delDate" column="member_delDate" />
 	</resultMap>
 	
 	<resultMap id="sellerResult" type="SellerVO">

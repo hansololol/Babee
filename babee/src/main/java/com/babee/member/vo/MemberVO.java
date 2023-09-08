@@ -28,11 +28,20 @@ public class MemberVO {
 	private String member_jibunAddr;
 	private String member_namujiAddr;
 	private Date member_joinDate;
+	private Date member_delDate;
 	private String member_status;
 	private String baby_gender;
 	private String baby_age;
 	private String seller_id;
 	private String seller_pw;
+	
+	
+	public Date getMember_delDate() {
+		return member_delDate;
+	}
+	public void setMember_delDate(Date member_delDate) {
+		this.member_delDate = member_delDate;
+	}
 	public String getMember_id() {
 		return member_id;
 	}
