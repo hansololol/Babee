@@ -411,18 +411,51 @@ if("${kakaoSuccess}"!= '' ){
                <tr>
                   <td>상품 옵션 ${order.goods_option}</td>
                </tr>
+                <c:choose>
+            <c:when test="${order.goods_title eq '우리 아이 다이어리'}">
+             <p> 주문 제작 다이어리
+            
+            </c:when>
+            </c:choose>
+               <c:set var="total" value="${order}" />
                </c:forEach>
             </table>   
             <hr>  
-               <h5 style="padding-left:30px;">상품 합계 <fmt:formatNumber value="${total_goods_price}"  pattern="##,###,### 원"/></h4>
-               <h5 style="padding-left:30px;">할인 금액 <fmt:formatNumber value="${discounted_price}"  pattern="##,###,### 원"/></h4>
+
+           
+            <c:choose>
+            <c:when test="${total.goods_title eq '우리 아이 다이어리'}">
+            <h5 style="padding-left:30px;">상품 합계 ${total.total_goods_price}</h5>
+            <h5 style="padding-left:30px;">할인 금액 ${total.total_goods_price * 0.1}</h5>
+            
+              </c:when>
+            
+            <c:when test="${total.goods_title != '우리 아이 다이어리'}">
+               <h5 style="padding-left:30px;">상품 합계${total_goods_price}</h5>
+               <h5 style="padding-left:30px;">할인 금액 ${discounted_price}</h5>
+           	</c:when>
+           </c:choose>
             <hr>
-               
+             
                <h6 style="padding-left:30px;" name="goods_delivery_price">배송비  3,000 원</h5>
                <input type="hidden" name="goods_delivery_price" value="3000">
             <hr>
+            
+            <c:choose>
+            <c:when test="${total.goods_title != '우리 아이 다이어리'}">
+            
                <h4 style="padding-left:30px;">총 결제 금액  <fmt:formatNumber value="${total_goods_price - discounted_price + 3000}"  pattern="##,###,### 원"/></h4>
                <input type="hidden" name="total_goods_price" value="${total_goods_price - discounted_price}">
+        	</c:when>
+        	
+        	 <c:when test="${total.goods_title eq '우리 아이 다이어리'}">
+        	 	
+      		<h5 style="padding-left:30px;">총 결제 금액 <fmt:formatNumber value="${total.total_goods_price - (total.total_goods_price * 0.1) + 3000}" pattern="##,###,### 원"/></h5>
+		 <%-- <input type="hidden" name="total_goods_price" value="${total.total_goods_price - (total.total_goods_price * 0.1) + 3000}" /> --%>
+  			<input type="hidden" name="total_goods_price" value="${total.total_goods_price - 1000   }" />
+
+        	</c:when>
+        </c:choose>
          </div>
 
          

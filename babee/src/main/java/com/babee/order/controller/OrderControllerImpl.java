@@ -78,12 +78,14 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 	
 	@RequestMapping(value = "/orderDir.do", method = RequestMethod.POST)
 	@ResponseBody
-	public String orderDir(@RequestParam(value="array[]") String[] array, HttpServletRequest request, HttpServletResponse response)throws Exception {
+	public ModelAndView orderDir(@RequestParam(value="array[]") String[] array, HttpServletRequest request, HttpServletResponse response)throws Exception {
 		request.setCharacterEncoding("UTF-8");
+		System.out.println("/orderDir.do진입");
 		String viewName = "${contextPath}/goods/orderGoodsForm.do";
 		List dirArr = new ArrayList<>(Arrays.asList(array));
 		String articleNO =(String) dirArr.get(0);
 		int dirSize = dirArr.size();
+		System.out.println("size: " + dirSize);
 		int  total_goods_price = dirSize*1000;
 		String goods_title="우리 아이 다이어리";
 		List dirDetailList = new ArrayList<>();
@@ -99,14 +101,23 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		orderVO.setGoods_title(goods_title);
 		orderVO.setOrder_goods_qty(order_goods_qty);
 		orderVO.setTotal_goods_price(total_goods_price);
+		System.out.println("토탈:" + orderVO.getTotal_goods_price());
 		int discounted_price = (int) (total_goods_price*0.1);
 		HttpSession session=request.getSession();
 		session=request.getSession();
 		orderVO.setGoods(goodsVO);
 		ordergoods.add(orderVO);
-		session.setAttribute("orderInfo", ordergoods);
-		session.setAttribute("goods", goodsVO);
-		return viewName;
+			System.out.println("ordergoods:" + ordergoods);
+		  session.setAttribute("orderInfo", ordergoods); 
+		  session.setAttribute("goods", goodsVO);
+		  System.out.println("goodsVO:" + goodsVO);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:/goods/orderGoodsForm.do");
+		mav.addObject("orderInfo", ordergoods);
+		mav.addObject("goods", goodsVO);
+		
+		return mav;
 	}
 	
 	@RequestMapping(value="/payToOrderGoods.do" ,method = RequestMethod.POST)

@@ -217,7 +217,7 @@ input[type="reset"]:hover {
                     array.push(obj.name);
                 });
 
-                if(array.length>10){
+                if(array.length>9){
                
                  $.ajax({
 		            type:'post',
