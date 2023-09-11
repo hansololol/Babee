@@ -238,7 +238,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         	image_id=#{dir_main_img_id},
         	fileName=#{dir_main_img} 
         	
-        where reg_id=#{member_id}          
+        where reg_id=#{member_id}       
      ]]>
 	</update>
   
@@ -341,7 +341,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         	image_id=#{info_img_id},
         	fileName=#{info_img} 
         	
-        where reg_id=#{member_id}          
+        where reg_id=#{member_id}   and image_id = #{info_img_id}       
      ]]>
 	</update>
 	
