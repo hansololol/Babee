@@ -8,12 +8,14 @@
 <br>
 # 담당 역할 및 수행일정
 
-![image](https://github.com/hansololol/Babee/assets/142460146/5edbe2b6-6a2f-4aaf-bbb5-a273d94bdf41)
+![image](https://github.com/hansololol/Babee/assets/142460146/23921ea5-845c-44c0-b08b-ccb1676a60bd)
 
 
 # 개발 환경 
 
-![image](https://github.com/hansololol/Babee/assets/142460146/bf02811a-1281-4e6e-81aa-eb7a78fe5084)
+![image](https://github.com/hansololol/Babee/assets/142460146/226f0951-1429-4000-b172-cd3cb87befca)
+
 
 # 프로젝트 메인 화면 
-![image](https://github.com/hansololol/Babee/assets/142460146/bb3da0a3-162c-4939-80b0-212612d2a9a0)
+![image](https://github.com/hansololol/Babee/assets/142460146/c8ea2600-53ae-4aae-b022-1aa1e1139c20)
+
